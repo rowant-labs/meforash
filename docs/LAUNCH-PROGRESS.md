@@ -57,3 +57,10 @@ Guest access, same-page email-code sign-in, adjustable 20-question UTC daily acc
 Guest access and email accounts are deployed with three guest questions and an adjustable 20 questions per account per UTC day. The existing private usage ledger was backed up before its transactional schema migration. Hosted access discovery, secure guest cookies, remaining allowance and foreign-origin rejection passed. Supabase code verification and Resend SMTP authentication were verified independently; real-inbox delivery still needs an explicitly authorized test. No training or paid model generation accompanied this account rollout.
 
 The current small beta retains single-generation concurrency: busy requests consume no question. A fair waiting queue is a follow-up rather than a prerequisite for this bounded rollout. Saved history remains disabled. The custom main domain still needs connection and HTTPS verification; the Railway URL is the active origin. See [account access](ACCOUNT-ACCESS.md).
+
+
+## Canonical domain preparation — September 11, 2026
+
+The owner authorized connecting meforash.com and changing the visible label to Beta. Cloudflare now has Railway's apex traffic record and ownership TXT record, with DNS-only routing. Certificate verification and the canonical-origin cutover remain pending. Support email forwarding is configured separately; mail DNS remains intact.
+
+The UI patch replaces the Private beta badge and adds fixed-route GET/HEAD redirects from the old Railway hostname only when the configured origin is https://meforash.com. API POST origin checks remain strict. The legacy invitation form remains an operator fallback; normal public access uses guests and email accounts. A domain change does not transfer browser cookies or temporary conversation storage across origins. Existing users may need to sign in again; this change does not enable persistent history.

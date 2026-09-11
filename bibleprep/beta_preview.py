@@ -17,6 +17,8 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PORT = 8877
 ASSET_ROOT = ROOT / "web" / "beta"
 MAX_ASSET_BYTES = 512_000
+CANONICAL_ORIGIN = "https://meforash.com"
+LEGACY_RAILWAY_HOST = "meforash-production.up.railway.app"
 ASSETS = {
     "/": ("index.html", "text/html; charset=utf-8"),
     "/index.html": ("index.html", "text/html; charset=utf-8"),
@@ -63,6 +65,25 @@ def handler_for(app, *, origin, secure_cookie, asset_root=ASSET_ROOT, trust_real
     class PreviewHandler(backend):
         server_version = "BibleBetaPreviewCandidateV1"
 
+        def _legacy_ui_redirect(self, parsed):
+            if (origin != CANONICAL_ORIGIN
+                    or self.headers.get("Host") not in {
+                        LEGACY_RAILWAY_HOST, f"{LEGACY_RAILWAY_HOST}:443"
+                    }
+                    or parsed.scheme or parsed.netloc or parsed.query or parsed.fragment
+                    or parsed.path not in assets):
+                return False
+            location = CANONICAL_ORIGIN + parsed.path
+            self.send_response(308)
+            self.send_header("Location", location)
+            self.send_header("Content-Length", "0")
+            self.send_header("Cache-Control", "no-store")
+            self.send_header("X-Content-Type-Options", "nosniff")
+            self.send_header("Referrer-Policy", "no-referrer")
+            self.send_header("X-Frame-Options", "DENY")
+            self.end_headers()
+            return True
+
         def _send_asset(self, data, content_type):
             self.send_response(200)
             self.send_header("Content-Type", content_type)
@@ -103,11 +124,19 @@ def handler_for(app, *, origin, secure_cookie, asset_root=ASSET_ROOT, trust_real
 
         def do_GET(self):
             parsed = urlsplit(self.path)
+            if self._legacy_ui_redirect(parsed):
+                return
             if not parsed.query and not parsed.fragment and parsed.path in assets:
                 return self._send_asset(*assets[parsed.path])
             if parsed.path == "/health" or parsed.path.startswith("/api/"):
                 return super().do_GET()
             return self._send_static_not_found()
+
+        def do_HEAD(self):
+            parsed = urlsplit(self.path)
+            if self._legacy_ui_redirect(parsed):
+                return
+            self.send_error(501, "Unsupported method ('HEAD')")
 
     return PreviewHandler
 

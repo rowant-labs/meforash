@@ -84,7 +84,8 @@ class PreviewHTTPTests(unittest.TestCase):
         self.thread.join(2)
         self.app.close()
 
-    def request(self, method, path, body=None, cookie=None, origin=True):
+    def request(self, method, path, body=None, cookie=None, origin=True, *,
+                host=None, port=None):
         headers = {}
         data = None
         if body is not None:
@@ -92,10 +93,13 @@ class PreviewHTTPTests(unittest.TestCase):
             headers.update({"Content-Type": "application/json",
                             "Content-Length": str(len(data))})
         if method == "POST" and origin:
-            headers["Origin"] = self.origin
+            headers["Origin"] = self.origin if origin is True else origin
         if cookie:
             headers["Cookie"] = cookie
-        connection = http.client.HTTPConnection("127.0.0.1", self.port, timeout=3)
+        if host:
+            headers["Host"] = host
+        connection = http.client.HTTPConnection(
+            "127.0.0.1", self.port if port is None else port, timeout=3)
         connection.request(method, path, body=data, headers=headers)
         response = connection.getresponse()
         content = response.read()
@@ -124,6 +128,61 @@ class PreviewHTTPTests(unittest.TestCase):
             self.assertEqual(status, 404)
             self.assertNotIn(SECRET.encode(), body)
         self.assertIsNone(self.app.model)
+
+    def test_legacy_railway_host_redirects_only_ui_for_canonical_origin(self):
+        with closing(socket.socket()) as sock:
+            sock.bind(("127.0.0.1", 0))
+            hosted_port = sock.getsockname()[1]
+        handler = subject.handler_for(
+            self.app, origin=subject.CANONICAL_ORIGIN, secure_cookie=True,
+            asset_root=subject.ASSET_ROOT)
+        server = beta_server.BetaHTTPServer(("127.0.0.1", hosted_port), handler)
+        thread = threading.Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        try:
+            status, headers, body = self.request(
+                "GET", "/", host=subject.LEGACY_RAILWAY_HOST, port=hosted_port)
+            self.assertEqual(status, 308)
+            self.assertEqual(headers["Location"], subject.CANONICAL_ORIGIN + "/")
+            self.assertEqual(body, b"")
+
+            status, headers, body = self.request(
+                "HEAD", "/beta/app.js", host=subject.LEGACY_RAILWAY_HOST,
+                port=hosted_port)
+            self.assertEqual(status, 308)
+            self.assertEqual(
+                headers["Location"], subject.CANONICAL_ORIGIN + "/beta/app.js")
+            self.assertEqual(body, b"")
+
+            status, headers, _ = self.request(
+                "GET", "/health", host=subject.LEGACY_RAILWAY_HOST,
+                port=hosted_port)
+            self.assertEqual(status, 200)
+            self.assertNotIn("Location", headers)
+
+            status, headers, _ = self.request(
+                "GET", "/api/access", host=subject.LEGACY_RAILWAY_HOST,
+                port=hosted_port)
+            self.assertEqual(status, 200)
+            self.assertNotIn("Location", headers)
+
+            status, headers, body = self.request(
+                "POST", "/api/guest", {}, origin=subject.CANONICAL_ORIGIN,
+                host=subject.LEGACY_RAILWAY_HOST, port=hosted_port)
+            self.assertEqual(status, 403, body)
+            self.assertNotIn("Location", headers)
+
+            status, _, _ = self.request(
+                "GET", "/", host="meforash.com", port=hosted_port)
+            self.assertEqual(status, 200)
+        finally:
+            server.shutdown()
+            server.server_close()
+            thread.join(2)
+
+        # Merely receiving the old Host does not enable the redirect locally.
+        self.assertEqual(self.request(
+            "GET", "/", host=subject.LEGACY_RAILWAY_HOST)[0], 200)
 
     def test_unauthorized_api_never_initializes_model(self):
         status, _, _ = self.request("GET", "/api/status")
@@ -176,6 +235,14 @@ class PreviewHTTPTests(unittest.TestCase):
 
 
 class PreviewBoundaryTests(unittest.TestCase):
+    def test_beta_label_and_invitation_fallback_are_visible_without_javascript(self):
+        markup = (subject.ASSET_ROOT / "index.html").read_text()
+        self.assertIn('<span class="preview-badge">Beta</span>', markup)
+        self.assertIn("JavaScript is required to use this beta.", markup)
+        self.assertNotIn("private beta", markup.lower())
+        self.assertIn("Invitation ID", markup)
+        self.assertIn("Invitation secret", markup)
+
     def test_origin_rules_keep_loopback_and_hosted_modes_distinct(self):
         self.assertEqual(subject.runtime_origin("127.0.0.1", 8877),
                          ("http://127.0.0.1:8877", False))
