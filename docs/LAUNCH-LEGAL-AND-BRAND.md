@@ -1,33 +1,24 @@
-# Launch policies, brand and model release
+# Launch legal, policy and brand decisions
 
-September 11, 2026. Working recommendations, not adopted legal terms or legal advice. Operator identity, jurisdiction, audience age and public contact address remain owner decisions. No registration, policy acceptance change or weight publication is performed by this document.
+September 11, 2026. This is a launch-review checklist, not legal advice or an adopted policy. The proposed [privacy policy](PRIVACY-POLICY-DRAFT.md) and [terms of service](TERMS-OF-SERVICE-DRAFT.md) are drafts and are not effective merely because they exist in the repository.
 
-## Immediate website wording
+## Resolved drafting inputs
 
-The owner requested “Trained on original languages” for the welcome headline. Fine-tuning is training; the detailed description continues to identify selected Hebrew, Aramaic and Greek editions and the existing base-model adaptation. Do not imply training from scratch, access to original manuscripts, complete recovery of an original text, or established translation accuracy.
+- The operator is **Rowant Labs LLC**, a Nebraska limited liability company.
+- The public support contact is **support@meforash.com**.
+- The initial audience is **adults age 18 and older**. This reduces child and teen privacy and contracting risk; it does not replace enforcement or legal review.
+- Application conversations are not saved as account history and are not used by Meforash for training. Any materially different future data use must be prospective, clearly disclosed, and separately consented to where appropriate.
+- The service may change models, features, and free limits. Any future charge requires advance pricing and recurring-billing terms plus affirmative opt-in.
 
-## Privacy and service terms
+## Decisions and implementation still required
 
-Prepare a dedicated privacy policy and service terms before broader promotion. The policy must describe actual collection and processing: guest/session cookies, temporary ten-minute same-tab sign-in recovery, account email and identifiers, durable usage records, and conversation processing by Tinker. Distinguish the app's lack of server chat history from provider retention; verify provider contracts and settings before making retention or no-training promises on their behalf. Supabase manages authentication, Resend sends codes, and Railway hosts the app. Saved history remains disabled.
+1. **Adoption and acceptance:** obtain focused legal review, add effective dates and a reviewed business mailing address, publish conspicuous links, and implement versioned acceptance for both guests and accounts. Preserve the version and acceptance evidence. Do not describe the drafts as live before this exists.
+2. **Adults-only operation:** choose and implement a proportionate age representation or gate, avoid marketing directed to children, and create a support procedure for reports involving minors. Terms alone do not determine whether a service is child-directed. The FTC explains that COPPA protects children under 13, covers persistent identifiers, and can apply to a general-audience service with actual knowledge of collection from a child. See the [FTC COPPA FAQ](https://www.ftc.gov/business-guidance/resources/complying-coppa-frequently-asked-questions).
+3. **Deletion and retention:** create a manual request runbook that verifies the requester and coordinates Supabase account deletion, local-session revocation, and applicable provider requests. Approve retention periods for durable user identifiers and usage/accounting rows. Do not promise instant or complete automated deletion while no deletion interface exists.
+4. **Provider review:** verify current Tinker conversation retention/training terms and settings, plus Railway, Supabase, Resend, Cloudflare, and Google logging, retention, security, subprocessors, incident notice, and deletion support. Keep public language bounded to verified facts rather than promising zero provider retention or a processing location.
+5. **Material changes:** choose a notice channel and lead time for material policy, model, feature, and limit changes. Preserve prior policy versions. Do not convert earlier privacy commitments into retroactive blanket consent; the [FTC warns against quietly expanding data uses through revised terms](https://www.ftc.gov/policy/advocacy-research/tech-at-ftc/2024/02/ai-other-companies-quietly-changing-your-terms-service-could-be-unfair-or-deceptive).
+6. **Legal risk allocation:** counsel should determine governing law, venue, dispute handling, warranty language, permissible liability limits, and insurance needs. The drafts intentionally invent no arbitration clause, jurisdiction, indemnity, or numeric liability cap.
+7. **Brand and open source:** complete a conflicting-mark search, confirm Rowant Labs LLC owns or is licensed to use final brand assets, and adopt a trademark-use policy. Apache-2.0 governs released project code and documentation but does not grant broad trademark rights; review any brand assets already released under it.
+8. **Model release:** keep hosted-service launch separate from any adapter publication. Before releasing weights, verify base-model and provider terms, source obligations, export completeness, hashes, model card, and independent load compatibility. Open application code does not make private conversations or the retained adapter public.
 
-Define retention and deletion procedures, a working public contact address, audience age, operator identity and applicable legal scope. Privacy law applicability depends on jurisdiction and activities; a small or free service is not automatically exempt. California's CalOPPA can apply to commercial online services collecting personal information from California residents. See [California's privacy-policy guidance](https://oag.ca.gov/sites/all/files/agweb/pdfs/cybersecurity/making_your_privacy_practices_public.pdf) and [FTC business privacy guidance](https://www.ftc.gov/business-guidance/privacy-security/consumer-privacy).
-
-Service terms should address eligibility, acceptable use, adjustable free allowances, model limitations, availability, account termination, applicable warranty/liability limitations and dispute handling. Explain that generated interpretation or personal reflection may be wrong and does not carry divine or professional authority. Use conspicuous terms acceptance for guests as well as account users; privacy disclosure is not blanket consent to all processing. Do not invent an arbitration clause, governing law, legal entity or liability cap before owner decisions and jurisdiction-specific review.
-
-No policy makes the operator immune from liability. Clarify whether Rowant Labs is a legal entity or a trade name, then obtain focused legal advice on entity structure, terms and suitable insurance. The [SBA explains how business structure affects personal liability](https://www.sba.gov/blog/2018/2018-07/choosing-right-business-structure-three-factors-consider/). Entity separation is not a guarantee against every personal or company claim.
-
-## Open code and retained brand
-
-Recommendation: retain Apache-2.0 for original code/documentation, keep official Meforash releases and hosting under the owner's control, and prepare a separate trademark-use policy. Apache-2.0 already excludes broad trademark permission in section 6; it does not prohibit all factual references or attribution. Forks may reuse licensed code, including commercially, while avoiding confusing branding or implied endorsement. Do not retroactively claim published Apache-licensed logo artwork has lost its copyright permissions; review existing grants when separating future brand assets.
-
-Search for conflicting marks and names before investing in registration; the domain alone is not trademark clearance. Determine the actual trademark owner before filing. Do not use the registered symbol without registration. See [USPTO trademark basics](https://www.uspto.gov/trademarks/basics/what-trademark), [trademark search](https://www.uspto.gov/trademarks/search) and [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0).
-
-Omarchy provides a useful product analogy: its public repository distributes code under MIT while presenting a recognizable official project. That does not establish its precise trademark arrangements or supply a legal template for Meforash. [Official repository](https://github.com/omacom/omarchy).
-
-## Model release
-
-Do not publish weights merely because the application code is open source. The initial repository intentionally excludes B's adapter. Describe the current release as open-source application code with a hosted custom model, not a fully reproducible open-weight model release.
-
-A possible later release is a versioned adapter and model card under an organization on Hugging Face, plus corresponding GitHub code, recipes, evaluation results, hashes and source notices. Before that release, verify exact base-model and provider export terms, source obligations, complete adapter tensor export, base compatibility and an independent load test. A LoRA adapter is not the full base model; avoid representing it as independently runnable. Release only the reviewed sampler artifact, not an archive of private runs or credentials. See [publication policy](PUBLICATION.md), [B model card](MODEL-CARD-INKLING-B.md) and [serving feasibility](INKLING-B-SERVING-FEASIBILITY.md).
-
-A model license and a trademark policy solve different problems. Publishing reusable weights can preserve brand rights while allowing others to operate their own models; brand ownership does not prevent all competition.
+The policy, age, deletion, and acceptance controls should be complete before broader promotion. Provider review, security response planning, and legally reviewed service terms remain necessary even for a free beta.
