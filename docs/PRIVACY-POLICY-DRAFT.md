@@ -1,3 +1,5 @@
+> Historical draft: superseded September 11, 2026 by the [adopted policy](PRIVACY-POLICY.md). Preserved for decision history.
+
 # Meforash privacy policy — draft
 
 **Draft prepared September 11, 2026. Not effective or adopted. Owner and legal review are required before publication.**

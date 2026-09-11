@@ -11,7 +11,7 @@ Owner-requested polish and policy completion, September 11, 2026. Status is upda
 - [x] Record versioned Terms acceptance and an 18+ representation before answering.
 - [x] Show honest elapsed wait time and a clearer pending-answer indicator.
 - [x] Smooth incoming answer chunks, respecting reduced-motion settings and interruption.
-- [ ] Verify desktop/mobile presentation and the hosted flow.
+- [x] Verify desktop/mobile presentation and the hosted flow.
 
 ## Follow-up work
 

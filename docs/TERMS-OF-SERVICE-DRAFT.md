@@ -1,3 +1,5 @@
+> Historical draft: superseded September 11, 2026 by the [adopted policy](TERMS-OF-SERVICE.md). Preserved for decision history.
+
 # Meforash terms of service — draft
 
 **Draft prepared September 11, 2026. Not effective or adopted. Owner and legal review, a final effective date, and an implemented acceptance flow are required before publication.**

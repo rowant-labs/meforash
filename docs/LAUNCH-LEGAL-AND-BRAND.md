@@ -1,3 +1,5 @@
+> Update September 11, 2026: final [Privacy](PRIVACY-POLICY.md), [Terms](TERMS-OF-SERVICE.md), and [Brand](BRAND-POLICY.md) policies are adopted for the adult-only beta. Earlier proposals below are historical.
+
 # Launch legal, policy and brand decisions
 
 September 11, 2026. This is a launch-review checklist, not legal advice or an adopted policy. The proposed [privacy policy](PRIVACY-POLICY-DRAFT.md) and [terms of service](TERMS-OF-SERVICE-DRAFT.md) are drafts and are not effective merely because they exist in the repository.
