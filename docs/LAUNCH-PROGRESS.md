@@ -70,3 +70,9 @@ Canonical-domain checks verified HTTPS, the Beta label, public/email access disc
 
 
 A public guest-issuance failure now keeps the public interface visible and offers email sign-in when available, rather than exposing invitation credentials. The composer stays disabled until a valid session exists; temporary conversation/draft recovery and cancellation are tested. The legacy invitation form remains reserved for invitation-mode operation. Fourteen browser scenarios and ten preview tests passed for this follow-up.
+
+## Live account journey — September 11, 2026
+
+The owner confirmed real inbox delivery and live acceptance of the eight-digit sign-in code. A fresh tab retained the account session. Two actual model answers completed, including a follow-up distinguishing Psalm 23 from a promise against suffering; allowance changed from 20 to 19 to 18. After sign-out, a fresh tab returned to guest access. One real guest answer completed and reduced its allowance from three to two. These are product smoke checks, not a scholarly benchmark. No generation was retried. Guest-to-account conversation and draft continuity and re-login allowance verification remain in progress.
+
+The test exposed stale account controls when logout succeeded but new guest issuance was rate-limited. The interface now offers email sign-in and disables the unavailable guest composer in that case; a failed logout separately reports that sign-out could not be confirmed. Sixteen browser regression scenarios and ten preview tests passed. No quota records were reset, and no saved-history migration, model change, or training was included.

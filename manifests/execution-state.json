@@ -547,7 +547,7 @@
     "further_training_required": false,
     "evaluation_severity_audit_blocks_initial_beta": false,
     "next_steps": [
-      "Complete one explicitly authorized real-inbox sign-in delivery test.",
+      "Finish live guest-to-account continuity and re-login allowance verification; real-inbox delivery and code acceptance confirmed.",
       "Add a fair request queue; the bounded beta currently rejects busy requests without consuming allowance.",
       "Implement optional saved history and deletion controls, then apply and test its prepared row-level policies before enabling saves.",
       "Verify exact retained B streaming transport and latency before changing live sampling."
@@ -557,9 +557,9 @@
     "brand": "Meforash",
     "repository_target": "rowant-labs/meforash",
     "implementation_status": "guest_and_email_account_beta_hosted",
-    "optional_accounts": "Email-code accounts deployed; real-inbox delivery test pending",
+    "optional_accounts": "Email-code accounts deployed; owner confirmed real-inbox delivery and live code acceptance",
     "account_access_policy": {
-      "status": "hosted_real_inbox_delivery_test_pending",
+      "status": "live_email_and_account_answers_verified_continuity_check_in_progress",
       "supabase_project": {
         "dedicated_to_meforash": true,
         "organization": "Rowant Labs",

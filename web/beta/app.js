@@ -766,16 +766,25 @@ logoutButton.addEventListener("click", async () => {
     clearAuthHandoff();
     logoutButton.disabled = true;
     setWorking(true, "Signing out…");
+    let signedOut = false;
     try {
       await api("/api/logout", { method: "POST", body: "{}" }, false);
       if (epoch !== stateEpoch) return;
+      signedOut = true;
       const status = await api("/api/guest", { method: "POST", body: "{}" }, false);
       if (epoch !== stateEpoch) return;
       showChat(status);
       setWorking(false, "Signed out. Guest access is ready.");
     } catch (error) {
       if (epoch !== stateEpoch) return;
-      setWorking(false, error.userMessage || "Signed out. Refresh to restore guest access.");
+      if (signedOut) {
+        showPublicGuestUnavailable(
+          error.userMessage || "Signed out, but guest access is temporarily unavailable.",
+          null,
+        );
+      } else {
+        setWorking(false, error.userMessage || "Sign-out could not be confirmed. Please try again.");
+      }
     }
     logoutButton.disabled = false;
     return;

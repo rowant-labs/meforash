@@ -533,6 +533,66 @@ async function testAccountSignOutInvalidatesLatePollAndReturnsToGuest() {
   assert.equal(document.querySelector("#conversation").children.length, 0);
 }
 
+async function testSuccessfulAccountLogoutWithUnavailableGuestUsesEmailState() {
+  const calls = [];
+  const document = await boot((url, options = {}) => {
+    calls.push([url, options.method || "GET"]);
+    if (url === "/api/access") return response(200, publicAccess());
+    if (url === "/api/status") return response(200, publicStatus("account", 19));
+    if (url === "/api/logout" && options.method === "POST") return response(200, {});
+    if (url === "/api/guest" && options.method === "POST") {
+      return response(429, {
+        error: { code: "rate_limited", message: "Please wait before trying again." },
+      });
+    }
+    throw new Error(`Unexpected fetch: ${url}`);
+  });
+
+  await document.querySelector("#logout-button").dispatch("click");
+  assert.equal(document.querySelector("#login-view").hidden, true);
+  assert.equal(document.querySelector("#chat-view").hidden, false);
+  assert.equal(document.querySelector("#sign-in-button").hidden, false);
+  assert.equal(document.querySelector("#logout-button").hidden, true);
+  assert.equal(document.querySelector("#new-chat-button").hidden, true);
+  assert.equal(document.querySelector("#question").disabled, true);
+  assert.equal(document.querySelector("#send-button").disabled, true);
+  assert.equal(document.querySelector("#request-state").textContent,
+    "Please wait before trying again.");
+  assert.match(document.querySelector("#quota-hint").textContent,
+    /Guest access is temporarily unavailable.*Sign in with email/);
+  assert.deepEqual(calls.slice(-2), [["/api/logout", "POST"], ["/api/guest", "POST"]]);
+}
+
+async function testFailedAccountLogoutKeepsAccountStateAndDoesNotClaimSuccess() {
+  let guestCalls = 0;
+  const document = await boot((url, options = {}) => {
+    if (url === "/api/access") return response(200, publicAccess());
+    if (url === "/api/status") return response(200, publicStatus("account", 19));
+    if (url === "/api/logout" && options.method === "POST") {
+      return Promise.reject(new Error("network unavailable"));
+    }
+    if (url === "/api/guest") {
+      guestCalls += 1;
+      return response(200, publicStatus("guest", 3));
+    }
+    throw new Error(`Unexpected fetch: ${url}`);
+  });
+
+  await document.querySelector("#logout-button").dispatch("click");
+  assert.equal(document.querySelector("#login-view").hidden, true);
+  assert.equal(document.querySelector("#chat-view").hidden, false);
+  assert.equal(document.querySelector("#sign-in-button").hidden, true);
+  assert.equal(document.querySelector("#logout-button").hidden, false);
+  assert.equal(document.querySelector("#logout-button").disabled, false);
+  assert.equal(document.querySelector("#question").disabled, false);
+  assert.equal(document.querySelector("#send-button").disabled, false);
+  assert.equal(document.querySelector("#request-state").textContent,
+    "Sign-out could not be confirmed. Please try again.");
+  assert.match(document.querySelector("#quota-hint").textContent,
+    /19 questions remaining today/);
+  assert.equal(guestCalls, 0);
+}
+
 async function testDailyLimitShowsResetWithoutClearingDraft() {
   const resetAt = "2026-09-12T05:00:00Z";
   const document = await boot((url) => {
@@ -629,10 +689,12 @@ async function testAuthReloadRestoresGuestOnceButNeverIntoAccount() {
   await testGuestBootstrapFailureKeepsPublicEmailSignInAvailable();
   await testGuestRecoveryFailureNeverFallsBackToInvitationLogin();
   await testAccountSignOutInvalidatesLatePollAndReturnsToGuest();
+  await testSuccessfulAccountLogoutWithUnavailableGuestUsesEmailState();
+  await testFailedAccountLogoutKeepsAccountStateAndDoesNotClaimSuccess();
   await testDailyLimitShowsResetWithoutClearingDraft();
   await testMaliciousSessionHandoffIsDiscarded();
   await testAuthReloadRestoresGuestOnceButNeverIntoAccount();
-  process.stdout.write("3 beta browser regression scenarios passed; 8 public access scenarios passed; 3 presentation safety scenarios passed\n");
+  process.stdout.write("3 beta browser regression scenarios passed; 10 public access scenarios passed; 3 presentation safety scenarios passed\n");
 })().catch((error) => {
   console.error(error);
   process.exitCode = 1;
