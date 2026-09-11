@@ -240,8 +240,12 @@ def deployment_settings(environ=None):
         raise DeploymentError("BIBLE_BETA_ORIGIN must be one public HTTPS origin.")
     if not environ.get("TINKER_API_KEY", "").strip():
         raise DeploymentError("The Tinker credential is absent from the runtime environment.")
+    streaming_value = environ.get("MEFORASH_STREAMING", "0")
+    if streaming_value not in {"0", "1"}:
+        raise DeploymentError("MEFORASH_STREAMING must be exactly 0 or 1.")
     return {"volume": volume, "bundle": bundle, "invite": invite,
-            "database": database, "port": port, "origin": origin.rstrip("/")}
+            "database": database, "port": port, "origin": origin.rstrip("/"),
+            "streaming": streaming_value == "1"}
 
 
 def _port(environ):
@@ -353,7 +357,9 @@ def serve(environ=None):
     invite_config = beta_server.load_invite_config(settings["invite"])
     store = beta_server.BetaStore(settings["database"], invite_config)
     access = beta_server.AccountAccess.from_environ(store.path, environ)
-    app = beta_server.BetaApplication(store=store, root=settings["bundle"], access=access)
+    app = beta_server.BetaApplication(
+        store=store, root=settings["bundle"], access=access,
+        streaming=settings["streaming"])
     handler = beta_preview.handler_for(
         app, origin=settings["origin"], secure_cookie=True,
         asset_root=beta_preview.ASSET_ROOT,

@@ -42,11 +42,13 @@ def strict_json(raw):
 
 
 class ChatApplication:
-    def __init__(self, *, root=ROOT, model=None, library=None, budget=5.0):
+    def __init__(self, *, root=ROOT, model=None, library=None, budget=5.0,
+                 streaming=False):
         if not math.isfinite(budget) or budget <= 0:
             raise ValueError("Set a positive, finite process budget.")
         self.root = Path(root)
-        self.model = model if model is not None else ChatModel(root=self.root)
+        self.model = model if model is not None else ChatModel(
+            root=self.root, streaming=streaming)
         self.library = library if library is not None else PassageLibrary(self.root)
         self.budget = budget
         self.accounted = 0.0
@@ -86,7 +88,10 @@ class ChatApplication:
             self.accounted += MAX_RESERVATION
             self.running = True
             identifier = secrets.token_urlsafe(24)
-            self.jobs[identifier] = {"status": "running", "created": time.monotonic()}
+            self.jobs[identifier] = {
+                "status": "running", "revision": 0, "answer": "",
+                "complete": False, "created": time.monotonic(),
+            }
         worker = threading.Thread(target=self._generate, args=(identifier, messages), daemon=True)
         try:
             worker.start()
@@ -100,16 +105,40 @@ class ChatApplication:
 
     def _generate(self, identifier, messages):
         actual_cost = None
+
+        def on_progress(answer, revision):
+            with self.lock:
+                job = self.jobs.get(identifier)
+                if (self.closed or job is None or job.get("status") != "running"
+                        or type(revision) is not int or revision <= job.get("revision", 0)
+                        or not isinstance(answer, str)
+                        or not answer.startswith(job.get("answer", ""))):
+                    return
+                job["answer"] = answer
+                job["revision"] = revision
+
+        def snapshot():
+            with self.lock:
+                job = self.jobs.get(identifier, {})
+                return job.get("answer", ""), job.get("revision", 0)
+
         try:
             sources, notes = self.library.select(messages)
-            result = self.model.generate(messages, evidence_context=self.library.context(sources, notes))
+            options = {"evidence_context": self.library.context(sources, notes)}
+            if getattr(self.model, "supports_progress", False):
+                options["on_progress"] = on_progress
+            result = self.model.generate(messages, **options)
             usage = result.get("usage", {})
             value = usage.get("estimated_usd")
             if type(value) in (float, int) and math.isfinite(value) and 0 <= value <= MAX_RESERVATION:
                 actual_cost = value
-            outcome = {"status": "complete", "answer": result["answer"], "sources": sources,
+            partial, revision = snapshot()
+            final_answer = result["answer"]
+            if final_answer != partial:
+                revision += 1
+            outcome = {"status": "complete", "answer": final_answer, "sources": sources,
                        "source_notes": notes, "complete": result["answer_complete"],
-                       "warnings": result.get("warnings", [])}
+                       "warnings": result.get("warnings", []), "revision": revision}
         except ChatModelError as exc:
             if exc.code in {"invalid_messages", "input_too_long", "not_configured", "checkpoint_unavailable", "runtime_unavailable", "busy", "blocked", "closed"}:
                 actual_cost = 0
@@ -117,6 +146,10 @@ class ChatApplication:
         except Exception:
             # Never serialize provider exceptions, paths, input, or raw tokens.
             outcome = {"status": "error", "error": {"code": "server_error", "message": "The private server could not finish this request. It was not retried."}}
+        partial, revision = snapshot()
+        if outcome["status"] == "error" and partial:
+            outcome.update({"partial_answer": partial, "complete": False,
+                            "revision": revision})
         with self.lock:
             if actual_cost is not None:
                 self.accounted -= MAX_RESERVATION - actual_cost
@@ -250,11 +283,13 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--port", type=int, default=8765)
     parser.add_argument("--budget", type=float, default=5.0, help="Estimated/reserved USD allowance for this process; not an invoice limit.")
+    parser.add_argument("--streaming", action="store_true",
+                        help="Opt into the separately gated progressive model transport.")
     args = parser.parse_args(argv)
     if not 1024 <= args.port <= 65535:
         parser.error("Choose a port between 1024 and 65535.")
     try:
-        app = ChatApplication(budget=args.budget)
+        app = ChatApplication(budget=args.budget, streaming=args.streaming)
         server = PreviewServer(("127.0.0.1", args.port), handler_for(app))
     except Exception:
         parser.exit(1, "The local preview could not start. Check its source preparation, runtime and port using docs/PRIVATE-CHAT.md.\n")

@@ -339,9 +339,12 @@ class ChatModel:
     """
 
     def __init__(self, root=ROOT, *, settings=None, transport=None, credential_loader=None,
-                 checkpoint_resolver=None, checkpoint_file=CHECKPOINT_FILE):
+                 checkpoint_resolver=None, checkpoint_file=CHECKPOINT_FILE, streaming=False):
+        if type(streaming) is not bool:
+            raise ValueError("Streaming selection must be explicit.")
         self.root = Path(root).resolve()
         self.settings = settings or ChatSettings()
+        self.streaming = streaming
         self._transport = transport
         self._credential_loader = credential_loader or load_credential
         self._checkpoint_resolver = checkpoint_resolver or resolve_b_checkpoint
@@ -349,6 +352,10 @@ class ChatModel:
         self._lock = threading.Lock()
         self._blocked = self._closed = self._credential_loaded = False
         self._checkpoint = None
+
+    @property
+    def supports_progress(self):
+        return self.streaming
 
     def _resolve(self):
         if self._checkpoint is None:
@@ -379,7 +386,9 @@ class ChatModel:
                            "timeout_seconds": self.settings.timeout_seconds},
                 "conversation_storage": "none"}
 
-    def generate(self, messages, evidence_context=""):
+    def generate(self, messages, evidence_context="", on_progress=None):
+        if on_progress is not None and not callable(on_progress):
+            raise TypeError("on_progress must be callable")
         if not self._lock.acquire(blocking=False):
             raise ChatModelError("busy")
         try:
@@ -402,10 +411,17 @@ class ChatModel:
                       "timeout_seconds": self.settings.timeout_seconds, "seed": self.settings.seed,
                       "reasoning_effort": "medium", "thinking_effort_numeric": 0.7, "temperature": 0.0}
             if self._transport is None:
-                from bibleprep.tinker_evaluate import BoundedNativeTransport
-                self._transport = BoundedNativeTransport(worker=chat_worker)
+                if self.streaming:
+                    from bibleprep.chat_streaming import BoundedStreamingTransport
+                    self._transport = BoundedStreamingTransport()
+                else:
+                    from bibleprep.tinker_evaluate import BoundedNativeTransport
+                    self._transport = BoundedNativeTransport(worker=chat_worker)
             try:
-                result = self._transport(payload, config, secret)
+                if self.streaming:
+                    result = self._transport(payload, config, secret, on_progress=on_progress)
+                else:
+                    result = self._transport(payload, config, secret)
                 if isinstance(result, dict) and result.get("local_error") in {
                     "invalid_messages", "input_too_long", "runtime_unavailable", "checkpoint_unavailable"
                 }:

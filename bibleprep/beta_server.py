@@ -396,11 +396,12 @@ class BetaStore:
 
 class BetaApplication:
     def __init__(self, *, store, root=ROOT, model_factory=None, library=None,
-                 access=None):
+                 access=None, streaming=False):
         self.store = store
         self.access = access if access is not None else AccountAccess.from_environ(store.path)
         self.root = Path(root)
-        self.model_factory = model_factory or (lambda: ChatModel(root=self.root))
+        self.model_factory = model_factory or (
+            lambda: ChatModel(root=self.root, streaming=streaming))
         self.library = library if library is not None else PassageLibrary(self.root)
         self.model = None
         self.lock = threading.Lock()
@@ -436,8 +437,10 @@ class BetaApplication:
             request_id = secrets.token_urlsafe(24)
             self.store.reserve(identity, request_id, daily_limit=self.access.daily_limit)
             self.running = True
-            self.jobs[request_id] = {"identity": identity, "status": "running",
-                                     "created": time.monotonic()}
+            self.jobs[request_id] = {
+                "identity": identity, "status": "running", "revision": 0,
+                "answer": "", "complete": False, "created": time.monotonic(),
+            }
         worker = threading.Thread(target=self._generate, args=(request_id, identity, messages), daemon=True)
         try:
             worker.start()
@@ -450,6 +453,23 @@ class BetaApplication:
         return request_id
 
     def _generate(self, request_id, identity, messages):
+        def on_progress(answer, revision):
+            with self.lock:
+                job = self.jobs.get(request_id)
+                if (self.closed or job is None or job.get("identity") != identity
+                        or job.get("status") != "running"
+                        or type(revision) is not int or revision <= job.get("revision", 0)
+                        or not isinstance(answer, str)
+                        or not answer.startswith(job.get("answer", ""))):
+                    return
+                job["answer"] = answer
+                job["revision"] = revision
+
+        def snapshot():
+            with self.lock:
+                job = self.jobs.get(request_id, {})
+                return job.get("answer", ""), job.get("revision", 0)
+
         try:
             if self.model is None:
                 self.model = self.model_factory()
@@ -465,17 +485,25 @@ class BetaApplication:
         else:
             try:
                 self.store.mark_submitted(request_id)
-                result = self.model.generate(messages, evidence_context=evidence_context)
+                options = {"evidence_context": evidence_context}
+                if getattr(self.model, "supports_progress", False):
+                    options["on_progress"] = on_progress
+                result = self.model.generate(messages, **options)
                 value = result.get("usage", {}).get("estimated_usd")
                 if type(value) not in (float, int) or not math.isfinite(value) or value < 0:
                     raise BetaError("usage_unverifiable")
                 actual = int((Decimal(str(value)) * Decimal(1_000_000_000)).to_integral_value(
                     rounding=ROUND_CEILING))
                 self.store.finalize(request_id, actual_nano=actual)
-                outcome = {"status": "complete", "answer": result["answer"],
+                partial, revision = snapshot()
+                final_answer = result["answer"]
+                if final_answer != partial:
+                    revision += 1
+                outcome = {"status": "complete", "answer": final_answer,
                            "sources": sources, "source_notes": notes,
                            "complete": result["answer_complete"],
-                           "warnings": result.get("warnings", [])}
+                           "warnings": result.get("warnings", []),
+                           "revision": revision}
             except ChatModelError as exc:
                 if exc.code in {"invalid_messages", "input_too_long", "not_configured",
                                 "checkpoint_unavailable", "runtime_unavailable", "busy",
@@ -498,6 +526,10 @@ class BetaApplication:
                     pass
                 outcome = {"status": "error", "error": {"code": "generation_unavailable",
                     "message": "The beta could not finish this request. It was not retried."}}
+        partial, revision = snapshot()
+        if outcome["status"] == "error" and partial:
+            outcome.update({"partial_answer": partial, "complete": False,
+                            "revision": revision})
         with self.lock:
             if not self.closed:
                 self.jobs[request_id] = {**outcome, "identity": identity,

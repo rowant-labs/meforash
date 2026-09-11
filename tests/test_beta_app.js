@@ -215,17 +215,23 @@ async function testLatePostCannotRestoreClearedConversation() {
 async function testLatePollCannotChangeSignedOutView() {
   const chatPoll = deferred();
   const logoutPost = deferred();
+  let pollCalls = 0;
   const document = await boot((url, options = {}) => {
     if (url === "/api/status") return response(200, { model: "Inkling B" });
     if (url === "/api/chat") return response(202, { request_id: "late-poll" });
-    if (url === "/api/chat/late-poll") return chatPoll.promise;
+    if (url === "/api/chat/late-poll") {
+      pollCalls += 1;
+      return pollCalls === 1
+        ? response(200, { status: "running", revision: 1, answer: "Late partial", complete: false })
+        : chatPoll.promise;
+    }
     if (url === "/api/logout" && options.method === "POST") return logoutPost.promise;
     throw new Error(`Unexpected fetch: ${url}`);
   });
   document.querySelector("#question").value = "A question already submitted";
   const submission = document.querySelector("#chat-form").dispatch("submit");
   await flush();
-  assert.equal(document.querySelector("#conversation").children.length, 1);
+  assert.equal(document.querySelector("#conversation").children.length, 2);
   const signout = document.querySelector("#logout-button").dispatch("click");
   assert.equal(document.querySelector("#login-view").hidden, false);
   assert.equal(document.querySelector("#conversation").children.length, 0);
@@ -310,6 +316,129 @@ async function testAnswerFormattingUsesOnlySafeDomNodes() {
   assert.ok(!tags(assistant).includes("IMG"));
   assert.match(allText(assistant), /###/);
   assert.match(allText(assistant), /1\./);
+}
+
+async function testProgressReplacesPlainNodeAndTerminalRendersOnce() {
+  const terminal = deferred();
+  let polls = 0;
+  const document = await boot((url) => {
+    if (url === "/api/status") return response(200, { model: "Inkling B" });
+    if (url === "/api/chat") return response(202, { request_id: "progressive" });
+    if (url === "/api/chat/progressive") {
+      polls += 1;
+      if (polls === 1) {
+        return response(200, { status: "running", revision: 1,
+          answer: "Draft **bold", complete: false });
+      }
+      if (polls === 2) {
+        return response(200, { status: "running", revision: 1,
+          answer: "Duplicate must be ignored", complete: false });
+      }
+      if (polls === 3) {
+        return response(200, { status: "running", revision: 0,
+          answer: "Older must be ignored", complete: false });
+      }
+      if (polls === 4) {
+        return response(200, { status: "running", revision: 2,
+          answer: "Draft **bold** complete", complete: false });
+      }
+      return terminal.promise;
+    }
+    throw new Error(`Unexpected fetch: ${url}`);
+  });
+
+  document.querySelector("#question").value = "Show progress";
+  const submission = document.querySelector("#chat-form").dispatch("submit");
+  await flush();
+  const inProgress = document.querySelector("#conversation").children;
+  assert.equal(inProgress.length, 2);
+  assert.match(inProgress[1].className, /message-progress/);
+  assert.equal(inProgress[1].children[1].textContent, "Draft **bold** complete");
+  assert.equal(tags(inProgress[1]).includes("STRONG"), false);
+
+  terminal.resolve(new FakeResponse(200, {
+    status: "complete", revision: 3, answer: "Final **bold** answer.",
+    complete: true, sources: [], source_notes: [], warnings: [],
+  }));
+  await submission;
+  const completed = document.querySelector("#conversation").children;
+  assert.equal(completed.length, 2);
+  assert.doesNotMatch(completed[1].className, /message-progress/);
+  assert.equal(tags(completed[1]).filter((tag) => tag === "STRONG").length, 1);
+  assert.equal(allText(completed[1]).match(/Final/g).length, 1);
+}
+
+async function testPartialErrorIsVisibleButExcludedFromLaterContext() {
+  let chatCalls = 0;
+  let partialPolls = 0;
+  let statusCalls = 0;
+  let laterPayload = null;
+  const document = await boot((url, options = {}) => {
+    if (url === "/api/access") return response(200, publicAccess());
+    if (url === "/api/status") {
+      statusCalls += 1;
+      return response(200, publicStatus("account", statusCalls === 1 ? 19 : 18));
+    }
+    if (url === "/api/chat") {
+      chatCalls += 1;
+      if (chatCalls === 1) return response(202, { request_id: "partial-error" });
+      laterPayload = JSON.parse(options.body);
+      return response(202, { request_id: "later-answer" });
+    }
+    if (url === "/api/chat/partial-error") {
+      partialPolls += 1;
+      return partialPolls === 1
+        ? response(200, { status: "running", revision: 1,
+          answer: "Safe partial", complete: false })
+        : response(200, { status: "error", revision: 1,
+          partial_answer: "Safe partial", complete: false,
+          error: { code: "generation_unavailable", message: "Generation stopped." } });
+    }
+    if (url === "/api/chat/later-answer") return response(200, {
+      status: "complete", revision: 1, answer: "Later complete answer.",
+      complete: true, sources: [], source_notes: [], warnings: [],
+    });
+    throw new Error(`Unexpected fetch: ${url}`);
+  });
+
+  document.querySelector("#question").value = "First uncertain question";
+  await document.querySelector("#chat-form").dispatch("submit");
+  assert.match(allText(document.querySelector("#conversation")), /Safe partial/);
+  assert.match(allText(document.querySelector("#conversation")),
+    /incomplete and will not be included in later questions/);
+  assert.match(document.querySelector("#quota-hint").textContent,
+    /18 questions remaining today/);
+
+  document.querySelector("#question").value = "Later question";
+  await document.querySelector("#chat-form").dispatch("submit");
+  assert.ok(laterPayload);
+  assert.equal(laterPayload.messages.some((message) => message.content === "Safe partial"), false);
+  assert.equal(laterPayload.messages.some((message) => /incomplete/.test(message.content)), false);
+}
+
+async function testNetworkFailureAfterProgressLabelsPartialAndDoesNotRetry() {
+  let polls = 0;
+  const document = await boot((url) => {
+    if (url === "/api/status") return response(200, { model: "Inkling B" });
+    if (url === "/api/chat") return response(202, { request_id: "network-partial" });
+    if (url === "/api/chat/network-partial") {
+      polls += 1;
+      if (polls === 1) return response(200, {
+        status: "running", revision: 1, answer: "Visible before disconnect",
+        complete: false,
+      });
+      return Promise.reject(new Error("private network detail"));
+    }
+    throw new Error(`Unexpected fetch: ${url}`);
+  });
+
+  document.querySelector("#question").value = "Disconnect after progress";
+  await document.querySelector("#chat-form").dispatch("submit");
+  const text = allText(document.querySelector("#conversation"));
+  assert.match(text, /Visible before disconnect/);
+  assert.match(text, /partial answer above is incomplete/);
+  assert.doesNotMatch(text, /private network detail/);
+  assert.equal(polls, 2);
 }
 
 function testReaderFacingCopyKeepsLimitsVisibleAndOperationsQuiet() {
@@ -684,6 +813,9 @@ async function testAuthReloadRestoresGuestOnceButNeverIntoAccount() {
   await testLatePollCannotChangeSignedOutView();
   await testSourceCardsPreserveTextLayers();
   await testAnswerFormattingUsesOnlySafeDomNodes();
+  await testProgressReplacesPlainNodeAndTerminalRendersOnce();
+  await testPartialErrorIsVisibleButExcludedFromLaterContext();
+  await testNetworkFailureAfterProgressLabelsPartialAndDoesNotRetry();
   await testGuestLimitAndCodeSignInPreservePageState();
   await testCancelSignInKeepsDraftAndClearsHandoff();
   await testGuestBootstrapFailureKeepsPublicEmailSignInAvailable();
@@ -694,7 +826,7 @@ async function testAuthReloadRestoresGuestOnceButNeverIntoAccount() {
   await testDailyLimitShowsResetWithoutClearingDraft();
   await testMaliciousSessionHandoffIsDiscarded();
   await testAuthReloadRestoresGuestOnceButNeverIntoAccount();
-  process.stdout.write("3 beta browser regression scenarios passed; 10 public access scenarios passed; 3 presentation safety scenarios passed\n");
+  process.stdout.write("3 beta browser regression scenarios passed; 3 progressive answer scenarios passed; 10 public access scenarios passed; 3 presentation safety scenarios passed\n");
 })().catch((error) => {
   console.error(error);
   process.exitCode = 1;

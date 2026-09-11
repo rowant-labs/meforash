@@ -32,6 +32,27 @@ class FakeModel:
         pass
 
 
+class StreamingFakeModel(FakeModel):
+    supports_progress = True
+
+    def __init__(self, *, fail=False):
+        super().__init__()
+        self.fail = fail
+        self.ready = threading.Event()
+        self.release = threading.Event()
+
+    def generate(self, messages, evidence_context="", on_progress=None):
+        self.calls.append((messages, evidence_context))
+        on_progress("Local partial", 1)
+        self.ready.set()
+        self.release.wait(2)
+        on_progress("Local partial answer", 2)
+        if self.fail:
+            raise RuntimeError("private exception")
+        return {"answer": "Local partial answer.", "answer_complete": True,
+                "usage": {"estimated_usd": 0.001}, "warnings": []}
+
+
 class FakeLibrary:
     count = 31152
 
@@ -138,6 +159,24 @@ class ServerTests(unittest.TestCase):
         self.app.budget = MAX_RESERVATION / 2
         self.assertEqual(self.request("POST", "/api/chat", self.payload())[0], 429)
         self.assertEqual(len(self.model.calls), 1)
+
+    def test_progress_snapshots_and_uncertain_partial_stay_in_memory(self):
+        model = StreamingFakeModel(fail=True)
+        self.app.model = model
+        identifier = self.app.submit(json.loads(self.payload()))
+        self.assertTrue(model.ready.wait(1))
+        self.assertEqual(self.app.result(identifier), {
+            "status": "running", "revision": 1, "answer": "Local partial",
+            "complete": False,
+        })
+        self.assertAlmostEqual(self.app.accounted, MAX_RESERVATION)
+        model.release.set()
+        result = self.wait_result(identifier)
+        self.assertEqual(result["partial_answer"], "Local partial answer")
+        self.assertEqual(result["revision"], 2)
+        self.assertFalse(result["complete"])
+        self.assertAlmostEqual(self.app.accounted, MAX_RESERVATION)
+        self.assertNotIn("private exception", json.dumps(result))
 
     def test_unexpected_exceptions_are_sanitized_and_reserved(self):
         self.model.fail = True

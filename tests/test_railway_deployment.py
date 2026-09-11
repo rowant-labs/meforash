@@ -114,7 +114,21 @@ class DeploymentSettingsTests(unittest.TestCase):
         self.assertEqual(settings["port"], 8877)
         self.assertEqual(settings["origin"], "https://beta.example.test")
         self.assertEqual(settings["database"], self.volume / "state/beta.sqlite3")
+        self.assertFalse(settings["streaming"])
         self.assertNotIn("TINKER_API_KEY", settings)
+
+        enabled = self.environment()
+        enabled["MEFORASH_STREAMING"] = "1"
+        self.assertTrue(subject.deployment_settings(enabled)["streaming"])
+
+    def test_streaming_flag_accepts_only_exact_zero_or_one(self):
+        for value in ("", "true", "false", "yes", "2", " 1"):
+            environment = self.environment()
+            environment["MEFORASH_STREAMING"] = value
+            with self.subTest(value=value):
+                with self.assertRaisesRegex(subject.DeploymentError,
+                                            "exactly 0 or 1"):
+                    subject.deployment_settings(environment)
 
     def test_missing_secret_http_origin_and_paths_outside_volume_fail_closed(self):
         cases = []

@@ -585,6 +585,29 @@ function dailyLimitMessage() {
 }
 
 async function poll(requestId, generation) {
+  let progressNode = null;
+  let progressAnswer = "";
+  let progressRevision = 0;
+
+  function removeProgressNode() {
+    if (progressNode && progressNode.parentNode === conversation) {
+      conversation.removeChild(progressNode);
+    }
+    progressNode = null;
+  }
+
+  function acceptProgress(answer, revision) {
+    if (validProgressRevision(revision) && revision > progressRevision
+        && typeof answer === "string" && answer.startsWith(progressAnswer)) {
+      progressRevision = revision;
+      progressAnswer = answer;
+      if (answer && !progressNode) {
+        progressNode = messageNode("assistant", "", "message-progress");
+      }
+      if (progressNode) progressNode.children[1].textContent = answer;
+    }
+  }
+
   for (;;) {
     await delay(900);
     if (generation !== stateEpoch) return;
@@ -592,11 +615,13 @@ async function poll(requestId, generation) {
       const result = await api(`/api/chat/${encodeURIComponent(requestId)}`);
       if (generation !== stateEpoch) return;
       if (result.status === "running") {
+        acceptProgress(result.answer, result.revision);
         requestState.textContent = "Meforash is preparing an answer…";
         continue;
       }
       if (result.status === "complete") {
         const answer = typeof result.answer === "string" ? result.answer : "The beta returned no readable answer.";
+        removeProgressNode();
         messages.push({ role: "assistant", content: answer });
         messageNode("assistant", answer);
         if (result.complete === false) {
@@ -608,6 +633,25 @@ async function poll(requestId, generation) {
         await refreshStatus(generation);
         return;
       }
+      if (result.status === "error") {
+        const terminalPartial = typeof result.partial_answer === "string"
+          && result.partial_answer.startsWith(progressAnswer)
+          ? result.partial_answer : progressAnswer;
+        if (terminalPartial) {
+          if (!progressNode) {
+            progressNode = messageNode("assistant", "", "message-progress");
+          }
+          progressNode.children[1].textContent = terminalPartial;
+          messageNode(
+            "assistant",
+            `${result.error?.message || "The beta could not finish this request. It was not retried."} The partial answer above is incomplete and will not be included in later questions.`,
+            "message-error",
+          );
+          setWorking(false);
+          await refreshStatus(generation);
+          return;
+        }
+      }
       throw Object.assign(new Error("generation_unavailable"), {
         userMessage: result.error?.message || "The beta could not finish this request. It was not retried.",
       });
@@ -618,11 +662,29 @@ async function poll(requestId, generation) {
         else showLogin("Your session has ended. Sign in again.");
         return;
       }
+      if (progressAnswer) {
+        if (!progressNode) {
+          progressNode = messageNode("assistant", "", "message-progress");
+          progressNode.children[1].textContent = progressAnswer;
+        }
+        messageNode(
+          "assistant",
+          `${error.userMessage || "The answer is no longer available. It was not retried."} The partial answer above is incomplete and will not be included in later questions.`,
+          "message-error",
+        );
+        setWorking(false);
+        await refreshStatus(generation);
+        return;
+      }
       messageNode("assistant", error.userMessage || "The answer is no longer available. It was not retried.", "message-error");
       setWorking(false);
       return;
     }
   }
+}
+
+function validProgressRevision(value) {
+  return Number.isInteger(value) && value >= 0;
 }
 
 loginForm.addEventListener("submit", async (event) => {

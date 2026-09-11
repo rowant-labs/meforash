@@ -53,6 +53,26 @@ class FakeModel:
         self.closed = True
 
 
+class StreamingFakeModel(FakeModel):
+    supports_progress = True
+
+    def __init__(self, *, gate=None, error=None, cost=0.01):
+        super().__init__(gate=gate, error=error, cost=cost)
+        self.progress_ready = threading.Event()
+
+    def generate(self, messages, evidence_context="", on_progress=None):
+        self.calls.append((messages, evidence_context))
+        on_progress("A partial", 1)
+        self.progress_ready.set()
+        if self.gate:
+            self.gate.wait(2)
+        on_progress("A partial answer", 2)
+        if self.error:
+            raise self.error
+        return {"answer": "A partial answer only.", "answer_complete": True,
+                "warnings": [], "usage": {"estimated_usd": self.cost}}
+
+
 def messages(text="What does this passage say?"):
     return {"messages": [{"role": "user", "content": text}]}
 
@@ -185,6 +205,44 @@ class ApplicationTests(unittest.TestCase):
             self.assertEqual(db.execute("SELECT COUNT(*) FROM usage").fetchone()[0], 1)
         gate.set()
         self.wait(first)
+
+    def test_revisioned_progress_is_owned_read_only_and_finalized_once(self):
+        gate = threading.Event()
+        self.model = StreamingFakeModel(gate=gate)
+        request = self.app.submit("reader-one", messages())
+        self.assertTrue(self.model.progress_ready.wait(1))
+        running = self.app.result("reader-one", request)
+        self.assertEqual(running, {
+            "status": "running", "revision": 1, "answer": "A partial",
+            "complete": False,
+        })
+        self.assertIsNone(self.app.result("another-user", request))
+        before = self.store.usage("reader-one")
+        self.assertEqual(self.app.result("reader-one", request), running)
+        self.assertEqual(self.app.result("reader-one", request), running)
+        self.assertEqual(self.store.usage("reader-one"), before)
+        gate.set()
+        result = self.wait(request)
+        self.assertEqual(result["answer"], "A partial answer only.")
+        self.assertEqual(result["revision"], 3)
+        self.assertTrue(result["complete"])
+        self.assertEqual(len(self.model.calls), 1)
+        self.assertEqual(self.store.usage("reader-one")["user_accounted_nano_usd"],
+                         10_000_000)
+
+    def test_post_submission_failure_returns_only_last_safe_partial(self):
+        self.model = StreamingFakeModel(error=RuntimeError("private provider detail"))
+        request = self.app.submit("reader-one", messages())
+        result = self.wait(request)
+        self.assertEqual(result["status"], "error")
+        self.assertEqual(result["partial_answer"], "A partial answer")
+        self.assertEqual(result["revision"], 2)
+        self.assertFalse(result["complete"])
+        self.assertNotIn("private provider", json.dumps(result))
+        usage = self.store.usage("reader-one")
+        self.assertEqual(usage["user_accounted_nano_usd"],
+                         subject.MAX_RESERVATION_NANO)
+        self.assertEqual(usage["uncertain_requests"], 1)
 
     def test_unexpected_failure_is_safe_and_keeps_full_reservation(self):
         self.model.error = RuntimeError("provider secret/path detail")
