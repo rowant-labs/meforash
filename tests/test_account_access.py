@@ -154,8 +154,8 @@ class AccessStoreTests(unittest.TestCase):
         guest, _ = self.access.guest(None, "192.0.2.80", now=base)
         account = access_subject.AccessIdentity("account", USER_UUID)
         invite = access_subject.AccessIdentity("invite", "reader-one")
-        for version, adult in (("2026-09-10", True), ("2026-09-11", False),
-                               ("2026-09-11", 1), (None, True)):
+        for version, adult in (("2026-09-10", True), ("2026-09-11.1", False),
+                               ("2026-09-11.1", 1), (None, True)):
             with self.subTest(version=version, adult=adult), self.assertRaisesRegex(
                     access_subject.AccessError, "terms_required"):
                 self.access.accept_terms(guest, version, adult, now=base + 1)

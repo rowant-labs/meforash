@@ -315,10 +315,6 @@ function renderStatus(status) {
   removeChildren(serviceDetails);
   detail("Model", status.public_model || "Meforash 0.1");
   detail("Source collection", `${Number(status.source_count || 0).toLocaleString()} passage records available`);
-  detail("Conversation text", status.conversation_storage === "not_stored" ? "Kept in memory for this session" : "Storage status unavailable");
-  if (status.usage?.uncertain_requests) {
-    detail("Usage note", `${status.usage.uncertain_requests} earlier request(s) have uncertain cost and remain reserved`);
-  }
   renderAccess(status.access);
 }
 

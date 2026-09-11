@@ -15,7 +15,10 @@ Owner-requested polish and policy completion, September 11, 2026. Status is upda
 
 ## Follow-up work
 
-- [ ] Implement optional saved conversation history with account deletion controls.
+- [ ] Implement optional saved conversation history with account deletion controls. Before enabling it, disclose what is saved, why, retention and user controls; obtain any required consent. Current sessions are not blanket permission for future retention.
 - [ ] Add a fair waiting queue; the bounded beta currently rejects concurrent requests.
 - [ ] Review real traffic and costs before adjusting free allowances.
 - [ ] Check trademark availability before registration; the domain alone does not establish clearance.
+
+- [ ] Review actual model responses to crisis, self-harm, abuse and harmful spiritual-authority scenarios before broader promotion; terms are not evidence of safe behavior.
+- [ ] Explore a paired Hebrew mem / Latin M logo; keep both letterforms legible and test the mark at favicon size before changing live branding.

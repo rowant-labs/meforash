@@ -1,7 +1,7 @@
 "use strict";
 
 (() => {
-  const VERSION = "2026-09-11";
+  const VERSION = "2026-09-11.1";
   const dialog = document.querySelector("#consent-dialog");
   const consentForm = document.querySelector("#consent-form");
   const check = document.querySelector("#consent-check");

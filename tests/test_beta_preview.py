@@ -113,7 +113,7 @@ class PreviewHTTPTests(unittest.TestCase):
         self.assertEqual(status, 200, body)
         cookie = headers["Set-Cookie"].split(";", 1)[0]
         status, _, _ = self.request("POST", "/api/accept-terms", {
-            "terms_version": "2026-09-11", "adult": True}, cookie)
+            "terms_version": "2026-09-11.1", "adult": True}, cookie)
         self.assertEqual(status, 200)
         return cookie
 

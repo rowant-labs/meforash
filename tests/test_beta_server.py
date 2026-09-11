@@ -173,7 +173,7 @@ class ApplicationTests(unittest.TestCase):
                                            library=FakeLibrary())
         self.app.access.accept_terms(
             subject.AccessIdentity("invite", "reader-one"),
-            "2026-09-11", True, now=100)
+            "2026-09-11.1", True, now=100)
         self.addCleanup(self.app.close)
 
     def wait(self, request_id):
@@ -343,11 +343,11 @@ class HTTPTests(unittest.TestCase):
 
     def accept_terms(self, cookie):
         status, value, _ = self.request("POST", "/api/accept-terms",
-            {"terms_version": "2026-09-11", "adult": True},
+            {"terms_version": "2026-09-11.1", "adult": True},
             {"Origin": self.origin, "Host": f"127.0.0.1:{self.port}",
              "Cookie": cookie})
         self.assertEqual(status, 200)
-        self.assertEqual(value["access"]["terms_version"], "2026-09-11")
+        self.assertEqual(value["access"]["terms_version"], "2026-09-11.1")
         self.assertTrue(value["access"]["terms_accepted"])
 
     def test_unauthorized_and_wrong_origin_never_initialize_provider(self):
@@ -375,7 +375,7 @@ class HTTPTests(unittest.TestCase):
         self.assertEqual((status, value["access"]["kind"],
                           value["access"]["terms_version"],
                           value["access"]["terms_accepted"]),
-                         (200, "invite", "2026-09-11", False))
+                         (200, "invite", "2026-09-11.1", False))
         status, value, _ = self.request("POST", "/api/chat", messages(),
             {"Origin": self.origin, "Cookie": cookie})
         self.assertEqual((status, value["error"]["code"]), (403, "terms_required"))

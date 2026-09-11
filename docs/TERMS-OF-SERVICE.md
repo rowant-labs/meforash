@@ -1,6 +1,6 @@
 # Meforash Terms of Service
 
-**Effective date and version:** September 11, 2026 (`2026-09-11`)
+**Effective date and version:** September 11, 2026 (`2026-09-11.1`)
 
 These Terms of Service ("Terms") govern your access to Meforash at `meforash.com` and related Meforash services that link to these Terms (the "Service"). The Service is operated by **Rowant Labs LLC**, a Nebraska limited liability company ("Rowant Labs," "we," "us," or "our").
 
@@ -28,7 +28,9 @@ You keep any rights you have in questions and other content you submit. You give
 
 Rowant Labs does not use conversations submitted through the application to train its models. Any future training use by Rowant Labs will require clear advance disclosure and a separate, prospective opt-in where appropriate; acceptance of these Terms does not grant retroactive consent for training.
 
-Generated output may be incomplete, inaccurate, misleading, offensive, or inconsistent across requests. Check consequential claims against appropriate sources and qualified people. Output is not a statement from God, spiritual authority, or a substitute for clergy, medical, mental-health, legal, financial, emergency, or other professional advice. Do not rely on it as the sole basis for decisions affecting health, safety, legal rights, finances, employment, education, or another person's welfare. In an emergency, contact local emergency services or an appropriate professional.
+Generated output may be incomplete, inaccurate, misleading, offensive, or inconsistent across requests. Check consequential claims against appropriate sources and qualified people. Output is not a statement from God, spiritual authority, or a substitute for clergy, medical, mental-health, legal, financial, emergency, or other professional advice. Do not rely on it as the sole basis for decisions affecting health, safety, legal rights, finances, employment, education, or another person's welfare.
+
+Meforash is not a crisis or suicide-prevention service and may fail to recognize or respond safely to urgent situations. Do not use its responses to justify harming yourself or another person, delaying needed care, or acting on a supposed command from God. If you or someone else may be in immediate danger or thinking about suicide or self-harm, do not rely on the Service; contact local emergency services or a qualified crisis service.
 
 You are responsible for evaluating and lawfully using output. We do not promise that output is unique, protectable, noninfringing, or suitable for a particular purpose. Other users may receive similar output.
 

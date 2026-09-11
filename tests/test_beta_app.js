@@ -588,15 +588,34 @@ function testReaderFacingCopyKeepsLimitsVisibleAndOperationsQuiet() {
   assert.match(MARKUP, /Meforash/);
   assert.match(MARKUP, /Original-language Bible exploration/);
   assert.match(MARKUP, /AI trained on original Bible languages/);
-  assert.match(MARKUP, /modern English/);
-  assert.match(MARKUP, /is not used(?: by Meforash)? for training/);
-  assert.match(MARKUP, /not the original manuscripts/);
+  assert.match(MARKUP, /Bring your questions\. Explore the Bible in English\./);
+  assert.match(MARKUP, /About Meforash/);
+  assert.match(MARKUP, /trained on selected Hebrew, Aramaic, and Greek biblical editions/);
+  assert.match(MARKUP, /training does not establish a single recovered original text/);
+  assert.match(MARKUP, /Source cards show passages supplied to Meforash/);
   assert.doesNotMatch(MARKUP, /starter prompt/i);
   assert.match(MARKUP, /<details class="about-panel/);
   assert.match(MARKUP, /pattern="\[0-9\]\{6\}"/);
-  assert.match(MARKUP, /Saved history is not available yet/);
-  assert.match(MARKUP, /temporary session storage for up to ten minutes/);
+  assert.doesNotMatch(MARKUP, /Saved history is not available yet/);
+  assert.doesNotMatch(MARKUP, /temporary session storage for up to ten minutes/);
   assert.doesNotMatch(MARKUP, /not written to disk/);
+}
+
+async function testServiceDetailsStayProductFocused() {
+  const document = await boot((url) => {
+    if (url === "/api/status") return response(200, {
+      public_model: "Meforash 0.1",
+      source_count: 31152,
+      conversation_storage: "not_stored",
+      usage: { uncertain_requests: 2 },
+    });
+    throw new Error(`Unexpected fetch: ${url}`);
+  });
+  const details = document.querySelector("#service-details");
+  assert.equal(details.children.length, 4);
+  assert.match(allText(details), /Model.*Meforash 0\.1/s);
+  assert.match(allText(details), /Source collection.*31,152 passage records available/s);
+  assert.doesNotMatch(allText(details), /Conversation text|Usage note|uncertain cost/);
 }
 
 async function testGuestLimitAndCodeSignInPreservePageState() {
@@ -959,6 +978,7 @@ async function testAuthReloadRestoresGuestOnceButNeverIntoAccount() {
 
 (async () => {
   testReaderFacingCopyKeepsLimitsVisibleAndOperationsQuiet();
+  await testServiceDetailsStayProductFocused();
   await testLatePostCannotRestoreClearedConversation();
   await testLatePollCannotChangeSignedOutView();
   await testSourceCardsPreserveTextLayers();
@@ -978,7 +998,7 @@ async function testAuthReloadRestoresGuestOnceButNeverIntoAccount() {
   await testDailyLimitShowsResetWithoutClearingDraft();
   await testMaliciousSessionHandoffIsDiscarded();
   await testAuthReloadRestoresGuestOnceButNeverIntoAccount();
-  process.stdout.write("3 beta browser regression scenarios passed; 5 progressive answer scenarios passed; 10 public access scenarios passed; 3 presentation safety scenarios passed\n");
+  process.stdout.write("3 beta browser regression scenarios passed; 5 progressive answer scenarios passed; 10 public access scenarios passed; 4 presentation safety scenarios passed\n");
 })().catch((error) => {
   console.error(error);
   process.exitCode = 1;
