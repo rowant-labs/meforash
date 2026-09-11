@@ -614,7 +614,7 @@
     }
   },
   "launch_policy_polish": {
-    "status": "revision_pending_deployment",
+    "status": "deployed_verified",
     "document": "docs/LAUNCH-TODO.md",
     "terms_version": "2026-09-11.1",
     "minimum_age": 18,
