@@ -42,6 +42,7 @@ let emailLoginAvailable = false;
 let currentAccess = { kind: "invite", questions_remaining: null, daily_limit: 20, reset_at: null };
 let authReturnState = "Ready";
 let authReturnWorking = false;
+let activeAnswerPresentation = null;
 
 const HANDOFF_KEY = "meforash.auth-handoff.v1";
 const HANDOFF_TTL_MS = 10 * 60 * 1000;
@@ -211,6 +212,7 @@ async function api(path, options = {}, sessionRequired = true) {
 
 function resetConversation() {
   stateEpoch += 1;
+  cancelAnswerPresentation();
   clearAuthHandoff();
   messages = [];
   latestSources = [];
@@ -221,6 +223,7 @@ function resetConversation() {
   if (sourcesDrawer.open) sourcesDrawer.close();
   sourcesButton.hidden = true;
   welcome.hidden = false;
+  removeChildren(requestState);
   requestState.textContent = "Ready";
   sendButton.disabled = false;
   question.disabled = false;
@@ -276,13 +279,27 @@ function renderAccess(access) {
   signInButton.hidden = !(guest && emailLoginAvailable);
   logoutButton.hidden = currentAccess.kind === "guest";
   quotaHint.hidden = currentAccess.kind === "invite" || currentAccess.questions_remaining === null;
+  removeChildren(quotaHint);
   if (quotaHint.hidden) {
     quotaHint.textContent = "";
   } else if (guest) {
-    quotaHint.textContent = `${currentAccess.questions_remaining} of 3 free guest questions remaining${emailLoginAvailable ? ` · Sign in free for up to ${currentAccess.daily_limit} each day.` : "."}`;
+    quotaHint.textContent = `${currentAccess.questions_remaining} of 3 free guest questions remaining${emailLoginAvailable ? " · Sign in with email to keep asking." : "."}`;
   } else {
     const reset = formatReset(currentAccess.reset_at);
-    quotaHint.textContent = `${currentAccess.questions_remaining} questions remaining today${reset ? ` · Resets ${reset}` : "."}`;
+    const summary = `${currentAccess.questions_remaining} questions remaining today${reset ? ` · Resets ${reset}` : "."}`;
+    if (currentAccess.questions_remaining === 0) {
+      quotaHint.textContent = "";
+      const text = document.createElement("span");
+      text.textContent = summary;
+      const separator = document.createElement("span");
+      separator.textContent = " · ";
+      const requestMore = document.createElement("a");
+      requestMore.href = "mailto:support@meforash.com?subject=Request%20more%20Meforash%20questions";
+      requestMore.textContent = "Request more";
+      quotaHint.append(text, separator, requestMore);
+    } else {
+      quotaHint.textContent = summary;
+    }
   }
 }
 
@@ -327,7 +344,7 @@ function resetAuthDialog() {
 }
 
 function openAuthDialog(message = "") {
-  if (!emailLoginAvailable) return;
+  if (!emailLoginAvailable || activeAnswerPresentation) return;
   if (!authDialog.open) {
     authReturnState = requestState.textContent;
     authReturnWorking = sendButton.disabled || question.disabled;
@@ -543,9 +560,152 @@ function renderSources(sources, notes) {
 }
 
 function setWorking(working, label = "Ready") {
+  if (!working) cancelAnswerPresentation();
   sendButton.disabled = working;
   question.disabled = working;
+  removeChildren(requestState);
   requestState.textContent = label;
+}
+
+function presentationClock() {
+  if (window.performance && typeof window.performance.now === "function") {
+    return window.performance.now();
+  }
+  return Date.now();
+}
+
+function elapsedSeconds(presentation) {
+  return Math.max(0, Math.floor((presentationClock() - presentation.startedAt) / 1000));
+}
+
+function renderPendingStatus(presentation, phase) {
+  if (presentation !== activeAnswerPresentation || presentation.epoch !== stateEpoch) return;
+  if (presentation.phase === phase && presentation.timingNode?.parentNode === requestState) {
+    presentation.timingNode.textContent = ` ${elapsedSeconds(presentation)}s`;
+    return;
+  }
+  presentation.phase = phase;
+  removeChildren(requestState);
+  requestState.textContent = "";
+  const label = document.createElement("span");
+  label.textContent = phase;
+  const dots = document.createElement("span");
+  dots.className = "pending-dots";
+  dots.setAttribute("aria-hidden", "true");
+  for (let index = 0; index < 3; index += 1) {
+    const dot = document.createElement("span");
+    dot.className = "pending-dot";
+    dots.append(dot);
+  }
+  const timing = document.createElement("span");
+  timing.className = "pending-elapsed";
+  timing.setAttribute("aria-hidden", "true");
+  timing.textContent = ` ${elapsedSeconds(presentation)}s`;
+  presentation.timingNode = timing;
+  requestState.append(label, dots, timing);
+}
+
+function cancelScheduledReveal(presentation) {
+  if (!presentation || presentation.revealHandle === null) return;
+  if (presentation.revealKind === "frame" && typeof window.cancelAnimationFrame === "function") {
+    window.cancelAnimationFrame(presentation.revealHandle);
+  } else {
+    window.clearTimeout(presentation.revealHandle);
+  }
+  presentation.revealHandle = null;
+  presentation.revealKind = null;
+}
+
+function cancelAnswerPresentation() {
+  const presentation = activeAnswerPresentation;
+  if (!presentation) return;
+  activeAnswerPresentation = null;
+  presentation.cancelled = true;
+  cancelScheduledReveal(presentation);
+  if (presentation.elapsedTimer !== null) window.clearInterval(presentation.elapsedTimer);
+  presentation.elapsedTimer = null;
+  signInButton.disabled = false;
+}
+
+function scheduleReveal(presentation) {
+  if (presentation !== activeAnswerPresentation || presentation.cancelled
+      || presentation.shown.length >= presentation.target.length
+      || presentation.revealHandle !== null) return;
+  const reveal = () => {
+    presentation.revealHandle = null;
+    presentation.revealKind = null;
+    if (presentation !== activeAnswerPresentation || presentation.cancelled
+        || presentation.epoch !== stateEpoch || !presentation.node) return;
+    const remaining = presentation.target.length - presentation.shown.length;
+    let count = remaining > 800 ? Math.ceil(remaining / 4)
+      : remaining > 200 ? Math.ceil(remaining / 6)
+        : Math.max(2, Math.ceil(remaining / 10));
+    let end = presentation.shown.length + Math.min(remaining, count);
+    const code = presentation.target.charCodeAt(end - 1);
+    if (code >= 0xD800 && code <= 0xDBFF && end < presentation.target.length) end += 1;
+    presentation.shown = presentation.target.slice(0, end);
+    presentation.node.children[1].textContent = presentation.shown;
+    scheduleReveal(presentation);
+  };
+  if (typeof window.requestAnimationFrame === "function") {
+    presentation.revealKind = "frame";
+    presentation.revealHandle = window.requestAnimationFrame(reveal);
+  } else {
+    presentation.revealKind = "timeout";
+    presentation.revealHandle = window.setTimeout(reveal, 16);
+  }
+}
+
+function startAnswerPresentation(epoch, startedAt) {
+  cancelAnswerPresentation();
+  const presentation = {
+    epoch,
+    startedAt,
+    phase: "",
+    target: "",
+    shown: "",
+    node: null,
+    revealHandle: null,
+    revealKind: null,
+    elapsedTimer: null,
+    timingNode: null,
+    cancelled: false,
+    reducedMotion: typeof window.matchMedia === "function"
+      && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+  };
+  activeAnswerPresentation = presentation;
+  signInButton.disabled = true;
+  renderPendingStatus(presentation, "Preparing your answer…");
+  presentation.elapsedTimer = window.setInterval(() => {
+    renderPendingStatus(presentation, presentation.phase);
+  }, 1000);
+  return presentation;
+}
+
+function presentProgress(presentation, answer) {
+  if (presentation !== activeAnswerPresentation || presentation.cancelled
+      || presentation.epoch !== stateEpoch || !answer.startsWith(presentation.target)) return;
+  presentation.target = answer;
+  if (answer && !presentation.node) {
+    presentation.node = messageNode("assistant", "", "message-progress");
+  }
+  if (answer) renderPendingStatus(presentation, "Writing…");
+  if (!presentation.node) return;
+  if (presentation.reducedMotion) {
+    cancelScheduledReveal(presentation);
+    presentation.shown = answer;
+    presentation.node.children[1].textContent = answer;
+  } else {
+    scheduleReveal(presentation);
+  }
+}
+
+function flushProgress(presentation, answer = presentation?.target || "") {
+  if (!presentation || !presentation.node) return;
+  cancelScheduledReveal(presentation);
+  presentation.target = answer;
+  presentation.shown = answer;
+  presentation.node.children[1].textContent = answer;
 }
 
 function delay(milliseconds) {
@@ -564,6 +724,7 @@ async function refreshStatus(generation) {
 
 async function recoverGuest(message) {
   const epoch = ++stateEpoch;
+  cancelAnswerPresentation();
   setWorking(true, "Restoring guest access…");
   try {
     const status = await api("/api/guest", { method: "POST", body: "{}" }, false);
@@ -585,15 +746,16 @@ function dailyLimitMessage() {
 }
 
 async function poll(requestId, generation) {
-  let progressNode = null;
+  const presentation = activeAnswerPresentation?.epoch === generation
+    ? activeAnswerPresentation : null;
   let progressAnswer = "";
   let progressRevision = 0;
 
   function removeProgressNode() {
-    if (progressNode && progressNode.parentNode === conversation) {
-      conversation.removeChild(progressNode);
+    if (presentation?.node && presentation.node.parentNode === conversation) {
+      conversation.removeChild(presentation.node);
     }
-    progressNode = null;
+    if (presentation) presentation.node = null;
   }
 
   function acceptProgress(answer, revision) {
@@ -601,10 +763,7 @@ async function poll(requestId, generation) {
         && typeof answer === "string" && answer.startsWith(progressAnswer)) {
       progressRevision = revision;
       progressAnswer = answer;
-      if (answer && !progressNode) {
-        progressNode = messageNode("assistant", "", "message-progress");
-      }
-      if (progressNode) progressNode.children[1].textContent = answer;
+      presentProgress(presentation, answer);
     }
   }
 
@@ -616,11 +775,16 @@ async function poll(requestId, generation) {
       if (generation !== stateEpoch) return;
       if (result.status === "running") {
         acceptProgress(result.answer, result.revision);
-        requestState.textContent = "Meforash is preparing an answer…";
         continue;
       }
       if (result.status === "complete") {
         const answer = typeof result.answer === "string" ? result.answer : "The beta returned no readable answer.";
+        if (presentation?.node) {
+          flushProgress(presentation, answer.startsWith(progressAnswer) ? answer : progressAnswer);
+          await delay(32);
+          if (generation !== stateEpoch) return;
+        }
+        const completedIn = presentation ? elapsedSeconds(presentation) : null;
         removeProgressNode();
         messages.push({ role: "assistant", content: answer });
         messageNode("assistant", answer);
@@ -628,7 +792,7 @@ async function poll(requestId, generation) {
           messageNode("assistant", "This response may be incomplete because generation ended before a verified stop.", "message-note");
         }
         renderSources(result.sources, result.source_notes);
-        setWorking(false);
+        setWorking(false, completedIn === null ? "Ready" : `Completed in ${completedIn}s`);
         question.focus();
         await refreshStatus(generation);
         return;
@@ -638,10 +802,10 @@ async function poll(requestId, generation) {
           && result.partial_answer.startsWith(progressAnswer)
           ? result.partial_answer : progressAnswer;
         if (terminalPartial) {
-          if (!progressNode) {
-            progressNode = messageNode("assistant", "", "message-progress");
+          if (presentation && !presentation.node) {
+            presentation.node = messageNode("assistant", "", "message-progress");
           }
-          progressNode.children[1].textContent = terminalPartial;
+          flushProgress(presentation, terminalPartial);
           messageNode(
             "assistant",
             `${result.error?.message || "The beta could not finish this request. It was not retried."} The partial answer above is incomplete and will not be included in later questions.`,
@@ -663,10 +827,10 @@ async function poll(requestId, generation) {
         return;
       }
       if (progressAnswer) {
-        if (!progressNode) {
-          progressNode = messageNode("assistant", "", "message-progress");
-          progressNode.children[1].textContent = progressAnswer;
+        if (presentation && !presentation.node) {
+          presentation.node = messageNode("assistant", "", "message-progress");
         }
+        flushProgress(presentation, progressAnswer);
         messageNode(
           "assistant",
           `${error.userMessage || "The answer is no longer available. It was not retried."} The partial answer above is incomplete and will not be included in later questions.`,
@@ -785,7 +949,8 @@ chatForm.addEventListener("submit", async (event) => {
   if (!text || sendButton.disabled) return;
   const epoch = ++stateEpoch;
   const pendingMessages = [...messages, { role: "user", content: text }];
-  setWorking(true, "Submitting securely…");
+  setWorking(true);
+  startAnswerPresentation(epoch, presentationClock());
   try {
     const accepted = await api("/api/chat", {
       method: "POST",
@@ -795,7 +960,6 @@ chatForm.addEventListener("submit", async (event) => {
     messages = pendingMessages;
     question.value = "";
     messageNode("user", text);
-    requestState.textContent = "Meforash is preparing an answer…";
     await poll(accepted.request_id, epoch);
   } catch (error) {
     if (epoch !== stateEpoch) return;

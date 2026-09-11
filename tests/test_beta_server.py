@@ -171,6 +171,9 @@ class ApplicationTests(unittest.TestCase):
             return self.model
         self.app = subject.BetaApplication(store=self.store, model_factory=factory,
                                            library=FakeLibrary())
+        self.app.access.accept_terms(
+            subject.AccessIdentity("invite", "reader-one"),
+            "2026-09-11", True, now=100)
         self.addCleanup(self.app.close)
 
     def wait(self, request_id):
@@ -338,6 +341,15 @@ class HTTPTests(unittest.TestCase):
         self.assertEqual((status, value), (200, {"status": "signed_in"}))
         return headers["Set-Cookie"].split(";", 1)[0]
 
+    def accept_terms(self, cookie):
+        status, value, _ = self.request("POST", "/api/accept-terms",
+            {"terms_version": "2026-09-11", "adult": True},
+            {"Origin": self.origin, "Host": f"127.0.0.1:{self.port}",
+             "Cookie": cookie})
+        self.assertEqual(status, 200)
+        self.assertEqual(value["access"]["terms_version"], "2026-09-11")
+        self.assertTrue(value["access"]["terms_accepted"])
+
     def test_unauthorized_and_wrong_origin_never_initialize_provider(self):
         status, _, _ = self.request("POST", "/api/chat", messages(),
                                      {"Origin": self.origin})
@@ -358,6 +370,19 @@ class HTTPTests(unittest.TestCase):
         status, _, headers = self.request("GET", "/health")
         self.assertEqual(status, 200)
         self.assertNotIn("Set-Cookie", headers)
+        status, value, _ = self.request("GET", "/api/status",
+            headers={"Cookie": cookie})
+        self.assertEqual((status, value["access"]["kind"],
+                          value["access"]["terms_version"],
+                          value["access"]["terms_accepted"]),
+                         (200, "invite", "2026-09-11", False))
+        status, value, _ = self.request("POST", "/api/chat", messages(),
+            {"Origin": self.origin, "Cookie": cookie})
+        self.assertEqual((status, value["error"]["code"]), (403, "terms_required"))
+        self.assertEqual(self.factory_calls, 0)
+        with closing(sqlite3.connect(self.store.path)) as db:
+            self.assertEqual(db.execute("SELECT COUNT(*) FROM usage").fetchone()[0], 0)
+        self.accept_terms(cookie)
         status, value, _ = self.request("POST", "/api/chat", messages(),
             {"Origin": self.origin, "Cookie": cookie})
         self.assertEqual(status, 202)

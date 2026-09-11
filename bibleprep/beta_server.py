@@ -421,6 +421,8 @@ class BetaApplication:
 
     def submit(self, identity, body):
         identity = self.store._identity(identity)
+        if not self.access.terms_accepted(identity):
+            raise BetaError("terms_required")
         if not isinstance(body, dict) or set(body) != {"messages"}:
             raise BetaError("invalid_messages")
         messages = body["messages"]
@@ -741,6 +743,13 @@ def handler_for(app, *, origin, secure_cookie, trust_real_ip=False):
                             (ACCOUNT_COOKIE, "", 0),))
                     app.store.delete_session(self._cookie(SESSION_COOKIE))
                     return self._send(200, {"status": "signed_out"}, clear_cookie=True)
+                if path == "/api/accept-terms":
+                    if (not isinstance(body, dict)
+                            or set(body) != {"terms_version", "adult"}):
+                        raise BetaError("terms_required")
+                    app.access.accept_terms(
+                        identity, body["terms_version"], body["adult"])
+                    return self._send(200, app.status(identity))
                 if path != "/api/chat":
                     return self._send(404, {"error": {"code": "not_found", "message": "This beta resource is unavailable."}})
                 request_id = app.submit(identity, body)
@@ -751,6 +760,7 @@ def handler_for(app, *, origin, secure_cookie, trust_real_ip=False):
                           "busy": 409, "rate_limited": 429,
                           "allowance_exhausted": 429,
                           "guest_limit_reached": 403,
+                          "terms_required": 403,
                           "daily_limit_reached": 429,
                           "auth_unavailable": 503,
                           "invalid_code": 400,
@@ -760,6 +770,7 @@ def handler_for(app, *, origin, secure_cookie, trust_real_ip=False):
                             "rate_limited": "Please wait before trying again.",
                             "allowance_exhausted": "This beta allowance is exhausted.",
                             "guest_limit_reached": "The three guest questions have been used.",
+                            "terms_required": "Accept the current Terms and confirm that you are 18 or older before continuing.",
                             "daily_limit_reached": "The daily account question limit has been reached.",
                             "auth_unavailable": "Email sign-in is temporarily unavailable.",
                             "invalid_code": "The sign-in code is invalid or expired.",

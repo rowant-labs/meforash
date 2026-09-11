@@ -22,6 +22,12 @@ LEGACY_RAILWAY_HOST = "meforash-production.up.railway.app"
 ASSETS = {
     "/": ("index.html", "text/html; charset=utf-8"),
     "/index.html": ("index.html", "text/html; charset=utf-8"),
+    "/privacy": ("privacy.html", "text/html; charset=utf-8"),
+    "/terms": ("terms.html", "text/html; charset=utf-8"),
+    "/brand": ("brand.html", "text/html; charset=utf-8"),
+    "/favicon.svg": ("favicon.svg", "image/svg+xml"),
+    "/beta/legal.css": ("legal.css", "text/css; charset=utf-8"),
+    "/beta/consent.js": ("consent.js", "text/javascript; charset=utf-8"),
     "/beta/app.js": ("app.js", "text/javascript; charset=utf-8"),
     "/beta/styles.css": ("styles.css", "text/css; charset=utf-8"),
 }
@@ -97,7 +103,7 @@ def handler_for(app, *, origin, secure_cookie, asset_root=ASSET_ROOT, trust_real
             self.send_header(
                 "Content-Security-Policy",
                 "default-src 'self'; script-src 'self'; style-src 'self'; "
-                "connect-src 'self'; img-src 'none'; font-src 'none'; "
+                "connect-src 'self'; img-src 'self'; font-src 'none'; "
                 "object-src 'none'; base-uri 'none'; form-action 'self'; "
                 "frame-ancestors 'none'",
             )

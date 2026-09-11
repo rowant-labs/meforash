@@ -86,6 +86,7 @@ class FakeElement {
   scrollIntoView() {}
   showModal() { this.open = true; }
   close() { this.open = false; }
+  setAttribute(name, value) { this[name] = String(value); }
 }
 
 class FakeDocument {
@@ -153,11 +154,37 @@ async function flush() {
   await new Promise((resolve) => setImmediate(resolve));
 }
 
-async function boot(fetchImpl, storageSeed = {}) {
+async function boot(fetchImpl, storageSeed = {}, options = {}) {
   const document = new FakeDocument();
   const storage = storageSeed instanceof Map ? storageSeed : new Map(Object.entries(storageSeed));
+  let now = options.now || 0;
+  let nextTimerId = 1;
+  const intervals = new Map();
+  const frames = new Map();
   const window = {
-    setTimeout: (callback) => { callback(); return 1; },
+    setTimeout: (callback) => { const id = nextTimerId++; callback(); return id; },
+    clearTimeout() {},
+    setInterval: (callback) => {
+      const id = nextTimerId++;
+      intervals.set(id, callback);
+      return id;
+    },
+    clearInterval: (id) => intervals.delete(id),
+    requestAnimationFrame: (callback) => {
+      const id = nextTimerId++;
+      frames.set(id, callback);
+      if (!options.deferAnimationFrames) {
+        queueMicrotask(() => {
+          if (!frames.has(id)) return;
+          frames.delete(id);
+          callback(now);
+        });
+      }
+      return id;
+    },
+    cancelAnimationFrame: (id) => frames.delete(id),
+    matchMedia: () => ({ matches: options.reducedMotion === true }),
+    performance: { now: () => now },
     sessionStorage: {
       getItem: (key) => storage.has(key) ? storage.get(key) : null,
       setItem: (key, value) => storage.set(key, String(value)),
@@ -166,6 +193,18 @@ async function boot(fetchImpl, storageSeed = {}) {
   };
   document.sessionStorage = window.sessionStorage;
   document.sessionStorageData = storage;
+  document.advanceTime = (milliseconds) => {
+    now += milliseconds;
+    for (const callback of [...intervals.values()]) callback();
+  };
+  document.runAnimationFrame = () => {
+    const pending = [...frames.entries()];
+    frames.clear();
+    now += 16;
+    for (const [, callback] of pending) callback(now);
+  };
+  document.activeIntervalCount = () => intervals.size;
+  document.pendingFrameCount = () => frames.size;
   const context = {
     document,
     window,
@@ -203,7 +242,9 @@ async function testLatePostCannotRestoreClearedConversation() {
   document.querySelector("#question").value = "A question that will be cleared";
   const submission = document.querySelector("#chat-form").dispatch("submit");
   await flush();
+  assert.equal(document.activeIntervalCount(), 1);
   await document.querySelector("#new-chat-button").dispatch("click");
+  assert.equal(document.activeIntervalCount(), 0);
   chatPost.resolve(new FakeResponse(202, { request_id: "late-post" }));
   await submission;
   assert.equal(document.querySelector("#conversation").children.length, 0);
@@ -232,10 +273,12 @@ async function testLatePollCannotChangeSignedOutView() {
   const submission = document.querySelector("#chat-form").dispatch("submit");
   await flush();
   assert.equal(document.querySelector("#conversation").children.length, 2);
+  assert.equal(document.activeIntervalCount(), 1);
   const signout = document.querySelector("#logout-button").dispatch("click");
   assert.equal(document.querySelector("#login-view").hidden, false);
   assert.equal(document.querySelector("#conversation").children.length, 0);
   assert.equal(document.querySelector("#login-button").disabled, true);
+  assert.equal(document.activeIntervalCount(), 0);
   logoutPost.resolve(new FakeResponse(200, {}));
   await signout;
   assert.equal(document.querySelector("#login-button").disabled, false);
@@ -368,6 +411,104 @@ async function testProgressReplacesPlainNodeAndTerminalRendersOnce() {
   assert.equal(allText(completed[1]).match(/Final/g).length, 1);
 }
 
+async function testPendingPhasesUseActualElapsedTime() {
+  const firstPoll = deferred();
+  const terminal = deferred();
+  let polls = 0;
+  const document = await boot((url) => {
+    if (url === "/api/status") return response(200, { model: "Inkling B" });
+    if (url === "/api/chat") return response(202, { request_id: "timed" });
+    if (url === "/api/chat/timed") {
+      polls += 1;
+      return polls === 1 ? firstPoll.promise : terminal.promise;
+    }
+    throw new Error(`Unexpected fetch: ${url}`);
+  });
+
+  document.querySelector("#question").value = "Time this request";
+  const submission = document.querySelector("#chat-form").dispatch("submit");
+  await flush();
+  const status = document.querySelector("#request-state");
+  assert.match(allText(status), /Preparing your answer….*0s/s);
+  assert.equal(document.activeIntervalCount(), 1);
+
+  document.advanceTime(3200);
+  assert.match(allText(status), /Preparing your answer….*3s/s);
+  firstPoll.resolve(new FakeResponse(200, {
+    status: "running", revision: 1, answer: "A real partial answer", complete: false,
+  }));
+  await flush();
+  assert.match(allText(status), /Writing….*3s/s);
+
+  document.advanceTime(2000);
+  terminal.resolve(new FakeResponse(200, {
+    status: "complete", revision: 2, answer: "The complete answer.",
+    complete: true, sources: [], source_notes: [], warnings: [],
+  }));
+  await submission;
+  assert.equal(status.textContent, "Completed in 5s");
+  assert.equal(document.activeIntervalCount(), 0);
+}
+
+async function testBufferedRevealAndReducedMotion() {
+  const progressiveTerminal = deferred();
+  const progressiveText = "A cumulative answer arrives smoothly instead of appearing as one abrupt block.";
+  let progressivePolls = 0;
+  const progressive = await boot((url) => {
+    if (url === "/api/status") return response(200, { model: "Inkling B" });
+    if (url === "/api/chat") return response(202, { request_id: "buffered" });
+    if (url === "/api/chat/buffered") {
+      progressivePolls += 1;
+      return progressivePolls === 1
+        ? response(200, { status: "running", revision: 1, answer: progressiveText, complete: false })
+        : progressiveTerminal.promise;
+    }
+    throw new Error(`Unexpected fetch: ${url}`);
+  }, {}, { deferAnimationFrames: true });
+  progressive.querySelector("#question").value = "Reveal smoothly";
+  const progressiveSubmission = progressive.querySelector("#chat-form").dispatch("submit");
+  await flush();
+  const progressContent = progressive.querySelector("#conversation").children[1].children[1];
+  assert.equal(progressContent.textContent, "");
+  assert.ok(progressive.pendingFrameCount() > 0);
+  progressive.runAnimationFrame();
+  assert.ok(progressContent.textContent.length > 0);
+  assert.ok(progressContent.textContent.length < progressiveText.length);
+  progressiveTerminal.resolve(new FakeResponse(200, {
+    status: "complete", revision: 2, answer: progressiveText,
+    complete: true, sources: [], source_notes: [], warnings: [],
+  }));
+  await progressiveSubmission;
+  assert.equal(progressive.pendingFrameCount(), 0);
+  assert.equal(progressive.querySelector("#conversation").children.length, 2);
+  assert.equal(allText(progressive.querySelector("#conversation")).match(/A cumulative answer/g).length, 1);
+
+  const reducedTerminal = deferred();
+  let reducedPolls = 0;
+  const reduced = await boot((url) => {
+    if (url === "/api/status") return response(200, { model: "Inkling B" });
+    if (url === "/api/chat") return response(202, { request_id: "reduced" });
+    if (url === "/api/chat/reduced") {
+      reducedPolls += 1;
+      return reducedPolls === 1
+        ? response(200, { status: "running", revision: 1, answer: progressiveText, complete: false })
+        : reducedTerminal.promise;
+    }
+    throw new Error(`Unexpected fetch: ${url}`);
+  }, {}, { deferAnimationFrames: true, reducedMotion: true });
+  reduced.querySelector("#question").value = "Respect reduced motion";
+  const reducedSubmission = reduced.querySelector("#chat-form").dispatch("submit");
+  await flush();
+  assert.equal(reduced.querySelector("#conversation").children[1].children[1].textContent,
+    progressiveText);
+  assert.equal(reduced.pendingFrameCount(), 0);
+  reducedTerminal.resolve(new FakeResponse(200, {
+    status: "complete", revision: 2, answer: progressiveText,
+    complete: true, sources: [], source_notes: [], warnings: [],
+  }));
+  await reducedSubmission;
+}
+
 async function testPartialErrorIsVisibleButExcludedFromLaterContext() {
   let chatCalls = 0;
   let partialPolls = 0;
@@ -439,14 +580,18 @@ async function testNetworkFailureAfterProgressLabelsPartialAndDoesNotRetry() {
   assert.match(text, /partial answer above is incomplete/);
   assert.doesNotMatch(text, /private network detail/);
   assert.equal(polls, 2);
+  assert.equal(document.activeIntervalCount(), 0);
+  assert.equal(document.pendingFrameCount(), 0);
 }
 
 function testReaderFacingCopyKeepsLimitsVisibleAndOperationsQuiet() {
   assert.match(MARKUP, /Meforash/);
   assert.match(MARKUP, /Original-language Bible exploration/);
+  assert.match(MARKUP, /AI trained on original Bible languages/);
+  assert.match(MARKUP, /modern English/);
   assert.match(MARKUP, /is not used(?: by Meforash)? for training/);
   assert.match(MARKUP, /not the original manuscripts/);
-  assert.doesNotMatch(MARKUP, /Thinking Machines|starter prompt|provider/i);
+  assert.doesNotMatch(MARKUP, /starter prompt/i);
   assert.match(MARKUP, /<details class="about-panel/);
   assert.match(MARKUP, /pattern="\[0-9\]\{6\}"/);
   assert.match(MARKUP, /Saved history is not available yet/);
@@ -490,6 +635,7 @@ async function testGuestLimitAndCodeSignInPreservePageState() {
   assert.equal(document.querySelector("#chat-view").hidden, false);
   assert.equal(document.querySelector("#sign-in-button").hidden, false);
   assert.match(document.querySelector("#quota-hint").textContent, /3 of 3 free guest questions/);
+  assert.doesNotMatch(document.querySelector("#quota-hint").textContent, /20/);
 
   document.querySelector("#question").value = "First question";
   await document.querySelector("#chat-form").dispatch("submit");
@@ -736,7 +882,11 @@ async function testDailyLimitShowsResetWithoutClearingDraft() {
   await document.querySelector("#chat-form").dispatch("submit");
   assert.equal(document.querySelector("#question").value, "Keep this account draft");
   assert.match(document.querySelector("#request-state").textContent, /Daily question limit reached.*available/);
-  assert.match(document.querySelector("#quota-hint").textContent, /0 questions remaining today.*Resets/);
+  const quota = document.querySelector("#quota-hint");
+  assert.match(allText(quota), /0 questions remaining today.*Resets/);
+  const requestMore = descendants(quota).find((node) => node.tagName === "A");
+  assert.equal(requestMore.textContent, "Request more");
+  assert.match(requestMore.href, /^mailto:support@meforash\.com\?/);
 }
 
 async function testMaliciousSessionHandoffIsDiscarded() {
@@ -814,6 +964,8 @@ async function testAuthReloadRestoresGuestOnceButNeverIntoAccount() {
   await testSourceCardsPreserveTextLayers();
   await testAnswerFormattingUsesOnlySafeDomNodes();
   await testProgressReplacesPlainNodeAndTerminalRendersOnce();
+  await testPendingPhasesUseActualElapsedTime();
+  await testBufferedRevealAndReducedMotion();
   await testPartialErrorIsVisibleButExcludedFromLaterContext();
   await testNetworkFailureAfterProgressLabelsPartialAndDoesNotRetry();
   await testGuestLimitAndCodeSignInPreservePageState();
@@ -826,7 +978,7 @@ async function testAuthReloadRestoresGuestOnceButNeverIntoAccount() {
   await testDailyLimitShowsResetWithoutClearingDraft();
   await testMaliciousSessionHandoffIsDiscarded();
   await testAuthReloadRestoresGuestOnceButNeverIntoAccount();
-  process.stdout.write("3 beta browser regression scenarios passed; 3 progressive answer scenarios passed; 10 public access scenarios passed; 3 presentation safety scenarios passed\n");
+  process.stdout.write("3 beta browser regression scenarios passed; 5 progressive answer scenarios passed; 10 public access scenarios passed; 3 presentation safety scenarios passed\n");
 })().catch((error) => {
   console.error(error);
   process.exitCode = 1;

@@ -149,6 +149,39 @@ class AccessStoreTests(unittest.TestCase):
                 secret="different-stable-access-secret-that-is-long-enough",
                 auth_client=self.auth)
 
+    def test_terms_acceptance_is_versioned_durable_idempotent_and_per_principal(self):
+        base = int(time.time())
+        guest, _ = self.access.guest(None, "192.0.2.80", now=base)
+        account = access_subject.AccessIdentity("account", USER_UUID)
+        invite = access_subject.AccessIdentity("invite", "reader-one")
+        for version, adult in (("2026-09-10", True), ("2026-09-11", False),
+                               ("2026-09-11", 1), (None, True)):
+            with self.subTest(version=version, adult=adult), self.assertRaisesRegex(
+                    access_subject.AccessError, "terms_required"):
+                self.access.accept_terms(guest, version, adult, now=base + 1)
+        self.assertFalse(self.access.terms_accepted(guest))
+        self.access.accept_terms(guest, access_subject.TERMS_VERSION, True, now=base + 2)
+        self.access.accept_terms(guest, access_subject.TERMS_VERSION, True, now=base + 1000)
+        self.assertTrue(self.access.terms_accepted(guest))
+        self.assertFalse(self.access.terms_accepted(account))
+        self.assertFalse(self.access.terms_accepted(invite))
+        with closing(sqlite3.connect(self.path)) as db:
+            row = db.execute("SELECT terms_version,accepted_unix,adult_confirmed "
+                             "FROM terms_acceptances").fetchone()
+        self.assertEqual(row, (access_subject.TERMS_VERSION, base + 2, 1))
+        reopened = access_subject.AccountAccess(
+            self.path, enabled=True, secret=ACCESS_SECRET, auth_client=self.auth)
+        self.assertTrue(reopened.terms_accepted(guest))
+        raw = self.path.read_bytes()
+        self.assertNotIn(b"192.0.2.80", raw)
+        self.assertNotIn(b"date_of_birth", raw)
+
+    def test_invitation_terms_work_with_public_access_disabled(self):
+        disabled = access_subject.AccountAccess(self.path)
+        invite = access_subject.AccessIdentity("invite", "reader-one")
+        disabled.accept_terms(invite, access_subject.TERMS_VERSION, True, now=55)
+        self.assertTrue(access_subject.AccountAccess(self.path).terms_accepted(invite))
+
     def test_otp_persists_only_hashes_and_local_session_hides_provider_material(self):
         challenge = self.access.start(" Reader@Example.COM ", "192.0.2.15", now=1000)
         identity, session = self.access.verify(
@@ -263,6 +296,7 @@ class AccessStoreTests(unittest.TestCase):
 
     def test_definitive_local_preparation_failure_releases_public_question(self):
         account = access_subject.AccessIdentity("account", USER_UUID)
+        self.access.accept_terms(account, access_subject.TERMS_VERSION, True)
         app = beta_server.BetaApplication(
             store=self.store, access=self.access, model_factory=FakeModel,
             library=BrokenLibrary())
@@ -281,6 +315,8 @@ class AccessStoreTests(unittest.TestCase):
 
     def test_legacy_usage_schema_migrates_without_changing_config_identity(self):
         config_sha = self.store.config_sha256
+        invite = access_subject.AccessIdentity("invite", "reader-one")
+        self.access.accept_terms(invite, access_subject.TERMS_VERSION, True, now=50)
         with closing(sqlite3.connect(self.path)) as db:
             db.execute("ALTER TABLE usage RENAME TO usage_v2")
             db.execute("""CREATE TABLE usage(
@@ -295,6 +331,7 @@ class AccessStoreTests(unittest.TestCase):
         reopened = beta_server.BetaStore(self.path, invite_config())
         self.assertEqual(reopened.config_sha256, config_sha)
         self.assertEqual(reopened.usage("reader-one")["user_accounted_nano_usd"], 7)
+        self.assertTrue(access_subject.AccountAccess(self.path).terms_accepted(invite))
         with closing(sqlite3.connect(self.path)) as db:
             indexes = {row[1] for row in db.execute("PRAGMA index_list(usage)")}
         self.assertIn("usage_identity_quota", indexes)
@@ -413,6 +450,10 @@ class HTTPAccessTests(unittest.TestCase):
         connection.close()
         return result
 
+    def accept_terms(self, cookie, body=None):
+        return self.request("POST", "/api/accept-terms", body or {
+            "terms_version": access_subject.TERMS_VERSION, "adult": True}, cookie)
+
     @staticmethod
     def cookies(headers):
         return [value for name, value in headers if name.lower() == "set-cookie"]
@@ -424,9 +465,21 @@ class HTTPAccessTests(unittest.TestCase):
         status, value, headers = self.request("POST", "/api/guest", {})
         self.assertEqual(status, 200)
         self.assertEqual(value["access"], {"kind": "guest", "questions_remaining": 3,
-                                          "daily_limit": 20, "reset_at": None})
+            "daily_limit": 20, "reset_at": None,
+            "terms_version": access_subject.TERMS_VERSION, "terms_accepted": False})
         guest_cookie = self.cookies(headers)[0].split(";", 1)[0]
         self.assertIn("HttpOnly", self.cookies(headers)[0])
+        status, value, _ = self.request(
+            "POST", "/api/chat", {"messages": [{"role": "user", "content": "fixture"}]},
+            guest_cookie)
+        self.assertEqual((status, value["error"]["code"]), (403, "terms_required"))
+        with closing(sqlite3.connect(self.path)) as db:
+            self.assertEqual(db.execute("SELECT COUNT(*) FROM usage").fetchone()[0], 0)
+        status, value, _ = self.accept_terms(guest_cookie)
+        self.assertEqual(status, 200)
+        self.assertTrue(value["access"]["terms_accepted"])
+        with closing(sqlite3.connect(self.path)) as db:
+            self.assertEqual(db.execute("SELECT COUNT(*) FROM usage").fetchone()[0], 0)
         for remaining in (2, 1, 0):
             status, value, _ = self.request(
                 "POST", "/api/chat", {"messages": [{"role": "user", "content": "fixture"}]},
@@ -460,10 +513,18 @@ class HTTPAccessTests(unittest.TestCase):
             f"{guest_cookie}; {challenge_cookie}")
         self.assertEqual(status, 200)
         self.assertEqual(value["access"]["kind"], "account")
+        self.assertFalse(value["access"]["terms_accepted"])
         self.assertNotIn(USER_UUID, json.dumps(value))
         self.assertNotIn("reader@example.com", json.dumps(value))
         account_cookie = next(item for item in self.cookies(headers)
                               if item.startswith(access_subject.ACCOUNT_COOKIE)).split(";", 1)[0]
+        status, value, _ = self.request(
+            "POST", "/api/chat", {"messages": [{"role": "user", "content": "fixture"}]},
+            f"{guest_cookie}; {account_cookie}")
+        self.assertEqual((status, value["error"]["code"]), (403, "terms_required"))
+        status, value, _ = self.accept_terms(f"{guest_cookie}; {account_cookie}")
+        self.assertEqual(status, 200)
+        self.assertTrue(value["access"]["terms_accepted"])
         status, value, headers = self.request(
             "POST", "/api/logout", {}, f"{guest_cookie}; {account_cookie}")
         self.assertEqual((status, value), (200, {"status": "signed_out"}))
@@ -472,7 +533,46 @@ class HTTPAccessTests(unittest.TestCase):
                             for item in cleared))
         self.assertFalse(any(item.startswith(access_subject.GUEST_COOKIE) for item in cleared))
         status, value, _ = self.request("GET", "/api/status", cookie=guest_cookie)
-        self.assertEqual((status, value["access"]["kind"]), (200, "guest"))
+        self.assertEqual((status, value["access"]["kind"],
+                          value["access"]["terms_accepted"]), (200, "guest", False))
+
+    def test_email_start_remains_available_without_guest_or_terms_identity(self):
+        status, value, headers = self.request(
+            "POST", "/api/auth/start", {"email": "standalone@example.com"})
+        self.assertEqual((status, value), (200, {"status": "code_sent"}))
+        self.assertTrue(any(item.startswith(access_subject.CHALLENGE_COOKIE)
+                            for item in self.cookies(headers)))
+        self.assertEqual(self.auth.started, ["standalone@example.com"])
+
+    def test_accept_terms_requires_identity_origin_and_exact_adult_contract(self):
+        status, value, _ = self.accept_terms(None)
+        self.assertEqual((status, value["error"]["code"]), (401, "unauthorized"))
+        _, _, headers = self.request("POST", "/api/guest", {})
+        guest_cookie = self.cookies(headers)[0].split(";", 1)[0]
+        bad = [
+            {},
+            {"terms_version": access_subject.TERMS_VERSION, "adult": False},
+            {"terms_version": access_subject.TERMS_VERSION, "adult": 1},
+            {"terms_version": "old", "adult": True},
+            {"terms_version": access_subject.TERMS_VERSION, "adult": True, "extra": 1},
+        ]
+        for body in bad:
+            with self.subTest(body=body):
+                status, value, _ = self.request(
+                    "POST", "/api/accept-terms", body, guest_cookie)
+                self.assertEqual((status, value["error"]["code"]),
+                                 (403, "terms_required"))
+        status, value, _ = self.request(
+            "POST", "/api/accept-terms",
+            {"terms_version": access_subject.TERMS_VERSION, "adult": True},
+            guest_cookie, extra={"Origin": "https://wrong.invalid"})
+        self.assertEqual((status, value["error"]["code"]), (403, "origin_rejected"))
+        status, value, _ = self.request("GET", "/api/status", cookie=guest_cookie)
+        self.assertFalse(value["access"]["terms_accepted"])
+        status, value, _ = self.accept_terms(guest_cookie)
+        self.assertEqual(status, 200)
+        self.assertEqual(value["access"]["terms_version"], access_subject.TERMS_VERSION)
+        self.assertTrue(value["access"]["terms_accepted"])
 
     def test_untrusted_x_real_ip_is_ignored_by_default(self):
         _, _, first = self.request("POST", "/api/guest", {}, extra={"X-Real-IP": "192.0.2.1"})

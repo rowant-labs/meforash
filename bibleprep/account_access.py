@@ -35,6 +35,7 @@ DEFAULT_ACCOUNT_DAILY_LIMIT = 20
 MAX_ACCOUNT_DAILY_LIMIT = 1_000
 MAX_IDENTITIES = 100_000
 RATE_RETENTION_SECONDS = 24 * 3600
+TERMS_VERSION = "2026-09-11"
 
 
 class AccessError(RuntimeError):
@@ -157,9 +158,10 @@ class AccountAccess:
             if not isinstance(secret, str) or len(secret.encode("utf-8")) < 32:
                 raise ValueError("Public access requires a stable 32-byte HMAC secret.")
             self.secret = secret.encode("utf-8")
-            self._initialize()
         else:
             self.secret = b""
+        # Invitation access also uses the same versioned acceptance ledger.
+        self._initialize()
 
     @classmethod
     def from_environ(cls, path, environ=None, *, auth_client=None):
@@ -202,18 +204,27 @@ class AccountAccess:
                     kind TEXT NOT NULL, key_hmac TEXT NOT NULL, created_unix INTEGER NOT NULL);
                 CREATE INDEX IF NOT EXISTS access_rate_lookup
                     ON access_rate_events(kind,key_hmac,created_unix);
+                CREATE TABLE IF NOT EXISTS terms_acceptances(
+                    principal_kind TEXT NOT NULL
+                        CHECK(principal_kind IN ('guest','account','invite')),
+                    principal_id TEXT NOT NULL,
+                    terms_version TEXT NOT NULL,
+                    accepted_unix INTEGER NOT NULL,
+                    adult_confirmed INTEGER NOT NULL CHECK(adult_confirmed=1),
+                    PRIMARY KEY(principal_kind,principal_id,terms_version));
             """)
             db.execute("BEGIN IMMEDIATE")
-            fingerprint = hashlib.sha256(
-                b"meforash-access-hmac-v1\0" + self.secret).hexdigest()
-            stored = db.execute(
-                "SELECT value FROM metadata WHERE key='access_hmac_sha256'").fetchone()
-            if stored is None:
-                db.execute("INSERT INTO metadata(key,value) VALUES('access_hmac_sha256',?)",
-                           (fingerprint,))
-            elif not hmac.compare_digest(stored[0], fingerprint):
-                db.execute("ROLLBACK")
-                raise ValueError("The public-access HMAC secret changed for this ledger.")
+            if self.enabled:
+                fingerprint = hashlib.sha256(
+                    b"meforash-access-hmac-v1\0" + self.secret).hexdigest()
+                stored = db.execute(
+                    "SELECT value FROM metadata WHERE key='access_hmac_sha256'").fetchone()
+                if stored is None:
+                    db.execute("INSERT INTO metadata(key,value) VALUES('access_hmac_sha256',?)",
+                               (fingerprint,))
+                elif not hmac.compare_digest(stored[0], fingerprint):
+                    db.execute("ROLLBACK")
+                    raise ValueError("The public-access HMAC secret changed for this ledger.")
             self._cleanup(db, int(time.time()))
             db.execute("COMMIT")
 
@@ -229,6 +240,8 @@ class AccountAccess:
 
     def _cleanup(self, db, now):
         db.execute("DELETE FROM guest_tokens WHERE expires_unix<=?", (now,))
+        db.execute("DELETE FROM terms_acceptances WHERE principal_kind='guest' "
+                   "AND principal_id NOT IN (SELECT token_hmac FROM guest_tokens)")
         db.execute("DELETE FROM account_sessions WHERE expires_unix<=?", (now,))
         db.execute("DELETE FROM auth_challenges WHERE expires_unix<=?", (now,))
         db.execute("DELETE FROM access_rate_events WHERE created_unix<?",
@@ -375,13 +388,52 @@ class AccountAccess:
                 db.execute("DELETE FROM account_sessions WHERE token_sha256=?",
                            (hashlib.sha256(token.encode()).hexdigest(),))
 
+    @staticmethod
+    def _terms_identity(identity):
+        if not isinstance(identity, AccessIdentity):
+            raise AccessError("unauthorized")
+        return identity.kind, identity.subject
+
+    def accept_terms(self, identity, terms_version, adult, *, now=None):
+        """Record the current policy and an adult representation, without age data."""
+        if terms_version != TERMS_VERSION or adult is not True:
+            raise AccessError("terms_required")
+        kind, subject = self._terms_identity(identity)
+        accepted = int(time.time() if now is None else now)
+        with closing(self._connect()) as db:
+            db.execute("BEGIN IMMEDIATE")
+            existing = db.execute(
+                "SELECT 1 FROM terms_acceptances WHERE principal_kind=? "
+                "AND principal_id=? AND terms_version=?",
+                (kind, subject, TERMS_VERSION)).fetchone()
+            if existing is None:
+                if db.execute("SELECT COUNT(*) FROM terms_acceptances").fetchone()[0] >= MAX_IDENTITIES:
+                    db.execute("ROLLBACK")
+                    raise AccessError("rate_limited")
+                db.execute("INSERT INTO terms_acceptances VALUES(?,?,?,?,1)",
+                           (kind, subject, TERMS_VERSION, accepted))
+            db.execute("COMMIT")
+
+    def terms_accepted(self, identity):
+        kind, subject = self._terms_identity(identity)
+        with closing(self._connect()) as db:
+            row = db.execute(
+                "SELECT adult_confirmed FROM terms_acceptances WHERE principal_kind=? "
+                "AND principal_id=? AND terms_version=?",
+                (kind, subject, TERMS_VERSION)).fetchone()
+        return row == (1,)
+
     def access_description(self, identity, store, *, now=None):
         if identity.kind == "invite":
             return {"kind": "invite", "questions_remaining": None,
-                    "daily_limit": self.daily_limit, "reset_at": None}
+                    "daily_limit": self.daily_limit, "reset_at": None,
+                    "terms_version": TERMS_VERSION,
+                    "terms_accepted": self.terms_accepted(identity)}
         remaining = store.questions_remaining(
             identity, GUEST_QUESTION_LIMIT if identity.kind == "guest" else self.daily_limit,
             day=None if identity.kind == "guest" else utc_day(now))
         return {"kind": identity.kind, "questions_remaining": remaining,
                 "daily_limit": self.daily_limit,
-                "reset_at": None if identity.kind == "guest" else next_utc_reset(now)}
+                "reset_at": None if identity.kind == "guest" else next_utc_reset(now),
+                "terms_version": TERMS_VERSION,
+                "terms_accepted": self.terms_accepted(identity)}

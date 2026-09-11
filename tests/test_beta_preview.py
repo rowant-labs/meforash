@@ -111,7 +111,11 @@ class PreviewHTTPTests(unittest.TestCase):
         status, headers, body = self.request("POST", "/api/login", {
             "invite_id": "reader-one", "invite_secret": SECRET})
         self.assertEqual(status, 200, body)
-        return headers["Set-Cookie"].split(";", 1)[0]
+        cookie = headers["Set-Cookie"].split(";", 1)[0]
+        status, _, _ = self.request("POST", "/api/accept-terms", {
+            "terms_version": "2026-09-11", "adult": True}, cookie)
+        self.assertEqual(status, 200)
+        return cookie
 
     def test_static_allowlist_and_security_headers(self):
         status, headers, body = self.request("GET", "/")
@@ -120,7 +124,7 @@ class PreviewHTTPTests(unittest.TestCase):
         self.assertEqual(headers["Cache-Control"], "no-store")
         self.assertIn("script-src 'self'", headers["Content-Security-Policy"])
         self.assertEqual(headers["X-Frame-Options"], "DENY")
-        for path in ("/beta/app.js", "/beta/styles.css", "/index.html"):
+        for path in ("/beta/app.js", "/beta/styles.css", "/index.html", "/privacy", "/terms", "/brand", "/favicon.svg", "/beta/consent.js", "/beta/legal.css"):
             self.assertEqual(self.request("GET", path)[0], 200)
         for path in ("/.env.example", "/../bibleprep/beta_server.py", "/app.js",
                      "/styles.css", "/beta/app.js?changed=1"):
