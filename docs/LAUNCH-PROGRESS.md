@@ -50,3 +50,10 @@ The approved sign-in flow preserves the guest's active conversation through auth
 ## Account implementation follow-up
 
 Guest access, same-page email-code sign-in, adjustable 20-question UTC daily account allowances, and temporary sign-in continuity are implemented and tested locally. The dedicated email sender is verified and SMTP is configured. Public rollout is still gated while hosted checks and actual email delivery are verified. See [account access](ACCOUNT-ACCESS.md). No history migration, saved-history interface, queue, streaming change or training was included.
+
+
+## Hosted accounts — September 11, 2026
+
+Guest access and email accounts are deployed with three guest questions and an adjustable 20 questions per account per UTC day. The existing private usage ledger was backed up before its transactional schema migration. Hosted access discovery, secure guest cookies, remaining allowance and foreign-origin rejection passed. Supabase code verification and Resend SMTP authentication were verified independently; real-inbox delivery still needs an explicitly authorized test. No training or paid model generation accompanied this account rollout.
+
+The current small beta retains single-generation concurrency: busy requests consume no question. A fair waiting queue is a follow-up rather than a prerequisite for this bounded rollout. Saved history remains disabled. The custom main domain still needs connection and HTTPS verification; the Railway URL is the active origin. See [account access](ACCOUNT-ACCESS.md).

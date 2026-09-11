@@ -1,8 +1,8 @@
 # Optional saved conversation history
 
-September 11, 2026. This is an unapplied database design for optional Meforash accounts and saved history. A dedicated Meforash Supabase project was created under Rowant Labs in the US East (Ohio) region on the Micro compute size, independently verified `ACTIVE_HEALTHY`, and linked with the local Supabase CLI. No migration has been deployed, and guest access, accounts and saved conversations are not operational. The current invitation flow and memory-only temporary chats remain unchanged. Project identifiers, organization identifiers, database credentials and local account paths stay out of this public record.
+September 11, 2026. This is an unapplied database design for optional saved history. The dedicated Meforash Supabase project is active under Rowant Labs. Guest access and email accounts are implemented separately; see [account access](ACCOUNT-ACCESS.md) for current verification and deployment status. No history migration has been applied and no conversation is automatically saved to Supabase. Project identifiers, credentials and local account paths stay private.
 
-The approved product policy is three guest questions before sign-in, followed by 20 questions per account per day. The account allowance must be operator-adjustable without a code change. Reset timing, guest-abuse controls and authentication methods remain implementation decisions. These limits are requirements for the future account flow, not behavior of the current invitation backend.
+The account flow implements three guest questions, followed by an adjustable 20 questions per account per day, resetting at midnight UTC. Signing in preserves the active conversation and draft. Persistent saving remains a separate, explicit action to implement.
 
 ## Product and privacy boundary
 
@@ -12,7 +12,7 @@ Saved history persists until the reader deletes a message or conversation, or de
 
 The model provider still receives the conversation context needed to answer a requested question whether or not the reader saves it. Database storage and model processing are separate disclosures.
 
-When a guest chooses to sign in after beginning a conversation, the future interface must preserve that conversation through the sign-in transition using temporary storage scoped to the same browser tab. After sign-in, the interface may restore the conversation in memory, but it must not automatically insert the conversation or its messages into Supabase. Persistent history still requires a separate explicit save action. The temporary handoff data must be cleared after successful restoration, cancellation or sign-out, and must not become cross-tab history.
+When a guest chooses to sign in after beginning a conversation, the interface must preserve that conversation through the sign-in transition using temporary storage scoped to the same browser tab. After sign-in, the interface may restore the conversation in memory, but it must not automatically insert the conversation or its messages into Supabase. Persistent history still requires a separate explicit save action. The temporary handoff data must be cleared after successful restoration, cancellation or sign-out, and must not become cross-tab history.
 
 ## Schema and access model
 
@@ -27,7 +27,7 @@ The migration revokes all table privileges from `anon`, `authenticated`, and `se
 
 ## Requirements for application integration
 
-Before accounts or saving can be described as available:
+Before persistent saving can be described as available (account-only requirements below are now implemented separately):
 
 1. Review the dedicated project's plan, backups, retention, logs and data-processing terms, then apply and verify the migration before enabling application access.
 2. Add Supabase Auth and decide which sign-in methods are supported. Do not silently treat current invitation IDs as Supabase accounts or migrate invite secrets. Allow exactly three guest questions before requiring sign-in, with separately reviewed abuse controls.

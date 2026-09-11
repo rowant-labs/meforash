@@ -547,21 +547,20 @@
     "further_training_required": false,
     "evaluation_severity_audit_blocks_initial_beta": false,
     "next_steps": [
-      "Verify exact retained B streaming transport and latency before changing live sampling.",
+      "Complete one explicitly authorized real-inbox sign-in delivery test.",
       "Connect meforash.com DNS and switch canonical origin only after HTTPS verification.",
-      "Apply and verify the prepared history migration and row-level policies against the dedicated Meforash Supabase project before enabling application access.",
-      "Implement three-question guest access, authentication, restart-safe adjustable 20-question daily account limits and a fair request queue before opening guest traffic.",
-      "Preserve the active conversation through sign-in with temporary same-tab storage; restore it only to memory and require a separate explicit action for persistent saving.",
-      "Configure reviewed transactional email and domain settings for authentication."
+      "Add a fair request queue; the bounded beta currently rejects busy requests without consuming allowance.",
+      "Implement optional saved history and deletion controls, then apply and test its prepared row-level policies before enabling saves.",
+      "Verify exact retained B streaming transport and latency before changing live sampling."
     ],
     "hosting_access_observation": "Railway authenticated; owner beta hosted and verified.",
     "publication_status": "Reviewed source published to public rowant-labs/meforash main on September 11, 2026; private runtime assets excluded.",
     "brand": "Meforash",
     "repository_target": "rowant-labs/meforash",
-    "implementation_status": "owner_beta_hosted_HTTPS_B_answer_verified",
-    "optional_accounts": "Implemented and tested locally; hosted public rollout checks pending",
+    "implementation_status": "guest_and_email_account_beta_hosted",
+    "optional_accounts": "Email-code accounts deployed; real-inbox delivery test pending",
     "account_access_policy": {
-      "status": "implemented_locally_hosted_rollout_checks_pending",
+      "status": "hosted_real_inbox_delivery_test_pending",
       "supabase_project": {
         "dedicated_to_meforash": true,
         "organization": "Rowant Labs",
@@ -593,7 +592,7 @@
     "hosted_answer_elapsed_seconds": 32.416,
     "hosted_answer_estimated_usd": 0.00464031,
     "source_bundle_files": 25,
-    "public_guest_access": false,
+    "public_guest_access": true,
     "saved_conversations_enabled": false,
     "b_retention": "Both existing checkpoint expiries removed and verified; private; estimated combined storage $2.016734/month.",
     "restart_accounting_verified": true,
