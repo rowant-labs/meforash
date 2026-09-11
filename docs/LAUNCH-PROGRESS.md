@@ -45,3 +45,8 @@ Streaming is a prospective transport change. Tinker documents streaming text and
 The owner approved a dedicated Meforash Supabase project under Rowant Labs, three guest questions before sign-in, and an initial allowance of 20 questions per account per day that the operator can adjust. The project was created in US East (Ohio) on the Micro compute size, independently verified `ACTIVE_HEALTHY`, and linked with the local Supabase CLI. No migration has been applied. Guest access, authentication, quota enforcement and saved-history integration remain unimplemented; invitation access and session-only conversation memory are unchanged. Global and per-account limits must survive restarts, and guest limits need abuse controls independently of model topic.
 
 The approved sign-in flow preserves the guest's active conversation through authentication using temporary same-tab storage. It restores that conversation to the signed-in page's in-memory state and clears the handoff data after use or abandonment. Signing in does not automatically save the conversation to persistent history; saving remains a separate explicit action.
+
+
+## Account implementation follow-up
+
+Guest access, same-page email-code sign-in, adjustable 20-question UTC daily account allowances, and temporary sign-in continuity are implemented and tested locally. The dedicated email sender is verified and SMTP is configured. Public rollout is still gated while hosted checks and actual email delivery are verified. See [account access](ACCOUNT-ACCESS.md). No history migration, saved-history interface, queue, streaming change or training was included.

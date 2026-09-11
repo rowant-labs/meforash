@@ -22,6 +22,19 @@ import threading
 import time
 from urllib.parse import urlsplit
 
+from bibleprep.account_access import (
+    ACCOUNT_COOKIE,
+    ACCOUNT_SESSION_SECONDS,
+    CHALLENGE_COOKIE,
+    CHALLENGE_SECONDS,
+    GUEST_COOKIE,
+    GUEST_COOKIE_SECONDS,
+    AccessError,
+    AccessIdentity,
+    AccountAccess,
+    utc_day,
+    validated_peer,
+)
 from bibleprep.chat_model import ChatModel, ChatModelError, build_payload
 from bibleprep.chat_sources import PassageLibrary
 from bibleprep.chat_server import strict_json
@@ -41,6 +54,7 @@ MAX_RETAINED_RESULTS = 20
 SCRYPT_N = 2**14
 SCRYPT_R = 8
 SCRYPT_P = 1
+GLOBAL_COST_CEILING_NANO = 5_000_000_000
 
 
 class BetaError(RuntimeError):
@@ -154,14 +168,44 @@ class BetaStore:
                 CREATE TABLE IF NOT EXISTS sessions(
                     token_sha256 TEXT PRIMARY KEY, invite_id TEXT NOT NULL,
                     expires_unix INTEGER NOT NULL, FOREIGN KEY(invite_id) REFERENCES invites(invite_id));
-                CREATE TABLE IF NOT EXISTS usage(
-                    request_id TEXT PRIMARY KEY, invite_id TEXT NOT NULL,
-                    created_unix INTEGER NOT NULL, updated_unix INTEGER NOT NULL,
-                    reserved_nano INTEGER NOT NULL, actual_nano INTEGER,
-                    status TEXT NOT NULL,
-                    FOREIGN KEY(invite_id) REFERENCES invites(invite_id));
             """)
             db.execute("BEGIN IMMEDIATE")
+            columns = [row[1] for row in db.execute("PRAGMA table_info(usage)").fetchall()]
+            if columns and "principal_kind" not in columns:
+                db.execute("ALTER TABLE usage RENAME TO usage_legacy")
+                db.execute("""CREATE TABLE usage(
+                        request_id TEXT PRIMARY KEY, invite_id TEXT,
+                        principal_kind TEXT NOT NULL,
+                        principal_id TEXT NOT NULL,
+                        quota_day INTEGER, quota_charged INTEGER NOT NULL DEFAULT 0,
+                        created_unix INTEGER NOT NULL, updated_unix INTEGER NOT NULL,
+                        reserved_nano INTEGER NOT NULL, actual_nano INTEGER,
+                        status TEXT NOT NULL,
+                        FOREIGN KEY(invite_id) REFERENCES invites(invite_id))""")
+                db.execute("""INSERT INTO usage(
+                        request_id,invite_id,principal_kind,principal_id,
+                        quota_day,quota_charged,created_unix,updated_unix,
+                        reserved_nano,actual_nano,status)
+                    SELECT request_id,invite_id,'invite',invite_id,NULL,0,
+                        created_unix,updated_unix,reserved_nano,actual_nano,status
+                    FROM usage_legacy""")
+                db.execute("DROP TABLE usage_legacy")
+            elif not columns:
+                db.execute("""
+                    CREATE TABLE usage(
+                        request_id TEXT PRIMARY KEY, invite_id TEXT,
+                        principal_kind TEXT NOT NULL,
+                        principal_id TEXT NOT NULL,
+                        quota_day INTEGER, quota_charged INTEGER NOT NULL DEFAULT 0,
+                        created_unix INTEGER NOT NULL, updated_unix INTEGER NOT NULL,
+                        reserved_nano INTEGER NOT NULL, actual_nano INTEGER,
+                        status TEXT NOT NULL,
+                        FOREIGN KEY(invite_id) REFERENCES invites(invite_id))
+                """)
+            db.execute("CREATE INDEX IF NOT EXISTS usage_identity_quota ON usage("
+                       "principal_kind,principal_id,quota_charged,quota_day)")
+            db.execute("CREATE INDEX IF NOT EXISTS usage_identity_recent ON usage("
+                       "principal_kind,principal_id,created_unix DESC)")
             current = db.execute("SELECT value FROM metadata WHERE key='config_sha256'").fetchone()
             if current is None:
                 db.execute("INSERT INTO metadata(key,value) VALUES('config_sha256',?)",
@@ -236,33 +280,66 @@ class BetaStore:
     def _accounted_sql():
         return "COALESCE(SUM(CASE WHEN actual_nano IS NULL THEN reserved_nano ELSE actual_nano END),0)"
 
-    def reserve(self, invite_id, request_id, now=None):
+    @staticmethod
+    def _identity(value):
+        if isinstance(value, str):
+            return AccessIdentity("invite", value)
+        if isinstance(value, AccessIdentity):
+            return value
+        raise BetaError("unauthorized")
+
+    def reserve(self, identity, request_id, now=None, *, daily_limit=20, guest_limit=3):
         now = int(time.time() if now is None else now)
+        identity = self._identity(identity)
         with closing(self._connect()) as db:
             db.execute("BEGIN IMMEDIATE")
-            invite = db.execute("SELECT user_cap_nano,enabled FROM invites WHERE invite_id=?",
-                                (invite_id,)).fetchone()
-            if invite is None or invite[1] != 1:
-                db.execute("ROLLBACK")
-                raise BetaError("unauthorized")
-            recent = db.execute("SELECT created_unix FROM usage WHERE invite_id=? "
-                                "ORDER BY created_unix DESC LIMIT ?",
-                                (invite_id, RATE_REQUESTS_PER_WINDOW)).fetchall()
-            if (recent and now - recent[0][0] < MIN_REQUEST_INTERVAL_SECONDS) or (
-                    len(recent) >= RATE_REQUESTS_PER_WINDOW
-                    and now - recent[-1][0] < RATE_WINDOW_SECONDS):
-                db.execute("ROLLBACK")
-                raise BetaError("rate_limited")
-            user_used = db.execute(
-                f"SELECT {self._accounted_sql()} FROM usage WHERE invite_id=?", (invite_id,)).fetchone()[0]
+            invite_id = identity.subject if identity.kind == "invite" else None
+            if identity.kind == "invite":
+                invite = db.execute("SELECT user_cap_nano,enabled FROM invites WHERE invite_id=?",
+                                    (invite_id,)).fetchone()
+                if invite is None or invite[1] != 1:
+                    db.execute("ROLLBACK")
+                    raise BetaError("unauthorized")
+                recent = db.execute(
+                    "SELECT created_unix FROM usage WHERE principal_kind='invite' AND principal_id=? "
+                    "ORDER BY created_unix DESC LIMIT ?",
+                    (identity.subject, RATE_REQUESTS_PER_WINDOW)).fetchall()
+                if (recent and now - recent[0][0] < MIN_REQUEST_INTERVAL_SECONDS) or (
+                        len(recent) >= RATE_REQUESTS_PER_WINDOW
+                        and now - recent[-1][0] < RATE_WINDOW_SECONDS):
+                    db.execute("ROLLBACK")
+                    raise BetaError("rate_limited")
+                user_used = db.execute(
+                    f"SELECT {self._accounted_sql()} FROM usage "
+                    "WHERE principal_kind='invite' AND principal_id=?",
+                    (identity.subject,)).fetchone()[0]
+                if user_used + MAX_RESERVATION_NANO > invite[0]:
+                    db.execute("ROLLBACK")
+                    raise BetaError("allowance_exhausted")
+                quota_day, quota_charged = None, 0
+            else:
+                quota_day = None if identity.kind == "guest" else utc_day(now)
+                condition = "principal_kind=? AND principal_id=? AND quota_charged=1"
+                parameters = [identity.kind, identity.subject]
+                if quota_day is not None:
+                    condition += " AND quota_day=?"
+                    parameters.append(quota_day)
+                used = db.execute(f"SELECT COUNT(*) FROM usage WHERE {condition}", parameters).fetchone()[0]
+                limit = guest_limit if identity.kind == "guest" else daily_limit
+                if used >= limit:
+                    db.execute("ROLLBACK")
+                    raise BetaError("guest_limit_reached" if identity.kind == "guest"
+                                    else "daily_limit_reached")
+                quota_charged = 1
             global_used = db.execute(f"SELECT {self._accounted_sql()} FROM usage").fetchone()[0]
             global_cap = int(db.execute("SELECT value FROM metadata WHERE key='global_cap_nano'").fetchone()[0])
-            if (user_used + MAX_RESERVATION_NANO > invite[0]
-                    or global_used + MAX_RESERVATION_NANO > global_cap):
+            global_cap = min(global_cap, GLOBAL_COST_CEILING_NANO)
+            if global_used + MAX_RESERVATION_NANO > global_cap:
                 db.execute("ROLLBACK")
                 raise BetaError("allowance_exhausted")
-            db.execute("INSERT INTO usage VALUES(?,?,?,?,?,?,?)", (
-                request_id, invite_id, now, now, MAX_RESERVATION_NANO, None, "reserved"))
+            db.execute("INSERT INTO usage VALUES(?,?,?,?,?,?,?,?,?,?,?)", (
+                request_id, invite_id, identity.kind, identity.subject, quota_day,
+                quota_charged, now, now, MAX_RESERVATION_NANO, None, "reserved"))
             db.execute("COMMIT")
 
     def mark_submitted(self, request_id):
@@ -273,7 +350,8 @@ class BetaStore:
         if changed != 1:
             raise BetaError("reservation_changed")
 
-    def finalize(self, request_id, *, actual_nano=None, uncertain=False):
+    def finalize(self, request_id, *, actual_nano=None, uncertain=False,
+                 release_question=False):
         if uncertain:
             status, actual_nano = "uncertain", None
         else:
@@ -281,27 +359,46 @@ class BetaStore:
                 raise BetaError("usage_unverifiable")
             status = "complete"
         with closing(self._connect()) as db:
-            changed = db.execute("UPDATE usage SET status=?,actual_nano=?,updated_unix=? "
+            changed = db.execute("UPDATE usage SET status=?,actual_nano=?,updated_unix=?,"
+                                 "quota_charged=CASE WHEN ? THEN 0 ELSE quota_charged END "
                                  "WHERE request_id=? AND status IN ('reserved','submitted','running')",
-                                 (status, actual_nano, int(time.time()), request_id)).rowcount
+                                 (status, actual_nano, int(time.time()), release_question,
+                                  request_id)).rowcount
         if changed != 1:
             raise BetaError("reservation_changed")
 
-    def usage(self, invite_id):
+    def usage(self, identity):
+        identity = self._identity(identity)
         with closing(self._connect()) as db:
-            user = db.execute(f"SELECT {self._accounted_sql()} FROM usage WHERE invite_id=?",
-                              (invite_id,)).fetchone()[0]
+            user = db.execute(
+                f"SELECT {self._accounted_sql()} FROM usage WHERE principal_kind=? AND principal_id=?",
+                (identity.kind, identity.subject)).fetchone()[0]
             total = db.execute(f"SELECT {self._accounted_sql()} FROM usage").fetchone()[0]
-            uncertain = db.execute("SELECT COUNT(*) FROM usage WHERE invite_id=? AND status='uncertain'",
-                                   (invite_id,)).fetchone()[0]
+            uncertain = db.execute(
+                "SELECT COUNT(*) FROM usage WHERE principal_kind=? AND principal_id=? "
+                "AND status='uncertain'", (identity.kind, identity.subject)).fetchone()[0]
         return {"user_accounted_nano_usd": user, "global_accounted_nano_usd": total,
                 "uncertain_requests": uncertain,
                 "reservation_nano_usd_per_request": MAX_RESERVATION_NANO}
 
+    def questions_remaining(self, identity, limit, *, day=None):
+        identity = self._identity(identity)
+        sql = ("SELECT COUNT(*) FROM usage WHERE principal_kind=? AND principal_id=? "
+               "AND quota_charged=1")
+        parameters = [identity.kind, identity.subject]
+        if day is not None:
+            sql += " AND quota_day=?"
+            parameters.append(day)
+        with closing(self._connect()) as db:
+            used = db.execute(sql, parameters).fetchone()[0]
+        return max(0, limit - used)
+
 
 class BetaApplication:
-    def __init__(self, *, store, root=ROOT, model_factory=None, library=None):
+    def __init__(self, *, store, root=ROOT, model_factory=None, library=None,
+                 access=None):
         self.store = store
+        self.access = access if access is not None else AccountAccess.from_environ(store.path)
         self.root = Path(root)
         self.model_factory = model_factory or (lambda: ChatModel(root=self.root))
         self.library = library if library is not None else PassageLibrary(self.root)
@@ -321,7 +418,8 @@ class BetaApplication:
         for request_id in completed[:-MAX_RETAINED_RESULTS]:
             del self.jobs[request_id]
 
-    def submit(self, invite_id, body):
+    def submit(self, identity, body):
+        identity = self.store._identity(identity)
         if not isinstance(body, dict) or set(body) != {"messages"}:
             raise BetaError("invalid_messages")
         messages = body["messages"]
@@ -336,83 +434,97 @@ class BetaApplication:
             if self.running:
                 raise BetaError("busy")
             request_id = secrets.token_urlsafe(24)
-            self.store.reserve(invite_id, request_id)
+            self.store.reserve(identity, request_id, daily_limit=self.access.daily_limit)
             self.running = True
-            self.jobs[request_id] = {"invite_id": invite_id, "status": "running",
+            self.jobs[request_id] = {"identity": identity, "status": "running",
                                      "created": time.monotonic()}
-        worker = threading.Thread(target=self._generate, args=(request_id, invite_id, messages), daemon=True)
+        worker = threading.Thread(target=self._generate, args=(request_id, identity, messages), daemon=True)
         try:
             worker.start()
         except Exception:
-            self.store.finalize(request_id, actual_nano=0)
+            self.store.finalize(request_id, actual_nano=0, release_question=True)
             with self.lock:
                 self.running = False
                 self.jobs.pop(request_id, None)
             raise BetaError("worker_unavailable") from None
         return request_id
 
-    def _generate(self, request_id, invite_id, messages):
+    def _generate(self, request_id, identity, messages):
         try:
-            self.store.mark_submitted(request_id)
             if self.model is None:
                 self.model = self.model_factory()
             sources, notes = self.library.select(messages)
-            result = self.model.generate(messages, evidence_context=self.library.context(sources, notes))
-            value = result.get("usage", {}).get("estimated_usd")
-            if type(value) not in (float, int) or not math.isfinite(value) or value < 0:
-                raise BetaError("usage_unverifiable")
-            actual = int((Decimal(str(value)) * Decimal(1_000_000_000)).to_integral_value(
-                rounding=ROUND_CEILING))
-            self.store.finalize(request_id, actual_nano=actual)
-            outcome = {"status": "complete", "answer": result["answer"],
-                       "sources": sources, "source_notes": notes,
-                       "complete": result["answer_complete"],
-                       "warnings": result.get("warnings", [])}
-        except ChatModelError as exc:
-            if exc.code in {"invalid_messages", "input_too_long", "not_configured",
-                            "checkpoint_unavailable", "runtime_unavailable", "blocked", "closed"}:
-                try:
-                    self.store.finalize(request_id, actual_nano=0)
-                except BetaError:
-                    pass
-            else:
-                try:
-                    self.store.finalize(request_id, uncertain=True)
-                except BetaError:
-                    pass
-            outcome = {"status": "error", "error": {"code": "generation_unavailable",
-                "message": "The beta could not finish this request. It was not retried."}}
+            evidence_context = self.library.context(sources, notes)
         except Exception:
             try:
-                self.store.finalize(request_id, uncertain=True)
+                self.store.finalize(request_id, actual_nano=0, release_question=True)
             except BetaError:
                 pass
             outcome = {"status": "error", "error": {"code": "generation_unavailable",
                 "message": "The beta could not finish this request. It was not retried."}}
+        else:
+            try:
+                self.store.mark_submitted(request_id)
+                result = self.model.generate(messages, evidence_context=evidence_context)
+                value = result.get("usage", {}).get("estimated_usd")
+                if type(value) not in (float, int) or not math.isfinite(value) or value < 0:
+                    raise BetaError("usage_unverifiable")
+                actual = int((Decimal(str(value)) * Decimal(1_000_000_000)).to_integral_value(
+                    rounding=ROUND_CEILING))
+                self.store.finalize(request_id, actual_nano=actual)
+                outcome = {"status": "complete", "answer": result["answer"],
+                           "sources": sources, "source_notes": notes,
+                           "complete": result["answer_complete"],
+                           "warnings": result.get("warnings", [])}
+            except ChatModelError as exc:
+                if exc.code in {"invalid_messages", "input_too_long", "not_configured",
+                                "checkpoint_unavailable", "runtime_unavailable", "busy",
+                                "blocked", "closed"}:
+                    try:
+                        self.store.finalize(request_id, actual_nano=0, release_question=True)
+                    except BetaError:
+                        pass
+                else:
+                    try:
+                        self.store.finalize(request_id, uncertain=True)
+                    except BetaError:
+                        pass
+                outcome = {"status": "error", "error": {"code": "generation_unavailable",
+                    "message": "The beta could not finish this request. It was not retried."}}
+            except Exception:
+                try:
+                    self.store.finalize(request_id, uncertain=True)
+                except BetaError:
+                    pass
+                outcome = {"status": "error", "error": {"code": "generation_unavailable",
+                    "message": "The beta could not finish this request. It was not retried."}}
         with self.lock:
             if not self.closed:
-                self.jobs[request_id] = {**outcome, "invite_id": invite_id,
+                self.jobs[request_id] = {**outcome, "identity": identity,
                                          "created": time.monotonic()}
                 self._expire_locked()
             self.running = False
 
-    def result(self, invite_id, request_id):
+    def result(self, identity, request_id):
+        identity = self.store._identity(identity)
         with self.lock:
             self._expire_locked()
             job = self.jobs.get(request_id)
-            if job is None or job["invite_id"] != invite_id:
+            if job is None or job["identity"] != identity:
                 return None
             return {key: value for key, value in job.items()
-                    if key not in {"invite_id", "created"}}
+                    if key not in {"identity", "created"}}
 
-    def status(self, invite_id):
+    def status(self, identity):
+        identity = self.store._identity(identity)
         return {"ready": not self.closed, "busy": self.running,
                 "public_model": "Meforash 0.1",
                 "model": "Inkling · retained B original-text adapter",
                 "provider": "Thinking Machines / Tinker",
                 "source_count": self.library.count,
                 "conversation_storage": "not_stored",
-                "usage": self.store.usage(invite_id)}
+                "usage": self.store.usage(identity),
+                "access": self.access.access_description(identity, self.store)}
 
     def close(self):
         with self.lock:
@@ -445,7 +557,7 @@ class LoginLimiter:
             return True
 
 
-def handler_for(app, *, origin, secure_cookie):
+def handler_for(app, *, origin, secure_cookie, trust_real_ip=False):
     parsed = urlsplit(origin)
     if (parsed.scheme not in ({"https"} if secure_cookie else {"http"})
             or not parsed.netloc or parsed.path or parsed.query or parsed.fragment
@@ -462,16 +574,33 @@ def handler_for(app, *, origin, secure_cookie):
             return (self.headers.get("Host") == parsed.netloc
                     and self.headers.get("Origin") == origin)
 
-        def _session_token(self):
+        def _cookie(self, name):
             try:
-                return SimpleCookie(self.headers.get("Cookie", ""))[SESSION_COOKIE].value
+                return SimpleCookie(self.headers.get("Cookie", ""))[name].value
             except (KeyError, ValueError, CookieError):
                 return None
 
-        def _user(self):
-            return app.store.session_user(self._session_token())
+        def _identity(self):
+            account = app.access.account_identity(self._cookie(ACCOUNT_COOKIE))
+            if account is not None:
+                return account
+            invite = app.store.session_user(self._cookie(SESSION_COOKIE))
+            if invite is not None:
+                return AccessIdentity("invite", invite)
+            return app.access.guest_identity(self._cookie(GUEST_COOKIE))
 
-        def _send(self, code, value, *, cookie=None, clear_cookie=False):
+        def _peer(self):
+            if not trust_real_ip:
+                return str(self.client_address[0])
+            values = self.headers.get_all("X-Real-IP", [])
+            if len(values) != 1 or "," in values[0]:
+                raise AccessError("origin_rejected")
+            peer = validated_peer(values[0].strip())
+            if peer == "invalid-peer":
+                raise AccessError("origin_rejected")
+            return peer
+
+        def _send(self, code, value, *, cookie=None, clear_cookie=False, cookies=()):
             data = json.dumps(value, ensure_ascii=False, allow_nan=False).encode("utf-8")
             self.send_response(code)
             self.send_header("Content-Type", "application/json; charset=utf-8")
@@ -481,12 +610,15 @@ def handler_for(app, *, origin, secure_cookie):
             self.send_header("Referrer-Policy", "no-referrer")
             self.send_header("X-Frame-Options", "DENY")
             self.send_header("Content-Security-Policy", "default-src 'none'; frame-ancestors 'none'")
+            configured = list(cookies)
             if cookie is not None:
-                suffix = "; Secure" if secure_cookie else ""
-                self.send_header("Set-Cookie", f"{SESSION_COOKIE}={cookie}; Path=/; HttpOnly; SameSite=Strict; Max-Age={SESSION_TTL_SECONDS}{suffix}")
+                configured.append((SESSION_COOKIE, cookie, SESSION_TTL_SECONDS))
             elif clear_cookie:
+                configured.append((SESSION_COOKIE, "", 0))
+            for name, value, max_age in configured:
                 suffix = "; Secure" if secure_cookie else ""
-                self.send_header("Set-Cookie", f"{SESSION_COOKIE}=; Path=/; HttpOnly; SameSite=Strict; Max-Age=0{suffix}")
+                self.send_header("Set-Cookie", f"{name}={value}; Path=/; HttpOnly; "
+                                 f"SameSite=Strict; Max-Age={max_age}{suffix}")
             self.end_headers()
             try:
                 self.wfile.write(data)
@@ -514,13 +646,16 @@ def handler_for(app, *, origin, secure_cookie):
             path = urlsplit(self.path).path
             if path == "/health":
                 return self._send(200, {"status": "candidate", "provider_initialized": app.model is not None})
-            user = self._user()
-            if user is None:
+            if path == "/api/access":
+                return self._send(200, {"public_access": app.access.enabled,
+                    "email_login_available": app.access.enabled and app.access.auth_client is not None})
+            identity = self._identity()
+            if identity is None:
                 return self._send(401, {"error": {"code": "unauthorized", "message": "Sign in with an invitation."}})
             if path == "/api/status":
-                return self._send(200, app.status(user))
+                return self._send(200, app.status(identity))
             if path.startswith("/api/chat/"):
-                result = app.result(user, path.removeprefix("/api/chat/"))
+                result = app.result(identity, path.removeprefix("/api/chat/"))
                 if result is not None:
                     return self._send(200, result)
             return self._send(404, {"error": {"code": "not_found", "message": "This beta resource is unavailable."}})
@@ -540,26 +675,62 @@ def handler_for(app, *, origin, secure_cookie):
                         raise BetaError("unauthorized")
                     token, _ = app.store.create_session(body["invite_id"])
                     return self._send(200, {"status": "signed_in"}, cookie=token)
-                user = self._user()
-                if user is None:
+                if path == "/api/guest":
+                    if not isinstance(body, dict) or body:
+                        raise BetaError("invalid_json")
+                    identity, token = app.access.guest(
+                        self._cookie(GUEST_COOKIE), self._peer())
+                    cookies = () if token is None else (
+                        (GUEST_COOKIE, token, GUEST_COOKIE_SECONDS),)
+                    return self._send(200, app.status(identity), cookies=cookies)
+                if path == "/api/auth/start":
+                    if not isinstance(body, dict) or set(body) != {"email"}:
+                        raise BetaError("invalid_json")
+                    challenge = app.access.start(body["email"], self._peer())
+                    return self._send(200, {"status": "code_sent"}, cookies=(
+                        (CHALLENGE_COOKIE, challenge, CHALLENGE_SECONDS),))
+                if path == "/api/auth/verify":
+                    if not isinstance(body, dict) or set(body) != {"email", "token"}:
+                        raise BetaError("invalid_json")
+                    identity, session = app.access.verify(
+                        body["email"], body["token"], self._cookie(CHALLENGE_COOKIE),
+                        self._peer())
+                    return self._send(200, app.status(identity), cookies=(
+                        (ACCOUNT_COOKIE, session, ACCOUNT_SESSION_SECONDS),
+                        (CHALLENGE_COOKIE, "", 0)))
+                identity = self._identity()
+                if identity is None:
                     raise BetaError("unauthorized")
                 if path == "/api/logout":
-                    app.store.delete_session(self._session_token())
+                    account_token = self._cookie(ACCOUNT_COOKIE)
+                    if account_token is not None:
+                        app.access.logout(account_token)
+                        return self._send(200, {"status": "signed_out"}, cookies=(
+                            (ACCOUNT_COOKIE, "", 0),))
+                    app.store.delete_session(self._cookie(SESSION_COOKIE))
                     return self._send(200, {"status": "signed_out"}, clear_cookie=True)
                 if path != "/api/chat":
                     return self._send(404, {"error": {"code": "not_found", "message": "This beta resource is unavailable."}})
-                request_id = app.submit(user, body)
+                request_id = app.submit(identity, body)
                 return self._send(202, {"request_id": request_id})
-            except BetaError as exc:
+            except (BetaError, AccessError) as exc:
                 status = {"unauthorized": 401, "origin_rejected": 403,
                           "request_too_large": 413, "json_required": 415,
                           "busy": 409, "rate_limited": 429,
                           "allowance_exhausted": 429,
+                          "guest_limit_reached": 403,
+                          "daily_limit_reached": 429,
+                          "auth_unavailable": 503,
+                          "invalid_code": 400,
                           "closed": 503, "worker_unavailable": 503}.get(exc.code, 400)
                 messages = {"unauthorized": "Invitation credentials are invalid.",
                             "busy": "One answer is already being generated.",
                             "rate_limited": "Please wait before trying again.",
                             "allowance_exhausted": "This beta allowance is exhausted.",
+                            "guest_limit_reached": "The three guest questions have been used.",
+                            "daily_limit_reached": "The daily account question limit has been reached.",
+                            "auth_unavailable": "Email sign-in is temporarily unavailable.",
+                            "invalid_code": "The sign-in code is invalid or expired.",
                             "request_too_large": "The request is too large.",
                             "json_required": "This endpoint requires JSON."}
                 return self._send(status, {"error": {"code": exc.code,

@@ -22,6 +22,7 @@
     <nav class="header-actions" aria-label="Conversation actions">
       <button id="sources-button" class="quiet-button" type="button" hidden>Sources</button>
       <button id="new-chat-button" class="quiet-button" type="button" hidden>New conversation</button>
+      <button id="sign-in-button" class="quiet-button" type="button" hidden>Sign in</button>
       <button id="logout-button" class="quiet-button" type="button" hidden>Sign out</button>
     </nav>
   </header>
@@ -47,7 +48,7 @@
         <div class="about-content">
           <p>Meforash uses a model fine-tuned on selected Hebrew, Aramaic, and Greek biblical editions. It can make mistakes; its training does not establish a single recovered original text.</p>
           <p>Your invitation credentials are sent only to this beta to start a secure session.</p>
-          <p>Your questions and conversation are sent to Tinker only when you ask for an answer. Conversation text is kept in memory for the session, is not written to disk by this preview, and is not used by Meforash for training.</p>
+          <p>Your questions and conversation are sent to Tinker only when you ask for an answer. Conversation text is normally kept in this page's memory, is not saved as chat history, and is not used by Meforash for training. During email sign-in, a temporary recovery copy may remain in this browser tab for up to ten minutes.</p>
           <p>Passage cards use selected scholarly editions of Hebrew, Aramaic, and Greek texts. These editions are not the original manuscripts, and the cards do not independently verify every claim in an answer.</p>
         </div>
       </details>
@@ -73,12 +74,14 @@
             </button>
           </div>
         </form>
+        <p id="quota-hint" class="quota-hint" hidden></p>
 
         <details class="about-panel chat-about">
           <summary>About, privacy &amp; sources</summary>
           <div class="about-content">
           <p>Meforash uses a model fine-tuned on selected Hebrew, Aramaic, and Greek biblical editions. It can make mistakes; its training does not establish a single recovered original text.</p>
-            <p>Your questions and conversation are sent to Tinker only when you ask for an answer. Conversation text is kept in memory for the session, is not written to disk by this preview, and is not used by Meforash for training.</p>
+            <p>Your questions and conversation are sent to Tinker only when you ask for an answer. Conversation text is normally kept in this page's memory, is not saved as chat history, and is not used by Meforash for training.</p>
+            <p>Saved history is not available yet. During email sign-in, this page may keep the visible conversation, source cards, and unsent draft in this tab's temporary session storage for up to ten minutes so a refresh does not erase them. That copy does not contain your email address or sign-in code, and clears after recovery, cancellation, a new conversation, or sign-out.</p>
             <p>Source cards show passages supplied to Meforash from selected scholarly editions. They are not original manuscripts and do not independently verify every claim in an answer.</p>
             <dl id="service-details" class="service-details"></dl>
           </div>
@@ -98,6 +101,30 @@
     <p class="drawer-intro">The exact passages supplied to Meforash, with their edition details and textual notes.</p>
     <div id="source-cards"></div>
     <div id="source-notes" class="source-notes"></div>
+  </dialog>
+
+  <dialog id="auth-dialog" class="auth-dialog" aria-labelledby="auth-title">
+    <div class="auth-dialog-header">
+      <div>
+        <p class="eyebrow">Free account</p>
+        <h2 id="auth-title">Continue with email</h2>
+      </div>
+      <button id="auth-close-button" class="icon-button" type="button" aria-label="Cancel sign in">×</button>
+    </div>
+    <p class="auth-intro">Sign in for up to 20 questions each day. Your current conversation stays on this page, but it is not saved to an account.</p>
+    <form id="email-form" class="auth-form">
+      <label for="auth-email">Email address</label>
+      <input id="auth-email" name="email" type="email" maxlength="254" autocomplete="email" required>
+      <button id="email-button" class="primary-button" type="submit">Send a sign-in code</button>
+    </form>
+    <form id="code-form" class="auth-form" hidden>
+      <p class="code-instruction">Enter the code sent to <strong id="code-email"></strong>.</p>
+      <label for="auth-token">Sign-in code</label>
+      <input id="auth-token" name="token" type="text" inputmode="numeric" pattern="[0-9]{6,10}" minlength="6" maxlength="10" autocomplete="one-time-code" required>
+      <button id="code-button" class="primary-button" type="submit">Verify code</button>
+    </form>
+    <p id="auth-message" class="form-message" role="status" aria-live="polite"></p>
+    <button id="auth-cancel-button" class="auth-cancel" type="button">Cancel</button>
   </dialog>
 
   <footer class="launch-footer"><span>A project by Rowant Labs</span> · <a href="https://github.com/rowant-labs/meforash" target="_blank" rel="noopener noreferrer">Code &amp; methods</a></footer>

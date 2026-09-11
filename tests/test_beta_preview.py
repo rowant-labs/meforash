@@ -187,10 +187,13 @@ class PreviewBoundaryTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "port"):
             subject.runtime_origin("127.0.0.1", 80)
 
-    def test_unsafe_asset_and_browser_persistence_paths_are_absent(self):
+    def test_unsafe_asset_and_unbounded_browser_persistence_paths_are_absent(self):
         script = (subject.ASSET_ROOT / "app.js").read_text()
-        for forbidden in ("localStorage", "sessionStorage", "innerHTML", "document.cookie"):
+        for forbidden in ("localStorage", "indexedDB", "innerHTML", "document.cookie"):
             self.assertNotIn(forbidden, script)
+        self.assertIn("window.sessionStorage", script)
+        self.assertIn("const HANDOFF_TTL_MS = 10 * 60 * 1000", script)
+        self.assertIn("clearAuthHandoff", script)
         self.assertIn("textContent", script)
         self.assertIn("resetConversation", script)
         node = shutil.which("node")

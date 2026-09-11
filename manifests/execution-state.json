@@ -559,9 +559,9 @@
     "brand": "Meforash",
     "repository_target": "rowant-labs/meforash",
     "implementation_status": "owner_beta_hosted_HTTPS_B_answer_verified",
-    "optional_accounts": "Owner policy approved; implementation pending; invitation access unchanged",
+    "optional_accounts": "Implemented and tested locally; hosted public rollout checks pending",
     "account_access_policy": {
-      "status": "owner_policy_approved_implementation_pending",
+      "status": "implemented_locally_hosted_rollout_checks_pending",
       "supabase_project": {
         "dedicated_to_meforash": true,
         "organization": "Rowant Labs",
@@ -571,16 +571,19 @@
         "provider_status": "ACTIVE_HEALTHY_independently_verified",
         "local_cli_linked": true,
         "migration_applied": false,
-        "authentication_integrated": false
+        "authentication_integrated": true,
+        "smtp_configured": true,
+        "sender_domain_verified": true
       },
       "guest_questions_before_sign_in": 3,
       "account_questions_per_day_initial": 20,
       "account_daily_allowance_operator_adjustable": true,
-      "quota_enforcement_implemented": false,
+      "quota_enforcement_implemented": true,
       "sign_in_conversation_continuity": "temporary_same_tab_storage_then_restore_to_memory",
       "automatic_persistent_save_on_sign_in": false,
       "saved_history_requires_explicit_action": true,
-      "current_invitation_flow_changed": false
+      "current_invitation_flow_changed": false,
+      "reset_timezone": "UTC"
     },
     "constructed_conversation_checks": "Four unchanged-B product checks, reserved $0.33287424 under $0.40 cap; private runs/launch-v1; not a comparative benchmark",
     "hosting_url": "https://meforash-production.up.railway.app",

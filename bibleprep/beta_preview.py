@@ -54,10 +54,11 @@ def runtime_origin(host, port, origin=None):
     return resolved, not local
 
 
-def handler_for(app, *, origin, secure_cookie, asset_root=ASSET_ROOT):
+def handler_for(app, *, origin, secure_cookie, asset_root=ASSET_ROOT, trust_real_ip=False):
     """Add a fixed static allowlist to the accepted JSON backend handler."""
     assets = _asset_bytes(asset_root)
-    backend = beta_server.handler_for(app, origin=origin, secure_cookie=secure_cookie)
+    backend = beta_server.handler_for(app, origin=origin, secure_cookie=secure_cookie,
+                                      trust_real_ip=trust_real_ip)
 
     class PreviewHandler(backend):
         server_version = "BibleBetaPreviewCandidateV1"

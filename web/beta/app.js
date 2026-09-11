@@ -14,19 +14,175 @@ const welcome = document.querySelector("#welcome");
 const serviceDetails = document.querySelector("#service-details");
 const logoutButton = document.querySelector("#logout-button");
 const newChatButton = document.querySelector("#new-chat-button");
+const signInButton = document.querySelector("#sign-in-button");
 const sourcesButton = document.querySelector("#sources-button");
 const sourcesDrawer = document.querySelector("#sources-drawer");
 const closeSources = document.querySelector("#close-sources");
 const sourceCards = document.querySelector("#source-cards");
 const sourceNotes = document.querySelector("#source-notes");
+const quotaHint = document.querySelector("#quota-hint");
+const authDialog = document.querySelector("#auth-dialog");
+const authCloseButton = document.querySelector("#auth-close-button");
+const authCancelButton = document.querySelector("#auth-cancel-button");
+const emailForm = document.querySelector("#email-form");
+const emailButton = document.querySelector("#email-button");
+const authEmail = document.querySelector("#auth-email");
+const codeForm = document.querySelector("#code-form");
+const codeButton = document.querySelector("#code-button");
+const codeEmail = document.querySelector("#code-email");
+const authToken = document.querySelector("#auth-token");
+const authMessage = document.querySelector("#auth-message");
 
 let messages = [];
 let latestSources = [];
 let latestSourceNotes = [];
 let stateEpoch = 0;
+let publicAccess = false;
+let emailLoginAvailable = false;
+let currentAccess = { kind: "invite", questions_remaining: null, daily_limit: 20, reset_at: null };
+let authReturnState = "Ready";
+
+const HANDOFF_KEY = "meforash.auth-handoff.v1";
+const HANDOFF_TTL_MS = 10 * 60 * 1000;
+const HANDOFF_MAX_BYTES = 500000;
 
 function removeChildren(node) {
   while (node.firstChild) node.removeChild(node.firstChild);
+}
+
+function authHandoffStorage() {
+  try {
+    return window.sessionStorage || null;
+  } catch (_error) {
+    return null;
+  }
+}
+
+function clearAuthHandoff() {
+  const storage = authHandoffStorage();
+  if (!storage) return;
+  try {
+    storage.removeItem(HANDOFF_KEY);
+  } catch (_error) {
+    // Storage can be unavailable without affecting the in-memory conversation.
+  }
+}
+
+function boundedString(value, maximum) {
+  return typeof value === "string" && value.length <= maximum ? value : null;
+}
+
+function sanitizeSource(value) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return null;
+  const source = {};
+  const limits = {
+    reference: 500, requested_reference: 500, numbering: 1000, edition: 500,
+    language: 40, text: 100000, attribution: 4000, url: 4000,
+    editorial_status: 100,
+  };
+  for (const [key, maximum] of Object.entries(limits)) {
+    if (value[key] === undefined || value[key] === null) continue;
+    const safe = boundedString(value[key], maximum);
+    if (safe === null) return null;
+    source[key] = safe;
+  }
+  if (value.editorial_notes !== undefined) {
+    if (!Array.isArray(value.editorial_notes) || value.editorial_notes.length > 30) return null;
+    source.editorial_notes = [];
+    for (const note of value.editorial_notes) {
+      if (!note || typeof note !== "object" || Array.isArray(note)) return null;
+      const kind = boundedString(note.kind, 100);
+      const status = boundedString(note.status, 100);
+      if (kind === null || status === null) return null;
+      source.editorial_notes.push({ kind, status });
+    }
+  }
+  return source;
+}
+
+function sanitizeHandoff(value) {
+  if (!value || typeof value !== "object" || Array.isArray(value) || value.version !== 1) return null;
+  const now = Date.now();
+  if (!Number.isFinite(value.expires_at) || value.expires_at <= now
+      || value.expires_at > now + HANDOFF_TTL_MS) return null;
+  if (!Array.isArray(value.messages) || value.messages.length > 40) return null;
+  const safeMessages = [];
+  for (const message of value.messages) {
+    if (!message || typeof message !== "object" || Array.isArray(message)
+        || !["user", "assistant"].includes(message.role)) return null;
+    const content = boundedString(message.content, 48000);
+    if (content === null) return null;
+    safeMessages.push({ role: message.role, content });
+  }
+  const draft = boundedString(value.draft, 12000);
+  if (draft === null || !Array.isArray(value.sources) || value.sources.length > 20
+      || !Array.isArray(value.source_notes) || value.source_notes.length > 20) return null;
+  const sources = value.sources.map(sanitizeSource);
+  if (sources.some((source) => source === null)) return null;
+  const notes = [];
+  for (const note of value.source_notes) {
+    const safe = boundedString(note, 4000);
+    if (safe === null) return null;
+    notes.push(safe);
+  }
+  return { messages: safeMessages, draft, sources, source_notes: notes };
+}
+
+function saveAuthHandoff() {
+  const storage = authHandoffStorage();
+  if (!storage) return;
+  const expiresAt = Date.now() + HANDOFF_TTL_MS;
+  const safe = sanitizeHandoff({
+    version: 1,
+    expires_at: expiresAt,
+    messages,
+    draft: question.value,
+    sources: latestSources,
+    source_notes: latestSourceNotes,
+  });
+  if (!safe) {
+    clearAuthHandoff();
+    return;
+  }
+  let value;
+  try {
+    value = JSON.stringify({ version: 1, expires_at: expiresAt, ...safe });
+  } catch (_error) {
+    clearAuthHandoff();
+    return;
+  }
+  if (value.length > HANDOFF_MAX_BYTES) {
+    clearAuthHandoff();
+    return;
+  }
+  try {
+    storage.setItem(HANDOFF_KEY, value);
+  } catch (_error) {
+    clearAuthHandoff();
+  }
+}
+
+function readAuthHandoff() {
+  const storage = authHandoffStorage();
+  if (!storage) return null;
+  let raw = null;
+  try {
+    raw = storage.getItem(HANDOFF_KEY);
+  } catch (_error) {
+    return null;
+  }
+  if (raw === null || raw.length > HANDOFF_MAX_BYTES) {
+    if (raw !== null) clearAuthHandoff();
+    return null;
+  }
+  try {
+    const safe = sanitizeHandoff(JSON.parse(raw));
+    if (!safe) clearAuthHandoff();
+    return safe;
+  } catch (_error) {
+    clearAuthHandoff();
+    return null;
+  }
 }
 
 async function api(path, options = {}, sessionRequired = true) {
@@ -45,6 +201,7 @@ async function api(path, options = {}, sessionRequired = true) {
   if (response.status === 401 && sessionRequired) throw new Error("session_expired");
   if (!response.ok) {
     const error = new Error(body?.error?.code || "request_failed");
+    error.status = response.status;
     error.userMessage = body?.error?.message || "The beta could not accept this request.";
     throw error;
   }
@@ -53,6 +210,7 @@ async function api(path, options = {}, sessionRequired = true) {
 
 function resetConversation() {
   stateEpoch += 1;
+  clearAuthHandoff();
   messages = [];
   latestSources = [];
   latestSourceNotes = [];
@@ -71,9 +229,11 @@ function resetConversation() {
 
 function showLogin(message = "") {
   const epoch = resetConversation();
+  if (authDialog.open) authDialog.close();
   loginView.hidden = false;
   chatView.hidden = true;
   logoutButton.hidden = true;
+  signInButton.hidden = true;
   newChatButton.hidden = true;
   loginButton.disabled = false;
   loginMessage.textContent = message;
@@ -85,11 +245,44 @@ function showLogin(message = "") {
 function showChat(status) {
   loginView.hidden = true;
   chatView.hidden = false;
-  logoutButton.hidden = false;
   newChatButton.hidden = false;
   loginMessage.textContent = "";
   renderStatus(status);
   question.focus();
+}
+
+function formatReset(value) {
+  if (typeof value !== "string" || !value) return "";
+  const time = new Date(value);
+  return Number.isFinite(time.getTime()) ? time.toLocaleString([], {
+    month: "short", day: "numeric", hour: "numeric", minute: "2-digit",
+  }) : "";
+}
+
+function renderAccess(access) {
+  if (access && typeof access === "object" && ["guest", "account", "invite"].includes(access.kind)) {
+    currentAccess = {
+      kind: access.kind,
+      questions_remaining: Number.isInteger(access.questions_remaining) && access.questions_remaining >= 0
+        ? access.questions_remaining : null,
+      daily_limit: Number.isInteger(access.daily_limit) && access.daily_limit > 0 ? access.daily_limit : 20,
+      reset_at: typeof access.reset_at === "string" ? access.reset_at : null,
+    };
+  } else if (!publicAccess) {
+    currentAccess = { kind: "invite", questions_remaining: null, daily_limit: 20, reset_at: null };
+  }
+  const guest = publicAccess && currentAccess.kind === "guest";
+  signInButton.hidden = !(guest && emailLoginAvailable);
+  logoutButton.hidden = currentAccess.kind === "guest";
+  quotaHint.hidden = currentAccess.kind === "invite" || currentAccess.questions_remaining === null;
+  if (quotaHint.hidden) {
+    quotaHint.textContent = "";
+  } else if (guest) {
+    quotaHint.textContent = `${currentAccess.questions_remaining} of 3 free guest questions remaining${emailLoginAvailable ? ` · Sign in free for up to ${currentAccess.daily_limit} each day.` : "."}`;
+  } else {
+    const reset = formatReset(currentAccess.reset_at);
+    quotaHint.textContent = `${currentAccess.questions_remaining} questions remaining today${reset ? ` · Resets ${reset}` : "."}`;
+  }
 }
 
 function detail(term, value) {
@@ -108,6 +301,50 @@ function renderStatus(status) {
   if (status.usage?.uncertain_requests) {
     detail("Usage note", `${status.usage.uncertain_requests} earlier request(s) have uncertain cost and remain reserved`);
   }
+  renderAccess(status.access);
+}
+
+function restoreAuthHandoff(handoff) {
+  if (!handoff) return;
+  messages = handoff.messages;
+  removeChildren(conversation);
+  for (const message of messages) messageNode(message.role, message.content);
+  question.value = handoff.draft;
+  renderSources(handoff.sources, handoff.source_notes);
+  clearAuthHandoff();
+}
+
+function resetAuthDialog() {
+  emailForm.hidden = false;
+  codeForm.hidden = true;
+  emailButton.disabled = false;
+  codeButton.disabled = false;
+  authMessage.textContent = "";
+  codeEmail.textContent = "";
+  emailForm.reset();
+  codeForm.reset();
+}
+
+function openAuthDialog(message = "") {
+  if (!emailLoginAvailable) return;
+  if (!authDialog.open) {
+    authReturnState = requestState.textContent;
+    stateEpoch += 1;
+    setWorking(false, authReturnState);
+    resetAuthDialog();
+    saveAuthHandoff();
+    authDialog.showModal();
+  }
+  authMessage.textContent = message;
+  authEmail.focus();
+}
+
+function cancelAuthDialog() {
+  if (authDialog.open) authDialog.close();
+  resetAuthDialog();
+  clearAuthHandoff();
+  setWorking(false, authReturnState);
+  question.focus();
 }
 
 function appendPlainText(parent, text) {
@@ -298,6 +535,35 @@ function delay(milliseconds) {
   return new Promise((resolve) => window.setTimeout(resolve, milliseconds));
 }
 
+async function refreshStatus(generation) {
+  if (!publicAccess) return;
+  try {
+    const status = await api("/api/status");
+    if (generation === stateEpoch) renderStatus(status);
+  } catch (_error) {
+    // The completed answer remains useful; the next request will enforce quota.
+  }
+}
+
+async function recoverGuest(message) {
+  const epoch = resetConversation();
+  setWorking(true, "Restoring guest access…");
+  try {
+    const status = await api("/api/guest", { method: "POST", body: "{}" }, false);
+    if (epoch !== stateEpoch) return;
+    showChat(status);
+    setWorking(false, message);
+  } catch (error) {
+    if (epoch !== stateEpoch) return;
+    showLogin(error.userMessage || "Meforash is temporarily unavailable.");
+  }
+}
+
+function dailyLimitMessage() {
+  const reset = formatReset(currentAccess.reset_at);
+  return `Daily question limit reached.${reset ? ` More questions will be available ${reset}.` : " Please return after the daily reset."}`;
+}
+
 async function poll(requestId, generation) {
   for (;;) {
     await delay(900);
@@ -319,6 +585,7 @@ async function poll(requestId, generation) {
         renderSources(result.sources, result.source_notes);
         setWorking(false);
         question.focus();
+        await refreshStatus(generation);
         return;
       }
       throw Object.assign(new Error("generation_unavailable"), {
@@ -327,7 +594,8 @@ async function poll(requestId, generation) {
     } catch (error) {
       if (generation !== stateEpoch) return;
       if (error.message === "session_expired") {
-        showLogin("Your session has ended. Sign in again.");
+        if (publicAccess) await recoverGuest("Your session ended. Guest access is ready.");
+        else showLogin("Your session has ended. Sign in again.");
         return;
       }
       messageNode("assistant", error.userMessage || "The answer is no longer available. It was not retried.", "message-error");
@@ -363,6 +631,72 @@ loginForm.addEventListener("submit", async (event) => {
   if (epoch === stateEpoch) loginButton.disabled = false;
 });
 
+signInButton.addEventListener("click", () => openAuthDialog());
+authCloseButton.addEventListener("click", cancelAuthDialog);
+authCancelButton.addEventListener("click", cancelAuthDialog);
+authDialog.addEventListener("cancel", (event) => {
+  event.preventDefault();
+  cancelAuthDialog();
+});
+
+emailForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (emailButton.disabled) return;
+  const email = authEmail.value.trim();
+  const epoch = stateEpoch;
+  emailButton.disabled = true;
+  authMessage.textContent = "Sending a sign-in code…";
+  try {
+    await api("/api/auth/start", {
+      method: "POST",
+      body: JSON.stringify({ email }),
+    }, false);
+    if (epoch !== stateEpoch || !authDialog.open) return;
+    codeEmail.textContent = email;
+    emailForm.hidden = true;
+    codeForm.hidden = false;
+    authMessage.textContent = "If the address can receive a code, it is on its way.";
+    authToken.focus();
+  } catch (error) {
+    if (epoch !== stateEpoch || !authDialog.open) return;
+    authMessage.textContent = error.userMessage || "A sign-in code could not be sent. Please try again.";
+  }
+  if (epoch === stateEpoch) emailButton.disabled = false;
+});
+
+codeForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (codeButton.disabled) return;
+  const email = authEmail.value.trim();
+  const token = authToken.value.trim();
+  if (!/^[0-9]{6,10}$/.test(token)) {
+    authMessage.textContent = "Enter the 6–10 digit sign-in code.";
+    return;
+  }
+  const epoch = stateEpoch;
+  codeButton.disabled = true;
+  authMessage.textContent = "Checking the code…";
+  try {
+    const status = await api("/api/auth/verify", {
+      method: "POST",
+      body: JSON.stringify({ email, token }),
+    }, false);
+    if (epoch !== stateEpoch || !authDialog.open) return;
+    authDialog.close();
+    clearAuthHandoff();
+    resetAuthDialog();
+    setWorking(false);
+    showChat(status);
+    question.focus();
+    return;
+  } catch (error) {
+    if (epoch !== stateEpoch || !authDialog.open) return;
+    authMessage.textContent = error.userMessage || "That sign-in code could not be verified.";
+    authToken.focus();
+  }
+  if (epoch === stateEpoch) codeButton.disabled = false;
+});
+
 chatForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const text = question.value.trim();
@@ -383,13 +717,49 @@ chatForm.addEventListener("submit", async (event) => {
     await poll(accepted.request_id, epoch);
   } catch (error) {
     if (epoch !== stateEpoch) return;
-    if (error.message === "session_expired") return showLogin("Your session has ended. Sign in again.");
+    if (error.message === "session_expired") {
+      if (publicAccess) return recoverGuest("Your session ended. Guest access is ready.");
+      return showLogin("Your session has ended. Sign in again.");
+    }
+    if (error.message === "guest_limit_reached") {
+      setWorking(false, "Free guest questions used");
+      if (emailLoginAvailable) {
+        openAuthDialog(error.userMessage || "You have used the free guest questions. Sign in to continue.");
+      } else {
+        setWorking(false, error.userMessage || "The free guest questions have been used.");
+      }
+      return;
+    }
+    if (error.message === "daily_limit_reached") {
+      setWorking(false, dailyLimitMessage());
+      return;
+    }
     requestState.textContent = error.userMessage || "The request could not be accepted.";
     setWorking(false, requestState.textContent);
   }
 });
 
 logoutButton.addEventListener("click", async () => {
+  if (publicAccess && currentAccess.kind === "account") {
+    const epoch = resetConversation();
+    if (authDialog.open) authDialog.close();
+    clearAuthHandoff();
+    logoutButton.disabled = true;
+    setWorking(true, "Signing out…");
+    try {
+      await api("/api/logout", { method: "POST", body: "{}" }, false);
+      if (epoch !== stateEpoch) return;
+      const status = await api("/api/guest", { method: "POST", body: "{}" }, false);
+      if (epoch !== stateEpoch) return;
+      showChat(status);
+      setWorking(false, "Signed out. Guest access is ready.");
+    } catch (error) {
+      if (epoch !== stateEpoch) return;
+      setWorking(false, error.userMessage || "Signed out. Refresh to restore guest access.");
+    }
+    logoutButton.disabled = false;
+    return;
+  }
   const epoch = showLogin("Signing out…");
   // Keep a new login from racing the logout response that clears the cookie.
   loginButton.disabled = true;
@@ -422,10 +792,46 @@ sourcesDrawer.addEventListener("click", (event) => {
 });
 
 const initialEpoch = stateEpoch;
-api("/api/status", {}, false)
-  .then((status) => {
-    if (initialEpoch === stateEpoch) showChat(status);
-  })
-  .catch((error) => {
-    if (initialEpoch === stateEpoch && error.message !== "session_expired") showLogin("Sign in to begin.");
-  });
+const pendingHandoff = readAuthHandoff();
+
+async function initialize() {
+  let access = null;
+  try {
+    access = await api("/api/access", {}, false);
+  } catch (_error) {
+    access = { public_access: false, email_login_available: false };
+  }
+  if (initialEpoch !== stateEpoch) return;
+  publicAccess = access?.public_access === true;
+  emailLoginAvailable = publicAccess && access?.email_login_available === true;
+  if (!publicAccess) clearAuthHandoff();
+
+  try {
+    const status = await api("/api/status", {}, false);
+    if (initialEpoch !== stateEpoch) return;
+    showChat(status);
+    if (publicAccess && status?.access?.kind === "guest") restoreAuthHandoff(pendingHandoff);
+    else clearAuthHandoff();
+    return;
+  } catch (_error) {
+    if (initialEpoch !== stateEpoch) return;
+  }
+
+  if (publicAccess) {
+    try {
+      const status = await api("/api/guest", { method: "POST", body: "{}" }, false);
+      if (initialEpoch !== stateEpoch) return;
+      showChat(status);
+      if (status?.access?.kind === "guest") restoreAuthHandoff(pendingHandoff);
+      else clearAuthHandoff();
+      return;
+    } catch (error) {
+      if (initialEpoch !== stateEpoch) return;
+      showLogin(error.userMessage || "Meforash is temporarily unavailable.");
+      return;
+    }
+  }
+  showLogin("Sign in to begin.");
+}
+
+initialize();

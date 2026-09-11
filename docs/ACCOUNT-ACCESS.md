@@ -1,0 +1,30 @@
+# Guest access and free accounts
+
+September 11, 2026. Implemented and tested locally; hosted rollout checks are in progress. The answering model remains Meforash 0.1 (retained original-text-only B). No training, prompt change, or streaming change accompanies this work.
+
+The owner approved three guest questions before sign-in and an initial 20 questions per account per day. Account limits reset at midnight UTC; the interface shows the reset in the reader's local time. The operator can change the daily allowance with `MEFORASH_ACCOUNT_DAILY_LIMIT`. The existing total estimated inference ceiling remains $5, shared across invitation, guest, and account usage; it is separate from Railway, Supabase, Resend, and Tinker billing controls.
+
+Guests receive a random HttpOnly, SameSite cookie. Its keyed hash and allowance survive application restarts, and signing out of an account does not replenish guest access. The cookie expires after 400 days; deleting browser data can create a new identity, so keyed peer rate limits constrain new guest issuance. This is a bounded beta abuse control, not proof of one person per allowance. All deployments must use the same persistent ledger and stable HMAC secret. Startup refuses a changed secret rather than silently resetting guest identities.
+
+Readers sign in by entering an eight-digit email code on the same page. Supabase verifies the code; the server separately checks the authenticated user and email-confirmation state before creating a local session. Provider tokens never enter browser responses or the local ledger. Local account sessions expire after 30 days and sign-out revokes the current local session. Local sessions are independent of Supabase's refresh sessions; deleting or disabling a Supabase account administratively must also revoke its local sessions. An account-deletion interface is not implemented yet.
+
+Sign-in retains the active conversation and unsent draft in memory. Opening sign-in also creates a bounded, ten-minute recovery copy in that tab's session storage. It contains messages, current source cards, and the unsent draft, but no email, code, or provider token. Recovery is only accepted for a guest session and is cleared after restoration, cancellation, a new conversation, or sign-out. Successful same-page sign-in retains the in-memory conversation without automatically submitting the draft or saving history.
+
+Optional persistent history remains a separate, unapplied schema. No migration or save/list/delete history interface is enabled by account access. Chat text is not written to the server ledger and is not used for training. Supabase stores account information; Resend processes authentication email; Tinker receives the context required for requested answers. These are separate from Meforash's temporary chat storage.
+
+Question reservations and cost accounting are atomic in the existing SQLite ledger. Known failures before model submission release the question; uncertain submissions remain counted conservatively. Busy requests are rejected before reservation. Only one model answer runs at once; a fair waiting queue remains future work. The original invitation ledger is migrated transactionally without changing its configuration identity or dropping historical spending.
+
+## Configuration and release checks
+
+Public access defaults off. Enable only after configuring the Supabase URL/publishable key, stable HMAC secret, verified email sender, and `MEFORASH_EMAIL_LOGIN_ENABLED`. The application proxies authentication; neither a Supabase secret/service-role key nor a Resend key is required in Railway. Resend's sending-only SMTP credential is restricted to `auth.meforash.com` and stored in Supabase's SMTP configuration. The project's authentication email limit starts at 30 messages per hour.
+
+`MEFORASH_TRUST_RAILWAY_REAL_IP` defaults off. Enable it only for the Railway HTTPS-proxy deployment after checking that incoming `X-Real-IP` values are replaced. Missing, duplicated, comma-separated, or malformed trusted values are rejected. Socket peer addresses are used elsewhere. Raw IP addresses and emails are not stored in the local application ledger; infrastructure providers may retain their own access or authentication logs.
+
+Verification includes 53 backend/preview/deployment tests and twelve browser-logic scenarios. Actual Supabase code verification and authenticated-user lookup passed with a temporary synthetic account, which was deleted; no email was sent by that check. The Resend SMTP credential was accepted. A local browser fixture exercised three guest answers, a blocked fourth draft, successful sign-in with unchanged conversation/draft, and sign-out without restored guest allowance. Desktop and 390-pixel mobile sign-in layouts were inspected. These constructed checks make no claim about model-answer quality or public traffic capacity. End-to-end email delivery and hosted public-access checks remain pending.
+
+## Sources
+
+- [Supabase passwordless email](https://supabase.com/docs/guides/auth/auth-email-passwordless)
+- [Supabase email templates](https://supabase.com/docs/guides/auth/auth-email-templates)
+- [Resend SMTP for Supabase](https://resend.com/docs/send-with-supabase-smtp)
+- [Railway request headers](https://docs.railway.com/networking/public-networking/specs-and-limits)

@@ -352,12 +352,14 @@ def serve(environ=None):
     install_tokenizer_mount(settings["bundle"])
     invite_config = beta_server.load_invite_config(settings["invite"])
     store = beta_server.BetaStore(settings["database"], invite_config)
-    app = beta_server.BetaApplication(store=store, root=settings["bundle"])
+    access = beta_server.AccountAccess.from_environ(store.path, environ)
+    app = beta_server.BetaApplication(store=store, root=settings["bundle"], access=access)
     handler = beta_preview.handler_for(
         app, origin=settings["origin"], secure_cookie=True,
-        asset_root=beta_preview.ASSET_ROOT)
+        asset_root=beta_preview.ASSET_ROOT,
+        trust_real_ip=environ.get("MEFORASH_TRUST_RAILWAY_REAL_IP") == "1")
     server = beta_server.BetaHTTPServer(("0.0.0.0", settings["port"]), handler)
-    print("Meforash invite-only beta is listening behind its HTTPS proxy.", flush=True)
+    print("Meforash beta is listening behind its HTTPS proxy.", flush=True)
     try:
         server.serve_forever(poll_interval=0.25)
     except KeyboardInterrupt:
