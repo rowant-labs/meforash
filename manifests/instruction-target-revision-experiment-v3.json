@@ -1,0 +1,169 @@
+{
+  "schema_version": 3,
+  "status": "frozen_before_training_and_sampling",
+  "frozen_at_utc": "2026-09-06T22:37:32.865437+00:00",
+  "experiment_id": "instruction-target-revision-v3",
+  "arms": {
+    "A": "unchanged",
+    "B": "original_text_only",
+    "E": "original_text_then_instruction_lr_0.00002",
+    "F": "original_text_then_revised_instruction_lr_0.00002"
+  },
+  "evaluation": {
+    "path": "evals/instruction-target-revision-v3.jsonl",
+    "sha256": "7a92dd0ab693eb2e79699d6fccbfe8ece8576fcc34ba443ab05dd39fe81c89d9",
+    "cases": 30,
+    "case_ids": [
+      "IH301",
+      "IH302",
+      "IH303",
+      "IH304",
+      "IH305",
+      "IH306",
+      "IH307",
+      "IA301",
+      "IA302",
+      "IA303",
+      "IA304",
+      "IA305",
+      "IA306",
+      "IA307",
+      "IG301",
+      "IG302",
+      "IG303",
+      "IG304",
+      "IG305",
+      "IG306",
+      "IM301",
+      "IM302",
+      "IM303",
+      "IM304",
+      "G301",
+      "G302",
+      "G303",
+      "G304",
+      "G305",
+      "G306"
+    ]
+  },
+  "evaluation_manifest": {
+    "path": "manifests/instruction-target-revision-evaluation-v3.json",
+    "sha256": "cb3df12e9f760e2186530dabbc0192e3a93eee116e350087648c773c5caf19fe"
+  },
+  "training_manifest": {
+    "path": "manifests/instruction-target-revision-training-v3.json",
+    "sha256": "038133e5704812f6a0459c7407b23d4236ec650d79cf852965640818b3a4d05a"
+  },
+  "criteria_review": {
+    "path": "manifests/instruction-target-revision-criteria-review-v3.json",
+    "sha256": "0978eef1e26a512e9c1e7850f3d7c1f431250eebc4c3965b69f1d994a755194a"
+  },
+  "preflight": {
+    "path": "manifests/instruction-target-revision-preflight-v3.json",
+    "sha256": "44f6791a12670f60aee30f4675a6e9fde81c6e01db54f7325f6e54d887af045e"
+  },
+  "prior_protocol": {
+    "path": "manifests/instruction-calibration-experiment-v2.json",
+    "sha256": "b69678fe1107c1fa3dadf39a5d45663b7b2fc9380322a4207f5c0355cb0ce2da"
+  },
+  "prior_aggregate": {
+    "path": "reports/inkling-instruction-calibration-v2.json",
+    "sha256": "307c6cf9c8ebd61bf749ea7c23daacce50cadcd107ab9bef39a819308b3c7d48"
+  },
+  "prior_answer_review": {
+    "path": "reports/inkling-instruction-calibration-answer-review-v2.json",
+    "sha256": "d5c51f2dae469cb7040e2b2459c44798732ae761c81ee0e524d0f24827a43e7e"
+  },
+  "system_prompt_sha256": "405c027ca4ca122501eaee2fb4d01605e86a35501ba8a084eada5b3417bec7e3",
+  "matched_settings": {
+    "model": "thinkingmachines/Inkling",
+    "reasoning_effort": "medium",
+    "thinking_effort_numeric": 0.7,
+    "temperature": 0.0,
+    "seed": 20260905,
+    "max_output_tokens": 8192,
+    "max_input_tokens": 6000,
+    "timeout_seconds": 300,
+    "evidence_mode": "provided",
+    "api_key_env": "TINKER_API_KEY",
+    "base_url": "https://tinker.thinkingmachines.dev/services/tinker-prod",
+    "comparison_manifest": "manifests/comparison-large-models-v1.json",
+    "output_limit_field": "max_completion_tokens",
+    "input_price_per_million": 1.87,
+    "output_price_per_million": 4.68
+  },
+  "budget": {
+    "per_arm_sampling_cap_usd": 1.5,
+    "four_arm_sampling_cap_usd": 6.0,
+    "new_training_reservation_usd": 3.48945567,
+    "incremental_experiment_cap_usd": 10.0
+  },
+  "reference_checkpoints": {
+    "B": {
+      "checkpoint_file": "runs/inkling-original-text-v1/checkpoints.json",
+      "receipt_sha256": {
+        "checkpoints.json": "cc9ff9ed1c97ac3a1a0616dfa07bb057b88db0d19ecb281b6f62a1ebcb6a1889",
+        "events.jsonl": "54678c3e10fe5ee4f246ce15f332729946f010e16493066a62f491bc177800c3",
+        "plan.json": "066bb04eb66c9e3c383fd4138aafa337ef5f99c069d83db63fd5d4b9dbbf8b02",
+        "summary.json": "fd028cfbff399adeaa76910ba60a14ad0080721ae44bdf4ad0eb22067d7086f1"
+      }
+    },
+    "E": {
+      "checkpoint_file": "runs/inkling-instruction-e-v2/checkpoints.json",
+      "receipt_sha256": {
+        "checkpoints.json": "d70f4a318cf8c0c7c334839262a9e9d892be84de77c770ebc59c09523e62a1ae",
+        "events.jsonl": "88518372a416f4d877beb0557ca41fb9ac6ed979bcf4efb823e9575156a2ed4d",
+        "plan.json": "bfcefb0ff80a11561abc0c12e37dbd8e63a02be072c5f0aad0b644cb7bc6d449",
+        "summary.json": "877692ae6bbfd5ed9f8a660f9ce5929e2cc201313bb8e597960ab9645acbc618"
+      }
+    }
+  },
+  "software_sha256": {
+    "bibleprep/environment.py": "b4d5b205e4540c95fb1a3372cec4f144544f6eec7fbbdb65d276d3e8369fa446",
+    "bibleprep/evaluate.py": "b803a1bf63244ba1f051fc6781a455bbd463ec4ce9f5584c95bb35881cfb02fd",
+    "bibleprep/evaluate_adapter.py": "371cf93fcc1e50f0f86aa1d9a7895f1d51ab75e868c5bbe028383a15cb878df4",
+    "bibleprep/evaluate_instruction.py": "303621d3570879c4eedb91562a6344079d0aa412f9b5d5a0e2e0402bdeb14108",
+    "bibleprep/evaluate_instruction_calibration.py": "c3550826bb1426a9d9cc38f3474155162b9a09dbcee8fcbd502e7214de2677e9",
+    "bibleprep/evaluate_instruction_revision.py": "309aae8d0f75b61fd56110173c081adb8ecc618019ff2fdecadfa94f60f67c17",
+    "bibleprep/native_diagnostics_v1.py": "cd73bcc7d34c676b9298375715315f1564a625d8bd2d7e1a02e0284330bde1a0",
+    "bibleprep/prepare_inkling.py": "59c458d5dd6232b61d91cf2be5f79c76940331e8ace0d469173fc76e09c09271",
+    "bibleprep/prepare_instruction.py": "9d49f146ee86aa8a29bebf81fe576b6e1ed718f5890cb9d978fcb6c1d36f8cb4",
+    "bibleprep/prepare_instruction_revision.py": "30e0e3b361fe2b536d1dca43dc79f90a617d5d587b2b8c9056bded97be0756e1",
+    "bibleprep/tinker_compare.py": "b050a9ad9e246599138b62fa366d4e558619151d97a30d805c6abaca553856ff",
+    "bibleprep/tinker_evaluate.py": "e8bbb9e58a44f7cdd63bb81a1fdf9ff84b9fc0f514a5e4a6318327d49500e4d8",
+    "bibleprep/train_inkling.py": "89d0db22618807e4a4b57b37ac8f817bc3491287b83ff47055ed8e667c924520",
+    "bibleprep/train_instruction.py": "43fd40998a76a91250ae09eb2ac6341fe0e9845c72e509ff80b3090c2500b107",
+    "bibleprep/train_instruction_calibration.py": "be2cc7375cceb2de7ed818fafe33de0292892b8e9d10889ce7a077463266d6c0",
+    "bibleprep/train_instruction_revision.py": "fca589e09cac03eced975943580ce999466201a43a4cbdfbe666a68ff6351a28",
+    "requirements-comparison-large.lock.txt": "f71b8507470fff116ce67238c499c1a2e5175f61f5504d10747adf06de202343",
+    "requirements-training.txt": "42340a96d7fcdc963bcfaf2ae11a21979a5b4c63e211edf67effbf86f83cc3f0"
+  },
+  "offline_prompt_audit": {
+    "path": "runs/instruction-v3-execution/render-audit.json",
+    "sha256": "9719408c38ef06dd6e710c24b287bcc3dffc8320db71ade5d20a5ef80466d110"
+  },
+  "run_directories": {
+    "A": "runs/instruction-target-revision-eval-a-v3",
+    "B": "runs/instruction-target-revision-eval-b-v3",
+    "E": "runs/instruction-target-revision-eval-e-v3",
+    "F": "runs/instruction-target-revision-eval-f-v3"
+  },
+  "planned_f_checkpoint_file": "runs/inkling-instruction-f-v3/checkpoints.json",
+  "sampling_seed_decision": {
+    "sampling_seed": 20260905,
+    "training_seed": 20260906,
+    "reference": "instruction-calibration-v2",
+    "reason": "Preserve the previous evaluation sampling seed; training seed is separate."
+  },
+  "sampling_order": "Each arm submits all30 cases in frozen order; arms may execute concurrently and retained controls may run alongside F training. One sample per case; no selective retries or alternate-run replay.",
+  "review_method": "All120 candidate records retained in per-case concealed-label packets for separate AI source review with the mandatory pre-output supplement. Native completion, requested coverage, source fidelity, application focus, general-fixture semantics and requested output format remain separate. No expert-certified accuracy score.",
+  "diagnostic_version": "native-diagnostics-v1",
+  "training_change": "F starts from B weights with a fresh optimizer and E’s gentle recipe; only the English dataset version changes. Fourteen prompt/target expansions change task scope and token volume together.",
+  "scope_limits": [
+    "No added raw-text epochs or reasoning traces; no harness, deployment, export or publication.",
+    "New evaluation sources were present in B raw-text training; all SFT chapter families and all prior explicit evaluated verses are excluded, with Aramaic prior-family overlap disclosed.",
+    "Temporary prices and local caps are not invoice reconciliation. SDK-internal retries may occur without exposed counts.",
+    "Provider base-weight revision remains unpinned; one sample per arm/case and AI reviewer overlap limit causal and corpus-wide conclusions."
+  ],
+  "public_reproducibility_limit": "Reviewed SFT inputs, private checkpoint/run receipts and model outputs remain local; source/code/protocol documentation is shareable, not a complete public reproduction package."
+}

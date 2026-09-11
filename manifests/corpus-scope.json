@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "updated_on": "2026-09-05",
+  "included": [
+    {"collection": "Hebrew/Aramaic Bible", "source_id": "oshb", "manifest": "manifests/oshb.json", "status": "complete selected edition; main/ketiv training layer"},
+    {"collection": "Greek New Testament", "source_id": "sblgnt", "manifest": "manifests/sblgnt.json", "status": "complete selected edition; double-bracketed supplements separately labeled"}
+  ],
+  "not_yet_included": [
+    {"collection": "Septuagint and deuterocanonical collections", "reason": "Separate edition, book inventory, licensing and alignment decisions pending"},
+    {"collection": "Dead Sea Scrolls transcriptions", "reason": "No complete reusable transcription corpus cleared for this release"},
+    {"collection": "Comprehensive Hebrew and Greek manuscript apparatus", "reason": "Base edition imports do not constitute exhaustive manuscript evidence"},
+    {"collection": "Historical contextual corpus", "reason": "Separate curated evidence and rights review needed"},
+    {"collection": "Translation/instruction examples", "reason": "Reserved for comparison arms C and D; not part of original-language-only arm B"}
+  ],
+  "excluded_by_default": ["Private user conversations", "Unreviewed synthetic answers", "Unlicensed modern commentaries"],
+  "interpretation": "Complete selected base editions, not every ancient witness or an asserted single recovered autograph"
+}

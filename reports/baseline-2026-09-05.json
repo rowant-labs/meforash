@@ -1,0 +1,581 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-06T02:57:23.909514+00:00",
+  "scope": "aggregate observations across specified development runs; repeated questions count once per run",
+  "contains_answer_text": false,
+  "provider_invoice_verified": false,
+  "partial": true,
+  "totals": {
+    "runs": 4,
+    "selected_cases": 88,
+    "started_requests": 54,
+    "received_results": 54,
+    "completed_responses": 52,
+    "successful_answers": 50,
+    "incomplete_answers": 2,
+    "errors": 2,
+    "unresolved_requests": 0,
+    "not_started": 34,
+    "pending_results": 34,
+    "scholarly_reviews_pending": 52,
+    "input_tokens": 13682,
+    "output_tokens": 80622,
+    "known_token_estimate_usd": 0.07223754,
+    "uncertain_accounted_or_reserved_usd": 0.014281919999999998,
+    "journal_accounted_or_reserved_usd": 0.08651945999999999
+  },
+  "runs": [
+    {
+      "run": "tinker-smoke-120b-v1",
+      "source_hashes": {
+        "manifest_sha256": "af69be4dff1d9994a9e8dbf49182df13c7fb2dbbaa9bdbf45df0dfedd7fac7c5",
+        "events_sha256": "2f883b58a9713a7b51ff8c6c250f7add850b1819a50d858e9dadd3a1fd22dccc",
+        "dataset_sha256": "65b89f3c448d966ee7682ebe9e73ace556e8f742fd1920e1352e7c86a4a631e0"
+      },
+      "status": "complete",
+      "partial": false,
+      "journal_has_incomplete_tail": false,
+      "settings": {
+        "model": "openai/gpt-oss-120b",
+        "model_revision": "provider_revision_unpinned",
+        "evidence_mode": "provided",
+        "reasoning_effort": "low",
+        "max_input_tokens": 6000,
+        "max_output_tokens": 4096,
+        "temperature": 0.0,
+        "seed": 20260905,
+        "prompt_date": "2026-09-05",
+        "chat_template_sha256": "a4c9919cbbd4acdd51ccffe22da049264b1b73e59055fa58811a99efbd7c8146",
+        "tokenizer_sha256": "0614fe83cadab421296e664e1f48f4261fa8fef6e03e63bb75c20f38e37d07d3"
+      },
+      "counts": {
+        "selected_cases": 4,
+        "started_requests": 4,
+        "received_results": 4,
+        "completed_responses": 4,
+        "successful_answers": 4,
+        "incomplete_answers": 0,
+        "errors": 0,
+        "unresolved_requests": 0,
+        "not_started": 0,
+        "pending_results": 0,
+        "scholarly_reviews_pending": 4
+      },
+      "tokens": {
+        "input": 1240,
+        "output": 4561,
+        "successful_answer_input": 1240,
+        "successful_answer_output": 4561,
+        "results_with_usage": 4,
+        "results_missing_usage": 0
+      },
+      "cost": {
+        "known_token_estimate_usd": 0.00424044,
+        "successful_answer_token_estimate_usd": 0.00424044,
+        "input_price_per_million": 0.33,
+        "output_price_per_million": 0.84,
+        "journal_accounted_or_reserved_usd": 0.00424044,
+        "uncertain_accounted_or_reserved_usd": 0,
+        "uncertain_requests": 0,
+        "provider_invoice_verified": false,
+        "token_estimate_covers_all_started_requests": true
+      },
+      "format_checks": {},
+      "format_checks_are_scholarly_scores": false,
+      "category_metadata_matches_dataset": true,
+      "by_category": {
+        "comparison": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "grammar": {
+          "selected": 3,
+          "started": 3,
+          "successful_answers": 3,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        }
+      },
+      "by_language": {
+        "aramaic": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "greek": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "hebrew": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "mixed": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        }
+      },
+      "scholarly_review": "pending; no biblical accuracy or training improvement score assigned"
+    },
+    {
+      "run": "tinker-baseline-120b-provided-v1",
+      "source_hashes": {
+        "manifest_sha256": "adae8d35d5124516d876d386e3fcd460f36c76d7e43d64474122ea142627dc24",
+        "events_sha256": "6fdf2db469b468478f340752f9067eb8c538e1316e1e366a8b1e3ec40e3a3439",
+        "dataset_sha256": "65b89f3c448d966ee7682ebe9e73ace556e8f742fd1920e1352e7c86a4a631e0"
+      },
+      "status": "complete",
+      "partial": false,
+      "journal_has_incomplete_tail": false,
+      "settings": {
+        "model": "openai/gpt-oss-120b",
+        "model_revision": "provider_revision_unpinned",
+        "evidence_mode": "provided",
+        "reasoning_effort": "low",
+        "max_input_tokens": 6000,
+        "max_output_tokens": 4096,
+        "temperature": 0.0,
+        "seed": 20260905,
+        "prompt_date": "2026-09-05",
+        "chat_template_sha256": "a4c9919cbbd4acdd51ccffe22da049264b1b73e59055fa58811a99efbd7c8146",
+        "tokenizer_sha256": "0614fe83cadab421296e664e1f48f4261fa8fef6e03e63bb75c20f38e37d07d3"
+      },
+      "counts": {
+        "selected_cases": 40,
+        "started_requests": 40,
+        "received_results": 40,
+        "completed_responses": 40,
+        "successful_answers": 39,
+        "incomplete_answers": 1,
+        "errors": 0,
+        "unresolved_requests": 0,
+        "not_started": 0,
+        "pending_results": 0,
+        "scholarly_reviews_pending": 40
+      },
+      "tokens": {
+        "input": 10398,
+        "output": 50835,
+        "successful_answer_input": 10187,
+        "successful_answer_output": 46739,
+        "results_with_usage": 40,
+        "results_missing_usage": 0
+      },
+      "cost": {
+        "known_token_estimate_usd": 0.046132740000000005,
+        "successful_answer_token_estimate_usd": 0.04262247,
+        "input_price_per_million": 0.33,
+        "output_price_per_million": 0.84,
+        "journal_accounted_or_reserved_usd": 0.04613274,
+        "uncertain_accounted_or_reserved_usd": 0,
+        "uncertain_requests": 0,
+        "provider_invoice_verified": false,
+        "token_estimate_covers_all_started_requests": true
+      },
+      "format_checks": {
+        "pass": 6
+      },
+      "format_checks_are_scholarly_scores": false,
+      "category_metadata_matches_dataset": true,
+      "by_category": {
+        "comparison": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "grammar": {
+          "selected": 12,
+          "started": 12,
+          "successful_answers": 12,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "historical_context": {
+          "selected": 6,
+          "started": 6,
+          "successful_answers": 5,
+          "incomplete_answers": 1,
+          "errors": 0,
+          "pending": 0
+        },
+        "instruction_retention": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "life_reflection": {
+          "selected": 13,
+          "started": 13,
+          "successful_answers": 13,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "metadata_lookup": {
+          "selected": 3,
+          "started": 3,
+          "successful_answers": 3,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "source_boundary": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "translation": {
+          "selected": 3,
+          "started": 3,
+          "successful_answers": 3,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        }
+      },
+      "by_language": {
+        "aramaic": {
+          "selected": 12,
+          "started": 12,
+          "successful_answers": 12,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "greek": {
+          "selected": 12,
+          "started": 12,
+          "successful_answers": 11,
+          "incomplete_answers": 1,
+          "errors": 0,
+          "pending": 0
+        },
+        "hebrew": {
+          "selected": 12,
+          "started": 12,
+          "successful_answers": 12,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "mixed": {
+          "selected": 4,
+          "started": 4,
+          "successful_answers": 4,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        }
+      },
+      "scholarly_review": "pending; no biblical accuracy or training improvement score assigned"
+    },
+    {
+      "run": "tinker-baseline-120b-none-v1",
+      "source_hashes": {
+        "manifest_sha256": "cc058f022a3db38a18e4036a155545539209248184ddce02e001dec24ee81cf5",
+        "events_sha256": "071b527b61f274a9b90bdadf0d99e5639d26fb3a8e09c94f84c93d3c4d620151",
+        "dataset_sha256": "65b89f3c448d966ee7682ebe9e73ace556e8f742fd1920e1352e7c86a4a631e0"
+      },
+      "status": "partial",
+      "partial": true,
+      "journal_has_incomplete_tail": false,
+      "settings": {
+        "model": "openai/gpt-oss-120b",
+        "model_revision": "provider_revision_unpinned",
+        "evidence_mode": "none",
+        "reasoning_effort": "low",
+        "max_input_tokens": 6000,
+        "max_output_tokens": 4096,
+        "temperature": 0.0,
+        "seed": 20260905,
+        "prompt_date": "2026-09-05",
+        "chat_template_sha256": "a4c9919cbbd4acdd51ccffe22da049264b1b73e59055fa58811a99efbd7c8146",
+        "tokenizer_sha256": "0614fe83cadab421296e664e1f48f4261fa8fef6e03e63bb75c20f38e37d07d3"
+      },
+      "counts": {
+        "selected_cases": 40,
+        "started_requests": 6,
+        "received_results": 6,
+        "completed_responses": 5,
+        "successful_answers": 5,
+        "incomplete_answers": 0,
+        "errors": 1,
+        "unresolved_requests": 0,
+        "not_started": 34,
+        "pending_results": 34,
+        "scholarly_reviews_pending": 5
+      },
+      "tokens": {
+        "input": 1010,
+        "output": 7359,
+        "successful_answer_input": 1010,
+        "successful_answer_output": 7359,
+        "results_with_usage": 5,
+        "results_missing_usage": 0
+      },
+      "cost": {
+        "known_token_estimate_usd": 0.00651486,
+        "successful_answer_token_estimate_usd": 0.00651486,
+        "input_price_per_million": 0.33,
+        "output_price_per_million": 0.84,
+        "journal_accounted_or_reserved_usd": 0.011935499999999998,
+        "uncertain_accounted_or_reserved_usd": 0.005420639999999999,
+        "uncertain_requests": 1,
+        "provider_invoice_verified": false,
+        "token_estimate_covers_all_started_requests": false
+      },
+      "format_checks": {},
+      "format_checks_are_scholarly_scores": false,
+      "category_metadata_matches_dataset": true,
+      "by_category": {
+        "comparison": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "grammar": {
+          "selected": 12,
+          "started": 5,
+          "successful_answers": 4,
+          "incomplete_answers": 0,
+          "errors": 1,
+          "pending": 7
+        },
+        "historical_context": {
+          "selected": 6,
+          "started": 0,
+          "successful_answers": 0,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 6
+        },
+        "instruction_retention": {
+          "selected": 1,
+          "started": 0,
+          "successful_answers": 0,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 1
+        },
+        "life_reflection": {
+          "selected": 13,
+          "started": 0,
+          "successful_answers": 0,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 13
+        },
+        "metadata_lookup": {
+          "selected": 3,
+          "started": 0,
+          "successful_answers": 0,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 3
+        },
+        "source_boundary": {
+          "selected": 1,
+          "started": 0,
+          "successful_answers": 0,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 1
+        },
+        "translation": {
+          "selected": 3,
+          "started": 0,
+          "successful_answers": 0,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 3
+        }
+      },
+      "by_language": {
+        "aramaic": {
+          "selected": 12,
+          "started": 2,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 1,
+          "pending": 10
+        },
+        "greek": {
+          "selected": 12,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 11
+        },
+        "hebrew": {
+          "selected": 12,
+          "started": 2,
+          "successful_answers": 2,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 10
+        },
+        "mixed": {
+          "selected": 4,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 3
+        }
+      },
+      "scholarly_review": "pending; no biblical accuracy or training improvement score assigned"
+    },
+    {
+      "run": "tinker-smoke-120b-high-v1",
+      "source_hashes": {
+        "manifest_sha256": "a69094d568c57b7704cff563c905cbc29c4a2ab564c4ba616acf53040efe94ea",
+        "events_sha256": "dd7f2e8f9fca7540bd19ff3742003ec95e157a7b89cb5f1db36a37edf095018d",
+        "dataset_sha256": "65b89f3c448d966ee7682ebe9e73ace556e8f742fd1920e1352e7c86a4a631e0"
+      },
+      "status": "complete",
+      "partial": false,
+      "journal_has_incomplete_tail": false,
+      "settings": {
+        "model": "openai/gpt-oss-120b",
+        "model_revision": "provider_revision_unpinned",
+        "evidence_mode": "provided",
+        "reasoning_effort": "high",
+        "max_input_tokens": 6000,
+        "max_output_tokens": 8192,
+        "temperature": 0.0,
+        "seed": 20260905,
+        "prompt_date": "2026-09-05",
+        "chat_template_sha256": "a4c9919cbbd4acdd51ccffe22da049264b1b73e59055fa58811a99efbd7c8146",
+        "tokenizer_sha256": "0614fe83cadab421296e664e1f48f4261fa8fef6e03e63bb75c20f38e37d07d3"
+      },
+      "counts": {
+        "selected_cases": 4,
+        "started_requests": 4,
+        "received_results": 4,
+        "completed_responses": 3,
+        "successful_answers": 2,
+        "incomplete_answers": 1,
+        "errors": 1,
+        "unresolved_requests": 0,
+        "not_started": 0,
+        "pending_results": 0,
+        "scholarly_reviews_pending": 3
+      },
+      "tokens": {
+        "input": 1034,
+        "output": 17867,
+        "successful_answer_input": 718,
+        "successful_answer_output": 9675,
+        "results_with_usage": 3,
+        "results_missing_usage": 0
+      },
+      "cost": {
+        "known_token_estimate_usd": 0.015349499999999999,
+        "successful_answer_token_estimate_usd": 0.00836394,
+        "input_price_per_million": 0.33,
+        "output_price_per_million": 0.84,
+        "journal_accounted_or_reserved_usd": 0.024210779999999998,
+        "uncertain_accounted_or_reserved_usd": 0.00886128,
+        "uncertain_requests": 1,
+        "provider_invoice_verified": false,
+        "token_estimate_covers_all_started_requests": false
+      },
+      "format_checks": {},
+      "format_checks_are_scholarly_scores": false,
+      "category_metadata_matches_dataset": true,
+      "by_category": {
+        "comparison": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 0,
+          "incomplete_answers": 0,
+          "errors": 1,
+          "pending": 0
+        },
+        "grammar": {
+          "selected": 3,
+          "started": 3,
+          "successful_answers": 2,
+          "incomplete_answers": 1,
+          "errors": 0,
+          "pending": 0
+        }
+      },
+      "by_language": {
+        "aramaic": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "greek": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "hebrew": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 0,
+          "incomplete_answers": 1,
+          "errors": 0,
+          "pending": 0
+        },
+        "mixed": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 0,
+          "incomplete_answers": 0,
+          "errors": 1,
+          "pending": 0
+        }
+      },
+      "scholarly_review": "pending; no biblical accuracy or training improvement score assigned"
+    }
+  ],
+  "limitations": [
+    "Completion and format counts do not establish historical correctness.",
+    "Scholarly review remains pending for all received answers.",
+    "Token-price estimates and journal reservations are not reconciled provider invoices.",
+    "Partial journals describe only the snapshot read; rerun after completion for final totals."
+  ]
+}

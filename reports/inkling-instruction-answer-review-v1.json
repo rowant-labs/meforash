@@ -1,0 +1,1585 @@
+{
+  "schema_version": 1,
+  "status": "source_review_complete",
+  "generated_at_utc": "2026-09-06T18:30:11.156064+00:00",
+  "review_type": "label_concealed_ai_source_check",
+  "expert_certified": false,
+  "cases_reviewed": 24,
+  "candidates_reviewed": 96,
+  "complete_extracted_answers": 93,
+  "output_limit_candidates_without_retained_final_text": 3,
+  "accuracy_percentage_assigned": false,
+  "contains_full_model_answers": false,
+  "arms": {
+    "A": "unchanged",
+    "B": "original_text_only",
+    "C": "instruction_only",
+    "D": "original_text_then_instruction"
+  },
+  "method": {
+    "training_data_frozen_before_evaluation_review": true,
+    "fresh_evaluation_author_did_not_author_training_targets": true,
+    "candidate_labels_varied_by_case": true,
+    "labels_concealed_during_scoring": true,
+    "formal_blind_study": false,
+    "label_key_opened_after_source_reviews_finished": true,
+    "ranking_basis": "Source fidelity and requested coverage first, then useful scope and clarity; ties are allowed. Some preferences concern scope rather than factual correctness.",
+    "assessment_scope": "Reviewer assessment labels are retained verbatim. Incomplete can mean missing requested content in a finished answer, or a native output-limit failure; native answer_complete and separate by-arm counts distinguish these. Each language packet has one judge, so label thresholds are not independently calibrated across judges.",
+    "material_issue_definition": "Clearly identified factual/parsing/quotation errors and important omissions of requested content; this count is not an accuracy rate. Minor wording and interpretive cautions remain in notes.",
+    "reviewer_overlap": "The Aramaic judge authored the frozen evaluation. Other judges had participated in training-example authoring or review; all read evaluation questions only after training examples were frozen. Three judges produced separate case reviews, not independent duplicate ratings of every answer.",
+    "output_limit_scope": "The extractor retains completed native messages. The three truncated generations have no retained final text; generated token IDs were hashed rather than saved. Actual unfinished content, repetition, and analysis-only generation cannot be established."
+  },
+  "by_arm": {
+    "A": {
+      "sound": 15,
+      "answers_with_material_issues": 7,
+      "native_completion_failures": 0,
+      "completed_but_assessed_incomplete": 0,
+      "mixed": 9
+    },
+    "B": {
+      "sound": 18,
+      "answers_with_material_issues": 4,
+      "native_completion_failures": 0,
+      "completed_but_assessed_incomplete": 0,
+      "mixed": 6
+    },
+    "C": {
+      "sound": 15,
+      "answers_with_material_issues": 9,
+      "native_completion_failures": 0,
+      "completed_but_assessed_incomplete": 0,
+      "mixed": 9
+    },
+    "D": {
+      "sound": 15,
+      "answers_with_material_issues": 4,
+      "native_completion_failures": 3,
+      "completed_but_assessed_incomplete": 3,
+      "mixed": 3,
+      "incomplete": 6
+    }
+  },
+  "pairwise_preferences": {
+    "A_vs_B": {
+      "tie": 9,
+      "right_preferred": 11,
+      "left_preferred": 4
+    },
+    "A_vs_C": {
+      "tie": 9,
+      "left_preferred": 7,
+      "right_preferred": 8
+    },
+    "A_vs_D": {
+      "left_preferred": 12,
+      "tie": 5,
+      "right_preferred": 7
+    },
+    "B_vs_C": {
+      "tie": 8,
+      "left_preferred": 12,
+      "right_preferred": 4
+    },
+    "B_vs_D": {
+      "left_preferred": 12,
+      "tie": 9,
+      "right_preferred": 3
+    },
+    "C_vs_D": {
+      "left_preferred": 10,
+      "right_preferred": 9,
+      "tie": 5
+    }
+  },
+  "cases": [
+    {
+      "case_id": "IH01",
+      "preference_tiers": [
+        [
+          "C",
+          "A",
+          "B"
+        ],
+        [
+          "D"
+        ]
+      ],
+      "preference_basis": "C/A/B explicitly translate the verse and explain the construction; D supplies a briefer synopsis with less of the requested grammatical detail. No defensible disputed guilt interpretation is treated as a demonstrated factual error; preference is coverage, not a measured accuracy difference.",
+      "candidates": {
+        "A": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1480,
+          "material_errors": [],
+          "notes": "Correct Hiphil forms and translation. A resentment-related reading has an interpretive history; no unique causal account is required."
+        },
+        "B": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 942,
+          "material_errors": [],
+          "notes": "Correct infinitive-absolute construction and clear translation. Omits the stem label but preserves meaning and uncertainty; no unsolicited advice."
+        },
+        "C": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1515,
+          "material_errors": [],
+          "notes": "Requested Hiphil parses and main translation are correct. Distinguish possible interpretive consequences from lexical claims that sin itself means a grudge; the listed alternatives remain qualified."
+        },
+        "D": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 506,
+          "material_errors": [],
+          "notes": "Construction, person, and broad prohibitions are right; does not identify Hiphil or provide a direct complete verse rendering. The bring-guilt-upon-the-other alternative needs an identified interpretive argument; do not present it as settled syntax."
+        }
+      },
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Lev.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html",
+        "https://www.thetorah.com/article/do-not-hate-rebuke-without-sin",
+        "https://classic.net.bible.org/passage.php?passage=Lev+19%3A17"
+      ]
+    },
+    {
+      "case_id": "IH02",
+      "preference_tiers": [
+        [
+          "D",
+          "A",
+          "B"
+        ],
+        [
+          "C"
+        ]
+      ],
+      "preference_basis": "All retain the blessing, divine actor, singular recipient, and contextual wish force. D/A/B stay closer to the requested task; C adds unsolicited devotional material. This is primarily scope preference, not a parsing-accuracy win.",
+      "candidates": {
+        "A": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 2352,
+          "material_errors": [],
+          "notes": "Correct requested actor/recipient and jussive use. Broad claims about English needing a modal should be softened; English can also say The Lord bless you."
+        },
+        "B": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 932,
+          "material_errors": [],
+          "notes": "Focused and accurate blessing/roles. English has subjunctive benedictions too, so no-direct-jussive wording is too sweeping; this does not change the Hebrew analysis."
+        },
+        "C": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 3216,
+          "material_errors": [],
+          "notes": "Correct core parses and translation. Later liturgy/application sections exceed the requested textual task. English modal explanation is somewhat overstated."
+        },
+        "D": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 448,
+          "material_errors": [],
+          "notes": "Accurate brief blessing and roles; divine name remains in Hebrew. Contextual wish explanation suffices without a mandatory stem table."
+        }
+      },
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Num.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+      ]
+    },
+    {
+      "case_id": "IH03",
+      "preference_tiers": [
+        [
+          "B"
+        ],
+        [
+          "A"
+        ],
+        [
+          "D"
+        ],
+        [
+          "C"
+        ]
+      ],
+      "preference_basis": "B gives the required groups, payment rule, and referents concisely. A also answers those accurately but adds unrequested context/reflection. D omits the explicit no-oppression instruction and both worker groups. C has a materially misleading final-clause translation despite correcting the sense later.",
+      "candidates": {
+        "A": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 2765,
+          "material_errors": [],
+          "notes": "Correct main translation and warning. Agrarian economy and later-reception remarks are additional contextual claims, not words in the provided text; the reflection is unrequested."
+        },
+        "B": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1127,
+          "material_errors": [],
+          "notes": "Correct main instructions and referents. The negative warning is read in its conditional/purpose context rather than assigned guilt to the worker."
+        },
+        "C": {
+          "assessment": "mixed",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1882,
+          "material_errors": [
+            {
+              "claim": "Then he will not call out against you ... and it will be sin in you.",
+              "correction": "The warning concerns guilt incurred if wages are withheld and the worker cries out; the quoted translation obscures that condition and conflicts with the correct explanation later.",
+              "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Deut.xml"
+            }
+          ],
+          "notes": "Role table and concluding explanation are correct, but the quoted translation misleadingly joins no-cry and guilt as if both followed prompt payment."
+        },
+        "D": {
+          "assessment": "mixed",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 388,
+          "material_errors": [
+            {
+              "claim": "Coverage omission: verse14 main instruction and the two worker groups are absent.",
+              "correction": "Retain the prohibition on exploiting a poor hired worker, whether a fellow member or resident foreigner; the omission is incomplete requested coverage, not a stated denial of foreigners' inclusion.",
+              "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Deut.xml"
+            }
+          ],
+          "notes": "Correct payer/worker/time and guilt referents, but the answer does not translate the main verse14 prohibition or retain both citizen and resident-foreigner groups."
+        }
+      },
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Deut.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+      ]
+    },
+    {
+      "case_id": "IH04",
+      "preference_tiers": [
+        [
+          "D",
+          "B"
+        ],
+        [
+          "C"
+        ],
+        [
+          "A"
+        ]
+      ],
+      "preference_basis": "D is focused and B offers correctly attributed version examples; both convey the core ambiguity. C misattributes NASB wording. A misattributes NASB and NJPS wording and adds a lengthy unsolicited reflection and an unsupported assertion about Elijah's expectations. D/B have different coverage/style strengths and remain tied.",
+      "candidates": {
+        "A": {
+          "assessment": "mixed",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 7568,
+          "material_errors": [
+            {
+              "claim": "NJPS is attributed a sound of thin silence.",
+              "correction": "JPS1985 renders this a soft murmuring sound; distinguish a possible personal rendering from an exact edition quotation.",
+              "source_url": "https://www.sefaria.org/I_Kings.19.12?with=Translations"
+            },
+            {
+              "claim": "NASB is grouped with a low whisper.",
+              "correction": "The checked NASB prints a sound of a gentle blowing.",
+              "source_url": "https://www.biblegateway.com/passage/?search=1+Kings+19%3A12&version=NASB"
+            }
+          ],
+          "notes": "The adjective agreement is correctly explained, though calling demamah itself in construct/state is imprecise: qol is construct. The all-major-editions claim is unsupported by the single supplied edition. Elijah expected spectacle is not explicitly narrated. Unrequested devotional material is extensive."
+        },
+        "B": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 3119,
+          "material_errors": [],
+          "notes": "Core explanation and listed KJV/NRSV/NIV/ESV/JPS phrases are accurate. Direct adjective agreement could be more explicit. Includes unrequested reflection."
+        },
+        "C": {
+          "assessment": "mixed",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 5414,
+          "material_errors": [
+            {
+              "claim": "NASB is included among gentle/low whisper renderings.",
+              "correction": "The checked NASB prints a sound of a gentle blowing.",
+              "source_url": "https://www.biblegateway.com/passage/?search=1+Kings+19%3A12&version=NASB"
+            }
+          ],
+          "notes": "Correct adjective agreement and careful distinction that the text never explicitly says YHWH was in the silence. Demamah in construct/state is imprecise. NASB quotation attribution needs correction."
+        },
+        "D": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 765,
+          "material_errors": [],
+          "notes": "Gives sound lexical alternatives and specific-scene limits. A construct phrase includes a modifying adjective, not three nouns in construct. Thin sound is an English restructuring; daqqah directly agrees with demamah. This is a precision note, not a demonstrated wrong overall translation."
+        }
+      },
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/1Kgs.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html",
+        "https://tips.translation.bible/tip_verse/1kgs-1912/"
+      ]
+    },
+    {
+      "case_id": "IH05",
+      "preference_tiers": [
+        [
+          "D"
+        ],
+        [
+          "C",
+          "A"
+        ],
+        [
+          "B"
+        ]
+      ],
+      "preference_basis": "D tracks the dialogue and distinguishes grammatical plurality from proposed interpretations. C/A largely do the same with more exposition and minor wording problems. B overstates what the pronoun establishes by inferring that the speaker is not acting alone.",
+      "candidates": {
+        "A": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1829,
+          "material_errors": [],
+          "notes": "Accurate roles and plural form. Indicative/future is too mechanical for a deliberative question; the opening dialogue nevertheless conveys the question. Plural-of-majesty remains a proposed interpretation, not a grammatical conclusion."
+        },
+        "B": {
+          "assessment": "mixed",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1173,
+          "material_errors": [
+            {
+              "claim": "The plural shows the speaker is not acting alone.",
+              "correction": "Lanu marks plural reference or beneficiaries; it does not by itself establish multiple actors in the sending action.",
+              "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Isa.xml"
+            }
+          ],
+          "notes": "Main speakers and verbs are correct, but beneficiaries represented by us do not prove multiple co-agents in the sending action."
+        },
+        "C": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1897,
+          "material_errors": [],
+          "notes": "Overall role tracking is correct. One sentence asks whom that subject should be; it should say object/person sent, since the Lord is already the subject. The surrounding explanation makes the intended roles clear."
+        },
+        "D": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 648,
+          "material_errors": [],
+          "notes": "Concise, correct dialogue and imperative-plus-object explanation. The named plural interpretations are possibilities, not established by the suffix. Does not endorse a denomination."
+        }
+      },
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Isa.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+      ]
+    },
+    {
+      "case_id": "IH06",
+      "preference_tiers": [
+        [
+          "B",
+          "A",
+          "C"
+        ],
+        [
+          "D"
+        ]
+      ],
+      "preference_basis": "B/A/C adequately explain the infinitival structure and passive participle; D gives a correct shorter outline with less of the requested form explanation. English to-be-born and to-give-birth options are accepted; A's passive/resultative sense is not treated as a claimed passive morphological stem.",
+      "candidates": {
+        "A": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1864,
+          "material_errors": [],
+          "notes": "Correct requested forms and translation. Passive/resultative sense is an English semantic option here; the answer does not label the Hebrew form as a passive stem, so no false-parse penalty."
+        },
+        "B": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 868,
+          "material_errors": [],
+          "notes": "Correct infinitive constructs, participle, and readable translation; no added advice."
+        },
+        "C": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1945,
+          "material_errors": [],
+          "notes": "Correct infinitive structure and Qal passive participle, including its object function. Accepts legitimate English birth renderings without assigning a passive Hebrew stem."
+        },
+        "D": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 465,
+          "material_errors": [],
+          "notes": "Core structure and translation are correct; infinitive-construct details, root, and participle gender/number are sparse."
+        }
+      },
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Eccl.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+      ]
+    },
+    {
+      "case_id": "IH07",
+      "preference_tiers": [
+        [
+          "B"
+        ],
+        [
+          "A"
+        ],
+        [
+          "C"
+        ],
+        [
+          "D"
+        ]
+      ],
+      "preference_basis": "B gives a complete translation with a qualified explanation. A is broadly accurate but pushes moral innocence and obligation more strongly. C incorrectly places reduced culpability in Jonah's perspective. D has no complete extracted final answer at the output limit.",
+      "candidates": {
+        "A": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 2377,
+          "material_errors": [],
+          "notes": "Complete translation and pronoun contrast. Moral innocence/not-culpable and all-living-creatures are stronger interpretations than the wording alone; they should remain qualified. Isolated חָסַתָּ also differs in pointing from the source."
+        },
+        "B": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1494,
+          "material_errors": [],
+          "notes": "Complete comparison and rhetorical reading, with likely marking interpretation of right/left. The isolated quoted חָסַתָּ differs from supplied חַסְתָּ vocalization; copy source pointing faithfully."
+        },
+        "C": {
+          "assessment": "mixed",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 2730,
+          "material_errors": [
+            {
+              "claim": "Nineveh's people are not fully culpable in Jonah's eyes.",
+              "correction": "The final concern is expressed by God. The passage does not say Jonah adopts that view; this reverses the relevant perspective.",
+              "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Jonah.xml"
+            }
+          ],
+          "notes": "Complete translation and roles until the later explanation wrongly locates diminished culpability in Jonah's eyes. The source presents the concern in God's speech."
+        },
+        "D": {
+          "assessment": "incomplete",
+          "answer_complete": false,
+          "finish_reason": "length",
+          "retained_final_characters": 0,
+          "material_errors": [],
+          "notes": "No complete final answer was extracted or retained; finish_reason length at8,192tokens. The extractor retains completed messages; raw generated token IDs were not saved, so the empty string does not prove that no English text was generated. No claim of repetition or reasoning loss follows."
+        }
+      },
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Jonah.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html",
+        "https://www.thetorah.com/article/jonah-struggles-with-gods-compassion"
+      ]
+    },
+    {
+      "case_id": "IA01",
+      "preference_tiers": [
+        [
+          "B",
+          "C",
+          "A"
+        ],
+        [
+          "D"
+        ]
+      ],
+      "preference_basis": "All three retained answers correctly describe the scene but share a substantial error on the explicitly requested ketiv/qere distinction: the qere is feminine plural, not singular. B and A also misparse כָתְבָה as perfect; C leaves several requested forms inadequately or ambiguously parsed. These weaknesses do not establish a reliable substantive winner among B/C/A. D has no complete retained final answer.",
+      "candidates": {
+        "A": {
+          "assessment": "mixed",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 2222,
+          "material_errors": [
+            {
+              "claim": "The qere נְפַקָה is feminine singular and shifts the subject from fingers to a single hand.",
+              "correction": "At Dan.5.5 the qere word 27c3h is Peal perfect third feminine plural (AVqp3fp); the main ketiv 27AFT is annotated third masculine plural (AVqp3mp). Both readings are plural. A singular-hand subject shift cannot be inferred from this difference.",
+              "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+            },
+            {
+              "claim": "כָתְבָה is perfect third feminine singular.",
+              "correction": "The pointed occurrence 273Cx is a Peal active participle feminine singular (AVqrfsa), describing the writing hand. Its final ה does not make it perfect.",
+              "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+            }
+          ],
+          "notes": "Calling a predicative participle a finite form is not by itself treated as a second stem error. כָתְבָן is described as feminine/plural but its participial identity is left implicit. Neither extra detail nor transliteration resolves the shared qere error."
+        },
+        "B": {
+          "assessment": "mixed",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1579,
+          "material_errors": [
+            {
+              "claim": "The qere נְפַקָה is feminine singular and shifts the subject from fingers to a single hand.",
+              "correction": "At Dan.5.5 the qere word 27c3h is Peal perfect third feminine plural (AVqp3fp); the main ketiv 27AFT is annotated third masculine plural (AVqp3mp). Both readings are plural. A singular-hand subject shift cannot be inferred from this difference.",
+              "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+            },
+            {
+              "claim": "כָתְבָה is perfect third feminine singular.",
+              "correction": "The pointed occurrence 273Cx is a Peal active participle feminine singular (AVqrfsa), describing the writing hand. Its final ה does not make it perfect.",
+              "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+            }
+          ],
+          "notes": "כָתְבָן could be specified as feminine plural. The unrequested present-day reflection and general reception claim add scope without repairing the grammatical errors."
+        },
+        "C": {
+          "assessment": "mixed",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1607,
+          "material_errors": [
+            {
+              "claim": "The qere נְפַקָה is feminine singular and shifts the subject from fingers to a single hand.",
+              "correction": "At Dan.5.5 the qere word 27c3h is Peal perfect third feminine plural (AVqp3fp); the main ketiv 27AFT is annotated third masculine plural (AVqp3mp). Both readings are plural. A singular-hand subject shift cannot be inferred from this difference.",
+              "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+            },
+            {
+              "claim": "חָזֵה is a masculine singular participle/perfect form.",
+              "correction": "At word 272Bq the pointed form is a Peal active participle masculine singular (AVqrmsa); perfect is not an equally supported occurrence parse.",
+              "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+            }
+          ],
+          "notes": "Identifies the gender/number of כָתְבָה without falsely calling it perfect, but does not actually identify it or כָתְבָן as the requested participles. The expression participle/perfect for חָזֵה introduces an unsupported alternative."
+        },
+        "D": {
+          "assessment": "incomplete",
+          "answer_complete": false,
+          "finish_reason": "length",
+          "retained_final_characters": 0,
+          "material_errors": [],
+          "notes": "The packet contains no complete extracted/retained final answer: answer_complete=false, finish_reason=length, output_tokens=8192. This is an output-limit noncompletion outcome, not a demonstrated factual claim. Generated tokens were not retained and the parser extracts completed messages, so an unfinished final message might have been omitted. Neither absence of all English generation, analysis-only output, nor repetition is established. No clipping or rerequest was used."
+        }
+      },
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html",
+        "https://hebrewsyntax.org/other_languages/biblical_aramaic_paradigms.pdf"
+      ]
+    },
+    {
+      "case_id": "IA02",
+      "preference_tiers": [
+        [
+          "B",
+          "D",
+          "A"
+        ],
+        [
+          "C"
+        ]
+      ],
+      "preference_basis": "B, D and A preserve all four forms sufficiently to explain Daniel declining the gifts while nevertheless undertaking to read and interpret. Their stem-label precision and extent of annotation differ, but not enough to establish a material winner. C adds a definite mistaken preposition/imperative analysis of לֶהֶוְיָן, despite getting the translation and unconditional offer right.",
+      "candidates": {
+        "A": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 2289,
+          "material_errors": [],
+          "notes": "Prefixed ל is not called a preposition here and can correctly denote the verbal preformative. Haphel is the precise occurrence label, while Aphel/Haphel is a broader causative naming choice. Feminine plural is left implicit but plural gifts remain clear."
+        },
+        "B": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1582,
+          "material_errors": [],
+          "notes": "The more precise name for אֲהוֹדְעִנֵּהּ in this tradition is Haphel, rather than Aphel; its causative behavior and first-person subject are nevertheless correct. להוין is feminine plural. Unrequested reflection and unsupported claims about debated court protocol are secondary scope/grounding weaknesses, not a reversal of the verse."
+        },
+        "C": {
+          "assessment": "mixed",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 3152,
+          "material_errors": [
+            {
+              "claim": "לֶהֶוְיָן is a jussive/imperative form with the preposition לְ-.",
+              "correction": "The occurrence 27sGR is one finite Peal imperfect third feminine plural form, used here with wish/jussive force (AVqi3fp). Its ל is a verbal preformative, not a separately prefixed preposition plus verbal form.",
+              "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+            }
+          ],
+          "notes": "The third-person wish is not a second-person imperative. The suffix discussion is not scored against the answer merely for resuming the interpretation in English; roles remain clear. General reception and unrequested reflection are not evidence of linguistic accuracy."
+        },
+        "D": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 698,
+          "material_errors": [],
+          "notes": "Does not name the Haphel stem, but the causative English rendering preserves its function. Concision does not omit a requested substantive conclusion."
+        }
+      },
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html",
+        "https://hebrewsyntax.org/other_languages/biblical_aramaic_paradigms.pdf"
+      ]
+    },
+    {
+      "case_id": "IA03",
+      "preference_tiers": [
+        [
+          "C",
+          "A",
+          "B"
+        ],
+        [
+          "D"
+        ]
+      ],
+      "preference_basis": "C/A/B cover the distinct accusations in both verses, the three negated capabilities of the material gods, and the final contrast. Each has some secondary overstatement or paraphrase imprecision, so they are tied. D gives the principal contrast accurately but leaves out the explicit self-exaltation and vessel-drinking accusations; its lower position concerns requested coverage, not brevity or lack of decorative commentary.",
+      "candidates": {
+        "A": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 2439,
+          "material_errors": [],
+          "notes": "Every mode by which a living being might respond is an overbroad rhetorical formulation: the speech expressly names seeing, hearing and knowing. Had the vessels brought is accepted as a causative narrative paraphrase consistent with Dan.5.2; Dan.5.23 itself uses a third-plural bringing verb. These are precision limits, not a reversed main claim."
+        },
+        "B": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1539,
+          "material_errors": [],
+          "notes": "You brought the vessels is less exact than the third-plural they brought them before you in Dan.5.23. Dan.5.2 states that the king ordered their bringing, so a loose agency paraphrase is contextually supported; it should not be presented as a literal person/number parse. Core roles remain intelligible."
+        },
+        "C": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 4061,
+          "material_errors": [],
+          "notes": "Total sensory and cognitive absence is a rhetorical inference from the three named faculties, not a literal exhaustive lexical list. The additional reception discussion and present-day reflection exceed the request to stay with the speech and receive no credit. They do not overturn the correct core account."
+        },
+        "D": {
+          "assessment": "mixed",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 462,
+          "material_errors": [
+            {
+              "claim": "The accusation is summarized only as not humbling his heart and not honoring God.",
+              "correction": "The supplied speech also explicitly accuses him of exalting himself against the Lord of heaven and recounts the temple vessels and the king’s company drinking from them (Dan.5.23). These are material parts of the requested accusation, distinct from the idol description.",
+              "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+            }
+          ],
+          "notes": "The retained answer is complete as an output. Its incomplete coverage is separate from an output-limit failure."
+        }
+      },
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+      ]
+    },
+    {
+      "case_id": "IA04",
+      "preference_tiers": [
+        [
+          "A",
+          "B"
+        ],
+        [
+          "C"
+        ],
+        [
+          "D"
+        ]
+      ],
+      "preference_basis": "A and B clearly preserve God numbering/ending the kingdom, the king being weighed, and the kingdom being divided and transferred. C also gets these roles right in prose, but its subject/object table and added explanation of the wordplay are misleading. D has no complete retained final answer. No answer is penalized for a sound perfect/passive treatment of תקילתה: the known OSHB tense-tag discrepancy was recorded before answers.",
+      "candidates": {
+        "A": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1672,
+          "material_errors": [],
+          "notes": "God/enemies as agents behind the passive is contextual inference rather than an explicit list in verse28; the answer says the agents are implied. Wordplay with Persia is reasonable, but is not needed for the task."
+        },
+        "B": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1211,
+          "material_errors": [],
+          "notes": "The task does not require every verb’s tense or stem label. The English past/passive rendering is sound despite the known OSHB annotation discrepancy for תקילתה."
+        },
+        "C": {
+          "assessment": "mixed",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 2709,
+          "material_errors": [
+            {
+              "claim": "The Aramaic uses repetition for emphasis: מְנֵא מְנָה means numbered, numbered, with analogous repeated expressions for weighed and divided.",
+              "correction": "Verses26–28 introduce the inscription words and interpret them with related verbs: God numbered the kingdom, you were weighed, and the kingdom was divided. These are interpretive wordplays, not adequately explained as simple emphatic reduplication; the different forms and their roles should remain distinct.",
+              "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+            },
+            {
+              "claim": "The role table makes the weighed king his own object and the passively divided kingdom its own object.",
+              "correction": "In the passive clauses the king and kingdom are grammatical subjects/patients, not reflexive direct objects. The prose correctly identifies who undergoes each action, but the table’s object column is misleading.",
+              "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+            }
+          ],
+          "notes": "The table weakens an otherwise correct role explanation by assigning Himself as an object of passive weighed and The kingdom as an object of passive divided. The unrequested application adds no source accuracy."
+        },
+        "D": {
+          "assessment": "incomplete",
+          "answer_complete": false,
+          "finish_reason": "length",
+          "retained_final_characters": 0,
+          "material_errors": [],
+          "notes": "The packet contains no complete extracted/retained final answer: answer_complete=false, finish_reason=length, output_tokens=8192. This is an output-limit noncompletion outcome, not a demonstrated factual claim. Generated tokens were not retained and the parser extracts completed messages, so an unfinished final message might have been omitted. Neither absence of all English generation, analysis-only output, nor repetition is established. No clipping or rerequest was used."
+        }
+      },
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html",
+        "https://hebrewsyntax.org/other_languages/biblical_aramaic_paradigms.pdf"
+      ]
+    },
+    {
+      "case_id": "IA05",
+      "preference_tiers": [
+        [
+          "A",
+          "C",
+          "B",
+          "D"
+        ]
+      ],
+      "preference_basis": "All four answers correctly identify Artaxerxes and Ezra, understand the decree as permission restricted to willing travelers, and explain volunteering, the go infinitive and the permissive finite verb. The concise D answer satisfies the actual question. Additional headings, stem names, caveats and background do not establish a material advantage.",
+      "candidates": {
+        "A": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1609,
+          "material_errors": [],
+          "notes": "Hitpael is accepted here as a conventional name for the reflexive intensive/D pattern called Hithpaal in the OSHB key. A transliteration difference alone is not an error. He/they in English is collective paraphrase; the answer explicitly identifies the singular form."
+        },
+        "B": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 822,
+          "material_errors": [],
+          "notes": "Does not name the participle’s stem, but supplies the function requested. Go up is an ordinary travel paraphrase; up is not a separate word in the supplied infinitive."
+        },
+        "C": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1941,
+          "material_errors": [],
+          "notes": "The suggestion that the stem depends on dialect analysis adds unsupported uncertainty; the pinned form has a clear reflexive D-pattern annotation. It does not change the correctly explained function. The difficult greeting is not a required scoring target, so the gloss complete/finished, and so forth is not treated as settled proof of a superior answer."
+        },
+        "D": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 307,
+          "material_errors": [],
+          "notes": "Hitpael is accepted as the same reflexive intensive pattern discussed for W. More detail on offices, group list and destination would be optional here; the short answer covers the explicit question."
+        }
+      },
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ezra.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html",
+        "https://hebrewsyntax.org/other_languages/biblical_aramaic_paradigms.pdf"
+      ]
+    },
+    {
+      "case_id": "IA06",
+      "preference_tiers": [
+        [
+          "D",
+          "B"
+        ],
+        [
+          "C",
+          "A"
+        ]
+      ],
+      "preference_basis": "All four preserve receipt of the vessels by Ezra, his command to deliver them, and royal treasury payment. D/B explicitly identify the first form as a participle and clearly contrast it with an imperative. C/A explain the right functions but give a less secure stem account and leave the participial identity implicit. This is a modest grammatical-explanation preference, not a measured translation-success difference. Naming conventions alone are not elevated to a material voice/agency error.",
+      "candidates": {
+        "A": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1356,
+          "material_errors": [],
+          "notes": "Ithpael is not the precise occurrence name: OSHB and the comparative Gt account support Hithpeel/Ithpeel, distinct from a reflexive D stem. Hiphil is also Hebrew-style rather than the precise Haphel name. The described voice and command remain correct, and no explicit D-stem derivation is argued. The participial identity is implicit. These are limited grammatical precision weaknesses, not incorrect recipients or funding."
+        },
+        "B": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 990,
+          "material_errors": [],
+          "notes": "Stem names and number are not explicit, but the requested voice/function distinction and actors are clear. Before God in Jerusalem is a slight paraphrase of before the God of Jerusalem. The absence of extra morphology claims is not in itself a completeness failure."
+        },
+        "C": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1722,
+          "material_errors": [],
+          "notes": "The claim that an Ithpeel/Ithpaal-type analysis is standard blurs distinct Gt and Dt paradigms: the occurrence is Hithpeel/Ithpeel (Gt), a masculine plural participle with passive value. It also never clearly identifies that participle. Because the answer retains the actual passive role and does not explicitly argue for a reflexive Pael/D derivation, this is recorded as precision weakness rather than a material reversal. Before God in Jerusalem is a slight paraphrase of before the God of Jerusalem."
+        },
+        "D": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 533,
+          "material_errors": [],
+          "notes": "Hiphil is a Hebrew-style name for the causative here; the Aramaic occurrence is more precisely Haphel (AVhv2ms). The answer’s described imperative function and addressee are correct, so nomenclature alone does not outweigh the accurate parse of the first word."
+        }
+      },
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ezra.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html",
+        "https://hebrewsyntax.org/other_languages/biblical_aramaic_paradigms.pdf",
+        "https://cal.huc.edu/oneentry.php?lemma=yhb%20V&cits=all"
+      ]
+    },
+    {
+      "case_id": "IA07",
+      "preference_tiers": [
+        [
+          "A",
+          "B",
+          "D"
+        ],
+        [
+          "C"
+        ]
+      ],
+      "preference_basis": "A/B/D all correctly identify protected temple personnel, Ezra as the singular appointing addressee, and the final plural teaching address. A’s body states one referent more categorically, but its closing qualification acknowledges interpretation; this does not establish a material core-answer loss against B/D. C gives the same correct core account, then introduces unsupported second-versus-third-person uncertainty precisely where the question asks about addressee.",
+      "candidates": {
+        "A": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 3807,
+          "material_errors": [],
+          "notes": "The body equates the plural with the appointed judges too categorically, but the closing limitation identifies the referent as contextual interpretation. The grammar establishes plural you; it does not identify every member. Hiphil is a generic Hebrew-style causative label where Haphel is precise. Unrequested reflection and broad temple-economy history receive no source-accuracy credit."
+        },
+        "B": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1299,
+          "material_errors": [],
+          "notes": "No material source error identified. The question does not demand a full morphological label where the personal-address shift is explained."
+        },
+        "C": {
+          "assessment": "mixed",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 3238,
+          "material_errors": [
+            {
+              "claim": "The precise morphological parsing of תְּהוֹדְעוּן might be 2mp versus 3mp imperfect; the ending alone establishes plural.",
+              "correction": "The occurrence 15Moi is Haphel imperfect second masculine plural (AVhi2mp). In this form the ת prefix together with the ending and clause identifies plural you; second versus third person is not left open merely because the ending is plural. Uncertainty concerns which people compose the addressed group, not this person distinction.",
+              "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ezra.xml"
+            }
+          ],
+          "notes": "The main answer repeatedly says plural you, so this is an unnecessary added ambiguity rather than a consistently third-person mistranslation. Unrequested reflection and reception statements do not compensate for it."
+        },
+        "D": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 517,
+          "material_errors": [],
+          "notes": "The concise answer covers all requested roles and the shift. It is not downgraded for omitting extended background, transliteration or a stem label."
+        }
+      },
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ezra.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html",
+        "https://hebrewsyntax.org/other_languages/biblical_aramaic_paradigms.pdf"
+      ]
+    },
+    {
+      "case_id": "IG01",
+      "preference_tiers": [
+        [
+          "C"
+        ],
+        [
+          "B"
+        ],
+        [
+          "A"
+        ],
+        [
+          "D"
+        ]
+      ],
+      "preference_basis": "C supplies the requested translation, correct grievance direction and morphology, and ordered actions while keeping the discussion substantially textual. B and A also cover those requirements but add increasingly unrequested reflection and historical claims. D has accurate facts but does not translate the supplied verses; brevity does not cure that missing requested deliverable.",
+      "candidates": {
+        "A": {
+          "assessment": "mixed",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 2891,
+          "material_errors": [],
+          "notes": "Adds four layers of historical/reception/application discussion that the user did not request. First-century Jewish-Christian practice and Eucharistic reception are not established by these two supplied verses; the immediate scenario is a gift at a Jewish altar. These are unsupported expansions here, rather than mistakes in the central translation."
+        },
+        "B": {
+          "assessment": "mixed",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1476,
+          "material_errors": [],
+          "notes": "The final reflection is unrequested. The claimed passive emphasis on an internal reconciled state rather than merely an external act is interpretive shading, not a grammatical contrast encoded by voice alone. No reversal of roles or explicit claim that reconciliation is guaranteed."
+        },
+        "C": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1656,
+          "material_errors": [],
+          "notes": "Accept the idiomatic reconcile yourself explanation alongside passive form. Its general deponent terminology is traditional shorthand, not a basis for treating the form as morphologically active. A stray speaker reference is clarified by repeated identification of the worshipper and does not reverse the roles."
+        },
+        "D": {
+          "assessment": "incomplete",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 276,
+          "material_errors": [],
+          "notes": "The entire answer was reviewed. It supplies a summary rather than the requested translation, omitting the conditional altar situation and leave/go/return wording. This is a coverage limitation, not a parsing error."
+        }
+      },
+      "source_urls": [
+        "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Matt.txt",
+        "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/61-Mt-morphgnt.txt",
+        "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/README.md"
+      ]
+    },
+    {
+      "case_id": "IG02",
+      "preference_tiers": [
+        [
+          "C",
+          "B"
+        ],
+        [
+          "A"
+        ],
+        [
+          "D"
+        ]
+      ],
+      "preference_basis": "C and B explain the construction and merciful actor/victim relation accurately without significant additional speculation. B supplies the active infinitive label and C more explicitly separates the larger narrative; those are comparable strengths. A covers the language but adds unqualified psychological interpretation and unrequested reflection. D gives the right plot roles but does not explain the named Greek constructions.",
+      "candidates": {
+        "A": {
+          "assessment": "mixed",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 3555,
+          "material_errors": [
+            {
+              "claim": "The lawyer avoids saying Samaritan out of reluctance, reflecting social/religious tension.",
+              "correction": "The answer identifies the merciful person without naming him. Luke does not state why the respondent chooses this wording; reluctance or prejudice should be identified as a possible interpretation, not reported as an observed motive.",
+              "source_url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Luke.txt"
+            }
+          ],
+          "notes": "The perfect discussion can describe a resulting state, but must not prove permanent neighbor status from tense alone. Its final personal reflection is unrequested. Naming the Samaritan is supported by Luke 10:33; attributing reluctance to the respondent is an inference."
+        },
+        "B": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1202,
+          "material_errors": [],
+          "notes": "It does not spell out every feature of ποιήσας or the present imperative morphology, but gives the requested explanation without a wrong parse or speculative motive."
+        },
+        "C": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1769,
+          "material_errors": [],
+          "notes": "Some fine parsing details, including active voice and nominative masculine singular for the participle, are not named, but the forms and roles are explained correctly in English. No requirement to recite every morphological feature mechanically."
+        },
+        "D": {
+          "assessment": "incomplete",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 265,
+          "material_errors": [],
+          "notes": "It does not explain γεγονέναι, πλησίον or the article-participle construction despite their being named in the prompt. No false grammatical claim; the short answer is materially under-explanatory."
+        }
+      },
+      "source_urls": [
+        "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Luke.txt",
+        "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/63-Lk-morphgnt.txt",
+        "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/README.md"
+      ]
+    },
+    {
+      "case_id": "IG03",
+      "preference_tiers": [
+        [
+          "B"
+        ],
+        [
+          "C"
+        ],
+        [
+          "A"
+        ],
+        [
+          "D"
+        ]
+      ],
+      "preference_basis": "B best preserves the contrast and principal forms, though it still adds unrequested reflection and omits the middle label on προσδεόμενος. C covers more parsing but misdescribes an apparatus variant. A adds a stronger grammatical inference about unmediated giving that the text does not encode. D misparses a specifically requested finite verb; its correct service translation does not remove that error.",
+      "candidates": {
+        "A": {
+          "assessment": "mixed",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 3734,
+          "material_errors": [
+            {
+              "claim": "αὐτός stresses that giving is intrinsic to God and not mediated by human ritual.",
+              "correction": "αὐτός emphasizes that God himself gives. It does not by itself encode an exclusive mechanism, lack of mediation, or a theory of intrinsic action. Those require an explicitly interpretive argument beyond this grammatical observation.",
+              "source_url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Acts.txt"
+            }
+          ],
+          "notes": "The reflection/reception sections are unrequested. The statement that no human action reaches God as a beneficiary is broader than the denial of sustaining a needy deity in this passage."
+        },
+        "B": {
+          "assessment": "mixed",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 2587,
+          "material_errors": [],
+          "notes": "The middle voice of προσδεόμενος is omitted rather than misidentified. Its causal paraphrase of the need relation is permitted by the pre-output caveat. The brief contemporary reflection is outside the focused request; this prevents an unqualified scope endorsement, but its central source account is stronger than the alternatives."
+        },
+        "C": {
+          "assessment": "mixed",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 2847,
+          "material_errors": [
+            {
+              "claim": "The apparatus marks a variant concerning the presence of ἀνθρωπίνων.",
+              "correction": "At Acts 17:25 the pinned apparatus contrasts ἀνθρωπίνων with ἀνθρώπων, a word substitution rather than simple presence/absence. It also contrasts καὶ τὰ with κατὰ.",
+              "source_url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgntapp/text/Acts.txt"
+            }
+          ],
+          "notes": "Middle/passive is acceptable as a description of the syncretic shape, but προσδέομαι is middle here, not passive in meaning. The service denial concerns supposed divine dependence; it should not be generalized to every kind of worship. The apparatus addition was checked independently."
+        },
+        "D": {
+          "assessment": "mixed",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1837,
+          "material_errors": [
+            {
+              "claim": "θεραπεύεται is present middle indicative third singular.",
+              "correction": "Here θεραπεύεται is present passive indicative third singular, with human hands as agent. MorphGNT tags it 3PPI-S--; the candidate itself translates it passively.",
+              "source_url": "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/65-Ac-morphgnt.txt"
+            }
+          ],
+          "notes": "The full answer was checked, including its repetitive phrase inventory. It substantially conveys the contrast, but the requested finite-verb parsing contains a direct error."
+        }
+      },
+      "source_urls": [
+        "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Acts.txt",
+        "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgntapp/text/Acts.txt",
+        "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/65-Ac-morphgnt.txt",
+        "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/README.md"
+      ]
+    },
+    {
+      "case_id": "IG04",
+      "preference_tiers": [
+        [
+          "B",
+          "D",
+          "C"
+        ],
+        [
+          "A"
+        ]
+      ],
+      "preference_basis": "B, D and C correctly explain the imperatival contrast, renewal and the discernment goal while separating grammar from a mechanism. The extra formal parsing in B/C and the directness of D are comparable strengths. A gives the same central answer but is less careful about cessation and essential change as grammatical facts; it also adds substantial unneeded reception material.",
+      "candidates": {
+        "A": {
+          "assessment": "mixed",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 5314,
+          "material_errors": [
+            {
+              "claim": "The grammar is a prohibition to stop letting yourselves be conformed, and μεταμορφόω denotes change of form/essence.",
+              "correction": "The present prohibition supports do not conform/be conformed; its form alone does not establish that this action was already occurring and must cease. Transformation does not by itself specify a metaphysical change of essence. These should be qualified contextual interpretations, not added grammatical entailments.",
+              "source_url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Rom.txt"
+            }
+          ],
+          "notes": "The analysis is otherwise substantial and accurate. The cessation wording is possible contextually, but its presentation as what the grammar necessarily says is too strong; similarly essence is stronger than the supplied transformation wording requires. Extensive reception and personal reflection add little to the requested grammar distinction."
+        },
+        "B": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 2987,
+          "material_errors": [],
+          "notes": "Its attached examples of later theories are relevant to the user’s request to distinguish grammar from theory, though the later reflection can be shorter. Dative means/sphere and purpose/result alternatives are allowed."
+        },
+        "C": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 3935,
+          "material_errors": [],
+          "notes": "The phrase stop being molded should be understood as one possible contextual rendering rather than proof of an already occurring act. The answer elsewhere explicitly recognizes voice and mechanism uncertainty. Reception/reflection sections are longer than needed, but do not overturn the requested explanation."
+        },
+        "D": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 665,
+          "material_errors": [],
+          "notes": "Calling both forms passive is a defensible contextual voice reading of shared middle/passive forms, not an automatic error against MorphGNT’s middle tag for the first. It omits explicit second-plural/accusative-subject labels but renders the plural addressees as those discerning. The absence of technical labels is a modest coverage difference, not a false explanation."
+        }
+      },
+      "source_urls": [
+        "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Rom.txt",
+        "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/66-Ro-morphgnt.txt",
+        "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/README.md"
+      ]
+    },
+    {
+      "case_id": "IG05",
+      "preference_tiers": [
+        [
+          "C",
+          "A",
+          "D"
+        ],
+        [
+          "B"
+        ]
+      ],
+      "preference_basis": "C, A and D all deliver faithful natural English, the correct repeated subject and the verse-6 contrast. Their different detail levels do not warrant a quality hierarchy. B does the same in English but supplies an incorrect Greek conjunction when explaining the source wording.",
+      "candidates": {
+        "A": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1348,
+          "material_errors": [],
+          "notes": "The wording supplied in brackets is potentially loose terminology for critical sigla around text actually printed in the edition; it does not demonstrably claim a missing manuscript subject. No material subject error results."
+        },
+        "B": {
+          "assessment": "mixed",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 801,
+          "material_errors": [
+            {
+              "claim": "The source contrast is cited as οὐ … ἀλλὰ / συγχαίρει.",
+              "correction": "The supplied verse has οὐ … συγχαίρει δὲ, not ἀλλά. Both can support English but in other contexts, but an explanation of this exact wording should preserve δέ.",
+              "source_url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/1Cor.txt"
+            }
+          ],
+          "notes": "The error is in its explanatory Greek citation, not the English meaning of the verse."
+        },
+        "C": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1322,
+          "material_errors": [],
+          "notes": "The critical sigla enclose printed edition wording; they should not be mistaken for a proof that an unprinted subject has been editorially supplied. The answer nevertheless identifies the printed and continuing subject correctly. Literal all-things language is not itself an abusive application rule."
+        },
+        "D": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 414,
+          "material_errors": [],
+          "notes": "Always protects/trusts and not easily angered are defensible idiomatic choices in this setting. No explicit grammar taxonomy or unsolicited caution is required to make this focused answer complete."
+        }
+      },
+      "source_urls": [
+        "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/1Cor.txt",
+        "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/67-1Co-morphgnt.txt",
+        "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/README.md"
+      ]
+    },
+    {
+      "case_id": "IG06",
+      "preference_tiers": [
+        [
+          "C"
+        ],
+        [
+          "A"
+        ],
+        [
+          "B"
+        ],
+        [
+          "D"
+        ]
+      ],
+      "preference_basis": "C supplies the complete translation and explains how the singular and plural subjunctives continue the conditional frame. A also covers the central task but overstates recurrence and adds unsolicited reflection. B contains a concrete participle/subjunctive confusion. D has the requested finite forms correct but leaves the conclusion untranslated and reverses the order of a purported source phrase.",
+      "candidates": {
+        "A": {
+          "assessment": "mixed",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 3197,
+          "material_errors": [],
+          "notes": "Present/general is an acceptable broad conditional description, but recurring real-world scenario and collective refusal must remain the hypothetical example, not a grammatical proof of repeated historical events or every audience member’s actual guilt. The later reflection and reception history are unrequested."
+        },
+        "B": {
+          "assessment": "mixed",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1291,
+          "material_errors": [
+            {
+              "claim": "The present subjunctive construction lists both ὑπάρχωσιν and λειπόμενοι as present subjunctives.",
+              "correction": "ὑπάρχωσιν is present active subjunctive third plural. λειπόμενοι is a present middle participle nominative masculine plural, not a subjunctive (MorphGNT -PMPNPM-).",
+              "source_url": "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/80-Jas-morphgnt.txt"
+            }
+          ],
+          "notes": "Calling εἴπῃ an aorist from εἶπον is acceptable principal-part shorthand rather than a wrong form. The explicit grammatical error is the other form listed under subjunctive."
+        },
+        "C": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 2270,
+          "material_errors": [],
+          "notes": "Read actual need within its explicitly hypothetical scenario; the condition does not independently certify a historical incident. The participle is correctly identified later, and no generic safety/theological disclaimer is required."
+        },
+        "D": {
+          "assessment": "incomplete",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 466,
+          "material_errors": [
+            {
+              "claim": "The condition is quoted as ἐὰν μὴ ἔργα ἔχῃ.",
+              "correction": "The supplied pinned verse reads ἐὰν μὴ ἔχῃ ἔργα. The reversed order does not alter the basic meaning, but it is not the exact supplied reading.",
+              "source_url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Jas.txt"
+            }
+          ],
+          "notes": "It does not translate verse 17’s faith/dead conclusion or explain the second condition in English. Giving the final missing item only in Greek is inadequate for the English-facing aim, although earlier prose partly explains bodily needs."
+        }
+      },
+      "source_urls": [
+        "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Jas.txt",
+        "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/80-Jas-morphgnt.txt",
+        "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/README.md"
+      ]
+    },
+    {
+      "case_id": "IM01",
+      "preference_tiers": [
+        [
+          "D",
+          "B"
+        ],
+        [
+          "A",
+          "C"
+        ]
+      ],
+      "preference_basis": "All four ground the reflection in the escalating offerings and justice/kindness/humility, without treating firstborn sacrifice as a divine order or certifying the user’s moral status. D and B meet the personal request more directly. A/C are source-consistent but delay the reflection with extended historical/reception framing; no denomination preference or reward for verbosity is applied.",
+      "candidates": {
+        "A": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 2413,
+          "material_errors": [],
+          "notes": "The eighth-century setting is a broad traditional setting of Micah’s prophetic ministry, not proof of the exact composition date of these verses. The length and layered preface are unnecessary for the request; its core source and reflection are sound."
+        },
+        "B": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 1829,
+          "material_errors": [],
+          "notes": "Grace-filled practice is its contemporary reflection, not a claim to quote that phrase from Micah. This is compatible with the non-denominational application request. No full sacrifice theology is claimed."
+        },
+        "C": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 3325,
+          "material_errors": [],
+          "notes": "The journey language is a reflective extension of walking, not a claim that a Hebrew verb alone settles a moral theory. Broad statements about how traditions have usually read the text are not exhaustively established here; no extra credit is awarded for them. Long layered framing weakens directness."
+        },
+        "D": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 604,
+          "material_errors": [],
+          "notes": "Its own English summary is allowed; it need not name a commercial translation or label every explanatory sentence paraphrase. The final question is somewhat pointed but framed by the user’s expressed concern."
+        }
+      },
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Mic.xml",
+        "https://www.biblegateway.com/passage/?search=Micah+6:6-8&version=NIV",
+        "https://www.biblegateway.com/passage/?search=Micah+6:8&version=NRSVA"
+      ]
+    },
+    {
+      "case_id": "IM02",
+      "preference_tiers": [
+        [
+          "D"
+        ],
+        [
+          "B"
+        ],
+        [
+          "C"
+        ],
+        [
+          "A"
+        ]
+      ],
+      "preference_basis": "D most directly gives the requested gentle reflection and preserves unresolved lament; its light/truth suggestion is checked and recorded as an unlabeled Psalm-43 allusion rather than falsely treated as an exact Psalm-42 quotation. B is substantially sound but much longer. C/A explicitly misquote the named NRSVUE refrain, and A adds an unjustified historical-consensus assertion. English numbering itself is not penalized.",
+      "candidates": {
+        "A": {
+          "assessment": "mixed",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 3247,
+          "material_errors": [
+            {
+              "claim": "The NRSVUE refrain is quoted with my salvation and my God.",
+              "correction": "The named NRSVUE has my help and my God. The candidate may use salvation as its own rendering, but must not label the altered wording an exact NRSVUE quotation.",
+              "source_url": "https://www.biblegateway.com/passage/?search=Psalm+42&version=NRSVUE"
+            }
+          ],
+          "notes": "Scholars generally treat this as post-exilic is not established by the pinned poem and overstates historical consensus; the final admission of an unknown date partly corrects its own certainty. Treat the refrain gently is acceptable application, but not a reason to deny the Hebrew imperative. The history and liturgy sections are unrequested."
+        },
+        "B": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 2795,
+          "material_errors": [],
+          "notes": "In NRSVUE the first refrain’s final and my God crosses into verse 6; citing 42:5 as shorthand for the refrain is a small reference-boundary imprecision, not a Hebrew-numbering error. Possible temple-musician/exile/illness setting is marked tentative. Treating the refrain gently is an application; grammatically its hope verb remains imperative. The extensive preface is more than needed."
+        },
+        "C": {
+          "assessment": "mixed",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 2880,
+          "material_errors": [
+            {
+              "claim": "The NRSVUE refrain is quoted with my salvation and my God.",
+              "correction": "The checked NRSVUE reads my help and my God. Salvation is a defensible rendering of the Hebrew in another translation or own rendering, but not the exact NRSVUE quotation asserted here.",
+              "source_url": "https://www.biblegateway.com/passage/?search=Psalm+42&version=NRSVUE"
+            }
+          ],
+          "notes": "The English numbering is legitimate. A long historical/reception preface is unnecessary. Its refrains preserve biblical sense but not its claimed exact named-version wording."
+        },
+        "D": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 848,
+          "material_errors": [],
+          "notes": "The suggested light and truth leading prayer alludes specifically to Psalm 43:3, verified against the pinned Hebrew, not Psalm 42. It would be clearer to identify that adjacent psalm. Because it is explicitly a suggested prayer rather than a quoted or purportedly located verse, this is recorded as a source-boundary caveat rather than a material misquotation. This preserves the pre-output allowance for suggested prayer and avoids a newly invented penalty."
+        }
+      },
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ps.xml",
+        "https://www.biblegateway.com/passage/?search=Psalm+42&version=NRSVUE"
+      ]
+    },
+    {
+      "case_id": "IM03",
+      "preference_tiers": [
+        [
+          "B"
+        ],
+        [
+          "C",
+          "D"
+        ],
+        [
+          "A"
+        ]
+      ],
+      "preference_basis": "B combines an accurate account with a useful application and checked broader-Luke references. C offers fuller narrative coverage, while D gives a sound concise reflection with less context; those strengths are comparable. A offers useful reflection but narrates planned barn construction as completed. No candidate is preferred for endorsing radical giving or conventional stewardship; the issue is what the cited passages actually say.",
+      "candidates": {
+        "A": {
+          "assessment": "mixed",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 2784,
+          "material_errors": [
+            {
+              "claim": "The farmer tears down barns to build bigger ones in the narrated story.",
+              "correction": "Luke 12:18 records what he plans and says he will do. The text does not separately narrate completed demolition/construction before his life is demanded. This is a small but real change from intention to accomplished action.",
+              "source_url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Luke.txt"
+            }
+          ],
+          "notes": "Rich young ruler is a conventional synoptic designation; Luke itself calls him a ruler without stating young. Zacchaeus’s present δίδωμι permits discussion of current practice versus a pledged action; gives half does not settle that dispute. Its broad reception generalization is not needed."
+        },
+        "B": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 2995,
+          "material_errors": [],
+          "notes": "The references were checked against pinned Greek. Generosity/justice/dependence is a synthesis of the wider context rather than an exact phrase repeated in every cited verse; the candidate presents it that way. Its interpretive distinction between ownership and self-enclosed accumulation is reasonable here, not a universal guarantee that any financial behavior is acceptable."
+        },
+        "C": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 3242,
+          "material_errors": [],
+          "notes": "The named Basil/Ambrose connection is broadly supported by their own texts, independently consulted. The wording while others lived with goods is unclear and likely a typo for lacked goods. This history is unnecessary for the user’s application request. Orientation rather than a fixed amount is presented within this pericope, not as a denial that Luke elsewhere makes concrete giving demands."
+        },
+        "D": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 701,
+          "material_errors": [],
+          "notes": "Coverage is lighter: it does not explicitly recount the inheritance dispute, life demanded that night, or the rich-toward-God ending. The uncertain future wording is broadly true but less specific than the parable’s mortality contrast. These are modest application-coverage limits, not false claims or a failure to answer the personal question."
+        }
+      },
+      "source_urls": [
+        "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Luke.txt",
+        "https://www.biblegateway.com/passage/?search=Luke+12:13-21&version=NRSVUE",
+        "https://www.heartlandchurch.org/d/BasilTheGreatIWillPullDownMyBarns.pdf",
+        "https://www.newadvent.org/fathers/34013.htm"
+      ]
+    },
+    {
+      "case_id": "IM04",
+      "preference_tiers": [
+        [
+          "A"
+        ],
+        [
+          "D",
+          "B",
+          "C"
+        ]
+      ],
+      "preference_basis": "All four correctly reject a guarantee of success and connect the verse to learned contentment in varied circumstances. A additionally incorporates the recipients’ concrete support, an actual feature of 4:14–18 relevant to the user’s situation. D is brief but answers the main question; B/C give more developed reflection but do not add that context. Those differences do not warrant ranking the three merely by length.",
+      "candidates": {
+        "A": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 2999,
+          "material_errors": [],
+          "notes": "Just before this is loose: 4:10 precedes verse 13, whereas 4:14–18 follow it; the cited references make the intended surrounding context clear. Its communal application does not need to mean the strengthening referent is simply the donors. The contextual Christ identification/exact-edition distinction is honored."
+        },
+        "B": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 2281,
+          "material_errors": [],
+          "notes": "The common-editions wording is expressly approximate rather than a claim of identical quotations across ESV/NIV/NKJV. There is no assertion that Χριστῷ appears in SBLGNT. It omits 4:14’s shared support and adds unnecessary reception/limitations framing."
+        },
+        "C": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 2923,
+          "material_errors": [],
+          "notes": "Grammatically points back is stronger than necessary: the scope of πάντα is contextual and semantic, not an inflection that mechanically restricts its referent. The candidate later acknowledges nuances. It does not insert Χριστῷ into a purported exact Greek reading. Recipients’ support is omitted and the long historical framing adds little."
+        },
+        "D": {
+          "assessment": "sound",
+          "answer_complete": true,
+          "finish_reason": "stop",
+          "retained_final_characters": 423,
+          "material_errors": [],
+          "notes": "It omits recipients’ shared support and offers only a brief general reflection. These limit depth but do not make the answer false or nonresponsive. A manuscript disclaimer or exact Greek edition note is not required."
+        }
+      },
+      "source_urls": [
+        "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Phil.txt",
+        "https://www.biblegateway.com/passage/?search=Philippians+4&version=NRSVUE"
+      ]
+    }
+  ],
+  "provenance": {
+    "aggregate_sha256": "faeb5ce0f15bd2ba98cf09d6b37fe588fd08c7eb00393bc035682715a6e780e7",
+    "evaluation_sha256": "0d60c1740dcbe000a33fed8d5161af2fb2c9e97cee4d6368cd8865c69f947355",
+    "review_packets_sha256": "58db873102724cc330438f01e1d47da2d98a3f5d478ae6c865aafd19963824ad",
+    "label_key_sha256": "8f4b2708434935702e16ca609604d2ed75343f2720b7e6af92d0f6582b46e649",
+    "review_receipts_sha256": {
+      "review-hebrew.json": "8abeab200560a0a973458c96141f99774dec572aafc9e5b272a8eddc5d216b76",
+      "review-aramaic.json": "2fa576d252058528849212f4abc2b179e3419b25e5e812657d27fc668d430698",
+      "review-greek-application.json": "bf37ecc56a88f24cac647cf6a83be85968c2b9146014a3343f6d02cf144a962e"
+    }
+  },
+  "limitations": [
+    "Small, constructed evaluation with AI source review; no population-level or expert-certified accuracy claim.",
+    "Rankings can reward requested coverage and concise scope; pairwise preference is not translation accuracy.",
+    "Base pretraining and earlier raw-text exposure are unknown or intentionally retained; held-out status concerns new English supervision.",
+    "The base-weight revision is unpinned, and earlier repeats varied despite matching settings.",
+    "All 96 requests are included; no selective reruns or exclusion of output-limit cases."
+  ]
+}

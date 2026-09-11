@@ -1,0 +1,173 @@
+{
+  "schema_version": 3,
+  "status": "frozen_training_recipe",
+  "experiment_id": "instruction-target-revision-v3",
+  "arm": "F",
+  "parent_arm": "B",
+  "changed_training_parameter": "reviewed_instruction_dataset",
+  "reference_training_manifest": {
+    "path": "manifests/instruction-calibration-training-v2.json",
+    "sha256": "a3f6101e42c8709e72042b905783477d05037417b4fca735616884f07eda148a"
+  },
+  "reference_recipe": {
+    "model": "thinkingmachines/Inkling",
+    "manifest_sha256": "b851caf978f50c63ef5f2cba856e74f46ab751090ee47401100fcf9cff8b34cc",
+    "rank": 8,
+    "train_mlp": true,
+    "train_attn": true,
+    "train_unembed": true,
+    "seed": 20260906,
+    "batch_size": 16,
+    "epochs": 1,
+    "loss_fn": "cross_entropy",
+    "optimization_loss_reduction": "sum",
+    "thinking_effort_numeric": 0.7,
+    "optimizer_initialization": "fresh",
+    "adam": {
+      "learning_rate": 2e-05,
+      "beta1": 0.9,
+      "beta2": 0.95,
+      "eps": 1e-08,
+      "weight_decay": 0.0,
+      "grad_clip_norm": 0.0
+    },
+    "validation_ids": [
+      "IA007",
+      "IA008",
+      "IA009",
+      "IA022",
+      "IA023",
+      "IG012",
+      "IG019",
+      "IG022",
+      "IG027",
+      "IG036",
+      "IH005",
+      "IH018",
+      "IH023",
+      "IH032",
+      "IM005",
+      "IM014"
+    ]
+  },
+  "reference_recipe_sha256": "d05d2b3425783f7e0353b1b4b687ad460ad6dfe6e3ec516ccf3fbd3ec9a49a7f",
+  "recipe": {
+    "model": "thinkingmachines/Inkling",
+    "manifest_sha256": "06390023a3c78e88692d73add87a1b7a60c01576b54c265daf68675d653e093c",
+    "rank": 8,
+    "train_mlp": true,
+    "train_attn": true,
+    "train_unembed": true,
+    "seed": 20260906,
+    "batch_size": 16,
+    "epochs": 1,
+    "loss_fn": "cross_entropy",
+    "optimization_loss_reduction": "sum",
+    "thinking_effort_numeric": 0.7,
+    "optimizer_initialization": "fresh",
+    "adam": {
+      "learning_rate": 2e-05,
+      "beta1": 0.9,
+      "beta2": 0.95,
+      "eps": 1e-08,
+      "weight_decay": 0.0,
+      "grad_clip_norm": 0.0
+    },
+    "validation_ids": [
+      "IA007",
+      "IA008",
+      "IA009",
+      "IA022",
+      "IA023",
+      "IG012",
+      "IG019",
+      "IG022",
+      "IG027",
+      "IG036",
+      "IH005",
+      "IH018",
+      "IH023",
+      "IH032",
+      "IM005",
+      "IM014"
+    ]
+  },
+  "recipe_sha256": "0131532c0ffe7fbafa551eceeb03bb69108b7305ab49a11e9b4b332a4cc22514",
+  "preparation": {
+    "path": "manifests/preparation-instruction-v3.json",
+    "sha256": "06390023a3c78e88692d73add87a1b7a60c01576b54c265daf68675d653e093c"
+  },
+  "sequence_order_sha256": "1ef94b22549d97edd35116d4f8680c616d38772e1cd4367908ec7ff3e3a8709f",
+  "counts": {
+    "training_sequences": 104,
+    "training_batches": 7,
+    "training_processed_tokens": 65573,
+    "training_loss_tokens": 16598,
+    "holdout_sequences": 16,
+    "two_holdout_forward_tokens": 21674
+  },
+  "source_adapter": {
+    "raw_recipe_sha256": "7efef6738f803b48a8759e707ccd2a1e11879975223c422ca7fe05c8683286e7",
+    "receipt_sha256": {
+      "plan.json": "066bb04eb66c9e3c383fd4138aafa337ef5f99c069d83db63fd5d4b9dbbf8b02",
+      "summary.json": "fd028cfbff399adeaa76910ba60a14ad0080721ae44bdf4ad0eb22067d7086f1",
+      "checkpoints.json": "cc9ff9ed1c97ac3a1a0616dfa07bb057b88db0d19ecb281b6f62a1ebcb6a1889",
+      "events.jsonl": "54678c3e10fe5ee4f246ce15f332729946f010e16493066a62f491bc177800c3"
+    },
+    "load_method": "load_state",
+    "restore_optimizer": false
+  },
+  "software_sha256": {
+    "bibleprep/environment.py": "b4d5b205e4540c95fb1a3372cec4f144544f6eec7fbbdb65d276d3e8369fa446",
+    "bibleprep/evaluate.py": "b803a1bf63244ba1f051fc6781a455bbd463ec4ce9f5584c95bb35881cfb02fd",
+    "bibleprep/prepare_inkling.py": "59c458d5dd6232b61d91cf2be5f79c76940331e8ace0d469173fc76e09c09271",
+    "bibleprep/prepare_instruction.py": "9d49f146ee86aa8a29bebf81fe576b6e1ed718f5890cb9d978fcb6c1d36f8cb4",
+    "bibleprep/prepare_instruction_revision.py": "30e0e3b361fe2b536d1dca43dc79f90a617d5d587b2b8c9056bded97be0756e1",
+    "bibleprep/tinker_compare.py": "b050a9ad9e246599138b62fa366d4e558619151d97a30d805c6abaca553856ff",
+    "bibleprep/tinker_evaluate.py": "e8bbb9e58a44f7cdd63bb81a1fdf9ff84b9fc0f514a5e4a6318327d49500e4d8",
+    "bibleprep/train_inkling.py": "89d0db22618807e4a4b57b37ac8f817bc3491287b83ff47055ed8e667c924520",
+    "bibleprep/train_instruction.py": "43fd40998a76a91250ae09eb2ac6341fe0e9845c72e509ff80b3090c2500b107",
+    "bibleprep/train_instruction_calibration.py": "be2cc7375cceb2de7ed818fafe33de0292892b8e9d10889ce7a077463266d6c0",
+    "bibleprep/train_instruction_revision.py": "fca589e09cac03eced975943580ce999466201a43a4cbdfbe666a68ff6351a28",
+    "requirements-comparison-large.lock.txt": "f71b8507470fff116ce67238c499c1a2e5175f61f5504d10747adf06de202343",
+    "requirements-training.txt": "42340a96d7fcdc963bcfaf2ae11a21979a5b4c63e211edf67effbf86f83cc3f0"
+  },
+  "checkpoint_ttl_seconds": 2592000,
+  "checkpoint_reserve_nano_usd": 3000000000,
+  "compute_reserve_nano_usd": 489455670,
+  "planned_nano_usd": 3489455670,
+  "shared_training_cap_usd": 50,
+  "incremental_experiment_cap_usd": 10,
+  "existing_training_reserved_estimated_usd_at_preparation": 35.43523284,
+  "expected_total_training_reserved_estimated_usd_after_F": 38.92468851,
+  "cost_status": "conservative_reservation_not_invoice",
+  "learning_rate_status": "experimental_gentle_recipe_unchanged_from_E_not_official_optimized_rate",
+  "primary_source_verification": {
+    "checked_date": "2026-09-06",
+    "tinker_sdk_version": "0.27.1",
+    "native_renderer_version": "0.1.0",
+    "weights_only_api": "TrainingClient.load_state; pinned local SDK explicitly sends optimizer=False",
+    "training_and_forward_reservation_usd_per_million": 5.61,
+    "forward_reservation_is_conservative": true,
+    "checkpoint_storage_list_price_usd_per_gb_month": 0.1,
+    "references": [
+      {
+        "url": "https://github.com/thinking-machines-lab/tinker/blob/main/src/tinker/lib/public_interfaces/training_client.py",
+        "supports": "Weights-only load_state and separate optimizer-restoring API; checkpoint TTL parameter."
+      },
+      {
+        "url": "https://tinker-docs.thinkingmachines.ai/tinker/models/",
+        "supports": "Current Inkling training rate $5.61 per million tokens; temporary discount and separate storage charges."
+      },
+      {
+        "url": "https://tinker-docs.thinkingmachines.ai/cookbook/inkling/",
+        "supports": "Inkling guidance recommends learning-rate and thinking-effort sweeps; does not establish this chosen learning rate as optimal."
+      },
+      {
+        "url": "https://tinker-docs.thinkingmachines.ai/cookbook/inkling/tml-renderers/",
+        "supports": "Use official native renderers and aligned supervised inputs/weights."
+      }
+    ]
+  },
+  "execution_gate": "Frozen fresh evaluation, criteria-review hash, execution protocol, and $10 incremental cap are required before provider operations; evaluation contents are never training inputs."
+}

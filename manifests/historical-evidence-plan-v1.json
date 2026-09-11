@@ -1,0 +1,1694 @@
+{
+  "schema_version": 1,
+  "plan_id": "historical-evidence-plan-v1",
+  "status": "proposed_historical_collection_with_reference_lookup_implemented",
+  "researched_on": "2026-09-06",
+  "purpose": "Expand the evidence available to the fine-tuned English Bible assistant while preserving its whole-corpus adaptation objective. Enable inspectable answers and a separately approved future training experiment.",
+  "authorization_boundary": {
+    "source_expansion_design": true,
+    "new_corpus_ingestion_performed": false,
+    "paid_training_authorized_by_this_plan": false,
+    "specialists_commissioned": false,
+    "purchases_or_contacts_performed": false,
+    "model_calls_performed": false,
+    "reference_mapping_import_performed": true,
+    "new_corpus_ingestion_scope": "Historical or manuscript content; selected TVTMS reference metadata is the only newly implemented source-plan component."
+  },
+  "current_baseline": {
+    "trained_core": "B original-language adapter, retained provisionally",
+    "source_editions": [
+      {
+        "source_id": "oshb",
+        "manifest": "manifests/oshb.json",
+        "manifest_sha256": "734a189a35da43e88a3240248aa450612183a30ff3d16b245d95062f1fbc58a7",
+        "pinned_commit": "3d15126fb1ef74867fc1434be1942e837932691f",
+        "book_files": 39,
+        "coverage": "Complete selected local edition; main/ketiv training layer; B used development split."
+      },
+      {
+        "source_id": "sblgnt",
+        "manifest": "manifests/sblgnt.json",
+        "manifest_sha256": "901aa2084c29f3ac138f465114aa6888e17745629efc48c5f269d15f1f76e337",
+        "pinned_commit": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+        "book_files": 27,
+        "coverage": "Complete selected local edition; editorial supplements labeled; B used development split."
+      }
+    ],
+    "existing_inventory": "manifests/corpus-scope.json",
+    "current_limits": [
+      "No comprehensive manuscript attestation apparatus.",
+      "No cleared complete DSS or selected Greek OT import.",
+      "No curated historical context collection in B training.",
+      "Small AI-reviewed results do not establish broad historical accuracy."
+    ]
+  },
+  "initial_pack": {
+    "textual_dossiers": 20,
+    "historical_notes": 20,
+    "total": 40,
+    "each_group_allocation": {
+      "hebrew": 8,
+      "aramaic": 4,
+      "greek": 8
+    },
+    "allocation_meaning": "Biblical anchor language; source comparanda can be in other languages.",
+    "scope_limit": "Initial curation batch, not a restriction of the whole-Bible product or a representative benchmark.",
+    "proposed_authored_word_ranges": {
+      "textual_dossier": [
+        500,
+        900
+      ],
+      "historical_note": [
+        300,
+        600
+      ]
+    },
+    "starter_eight_ids": [
+      "HT01",
+      "HT02",
+      "HC01",
+      "HC03",
+      "AT01",
+      "AC01",
+      "GT01",
+      "GC01"
+    ],
+    "starter_status": "Provisional order, subject to obtaining suitable evidence; no exact witness reading or historical claim asserted.",
+    "items": [
+      {
+        "id": "HT01",
+        "kind": "textual_dossier",
+        "biblical_anchor_language": "hebrew",
+        "anchor": "Genesis 4:8",
+        "initial_chapter_keys": [
+          "oshb:Gen.4"
+        ],
+        "research_task": "Compare available wording and translation additions without inventing Hebrew attestation.",
+        "source_candidates": [
+          "iaa_dss",
+          "etcbc_dss",
+          "greek_ot_versions"
+        ],
+        "status": "proposed_unresearched_case",
+        "attestation_claims_verified": false,
+        "nearby_control_or_missing_evidence_check_required": true
+      },
+      {
+        "id": "HT02",
+        "kind": "textual_dossier",
+        "biblical_anchor_language": "hebrew",
+        "anchor": "Deuteronomy 32:8–9",
+        "initial_chapter_keys": [
+          "oshb:Deut.32"
+        ],
+        "research_task": "Identify relevant witnesses and versional evidence; separate reading from reconstruction.",
+        "source_candidates": [
+          "iaa_dss",
+          "etcbc_dss",
+          "greek_ot_versions"
+        ],
+        "status": "proposed_unresearched_case",
+        "attestation_claims_verified": false,
+        "nearby_control_or_missing_evidence_check_required": true
+      },
+      {
+        "id": "HT03",
+        "kind": "textual_dossier",
+        "biblical_anchor_language": "hebrew",
+        "anchor": "1 Samuel 10:27–11:1",
+        "initial_chapter_keys": [
+          "oshb:1Sam.10",
+          "oshb:1Sam.11"
+        ],
+        "research_task": "Check passage boundaries, evidence extent and longer versus shorter forms.",
+        "source_candidates": [
+          "iaa_dss",
+          "etcbc_dss",
+          "greek_ot_versions"
+        ],
+        "status": "proposed_unresearched_case",
+        "attestation_claims_verified": false,
+        "nearby_control_or_missing_evidence_check_required": true
+      },
+      {
+        "id": "HT04",
+        "kind": "textual_dossier",
+        "biblical_anchor_language": "hebrew",
+        "anchor": "1 Samuel 17:4",
+        "initial_chapter_keys": [
+          "oshb:1Sam.17"
+        ],
+        "research_task": "Check numerical wording, source labels and manuscript preservation.",
+        "source_candidates": [
+          "iaa_dss",
+          "etcbc_dss",
+          "greek_ot_versions"
+        ],
+        "status": "proposed_unresearched_case",
+        "attestation_claims_verified": false,
+        "nearby_control_or_missing_evidence_check_required": true
+      },
+      {
+        "id": "HT05",
+        "kind": "textual_dossier",
+        "biblical_anchor_language": "hebrew",
+        "anchor": "Psalm 22:16–17, numbering to verify",
+        "initial_chapter_keys": [
+          "oshb:Ps.22"
+        ],
+        "research_task": "Map Hebrew and English numbering before comparing readings.",
+        "source_candidates": [
+          "step_selected",
+          "iaa_dss",
+          "etcbc_dss",
+          "greek_ot_versions"
+        ],
+        "status": "proposed_unresearched_case",
+        "attestation_claims_verified": false,
+        "nearby_control_or_missing_evidence_check_required": true
+      },
+      {
+        "id": "HT06",
+        "kind": "textual_dossier",
+        "biblical_anchor_language": "hebrew",
+        "anchor": "Psalm 145:13",
+        "initial_chapter_keys": [
+          "oshb:Ps.145"
+        ],
+        "research_task": "Check poetic sequence and any claimed supplied wording against actual evidence.",
+        "source_candidates": [
+          "iaa_dss",
+          "etcbc_dss",
+          "greek_ot_versions"
+        ],
+        "status": "proposed_unresearched_case",
+        "attestation_claims_verified": false,
+        "nearby_control_or_missing_evidence_check_required": true
+      },
+      {
+        "id": "HT07",
+        "kind": "textual_dossier",
+        "biblical_anchor_language": "hebrew",
+        "anchor": "Isaiah 53:11",
+        "initial_chapter_keys": [
+          "oshb:Isa.53"
+        ],
+        "research_task": "Compare text and readings, with independent English renderings and uncertainty.",
+        "source_candidates": [
+          "iaa_dss",
+          "etcbc_dss",
+          "greek_ot_versions"
+        ],
+        "status": "proposed_unresearched_case",
+        "attestation_claims_verified": false,
+        "nearby_control_or_missing_evidence_check_required": true
+      },
+      {
+        "id": "HT08",
+        "kind": "textual_dossier",
+        "biblical_anchor_language": "hebrew",
+        "anchor": "Jeremiah 10:1–16",
+        "initial_chapter_keys": [
+          "oshb:Jer.10"
+        ],
+        "research_task": "Distinguish literary/versional differences from isolated transcription errors.",
+        "source_candidates": [
+          "iaa_dss",
+          "etcbc_dss",
+          "greek_ot_versions"
+        ],
+        "status": "proposed_unresearched_case",
+        "attestation_claims_verified": false,
+        "nearby_control_or_missing_evidence_check_required": true
+      },
+      {
+        "id": "AT01",
+        "kind": "textual_dossier",
+        "biblical_anchor_language": "aramaic",
+        "anchor": "Ezra 4:8–16",
+        "initial_chapter_keys": [
+          "oshb:Ezra.4"
+        ],
+        "research_task": "Document boundaries, Greek correspondence and explicit limits of preserved witnesses.",
+        "source_candidates": [
+          "greek_ot_versions",
+          "iaa_dss",
+          "etcbc_dss"
+        ],
+        "status": "proposed_unresearched_case",
+        "attestation_claims_verified": false,
+        "nearby_control_or_missing_evidence_check_required": true
+      },
+      {
+        "id": "AT02",
+        "kind": "textual_dossier",
+        "biblical_anchor_language": "aramaic",
+        "anchor": "Ezra 6:1–12",
+        "initial_chapter_keys": [
+          "oshb:Ezra.6"
+        ],
+        "research_task": "Compare document framing and versional alignment; no assumed DSS attestation.",
+        "source_candidates": [
+          "greek_ot_versions",
+          "iaa_dss",
+          "etcbc_dss"
+        ],
+        "status": "proposed_unresearched_case",
+        "attestation_claims_verified": false,
+        "nearby_control_or_missing_evidence_check_required": true
+      },
+      {
+        "id": "AT03",
+        "kind": "textual_dossier",
+        "biblical_anchor_language": "aramaic",
+        "anchor": "Daniel 2:4b–9",
+        "initial_chapter_keys": [
+          "oshb:Dan.2"
+        ],
+        "research_task": "Record language boundary and versional alignment, preserving gaps.",
+        "source_candidates": [
+          "greek_ot_versions",
+          "iaa_dss",
+          "etcbc_dss"
+        ],
+        "status": "proposed_unresearched_case",
+        "attestation_claims_verified": false,
+        "nearby_control_or_missing_evidence_check_required": true
+      },
+      {
+        "id": "AT04",
+        "kind": "textual_dossier",
+        "biblical_anchor_language": "aramaic",
+        "anchor": "Daniel 7:13–14",
+        "initial_chapter_keys": [
+          "oshb:Dan.7"
+        ],
+        "research_task": "Keep Aramaic, Old Greek and Theodotion forms separately attributed.",
+        "source_candidates": [
+          "greek_ot_versions",
+          "iaa_dss",
+          "etcbc_dss"
+        ],
+        "status": "proposed_unresearched_case",
+        "attestation_claims_verified": false,
+        "nearby_control_or_missing_evidence_check_required": true
+      },
+      {
+        "id": "GT01",
+        "kind": "textual_dossier",
+        "biblical_anchor_language": "greek",
+        "anchor": "Mark 1:1",
+        "initial_chapter_keys": [
+          "sblgnt:Mark.1"
+        ],
+        "research_task": "Compare edition units with independently checked witness readings.",
+        "source_candidates": [
+          "sblgnt_apparatus",
+          "cntr_witness_subset",
+          "intf_liste"
+        ],
+        "status": "proposed_unresearched_case",
+        "attestation_claims_verified": false,
+        "nearby_control_or_missing_evidence_check_required": true
+      },
+      {
+        "id": "GT02",
+        "kind": "textual_dossier",
+        "biblical_anchor_language": "greek",
+        "anchor": "Mark 16:8–20",
+        "initial_chapter_keys": [
+          "sblgnt:Mark.16"
+        ],
+        "research_task": "Distinguish endings, editorial brackets and each witness preservation state.",
+        "source_candidates": [
+          "sblgnt_apparatus",
+          "cntr_witness_subset",
+          "intf_liste"
+        ],
+        "status": "proposed_unresearched_case",
+        "attestation_claims_verified": false,
+        "nearby_control_or_missing_evidence_check_required": true
+      },
+      {
+        "id": "GT03",
+        "kind": "textual_dossier",
+        "biblical_anchor_language": "greek",
+        "anchor": "Luke 22:43–44",
+        "initial_chapter_keys": [
+          "sblgnt:Luke.22"
+        ],
+        "research_task": "Separate wording, witness support and later interpretive consequences.",
+        "source_candidates": [
+          "sblgnt_apparatus",
+          "cntr_witness_subset",
+          "intf_liste"
+        ],
+        "status": "proposed_unresearched_case",
+        "attestation_claims_verified": false,
+        "nearby_control_or_missing_evidence_check_required": true
+      },
+      {
+        "id": "GT04",
+        "kind": "textual_dossier",
+        "biblical_anchor_language": "greek",
+        "anchor": "John 1:18",
+        "initial_chapter_keys": [
+          "sblgnt:John.1"
+        ],
+        "research_task": "Record readings and English differences without counting editions as manuscripts.",
+        "source_candidates": [
+          "sblgnt_apparatus",
+          "cntr_witness_subset",
+          "intf_liste"
+        ],
+        "status": "proposed_unresearched_case",
+        "attestation_claims_verified": false,
+        "nearby_control_or_missing_evidence_check_required": true
+      },
+      {
+        "id": "GT05",
+        "kind": "textual_dossier",
+        "biblical_anchor_language": "greek",
+        "anchor": "John 7:53–8:11",
+        "initial_chapter_keys": [
+          "sblgnt:John.7",
+          "sblgnt:John.8"
+        ],
+        "research_task": "Preserve editorial status, witness extent and later reception separately.",
+        "source_candidates": [
+          "sblgnt_apparatus",
+          "cntr_witness_subset",
+          "intf_liste"
+        ],
+        "status": "proposed_unresearched_case",
+        "attestation_claims_verified": false,
+        "nearby_control_or_missing_evidence_check_required": true
+      },
+      {
+        "id": "GT06",
+        "kind": "textual_dossier",
+        "biblical_anchor_language": "greek",
+        "anchor": "Acts 20:28",
+        "initial_chapter_keys": [
+          "sblgnt:Acts.20"
+        ],
+        "research_task": "Separate competing wording from syntax and English interpretive choices.",
+        "source_candidates": [
+          "sblgnt_apparatus",
+          "cntr_witness_subset",
+          "intf_liste"
+        ],
+        "status": "proposed_unresearched_case",
+        "attestation_claims_verified": false,
+        "nearby_control_or_missing_evidence_check_required": true
+      },
+      {
+        "id": "GT07",
+        "kind": "textual_dossier",
+        "biblical_anchor_language": "greek",
+        "anchor": "Romans 5:1",
+        "initial_chapter_keys": [
+          "sblgnt:Rom.5"
+        ],
+        "research_task": "Check forms and attestation independently of theological preference.",
+        "source_candidates": [
+          "sblgnt_apparatus",
+          "cntr_witness_subset",
+          "intf_liste"
+        ],
+        "status": "proposed_unresearched_case",
+        "attestation_claims_verified": false,
+        "nearby_control_or_missing_evidence_check_required": true
+      },
+      {
+        "id": "GT08",
+        "kind": "textual_dossier",
+        "biblical_anchor_language": "greek",
+        "anchor": "1 Timothy 3:16",
+        "initial_chapter_keys": [
+          "sblgnt:1Tim.3"
+        ],
+        "research_task": "Preserve letters, abbreviations and correcting hands when evidence supports them.",
+        "source_candidates": [
+          "sblgnt_apparatus",
+          "cntr_witness_subset",
+          "intf_liste"
+        ],
+        "status": "proposed_unresearched_case",
+        "attestation_claims_verified": false,
+        "nearby_control_or_missing_evidence_check_required": true
+      },
+      {
+        "id": "HC01",
+        "kind": "historical_note",
+        "biblical_anchor_language": "hebrew",
+        "topic": "Assyrian royal accounts and Judah",
+        "initial_chapter_keys": [
+          "oshb:2Kgs.18",
+          "oshb:2Kgs.19"
+        ],
+        "research_task": "Select exact primary comparanda and current scholarship; distinguish narrated setting, evidence, inference, disagreement and later reception. A candidate collection is not yet a source citation.",
+        "source_candidates": [
+          "museum_object_leads",
+          "oracc_selected"
+        ],
+        "status": "proposed_unresearched_case",
+        "claims_verified": false
+      },
+      {
+        "id": "HC02",
+        "kind": "historical_note",
+        "biblical_anchor_language": "hebrew",
+        "topic": "Exile and deportation",
+        "initial_chapter_keys": [
+          "oshb:2Kgs.24",
+          "oshb:2Kgs.25"
+        ],
+        "research_task": "Select exact primary comparanda and current scholarship; distinguish narrated setting, evidence, inference, disagreement and later reception. A candidate collection is not yet a source citation.",
+        "source_candidates": [
+          "oracc_selected",
+          "museum_object_leads"
+        ],
+        "status": "proposed_unresearched_case",
+        "claims_verified": false
+      },
+      {
+        "id": "HC03",
+        "kind": "historical_note",
+        "biblical_anchor_language": "hebrew",
+        "topic": "Persian restoration and evidence limits",
+        "initial_chapter_keys": [
+          "oshb:Ezra.1"
+        ],
+        "research_task": "Select exact primary comparanda and current scholarship; distinguish narrated setting, evidence, inference, disagreement and later reception. A candidate collection is not yet a source citation.",
+        "source_candidates": [
+          "museum_object_leads",
+          "oracc_selected"
+        ],
+        "status": "proposed_unresearched_case",
+        "claims_verified": false
+      },
+      {
+        "id": "HC04",
+        "kind": "historical_note",
+        "biblical_anchor_language": "hebrew",
+        "topic": "Covenant and treaty comparisons",
+        "initial_chapter_keys": [
+          "oshb:Deut.28"
+        ],
+        "research_task": "Select exact primary comparanda and current scholarship; distinguish narrated setting, evidence, inference, disagreement and later reception. A candidate collection is not yet a source citation.",
+        "source_candidates": [
+          "oracc_selected"
+        ],
+        "status": "proposed_unresearched_case",
+        "claims_verified": false
+      },
+      {
+        "id": "HC05",
+        "kind": "historical_note",
+        "biblical_anchor_language": "hebrew",
+        "topic": "Household law and servitude",
+        "initial_chapter_keys": [
+          "oshb:Exod.21"
+        ],
+        "research_task": "Select exact primary comparanda and current scholarship; distinguish narrated setting, evidence, inference, disagreement and later reception. A candidate collection is not yet a source citation.",
+        "source_candidates": [
+          "oracc_selected"
+        ],
+        "status": "proposed_unresearched_case",
+        "claims_verified": false
+      },
+      {
+        "id": "HC06",
+        "kind": "historical_note",
+        "biblical_anchor_language": "hebrew",
+        "topic": "Women's property and agency",
+        "initial_chapter_keys": [
+          "oshb:Num.27"
+        ],
+        "research_task": "Select exact primary comparanda and current scholarship; distinguish narrated setting, evidence, inference, disagreement and later reception. A candidate collection is not yet a source citation.",
+        "source_candidates": [
+          "oracc_selected"
+        ],
+        "status": "proposed_unresearched_case",
+        "claims_verified": false
+      },
+      {
+        "id": "HC07",
+        "kind": "historical_note",
+        "biblical_anchor_language": "hebrew",
+        "topic": "Wisdom genres and comparisons",
+        "initial_chapter_keys": [
+          "oshb:Prov.1",
+          "oshb:Job.1"
+        ],
+        "research_task": "Select exact primary comparanda and current scholarship; distinguish narrated setting, evidence, inference, disagreement and later reception. A candidate collection is not yet a source citation.",
+        "source_candidates": [
+          "oracc_selected"
+        ],
+        "status": "proposed_unresearched_case",
+        "claims_verified": false
+      },
+      {
+        "id": "HC08",
+        "kind": "historical_note",
+        "biblical_anchor_language": "hebrew",
+        "topic": "Scribal and reading traditions",
+        "initial_chapter_keys": [
+          "oshb:Neh.8"
+        ],
+        "research_task": "Select exact primary comparanda and current scholarship; distinguish narrated setting, evidence, inference, disagreement and later reception. A candidate collection is not yet a source citation.",
+        "source_candidates": [
+          "iaa_dss",
+          "etcbc_dss"
+        ],
+        "status": "proposed_unresearched_case",
+        "claims_verified": false
+      },
+      {
+        "id": "AC01",
+        "kind": "historical_note",
+        "biblical_anchor_language": "aramaic",
+        "topic": "Administrative Aramaic and documentary comparanda",
+        "initial_chapter_keys": [
+          "oshb:Ezra.4"
+        ],
+        "research_task": "Select exact primary comparanda and current scholarship; distinguish narrated setting, evidence, inference, disagreement and later reception. A candidate collection is not yet a source citation.",
+        "source_candidates": [
+          "museum_object_leads"
+        ],
+        "status": "proposed_unresearched_case",
+        "claims_verified": false
+      },
+      {
+        "id": "AC02",
+        "kind": "historical_note",
+        "biblical_anchor_language": "aramaic",
+        "topic": "Imperial offices and titles",
+        "initial_chapter_keys": [
+          "oshb:Dan.3"
+        ],
+        "research_task": "Select exact primary comparanda and current scholarship; distinguish narrated setting, evidence, inference, disagreement and later reception. A candidate collection is not yet a source citation.",
+        "source_candidates": [
+          "oracc_selected"
+        ],
+        "status": "proposed_unresearched_case",
+        "claims_verified": false
+      },
+      {
+        "id": "AC03",
+        "kind": "historical_note",
+        "biblical_anchor_language": "aramaic",
+        "topic": "Court-tale setting versus composition",
+        "initial_chapter_keys": [
+          "oshb:Dan.5"
+        ],
+        "research_task": "Select exact primary comparanda and current scholarship; distinguish narrated setting, evidence, inference, disagreement and later reception. A candidate collection is not yet a source citation.",
+        "source_candidates": [
+          "oracc_selected",
+          "museum_object_leads"
+        ],
+        "status": "proposed_unresearched_case",
+        "claims_verified": false
+      },
+      {
+        "id": "AC04",
+        "kind": "historical_note",
+        "biblical_anchor_language": "aramaic",
+        "topic": "Apocalyptic imagery and dating arguments",
+        "initial_chapter_keys": [
+          "oshb:Dan.7"
+        ],
+        "research_task": "Select exact primary comparanda and current scholarship; distinguish narrated setting, evidence, inference, disagreement and later reception. A candidate collection is not yet a source citation.",
+        "source_candidates": [
+          "iaa_dss",
+          "etcbc_dss"
+        ],
+        "status": "proposed_unresearched_case",
+        "claims_verified": false
+      },
+      {
+        "id": "GC01",
+        "kind": "historical_note",
+        "biblical_anchor_language": "greek",
+        "topic": "Roman Judean administration",
+        "initial_chapter_keys": [
+          "sblgnt:Luke.3"
+        ],
+        "research_task": "Select exact primary comparanda and current scholarship; distinguish narrated setting, evidence, inference, disagreement and later reception. A candidate collection is not yet a source citation.",
+        "source_candidates": [
+          "perseus_selected",
+          "museum_object_leads"
+        ],
+        "status": "proposed_unresearched_case",
+        "claims_verified": false
+      },
+      {
+        "id": "GC02",
+        "kind": "historical_note",
+        "biblical_anchor_language": "greek",
+        "topic": "Census claims and chronological limits",
+        "initial_chapter_keys": [
+          "sblgnt:Luke.2"
+        ],
+        "research_task": "Select exact primary comparanda and current scholarship; distinguish narrated setting, evidence, inference, disagreement and later reception. A candidate collection is not yet a source citation.",
+        "source_candidates": [
+          "perseus_selected"
+        ],
+        "status": "proposed_unresearched_case",
+        "claims_verified": false
+      },
+      {
+        "id": "GC03",
+        "kind": "historical_note",
+        "biblical_anchor_language": "greek",
+        "topic": "Temple institutions",
+        "initial_chapter_keys": [
+          "sblgnt:Mark.11"
+        ],
+        "research_task": "Select exact primary comparanda and current scholarship; distinguish narrated setting, evidence, inference, disagreement and later reception. A candidate collection is not yet a source citation.",
+        "source_candidates": [
+          "perseus_selected"
+        ],
+        "status": "proposed_unresearched_case",
+        "claims_verified": false
+      },
+      {
+        "id": "GC04",
+        "kind": "historical_note",
+        "biblical_anchor_language": "greek",
+        "topic": "Synagogue practice and local variation",
+        "initial_chapter_keys": [
+          "sblgnt:Luke.4"
+        ],
+        "research_task": "Select exact primary comparanda and current scholarship; distinguish narrated setting, evidence, inference, disagreement and later reception. A candidate collection is not yet a source citation.",
+        "source_candidates": [
+          "perseus_selected"
+        ],
+        "status": "proposed_unresearched_case",
+        "claims_verified": false
+      },
+      {
+        "id": "GC05",
+        "kind": "historical_note",
+        "biblical_anchor_language": "greek",
+        "topic": "Slavery and households",
+        "initial_chapter_keys": [
+          "sblgnt:Phlm.1"
+        ],
+        "research_task": "Select exact primary comparanda and current scholarship; distinguish narrated setting, evidence, inference, disagreement and later reception. A candidate collection is not yet a source citation.",
+        "source_candidates": [
+          "perseus_selected"
+        ],
+        "status": "proposed_unresearched_case",
+        "claims_verified": false
+      },
+      {
+        "id": "GC06",
+        "kind": "historical_note",
+        "biblical_anchor_language": "greek",
+        "topic": "Patronage and benefaction",
+        "initial_chapter_keys": [
+          "sblgnt:Rom.16"
+        ],
+        "research_task": "Select exact primary comparanda and current scholarship; distinguish narrated setting, evidence, inference, disagreement and later reception. A candidate collection is not yet a source citation.",
+        "source_candidates": [
+          "perseus_selected"
+        ],
+        "status": "proposed_unresearched_case",
+        "claims_verified": false
+      },
+      {
+        "id": "GC07",
+        "kind": "historical_note",
+        "biblical_anchor_language": "greek",
+        "topic": "Early assemblies and material support",
+        "initial_chapter_keys": [
+          "sblgnt:Phil.1",
+          "sblgnt:Phil.4"
+        ],
+        "research_task": "Select exact primary comparanda and current scholarship; distinguish narrated setting, evidence, inference, disagreement and later reception. A candidate collection is not yet a source citation.",
+        "source_candidates": [
+          "perseus_selected"
+        ],
+        "status": "proposed_unresearched_case",
+        "claims_verified": false
+      },
+      {
+        "id": "GC08",
+        "kind": "historical_note",
+        "biblical_anchor_language": "greek",
+        "topic": "Apocalyptic settings and later reception",
+        "initial_chapter_keys": [
+          "sblgnt:Rev.13"
+        ],
+        "research_task": "Select exact primary comparanda and current scholarship; distinguish narrated setting, evidence, inference, disagreement and later reception. A candidate collection is not yet a source citation.",
+        "source_candidates": [
+          "perseus_selected"
+        ],
+        "status": "proposed_unresearched_case",
+        "claims_verified": false
+      }
+    ]
+  },
+  "source_candidates": [
+    {
+      "id": "step_selected",
+      "kind": "reference_and_lexical_aids",
+      "status": "reference_map_implemented_lexical_components_proposed",
+      "source_and_rights_urls": [
+        "https://github.com/STEPBible/STEPBible-Data/blob/master/README.md",
+        "https://raw.githubusercontent.com/STEPBible/STEPBible-Data/c5407786ede9b26a8998366524076f7c739dccdd/Versification/TVTMS%20-%20Translators%20Versification%20Traditions%20with%20Methodology%20for%20Standardisation%20for%20Eng%2BHeb%2BLat%2BGrk%2BOthers%20-%20STEPBible.org%20CC%20BY.txt"
+      ],
+      "rights_observed_on": "2026-09-06",
+      "observed_license": "CC-BY-4.0",
+      "rights_scope_note": "TVTMS reference-summary metadata is implemented with upstream attribution and changes recorded. TBESH/TBESG remain proposed pending exact file/header review. No amalgamated text or AI-authored description was imported.",
+      "pinned_version": "c5407786ede9b26a8998366524076f7c739dccdd",
+      "source_content_sha256": "63058e0f20201af4bdaa7d830da5be8f493455d947c5f147d84840b33db9ddf8",
+      "pin_required_before_import": true,
+      "imported_records": 2021,
+      "app_use_approval": "selected_TVTMS_lookup_only",
+      "training_eligibility": "pending_separate_decision",
+      "adapter_release_eligibility": "pending_separate_decision",
+      "implementation_priority": 1,
+      "pinned_component_scope": "Selected TVTMS English-to-Hebrew-MT summary only; lexical components remain unselected.",
+      "blocked_lookup_records": 14
+    },
+    {
+      "id": "sblgnt_apparatus",
+      "kind": "edition_comparison",
+      "status": "candidate_for_bounded_import",
+      "source_and_rights_urls": [
+        "https://sblgnt.com/download/",
+        "https://sblgnt.com/license/",
+        "https://sblgnt.com/about/introduction/"
+      ],
+      "rights_observed_on": "2026-09-06",
+      "observed_license": "CC-BY-4.0",
+      "rights_scope_note": "Selected apparatus artifact only after notice verification; edition support is not manuscript attestation.",
+      "pinned_version": null,
+      "source_content_sha256": null,
+      "pin_required_before_import": true,
+      "imported_records": 0,
+      "app_use_approval": "pending_component_review",
+      "training_eligibility": "pending_separate_decision",
+      "adapter_release_eligibility": "pending_separate_decision",
+      "implementation_priority": 2
+    },
+    {
+      "id": "cntr_witness_subset",
+      "kind": "manuscript_transcription",
+      "status": "candidate_for_bounded_import",
+      "source_and_rights_urls": [
+        "https://github.com/Center-for-New-Testament-Restoration/transcriptions",
+        "https://github.com/Center-for-New-Testament-Restoration/transcriptions/blob/main/LICENSE.md"
+      ],
+      "rights_observed_on": "2026-09-06",
+      "observed_license": "CC-BY-SA-4.0",
+      "rights_scope_note": "Select identified witness files, preserving MES damage/supplied/correction markers; separate the modern critical-text directory and downstream license decisions.",
+      "pinned_version": null,
+      "source_content_sha256": null,
+      "pin_required_before_import": true,
+      "imported_records": 0,
+      "app_use_approval": "pending_component_review",
+      "training_eligibility": "pending_separate_decision",
+      "adapter_release_eligibility": "pending_separate_decision",
+      "implementation_priority": 3
+    },
+    {
+      "id": "iaa_dss",
+      "kind": "institutional_witness_catalog_and_images",
+      "status": "research_links_only",
+      "source_and_rights_urls": [
+        "https://www.deadseascrolls.org.il/terms",
+        "https://www.deadseascrolls.org.il/learn-about-the-scrolls/introduction"
+      ],
+      "rights_observed_on": "2026-09-06",
+      "observed_license": null,
+      "rights_scope_note": "Terms reserve reproduction/display rights except single private-use copies. This plan permits citation/link research only; reproduction needs a separate decision.",
+      "pinned_version": null,
+      "source_content_sha256": null,
+      "pin_required_before_import": true,
+      "imported_records": 0,
+      "app_use_approval": "pending_component_review",
+      "training_eligibility": "pending_separate_decision",
+      "adapter_release_eligibility": "pending_separate_decision",
+      "implementation_priority": null
+    },
+    {
+      "id": "etcbc_dss",
+      "kind": "transcription_and_annotation",
+      "status": "research_links_only",
+      "source_and_rights_urls": [
+        "https://github.com/ETCBC/dss"
+      ],
+      "rights_observed_on": "2026-09-06",
+      "observed_license": "CC-BY-NC-4.0",
+      "rights_scope_note": "Dataset terms are noncommercial. No reusable app corpus or training approval is granted here.",
+      "pinned_version": null,
+      "source_content_sha256": null,
+      "pin_required_before_import": true,
+      "imported_records": 0,
+      "app_use_approval": "pending_component_review",
+      "training_eligibility": "pending_separate_decision",
+      "adapter_release_eligibility": "pending_separate_decision",
+      "implementation_priority": null
+    },
+    {
+      "id": "greek_ot_versions",
+      "kind": "ancient_version_edition",
+      "status": "source_selection_pending",
+      "source_and_rights_urls": [
+        "https://ccat.sas.upenn.edu/gopher/text/religion/biblical/0-user-declaration.txt"
+      ],
+      "rights_observed_on": "2026-09-06",
+      "observed_license": null,
+      "rights_scope_note": "Edition and digital artifact remain unselected. CCAT commercial-use restrictions and other conditions prevent treating that distribution as a default reusable import. Identify Old Greek/Theodotion and deuterocanonical inventories separately.",
+      "pinned_version": null,
+      "source_content_sha256": null,
+      "pin_required_before_import": true,
+      "imported_records": 0,
+      "app_use_approval": "pending_component_review",
+      "training_eligibility": "pending_separate_decision",
+      "adapter_release_eligibility": "pending_separate_decision",
+      "implementation_priority": null
+    },
+    {
+      "id": "perseus_selected",
+      "kind": "ancient_literary_comparanda",
+      "status": "component_rights_review_pending",
+      "source_and_rights_urls": [
+        "https://github.com/PerseusDL/canonical-greekLit"
+      ],
+      "rights_observed_on": "2026-09-06",
+      "observed_license": "CC-BY-SA-4.0 default with exceptions",
+      "rights_scope_note": "Only individual works/editions/translations after checking TEI headers and notices; upstream warns headers are not all checked.",
+      "pinned_version": null,
+      "source_content_sha256": null,
+      "pin_required_before_import": true,
+      "imported_records": 0,
+      "app_use_approval": "pending_component_review",
+      "training_eligibility": "pending_separate_decision",
+      "adapter_release_eligibility": "pending_separate_decision",
+      "implementation_priority": null
+    },
+    {
+      "id": "oracc_selected",
+      "kind": "historical_inscriptions_and_annotations",
+      "status": "component_rights_review_pending",
+      "source_and_rights_urls": [
+        "https://oracc.museum.upenn.edu/doc/help/visitingoracc/reusingoracc/index.html"
+      ],
+      "rights_observed_on": "2026-09-06",
+      "observed_license": null,
+      "rights_scope_note": "Oracc guidance gives default Attribution-ShareAlike with project exceptions; exact project, version, license and third-party components must be checked. Live page retrieval failed in this research; official indexed guidance was available.",
+      "pinned_version": null,
+      "source_content_sha256": null,
+      "pin_required_before_import": true,
+      "imported_records": 0,
+      "app_use_approval": "pending_component_review",
+      "training_eligibility": "pending_separate_decision",
+      "adapter_release_eligibility": "pending_separate_decision",
+      "implementation_priority": null
+    },
+    {
+      "id": "museum_object_leads",
+      "kind": "historical_object_catalog",
+      "status": "research_links_only",
+      "source_and_rights_urls": [
+        "https://www.britishmuseum.org/collection/object/W_1855-1003-1",
+        "https://www.britishmuseum.org/collection/object/W_1880-0617-1941"
+      ],
+      "rights_observed_on": "2026-09-06",
+      "observed_license": null,
+      "rights_scope_note": "Taylor Prism and Cyrus Cylinder are bibliographic/object leads. No image or modern-translation reproduction rights were assessed or granted.",
+      "pinned_version": null,
+      "source_content_sha256": null,
+      "pin_required_before_import": true,
+      "imported_records": 0,
+      "app_use_approval": "pending_component_review",
+      "training_eligibility": "pending_separate_decision",
+      "adapter_release_eligibility": "pending_separate_decision",
+      "implementation_priority": null
+    },
+    {
+      "id": "intf_liste",
+      "kind": "witness_identity_authority",
+      "status": "research_links_only",
+      "source_and_rights_urls": [
+        "https://www.uni-muenster.de/INTF/institut/index.html"
+      ],
+      "rights_observed_on": "2026-09-06",
+      "observed_license": null,
+      "rights_scope_note": "Institutional authority for NT manuscript identifiers and its reconstruction work. No blanket metadata, transcription or image reuse license was established here.",
+      "pinned_version": null,
+      "source_content_sha256": null,
+      "pin_required_before_import": true,
+      "imported_records": 0,
+      "app_use_approval": "pending_component_review",
+      "training_eligibility": "pending_separate_decision",
+      "adapter_release_eligibility": "pending_separate_decision",
+      "implementation_priority": null
+    }
+  ],
+  "artifact_provenance_required_before_import": [
+    "Stable manuscript/work/object and source IDs; edition, translator and physical hand where relevant.",
+    "Exact immutable repository commit or edition/release plus per-file SHA256, retrieval date, license-notice SHA256 and public locator.",
+    "Original representation and preservation/encoding status; normalized search text separately derived with transformation code version.",
+    "Separate source text, transcription, translation, annotation, image and authored-note rights decisions.",
+    "Record source-reference numbering and checked user-reference mapping; never align only by matching a verse number."
+  ],
+  "record_schema_status": "Draft JSON Schema for future evidence records; no records have been asserted or imported.",
+  "record_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "schema_version": {
+        "const": 1
+      },
+      "id": {
+        "type": "string"
+      },
+      "kind": {
+        "enum": [
+          "textual_dossier",
+          "historical_note"
+        ]
+      },
+      "status": {
+        "enum": [
+          "draft",
+          "reviewed",
+          "approved_for_app",
+          "blocked"
+        ]
+      },
+      "biblical_anchor_languages": {
+        "type": "array",
+        "items": {
+          "enum": [
+            "hebrew",
+            "aramaic",
+            "greek"
+          ]
+        }
+      },
+      "source_languages": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "chapter_keys": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "source_reference_systems": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "mapped_references": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "mapping_citation_ids": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "summary": {
+        "type": "string"
+      },
+      "citations": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/citation"
+        }
+      },
+      "readings": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/reading"
+        }
+      },
+      "dates": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "narrated_setting": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/date_range"
+            }
+          },
+          "proposed_composition": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/date_range"
+            }
+          },
+          "physical_witness": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/date_range"
+            }
+          },
+          "modern_edition": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/date_range"
+            }
+          }
+        },
+        "required": [
+          "narrated_setting",
+          "proposed_composition",
+          "physical_witness",
+          "modern_edition"
+        ]
+      },
+      "claims": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/claim"
+        }
+      },
+      "coverage_limits": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "rights_by_component": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/component_rights"
+        }
+      },
+      "review": {
+        "$ref": "#/$defs/review"
+      }
+    },
+    "required": [
+      "schema_version",
+      "id",
+      "kind",
+      "status",
+      "biblical_anchor_languages",
+      "source_languages",
+      "chapter_keys",
+      "source_reference_systems",
+      "mapped_references",
+      "mapping_citation_ids",
+      "summary",
+      "citations",
+      "readings",
+      "dates",
+      "claims",
+      "coverage_limits",
+      "rights_by_component",
+      "review"
+    ],
+    "$defs": {
+      "year": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "era": {
+            "enum": [
+              "BCE",
+              "CE"
+            ]
+          },
+          "year": {
+            "type": "integer",
+            "minimum": 1
+          }
+        },
+        "required": [
+          "era",
+          "year"
+        ]
+      },
+      "date_range": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "earliest": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/year"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "latest": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/year"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "display_label": {
+            "type": "string"
+          },
+          "method": {
+            "type": "string"
+          },
+          "citation_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "uncertainty": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "earliest",
+          "latest",
+          "display_label",
+          "method",
+          "citation_ids",
+          "uncertainty"
+        ]
+      },
+      "citation": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "source_id": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "primary_text",
+              "manuscript_catalog",
+              "edition",
+              "scholarship",
+              "rights_notice"
+            ]
+          },
+          "author_or_institution": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "locator": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "pattern": "^https://"
+          },
+          "publication_date": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "accessed_on": {
+            "type": "string",
+            "format": "date"
+          },
+          "pinned_version": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "content_sha256": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "required": [
+          "id",
+          "source_id",
+          "kind",
+          "author_or_institution",
+          "title",
+          "locator",
+          "url",
+          "publication_date",
+          "accessed_on",
+          "pinned_version",
+          "content_sha256"
+        ]
+      },
+      "claim": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "observation",
+              "edited_reading",
+              "translation",
+              "historical_inference",
+              "later_interpretation",
+              "contemporary_reflection"
+            ]
+          },
+          "supporting_citation_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "contrary_citation_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "alternative_claim_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "assessment": {
+            "enum": [
+              "supported",
+              "disputed",
+              "uncertain",
+              "insufficient_evidence"
+            ]
+          },
+          "attributed_position": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "limitations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "text",
+          "kind",
+          "supporting_citation_ids",
+          "contrary_citation_ids",
+          "alternative_claim_ids",
+          "assessment",
+          "attributed_position",
+          "limitations"
+        ]
+      },
+      "reading": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "entity_type": {
+            "enum": [
+              "manuscript",
+              "ancient_version",
+              "patristic_quotation",
+              "modern_edition",
+              "conjecture"
+            ]
+          },
+          "stable_entity_id": {
+            "type": "string"
+          },
+          "edition_or_transcription": {
+            "type": "string"
+          },
+          "hand": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "original_representation": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "english_rendering": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "rendering_author": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "attestation": {
+            "enum": [
+              "present",
+              "absent",
+              "damaged",
+              "supplied",
+              "uncertain",
+              "unpreserved",
+              "unchecked"
+            ]
+          },
+          "citation_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "encoding_notes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "entity_type",
+          "stable_entity_id",
+          "edition_or_transcription",
+          "hand",
+          "original_representation",
+          "english_rendering",
+          "rendering_author",
+          "attestation",
+          "citation_ids",
+          "encoding_notes"
+        ]
+      },
+      "use_decision": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "decision": {
+            "enum": [
+              "pending",
+              "approved",
+              "not_approved",
+              "not_applicable"
+            ]
+          },
+          "basis": {
+            "type": "string"
+          },
+          "reviewer": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "reviewed_on": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date"
+          }
+        },
+        "required": [
+          "decision",
+          "basis",
+          "reviewer",
+          "reviewed_on"
+        ]
+      },
+      "component_rights": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "source_id": {
+            "type": "string"
+          },
+          "component": {
+            "enum": [
+              "source_text",
+              "transcription",
+              "translation",
+              "annotation",
+              "image",
+              "authored_note"
+            ]
+          },
+          "observed_license": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "rights_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "rights_notice_sha256": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "attribution": {
+            "type": "string"
+          },
+          "change_notice": {
+            "type": "string"
+          },
+          "research_access": {
+            "$ref": "#/$defs/use_decision"
+          },
+          "app_display": {
+            "$ref": "#/$defs/use_decision"
+          },
+          "redistribution": {
+            "$ref": "#/$defs/use_decision"
+          },
+          "training": {
+            "$ref": "#/$defs/use_decision"
+          },
+          "adapter_release": {
+            "$ref": "#/$defs/use_decision"
+          }
+        },
+        "required": [
+          "source_id",
+          "component",
+          "observed_license",
+          "rights_url",
+          "rights_notice_sha256",
+          "attribution",
+          "change_notice",
+          "research_access",
+          "app_display",
+          "redistribution",
+          "training",
+          "adapter_release"
+        ]
+      },
+      "review": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "author_id": {
+            "type": "string"
+          },
+          "reviewer_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "reviewer_role": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "qualifications": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "perspective_and_conflicts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": {
+            "enum": [
+              "draft",
+              "needs_revision",
+              "approved",
+              "approved_with_caveats",
+              "blocked"
+            ]
+          },
+          "reviewed_on": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date"
+          },
+          "record_content_sha256": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "adjudication": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "unresolved_issues": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "author_id",
+          "reviewer_id",
+          "reviewer_role",
+          "qualifications",
+          "perspective_and_conflicts",
+          "status",
+          "reviewed_on",
+          "record_content_sha256",
+          "adjudication",
+          "unresolved_issues"
+        ]
+      }
+    }
+  },
+  "semantic_validation_rules": [
+    "Every citation, claim-alternative and source ID resolves within the record or approved source registry.",
+    "Every historical or textual assertion has a supporting locator or is explicitly labeled an inference/uncertain claim.",
+    "No manuscript attestation is derived solely from an edition-comparison apparatus.",
+    "Unpreserved/damaged/unchecked text is never converted to an omission.",
+    "BCE/CE dates have no year zero; ranges must be ordered and their evidence supplied; composition, narrative setting, witness and edition remain separate.",
+    "An approved record requires an author distinct from the relevant specialist reviewer, bound content hash and completed relevant use decisions.",
+    "App approval does not imply training approval. Training may only include components separately approved for that use and release plan.",
+    "All substantive disputed claims require a recorded alternative or an explicit statement that contrary evidence has not yet been assessed.",
+    "No unsupported consensus claims, invented sources, hidden synthetic ground truth or blanket corpus-license inference."
+  ],
+  "review_workflow": {
+    "status": "future_work_not_commissioned",
+    "roles": [
+      "Evidence author",
+      "Different qualified Hebrew/Aramaic or Greek textual reviewer",
+      "Relevant period specialist for historical inferences",
+      "Second specialist adjudicator for disputed items",
+      "Separate held-out evaluation author"
+    ],
+    "ai_role": "Draft assistance and mechanical checks; no claim of independent expert certification.",
+    "record_before_acceptance": [
+      "Qualifications and interpretive perspective",
+      "Conflicts and prior role exposure",
+      "Exact source and reviewed content hashes",
+      "Approval/caveats and unresolved issues",
+      "Rights scope for every included component"
+    ],
+    "completion_gate": "All40 records meet mechanical and scholarly checks; blocked items keep explicit coverage records and any same-allocation replacement is versioned."
+  },
+  "future_training_hypotheses": [
+    {
+      "id": "evidence_handling",
+      "status": "proposed_not_authorized",
+      "treatment": "Supervise checked answers grounded in approved evidence packets: distinguish witness/edition, translate alternatives, cite support and handle missing evidence.",
+      "targets": "Authored from approved source records; independently checked; multiple defensible renderings accepted. No unreviewed model answer is ground truth."
+    },
+    {
+      "id": "labeled_source_adaptation",
+      "status": "proposed_not_authorized",
+      "treatment": "Add a separately versioned eligible original-source/context corpus with explicit labels; preserve B and compare a new adapter.",
+      "constraint": "No unlabeled merging of competing readings or private/unapproved source material; training and released weights need their own use decision."
+    }
+  ],
+  "evaluation_separation": {
+    "held_out_author_separate_from_training_author": true,
+    "freeze_before_training_or_prompt_tuning": true,
+    "exclude_development_dossier_cases_from_final_test": true,
+    "conceal_questions_and_criteria_until_training_data_frozen": true,
+    "comparison": "Unchanged A and retained B with identical evidence access, then any separately authorized new adapter.",
+    "conditions": [
+      "Model memory without supplied evidence",
+      "Interpretation with correct supplied evidence",
+      "Actual application lookup plus answer"
+    ],
+    "coverage": [
+      "Original-language translation and grammar",
+      "Witness and edition distinctions",
+      "Historical claims, dates and disagreement",
+      "Missing evidence and misleading premises",
+      "Broad English questions and follow-ups",
+      "Intent-based non-denominational life reflection"
+    ],
+    "limitations": "The40 proposed public cases are development material; neither they nor their selection establish a representative final benchmark."
+  },
+  "limitations": [
+    "Rights observations are narrow upstream statements, not a sweeping legal conclusion or settled training-weight opinion.",
+    "Unselected source versions and hashes remain null until exact artifacts are chosen. The implemented TVTMS reference component has an explicit version, raw hash and derived-map hash; this does not clear other components.",
+    "Some proposed textual cases are prominent disputes; nearby controls and a separate hidden test are required.",
+    "No specialist review, source acquisition, historical-accuracy improvement or future training result is claimed."
+  ],
+  "current_implementation": {
+    "id": "step_tvtms_reference_lookup",
+    "status": "implemented_for_private_chat_lookup_only",
+    "manifest": "manifests/chat-versification-v1.json",
+    "manifest_sha256": "cb3118ebbc43c3bc218776fb7119049e7227c6f5556c09961bd9d8093b31299d",
+    "source_revision": "c5407786ede9b26a8998366524076f7c739dccdd",
+    "source_sha256": "63058e0f20201af4bdaa7d830da5be8f493455d947c5f147d84840b33db9ddf8",
+    "source_url": "https://raw.githubusercontent.com/STEPBible/STEPBible-Data/c5407786ede9b26a8998366524076f7c739dccdd/Versification/TVTMS%20-%20Translators%20Versification%20Traditions%20with%20Methodology%20for%20Standardisation%20for%20Eng%2BHeb%2BLat%2BGrk%2BOthers%20-%20STEPBible.org%20CC%20BY.txt",
+    "whole_verse_mappings": 2021,
+    "blocked_rows": 14,
+    "scope": "English-standard to Hebrew-MT reference lookup into existing OSHB text. NT lookup remains SBLGNT-numbered. No new historical content, witness text or training data.",
+    "remaining_content_imports": [
+      "Selected STEP brief lexical files",
+      "Selected SBLGNT apparatus units",
+      "Selected CNTR witness transcriptions"
+    ]
+  }
+}

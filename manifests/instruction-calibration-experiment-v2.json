@@ -1,0 +1,149 @@
+{
+  "schema_version": 2,
+  "status": "frozen_before_training_and_sampling",
+  "frozen_at_utc": "2026-09-06T19:38:05.362620+00:00",
+  "experiment_id": "instruction-calibration-v2",
+  "arms": {
+    "A": "unchanged",
+    "B": "original_text_only",
+    "D": "original_text_then_instruction_lr_0.0001",
+    "E": "original_text_then_instruction_lr_0.00002"
+  },
+  "evaluation": {
+    "path": "evals/instruction-calibration-v2.jsonl",
+    "sha256": "9e0e1ff8aab7eb4a553b070b4b7bcdebf0239037c43f2da51caa1116714b2b20",
+    "cases": 30,
+    "case_ids": [
+      "IH201",
+      "IH202",
+      "IH203",
+      "IH204",
+      "IH205",
+      "IH206",
+      "IH207",
+      "IA201",
+      "IA202",
+      "IA203",
+      "IA204",
+      "IA205",
+      "IA206",
+      "IA207",
+      "IG201",
+      "IG202",
+      "IG203",
+      "IG204",
+      "IG205",
+      "IG206",
+      "IM201",
+      "IM202",
+      "IM203",
+      "IM204",
+      "G201",
+      "G202",
+      "G203",
+      "G204",
+      "G205",
+      "G206"
+    ]
+  },
+  "evaluation_manifest": {
+    "path": "manifests/instruction-calibration-evaluation-v2.json",
+    "sha256": "efd632af9418240a9cb039f124415fc6bb04fe60c6c575ae771310f15e167d39"
+  },
+  "training_manifest": {
+    "path": "manifests/instruction-calibration-training-v2.json",
+    "sha256": "a3f6101e42c8709e72042b905783477d05037417b4fca735616884f07eda148a"
+  },
+  "prior_protocol": {
+    "path": "manifests/instruction-experiment-v1.json",
+    "sha256": "d1e6c365934dda1935921285bfd2a8566550ce66ebd1cd4317265b7a5ab3f14b"
+  },
+  "prior_aggregate": {
+    "path": "reports/inkling-instruction-v1.json",
+    "sha256": "faeb5ce0f15bd2ba98cf09d6b37fe588fd08c7eb00393bc035682715a6e780e7"
+  },
+  "system_prompt_sha256": "405c027ca4ca122501eaee2fb4d01605e86a35501ba8a084eada5b3417bec7e3",
+  "matched_settings": {
+    "model": "thinkingmachines/Inkling",
+    "reasoning_effort": "medium",
+    "thinking_effort_numeric": 0.7,
+    "temperature": 0.0,
+    "seed": 20260905,
+    "max_output_tokens": 8192,
+    "max_input_tokens": 6000,
+    "timeout_seconds": 300,
+    "evidence_mode": "provided",
+    "api_key_env": "TINKER_API_KEY",
+    "base_url": "https://tinker.thinkingmachines.dev/services/tinker-prod",
+    "comparison_manifest": "manifests/comparison-large-models-v1.json",
+    "output_limit_field": "max_completion_tokens",
+    "input_price_per_million": 1.87,
+    "output_price_per_million": 4.68
+  },
+  "budget": {
+    "per_arm_sampling_cap_usd": 1.5,
+    "four_arm_sampling_cap_usd": 6.0,
+    "new_training_reservation_usd": 3.48149508,
+    "incremental_experiment_cap_usd": 10.0
+  },
+  "reference_checkpoints": {
+    "B": {
+      "checkpoint_file": "runs/inkling-original-text-v1/checkpoints.json",
+      "receipt_sha256": {
+        "checkpoints.json": "cc9ff9ed1c97ac3a1a0616dfa07bb057b88db0d19ecb281b6f62a1ebcb6a1889",
+        "plan.json": "066bb04eb66c9e3c383fd4138aafa337ef5f99c069d83db63fd5d4b9dbbf8b02",
+        "summary.json": "fd028cfbff399adeaa76910ba60a14ad0080721ae44bdf4ad0eb22067d7086f1",
+        "events.jsonl": "54678c3e10fe5ee4f246ce15f332729946f010e16493066a62f491bc177800c3"
+      }
+    },
+    "D": {
+      "checkpoint_file": "runs/inkling-instruction-d-v1/checkpoints.json",
+      "receipt_sha256": {
+        "checkpoints.json": "4fcd9097046f007311801d4436bf7fcb5bcee71848a5de959d38b6ee3ed0918a",
+        "plan.json": "ff61025de4c98b8ac0056cad6e72b2b45cff57dfc5337045e534967fb00bad76",
+        "summary.json": "27526097f859e4da74b118033aa2b2f14c30de435480fff92f439729693b2ff6",
+        "events.jsonl": "7fa0422ea0aa07e14d648ff568d0ed4cf28b942a7cf86440b141ff2d8cb3ff25"
+      }
+    }
+  },
+  "software_sha256": {
+    "bibleprep/environment.py": "b4d5b205e4540c95fb1a3372cec4f144544f6eec7fbbdb65d276d3e8369fa446",
+    "bibleprep/evaluate.py": "b803a1bf63244ba1f051fc6781a455bbd463ec4ce9f5584c95bb35881cfb02fd",
+    "bibleprep/evaluate_adapter.py": "371cf93fcc1e50f0f86aa1d9a7895f1d51ab75e868c5bbe028383a15cb878df4",
+    "bibleprep/evaluate_instruction.py": "303621d3570879c4eedb91562a6344079d0aa412f9b5d5a0e2e0402bdeb14108",
+    "bibleprep/evaluate_instruction_calibration.py": "c3550826bb1426a9d9cc38f3474155162b9a09dbcee8fcbd502e7214de2677e9",
+    "bibleprep/native_diagnostics_v1.py": "cd73bcc7d34c676b9298375715315f1564a625d8bd2d7e1a02e0284330bde1a0",
+    "bibleprep/prepare_instruction.py": "9d49f146ee86aa8a29bebf81fe576b6e1ed718f5890cb9d978fcb6c1d36f8cb4",
+    "bibleprep/tinker_compare.py": "b050a9ad9e246599138b62fa366d4e558619151d97a30d805c6abaca553856ff",
+    "bibleprep/tinker_evaluate.py": "e8bbb9e58a44f7cdd63bb81a1fdf9ff84b9fc0f514a5e4a6318327d49500e4d8",
+    "bibleprep/train_inkling.py": "89d0db22618807e4a4b57b37ac8f817bc3491287b83ff47055ed8e667c924520",
+    "bibleprep/train_instruction.py": "43fd40998a76a91250ae09eb2ac6341fe0e9845c72e509ff80b3090c2500b107",
+    "bibleprep/train_instruction_calibration.py": "be2cc7375cceb2de7ed818fafe33de0292892b8e9d10889ce7a077463266d6c0",
+    "requirements-comparison-large.lock.txt": "f71b8507470fff116ce67238c499c1a2e5175f61f5504d10747adf06de202343",
+    "requirements-training.txt": "42340a96d7fcdc963bcfaf2ae11a21979a5b4c63e211edf67effbf86f83cc3f0"
+  },
+  "pre_sampling_source_checks": [
+    {
+      "path": "runs/instruction-v2-prep/evaluation/criteria-source-review-ih-general.json",
+      "sha256": "2c207e27d192216c72d6c02c9649ae98e0df7190ee9299a72dfbe8a5e1c248c0"
+    },
+    {
+      "path": "runs/instruction-v2-prep/evaluation/criteria-source-review-ig-im.json",
+      "sha256": "478acd20eb9792d37e24eaa40d5db001302fe221c32ecfb02cf307f8126cce66"
+    },
+    {
+      "path": "runs/instruction-v2-prep/evaluation/criteria-source-review-ia.json",
+      "sha256": "4302a2b198b40a31e53b0dca0cae9727c939535740ff365e0eef0a73959412a7"
+    }
+  ],
+  "offline_prompt_audit": {
+    "path": "runs/instruction-v2-prep/render-audit.json",
+    "sha256": "25669b3bacb16138c4e467bd52ac12e0d749edce07dc0de2fd5b69c14216dbeb"
+  },
+  "planned_e_checkpoint_file": "runs/inkling-instruction-e-v2/checkpoints.json",
+  "sampling_order": "Each arm submits all30 cases in frozen order; arms may execute concurrently. One sample per question; no selective retries.",
+  "review_method": "All120 candidates retained with per-case concealed labels for AI source review. Completion, requested coverage, source fidelity and literal fixture checks reported separately. No expert-certified accuracy score.",
+  "diagnostic_change": "All fresh arms use the same versioned streaming-parser diagnostics. Prior records unchanged. Partial final text and raw IDs remain private; thinking is excluded from public reports and review packets.",
+  "training_change": "E loads B weights with a new optimizer and the exact v1 data/order/epoch, changing only Adam learning rate to0.00002.",
+  "public_reproducibility_limit": "Prepared SFT examples and private operational receipts are not publicly distributed."
+}

@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "recorded_at_utc": "2026-09-06T04:22:26.977874+00:00",
+  "scope": "Frozen before all three large-model sampling runs. Exact source bytes retained in ignored local control artifacts. No immutable Git revision or provider weight revision is claimed.",
+  "files": [
+    {
+      "path": "bibleprep/__init__.py",
+      "sha256": "4c76b7dd83021e312a25ee1fec44dfe2a485aad1bb2a503318821beeb8d0f415"
+    },
+    {
+      "path": "bibleprep/audit.py",
+      "sha256": "a9f5573b20c87749e72d18514e2ff26a31f5772b2e06a2c9a6d1d00869b74d1b"
+    },
+    {
+      "path": "bibleprep/environment.py",
+      "sha256": "b4d5b205e4540c95fb1a3372cec4f144544f6eec7fbbdb65d276d3e8369fa446"
+    },
+    {
+      "path": "bibleprep/evaluate.py",
+      "sha256": "b803a1bf63244ba1f051fc6781a455bbd463ec4ce9f5584c95bb35881cfb02fd"
+    },
+    {
+      "path": "bibleprep/fetch.py",
+      "sha256": "5d6586882bbb31f575793fce57bd1a4353e7a791f8e816211f3c343b32357a12"
+    },
+    {
+      "path": "bibleprep/fetch_comparison.py",
+      "sha256": "05ad6540abff6f3fb2e9670fe19834c2bfd083222766a697f35b3b3a7cb8e8cb"
+    },
+    {
+      "path": "bibleprep/greek.py",
+      "sha256": "df4831fb98afab3a97a6a125d002bae413367539d90820df7fe9e570f108203f"
+    },
+    {
+      "path": "bibleprep/hebrew.py",
+      "sha256": "b7e7ef069f9c972440a41769967511afa4ad291c87ea21a1341640ccd2a3da2f"
+    },
+    {
+      "path": "bibleprep/summarize_evaluation.py",
+      "sha256": "0c6d3f57da6347742c6818ec8e5b25778c018ce6cdd1d58e9ea1f1613c23bf28"
+    },
+    {
+      "path": "bibleprep/tinker_access.py",
+      "sha256": "4560d3e8aafbc8040dfeb2624cb54331c085e074315a987e2dd2d5d8e2b37b42"
+    },
+    {
+      "path": "bibleprep/tinker_compare.py",
+      "sha256": "b050a9ad9e246599138b62fa366d4e558619151d97a30d805c6abaca553856ff"
+    },
+    {
+      "path": "bibleprep/tinker_evaluate.py",
+      "sha256": "e8bbb9e58a44f7cdd63bb81a1fdf9ff84b9fc0f514a5e4a6318327d49500e4d8"
+    },
+    {
+      "path": "bibleprep/tokenize.py",
+      "sha256": "8d0f81cce45ae7bce6b202b3c86ac4dce7f9bdadf8435f7e26698bbe0fe8b7ea"
+    },
+    {
+      "path": "requirements-comparison-large.txt",
+      "sha256": "6903e5a0d5310ce579bf568ebe588b0c3dfa669a7fa3ec810c2b667da664337c"
+    },
+    {
+      "path": "requirements-comparison-large.lock.txt",
+      "sha256": "f71b8507470fff116ce67238c499c1a2e5175f61f5504d10747adf06de202343"
+    },
+    {
+      "path": "requirements-comparison.txt",
+      "sha256": "582ee05c0fb6831b78c03ee2997909a83f488d3aa5043c0144fe2293f677abb7"
+    },
+    {
+      "path": "requirements-inference.txt",
+      "sha256": "e0ce2963cac6ff50b5dcc3d66e66760ebb11657e1e91351ba6d5db14f4bde664"
+    },
+    {
+      "path": "manifests/comparison-large-models-v1.json",
+      "sha256": "87de6c1bf7d7e2e6d6e8bccc90a229a7744fa5091684ae51c3fa98023af853a4"
+    },
+    {
+      "path": "manifests/comparison-large-pricing-v1.json",
+      "sha256": "e155bdddea2a552da2a4bb628a40ccea7f1d715bc4e66d53a5ba13184c3dd449"
+    },
+    {
+      "path": "manifests/comparison-large-experiment-v1.json",
+      "sha256": "98ab85d680732ff2a47bdafe42ad149b8bc248b7c9a2d7d135d805c37c8684b8"
+    },
+    {
+      "path": "evals/comparison-large-v1.jsonl",
+      "sha256": "a8039aae01f8a65e7d1daa4b3ed243c8fc868c7a3cfc672a97f2a8ffe0e75ade"
+    },
+    {
+      "path": "evals/comparison-large-v1-manifest.json",
+      "sha256": "aa78b2b3d78b7b90d4b35320fa1f9454d0744549a99385eb87fc81707aebb10a"
+    },
+    {
+      "path": "evals/comparison-large-v1-review-notes.md",
+      "sha256": "82a917e3f610b90624a3713464cdf4695236d285120f3247aadf17324a9c1e1f"
+    }
+  ]
+}

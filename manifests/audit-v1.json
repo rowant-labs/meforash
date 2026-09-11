@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "source_verse_records": 31152,
+  "reading_fragments_covered_once": 31153,
+  "all_sequences": 2299,
+  "train_chapters": 1120,
+  "validation_chapters": 69,
+  "source_text_roundtrip": "exact",
+  "dropped_or_duplicate_reading_fragments": 0,
+  "chapter_overlap": 0,
+  "model_calls": 0,
+  "meaning": "Mechanical data validation; no scholarly or model-quality claim"
+}

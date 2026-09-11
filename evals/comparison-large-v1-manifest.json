@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-09-06T04:17:04.318189+00:00",
+  "dataset": "evals/comparison-large-v1.jsonl",
+  "dataset_sha256": "a8039aae01f8a65e7d1daa4b3ed243c8fc868c7a3cfc672a97f2a8ffe0e75ade",
+  "source_dataset": "evals/comparison-v1.jsonl",
+  "source_sha256": "b0b89db022cbac79a2d0297c971a2ca6cc58e358f4a585587673a3e0678ef26c",
+  "case_count": 24,
+  "case_ids": [
+    "H01",
+    "A01",
+    "G01",
+    "M01",
+    "H02",
+    "A02",
+    "G02",
+    "M02",
+    "M03",
+    "M04",
+    "H05",
+    "A05",
+    "G05",
+    "A09",
+    "G09",
+    "H10",
+    "H13",
+    "H14",
+    "H15",
+    "A13",
+    "A14",
+    "A15",
+    "G13",
+    "G14"
+  ],
+  "retained_case_ids": [
+    "H01",
+    "A01",
+    "G01",
+    "M01",
+    "H02",
+    "A02",
+    "G02",
+    "M02",
+    "M03",
+    "M04",
+    "H05",
+    "A05",
+    "G05",
+    "A09",
+    "G09",
+    "H10"
+  ],
+  "retained_rows": "The first 16 JSONL rows are the complete byte-for-byte contents of comparison-v1.jsonl; objects, prompts and evidence are unchanged.",
+  "new_case_ids": [
+    "H13",
+    "H14",
+    "H15",
+    "A13",
+    "A14",
+    "A15",
+    "G13",
+    "G14"
+  ],
+  "new_rows_sha256": "a30a27482dcf9034bccda6fa2c437724a5c052935540ca2a4607e0aa14b95fbf",
+  "new_case_count": 8,
+  "new_cases_by_language": {
+    "hebrew": 3,
+    "aramaic": 3,
+    "greek": 2
+  },
+  "cases_by_language": {
+    "hebrew": 7,
+    "aramaic": 7,
+    "greek": 6,
+    "mixed": 4
+  },
+  "cases_by_category": {
+    "grammar": 10,
+    "comparison": 1,
+    "life_reflection": 4,
+    "instruction_retention": 1,
+    "source_boundary": 1,
+    "translation": 6,
+    "historical_context": 1
+  },
+  "provided_excerpt_cases": 17,
+  "evidence_mode": "provided",
+  "selection": "The retained 16 were selected after earlier baseline failures. Eight new constructed passage questions were selected and source-checked before inspecting any large-comparison responses. The new passages do not occur in pilot-v1 source_refs. This is diagnostic development material, not a final holdout or an unbiased benchmark; general model pretraining exposure is unknown.",
+  "review_status": "AI source and morphology checks; qualified human review pending; no approved gold answers.",
+  "review_notes": "evals/comparison-large-v1-review-notes.md",
+  "training_exclusion": "Exclude these prompts, criteria, review notes, responses and answer keys from training. Original passages may appear in whole-corpus adaptation.",
+  "new_excerpt_sha256_utf8": {
+    "Ruth.2.8": "58f3105557c5831ced37c3e1979fd99265564a695da9e8c3a20cba8af96a0d57",
+    "2Kgs.6.21": "1038b313918f077a6af07466490b67a85abd638b69a37c8722c55cebd09e9fd3",
+    "2Kgs.6.22": "b198dc81b7e715e877dc7b737938fa85461981a79db4874fecca5c50bfb31cb2",
+    "2Kgs.6.23": "dd3cfeb3084f8147fa905696c9179ef83170bbdb6caca768e3190c29f557ec78",
+    "1Sam.1.12": "2dd8356f1729f7fc093a4547e88b42bb455ca439a8fbe7c4cfce03e13131a1e0",
+    "1Sam.1.13": "4c5ca8760b8bc0f8b3fb23cd3c72f492d5abe0d37b2a0e1d6537a8ddd38e9192",
+    "1Sam.1.14": "7b2710ab909b1626bc3e5fcfa6daf2bf5dc6b82dab4d8952814824d5446559b6",
+    "1Sam.1.15": "acb624863b241b87e2c28691f1da3731d489915ce04cafe0919611b77080e53b",
+    "Ezra.4.21": "b5d7096caeb159e18e0b89b17f46d5f262038e196e6735a7366ee2f1754af159",
+    "Ezra.6.7": "7c5238066bf8d6c12400f60791980815e76695aee08e404a9a52007df2b152e7",
+    "Ezra.6.8": "723f7b552efd875b943ef9c8f06200659178b1e751d5e81bb2c1a93f5d8a3866",
+    "Dan.6.11": "6bbcaeeabd3becd684ed2d7ff247948500638abacdc2ae0d745849080a5b5ba1",
+    "2Thess.3.10": "4c26ab4adff470ecdd6cb7d4251873fcc5b0d315e8bb2ed66d3e037af8afd8e3",
+    "2Thess.3.11": "78fc1116a30dc709cd2aef224479317ad38422b6321eb486a10c98f5c76d624e",
+    "2Thess.3.12": "1b9ae8126f45b1448771fc0e067b94383794f00433ca5e9e4bc0c267f35c512d",
+    "Phlm.1.13": "a5e3d0eab66b4b530de425059ebdbac404ac59da1cafe7596c31e2d1c1b35e18",
+    "Phlm.1.14": "013ee9f411e7f89b583942975d0ab56229d6540ca4f8bb72cb7fa539a80a8e97"
+  },
+  "source_files": [
+    {
+      "path": "data/raw/oshb/wlc/Ruth.xml",
+      "sha256": "fb6a2660383c7176941cb87b2be182ef634b66d49d057635869f4d9cb1f0a11e",
+      "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ruth.xml",
+      "revision": "3d15126fb1ef74867fc1434be1942e837932691f"
+    },
+    {
+      "path": "data/raw/oshb/wlc/2Kgs.xml",
+      "sha256": "056db5393beaef0a1159d9bcaac7dfd865df9bab2eb240ea90e9fa3f0c0e7449",
+      "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/2Kgs.xml",
+      "revision": "3d15126fb1ef74867fc1434be1942e837932691f"
+    },
+    {
+      "path": "data/raw/oshb/wlc/1Sam.xml",
+      "sha256": "960432732c22286b82d80b6b25af8d10dc5f2e82a4e5e48b2e3a1b1eea17f3cb",
+      "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/1Sam.xml",
+      "revision": "3d15126fb1ef74867fc1434be1942e837932691f"
+    },
+    {
+      "path": "data/raw/oshb/wlc/Ezra.xml",
+      "sha256": "fb28ff697d0ee17eba5b4db47fb7261ee1870cea0d5701bfc77c9e28d4138129",
+      "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ezra.xml",
+      "revision": "3d15126fb1ef74867fc1434be1942e837932691f"
+    },
+    {
+      "path": "data/raw/oshb/wlc/Dan.xml",
+      "sha256": "bc69d0fa9708dacb11ea6d587509250bf1bcc1b4343eac2d6e97f8b41518fc0d",
+      "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml",
+      "revision": "3d15126fb1ef74867fc1434be1942e837932691f"
+    },
+    {
+      "path": "data/raw/sblgnt/data/sblgnt/text/2Thess.txt",
+      "sha256": "c2a6922591a0282f5c07fe9fa47b8f38cd1aaf15b56eb9364aac91f5546f5822",
+      "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/2Thess.txt",
+      "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c"
+    },
+    {
+      "path": "data/raw/sblgnt/data/sblgnt/text/Phlm.txt",
+      "sha256": "0b74d129888819be274cdcf239672f4688691ebab77c627521b5fcb185bea011",
+      "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Phlm.txt",
+      "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c"
+    }
+  ],
+  "scope": "Selected OSHB/WLC main/ketiv words and SBLGNT edited Greek verses. These are editions, not complete earliest-text reconstructions or a manuscript apparatus.",
+  "rights": "Authored cases and notes: repository Apache-2.0. OSHB/WLC base text and CC BY 4.0 annotations and SBLGNT CC BY 4.0 remain governed by their upstream notices; see licenses/oshb/LICENSE.md, licenses/sblgnt/NOTICE.md and source manifests.",
+  "review_notes_sha256": "82a917e3f610b90624a3713464cdf4695236d285120f3247aadf17324a9c1e1f"
+}

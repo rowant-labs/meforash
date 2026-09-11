@@ -1,0 +1,550 @@
+{
+  "schema_version": 1,
+  "experiment": "inkling_matched_instruction_comparison",
+  "generated_at": "2026-09-06T18:13:58.888523+00:00",
+  "status": "complete_with_incomplete_answers",
+  "execution_complete": true,
+  "partial": false,
+  "contains_answer_text": false,
+  "provider_invoice_verified": false,
+  "accuracy_or_improvement_score_assigned": false,
+  "arms": {
+    "A": "unchanged",
+    "B": "original_text_only",
+    "C": "instruction_only",
+    "D": "original_text_then_instruction"
+  },
+  "training": {
+    "C": {
+      "status": "complete",
+      "recipe_sha256": "e4e2490a2951d90a498e03412456b7b2059bf2b521448ac12dde59dd26928303",
+      "preparation_manifest_sha256": "b851caf978f50c63ef5f2cba856e74f46ab751090ee47401100fcf9cff8b34cc",
+      "sequence_order_sha256": "1ef94b22549d97edd35116d4f8680c616d38772e1cd4367908ec7ff3e3a8709f",
+      "training_sequences": 104,
+      "training_processed_tokens": 64154,
+      "training_loss_tokens": 15554,
+      "training_batches": 7,
+      "holdout_sequences": 16,
+      "two_holdout_forward_tokens": 21674,
+      "optimizer_restored": false,
+      "planned_estimated_or_reserved_usd": 3.48149508,
+      "compute_estimate_usd": 0.48149508,
+      "checkpoint_contingency_usd": 3.0,
+      "checkpoint_ttl_seconds": 2592000,
+      "baseline_sft_validation": {
+        "weighted_nll": 2.515295584534546,
+        "weighted_loss_sum": 5895.852850148976,
+        "loss_tokens": 2344,
+        "processed_tokens": 10837,
+        "by_language": {
+          "aramaic": {
+            "weighted_nll": 2.467200740539151,
+            "weighted_loss_sum": 1781.318934669267,
+            "loss_tokens": 722,
+            "processed_tokens": 2861
+          },
+          "greek": {
+            "weighted_nll": 2.3297496306358365,
+            "weighted_loss_sum": 2159.6779075994205,
+            "loss_tokens": 927,
+            "processed_tokens": 3169
+          },
+          "hebrew": {
+            "weighted_nll": 2.8127424573817095,
+            "weighted_loss_sum": 1954.8560078802882,
+            "loss_tokens": 695,
+            "processed_tokens": 4807
+          }
+        }
+      },
+      "end_sft_validation": {
+        "weighted_nll": 1.9312468340125037,
+        "weighted_loss_sum": 4526.842578925309,
+        "loss_tokens": 2344,
+        "processed_tokens": 10837,
+        "by_language": {
+          "aramaic": {
+            "weighted_nll": 1.8103560552261757,
+            "weighted_loss_sum": 1307.0770718732988,
+            "loss_tokens": 722,
+            "processed_tokens": 2861
+          },
+          "greek": {
+            "weighted_nll": 1.7879089877282595,
+            "weighted_loss_sum": 1657.3916316240966,
+            "loss_tokens": 927,
+            "processed_tokens": 3169
+          },
+          "hebrew": {
+            "weighted_nll": 2.2480199646444805,
+            "weighted_loss_sum": 1562.3738754279138,
+            "loss_tokens": 695,
+            "processed_tokens": 4807
+          }
+        }
+      },
+      "validation_nll_change": -0.5840487505220424,
+      "training_weighted_nll": 2.3626372062387544,
+      "source_adapter_fingerprint_sha256": null,
+      "provenance": {
+        "plan_sha256": "01775be3dc066186f14f1526b50fadf37ecb48c62aeed4dbde4aee5adc5fd210",
+        "summary_sha256": "c7e595080f015802aed3e0c8831db6bf0bb059abe5f6d3d3965a03c3fbc27ee4",
+        "software_identity_sha256": "fb2e65a5925af2c21e55f6f265521c3b40529426e6fb80441af9665b57345cb7",
+        "events_sha256": "616a6bb31955b7075637d63599cdbb9d5e4c0d66f50a9922265a10c86340e8c2",
+        "journal_has_incomplete_tail": false
+      }
+    },
+    "D": {
+      "status": "complete",
+      "recipe_sha256": "e4e2490a2951d90a498e03412456b7b2059bf2b521448ac12dde59dd26928303",
+      "preparation_manifest_sha256": "b851caf978f50c63ef5f2cba856e74f46ab751090ee47401100fcf9cff8b34cc",
+      "sequence_order_sha256": "1ef94b22549d97edd35116d4f8680c616d38772e1cd4367908ec7ff3e3a8709f",
+      "training_sequences": 104,
+      "training_processed_tokens": 64154,
+      "training_loss_tokens": 15554,
+      "training_batches": 7,
+      "holdout_sequences": 16,
+      "two_holdout_forward_tokens": 21674,
+      "optimizer_restored": false,
+      "planned_estimated_or_reserved_usd": 3.48149508,
+      "compute_estimate_usd": 0.48149508,
+      "checkpoint_contingency_usd": 3.0,
+      "checkpoint_ttl_seconds": 2592000,
+      "baseline_sft_validation": {
+        "weighted_nll": 2.1988224714640094,
+        "weighted_loss_sum": 5154.039873111638,
+        "loss_tokens": 2344,
+        "processed_tokens": 10837,
+        "by_language": {
+          "aramaic": {
+            "weighted_nll": 2.0981125474180984,
+            "weighted_loss_sum": 1514.837259235867,
+            "loss_tokens": 722,
+            "processed_tokens": 2861
+          },
+          "greek": {
+            "weighted_nll": 2.075670498882295,
+            "weighted_loss_sum": 1924.1465524638877,
+            "loss_tokens": 927,
+            "processed_tokens": 3169
+          },
+          "hebrew": {
+            "weighted_nll": 2.467706563182566,
+            "weighted_loss_sum": 1715.0560614118833,
+            "loss_tokens": 695,
+            "processed_tokens": 4807
+          }
+        }
+      },
+      "end_sft_validation": {
+        "weighted_nll": 1.4562336978920631,
+        "weighted_loss_sum": 3413.411787858996,
+        "loss_tokens": 2344,
+        "processed_tokens": 10837,
+        "by_language": {
+          "aramaic": {
+            "weighted_nll": 1.3260485230897765,
+            "weighted_loss_sum": 957.4070336708187,
+            "loss_tokens": 722,
+            "processed_tokens": 2861
+          },
+          "greek": {
+            "weighted_nll": 1.3987949867176102,
+            "weighted_loss_sum": 1296.6829526872245,
+            "loss_tokens": 927,
+            "processed_tokens": 3169
+          },
+          "hebrew": {
+            "weighted_nll": 1.6680889230229532,
+            "weighted_loss_sum": 1159.3218015009525,
+            "loss_tokens": 695,
+            "processed_tokens": 4807
+          }
+        }
+      },
+      "validation_nll_change": -0.7425887735719463,
+      "training_weighted_nll": 1.716477714635378,
+      "source_adapter_fingerprint_sha256": "d28b2120af2b3cf45037328b5fee8f030de256098c23b62824ae2f1c5ea6ba4c",
+      "provenance": {
+        "plan_sha256": "ff61025de4c98b8ac0056cad6e72b2b45cff57dfc5337045e534967fb00bad76",
+        "summary_sha256": "27526097f859e4da74b118033aa2b2f14c30de435480fff92f439729693b2ff6",
+        "software_identity_sha256": "fb2e65a5925af2c21e55f6f265521c3b40529426e6fb80441af9665b57345cb7",
+        "events_sha256": "7fa0422ea0aa07e14d648ff568d0ed4cf28b942a7cf86440b141ff2d8cb3ff25",
+        "journal_has_incomplete_tail": false
+      }
+    }
+  },
+  "english_evaluation": {
+    "A": {
+      "counts": {
+        "selected": 24,
+        "started": 24,
+        "received": 24,
+        "complete_answers": 24,
+        "incomplete_answers": 0,
+        "errors": 0,
+        "unresolved": 0,
+        "not_started": 0,
+        "missing_results": 0,
+        "missing_usage": 0
+      },
+      "tokens": {
+        "input": 9963,
+        "output": 41056,
+        "analysis_content": null,
+        "final_content": null
+      },
+      "partial": false,
+      "journal_has_incomplete_tail": false,
+      "latency_seconds": {
+        "returned_responses": 24,
+        "median": 33.96755,
+        "mean": 33.265170833333336,
+        "minimum": 15.7392,
+        "maximum": 71.8255
+      },
+      "request_deadline_seconds": [
+        300
+      ],
+      "cost": {
+        "known_token_estimate_usd": 0.21077289,
+        "journal_accounted_or_reserved_usd": 0.21077289,
+        "uncertain_accounted_or_reserved_usd": 0.0,
+        "provider_invoice_verified": false
+      },
+      "by_language": {
+        "aramaic": {
+          "selected": 7,
+          "complete_answers": 7,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        },
+        "greek": {
+          "selected": 6,
+          "complete_answers": 6,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        },
+        "hebrew": {
+          "selected": 7,
+          "complete_answers": 7,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        },
+        "mixed": {
+          "selected": 4,
+          "complete_answers": 4,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        }
+      },
+      "channel_token_counts_available_responses": {
+        "analysis_content": 0,
+        "final_content": 0
+      },
+      "channel_token_note": "Native TML does not expose analysis/final generated-token counts in the current transport; unavailable is null, not zero. Total output includes all generated protocol and reasoning tokens.",
+      "execution_complete": true,
+      "status": "complete"
+    },
+    "B": {
+      "counts": {
+        "selected": 24,
+        "started": 24,
+        "received": 24,
+        "complete_answers": 24,
+        "incomplete_answers": 0,
+        "errors": 0,
+        "unresolved": 0,
+        "not_started": 0,
+        "missing_results": 0,
+        "missing_usage": 0
+      },
+      "tokens": {
+        "input": 9963,
+        "output": 26463,
+        "analysis_content": null,
+        "final_content": null
+      },
+      "partial": false,
+      "journal_has_incomplete_tail": false,
+      "latency_seconds": {
+        "returned_responses": 24,
+        "median": 29.455849999999998,
+        "mean": 30.232475,
+        "minimum": 16.9802,
+        "maximum": 43.9259
+      },
+      "request_deadline_seconds": [
+        300
+      ],
+      "cost": {
+        "known_token_estimate_usd": 0.14247764999999998,
+        "journal_accounted_or_reserved_usd": 0.14247764999999998,
+        "uncertain_accounted_or_reserved_usd": 0.0,
+        "provider_invoice_verified": false
+      },
+      "by_language": {
+        "aramaic": {
+          "selected": 7,
+          "complete_answers": 7,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        },
+        "greek": {
+          "selected": 6,
+          "complete_answers": 6,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        },
+        "hebrew": {
+          "selected": 7,
+          "complete_answers": 7,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        },
+        "mixed": {
+          "selected": 4,
+          "complete_answers": 4,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        }
+      },
+      "channel_token_counts_available_responses": {
+        "analysis_content": 0,
+        "final_content": 0
+      },
+      "channel_token_note": "Native TML does not expose analysis/final generated-token counts in the current transport; unavailable is null, not zero. Total output includes all generated protocol and reasoning tokens.",
+      "execution_complete": true,
+      "status": "complete"
+    },
+    "C": {
+      "counts": {
+        "selected": 24,
+        "started": 24,
+        "received": 24,
+        "complete_answers": 24,
+        "incomplete_answers": 0,
+        "errors": 0,
+        "unresolved": 0,
+        "not_started": 0,
+        "missing_results": 0,
+        "missing_usage": 0
+      },
+      "tokens": {
+        "input": 9963,
+        "output": 44268,
+        "analysis_content": null,
+        "final_content": null
+      },
+      "partial": false,
+      "journal_has_incomplete_tail": false,
+      "latency_seconds": {
+        "returned_responses": 24,
+        "median": 46.5986,
+        "mean": 55.98277916666667,
+        "minimum": 26.5073,
+        "maximum": 113.2331
+      },
+      "request_deadline_seconds": [
+        300
+      ],
+      "cost": {
+        "known_token_estimate_usd": 0.22580504999999998,
+        "journal_accounted_or_reserved_usd": 0.22580504999999998,
+        "uncertain_accounted_or_reserved_usd": 0.0,
+        "provider_invoice_verified": false
+      },
+      "by_language": {
+        "aramaic": {
+          "selected": 7,
+          "complete_answers": 7,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        },
+        "greek": {
+          "selected": 6,
+          "complete_answers": 6,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        },
+        "hebrew": {
+          "selected": 7,
+          "complete_answers": 7,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        },
+        "mixed": {
+          "selected": 4,
+          "complete_answers": 4,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        }
+      },
+      "channel_token_counts_available_responses": {
+        "analysis_content": 0,
+        "final_content": 0
+      },
+      "channel_token_note": "Native TML does not expose analysis/final generated-token counts in the current transport; unavailable is null, not zero. Total output includes all generated protocol and reasoning tokens.",
+      "execution_complete": true,
+      "status": "complete"
+    },
+    "D": {
+      "counts": {
+        "selected": 24,
+        "started": 24,
+        "received": 24,
+        "complete_answers": 21,
+        "incomplete_answers": 3,
+        "errors": 0,
+        "unresolved": 0,
+        "not_started": 0,
+        "missing_results": 0,
+        "missing_usage": 0
+      },
+      "tokens": {
+        "input": 9963,
+        "output": 27952,
+        "analysis_content": null,
+        "final_content": null
+      },
+      "partial": false,
+      "journal_has_incomplete_tail": false,
+      "latency_seconds": {
+        "returned_responses": 24,
+        "median": 5.98615,
+        "mean": 26.1988625,
+        "minimum": 2.5405,
+        "maximum": 160.2643
+      },
+      "request_deadline_seconds": [
+        300
+      ],
+      "cost": {
+        "known_token_estimate_usd": 0.14944616999999996,
+        "journal_accounted_or_reserved_usd": 0.14944616999999996,
+        "uncertain_accounted_or_reserved_usd": 0.0,
+        "provider_invoice_verified": false
+      },
+      "by_language": {
+        "aramaic": {
+          "selected": 7,
+          "complete_answers": 5,
+          "incomplete_answers": 2,
+          "errors": 0,
+          "missing_results": 0
+        },
+        "greek": {
+          "selected": 6,
+          "complete_answers": 6,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        },
+        "hebrew": {
+          "selected": 7,
+          "complete_answers": 6,
+          "incomplete_answers": 1,
+          "errors": 0,
+          "missing_results": 0
+        },
+        "mixed": {
+          "selected": 4,
+          "complete_answers": 4,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        }
+      },
+      "channel_token_counts_available_responses": {
+        "analysis_content": 0,
+        "final_content": 0
+      },
+      "channel_token_note": "Native TML does not expose analysis/final generated-token counts in the current transport; unavailable is null, not zero. Total output includes all generated protocol and reasoning tokens.",
+      "execution_complete": true,
+      "status": "complete_with_incomplete_answers"
+    }
+  },
+  "protocol": {
+    "model": "thinkingmachines/Inkling",
+    "provider_weight_revision": "unpinned",
+    "renderer": "official native TML v0",
+    "evidence_mode": "provided",
+    "reasoning_effort": "medium",
+    "max_input_tokens": 6000,
+    "max_output_tokens": 8192,
+    "seed": 20260905,
+    "temperature": 0.0,
+    "thinking_effort_numeric": 0.7,
+    "tokenizer_sha256": "9fb6333a7db8fe5da90728e741e4a3ee4ac2ae12c5dd4958cc6f31688787d3c2",
+    "chat_template_sha256": "0aa1aa0c729d90176dcaa00c440c8faffca2957ffb2cc4b79456ee6d02bcf43b",
+    "comparison_manifest_sha256": "87de6c1bf7d7e2e6d6e8bccc90a229a7744fa5091684ae51c3fa98023af853a4",
+    "settings_sha256": "831724d18b988d2db4cd412e1304e7f132af6b2329cfd12c912e493131b0537c"
+  },
+  "comparison_validation": {
+    "frozen_dataset_bytes_verified": true,
+    "matching_instruction_recipe_order_and_software_verified": true,
+    "returned_four_arm_prompt_groups_verified": 24,
+    "all_four_arm_prompt_groups_verified": true,
+    "initialized_evaluation_arms": 4
+  },
+  "provenance": {
+    "experiment_protocol_sha256": "d1e6c365934dda1935921285bfd2a8566550ce66ebd1cd4317265b7a5ab3f14b",
+    "preparation_manifest_sha256": "b851caf978f50c63ef5f2cba856e74f46ab751090ee47401100fcf9cff8b34cc",
+    "evaluation_sha256": "0d60c1740dcbe000a33fed8d5161af2fb2c9e97cee4d6368cd8865c69f947355",
+    "evaluations": {
+      "A": {
+        "events_sha256": "abf66a779af022b59fb0496cea650426b5ed03a1888f52d0d89e29eb6703abb0",
+        "journal_has_incomplete_tail": false,
+        "dataset_sha256": "0d60c1740dcbe000a33fed8d5161af2fb2c9e97cee4d6368cd8865c69f947355",
+        "manifest_sha256": "7fc04d48db3ceb2187eb2c8f0899ae9f7d3dbbea965d1ca3a703a2d2479da0dc"
+      },
+      "B": {
+        "events_sha256": "08aefad423e357165303a15550267dce7a921e2c67bf40cd379a3816c7a5bd97",
+        "journal_has_incomplete_tail": false,
+        "dataset_sha256": "0d60c1740dcbe000a33fed8d5161af2fb2c9e97cee4d6368cd8865c69f947355",
+        "manifest_sha256": "20fdb98cba51b87e48bc0e71dae71229ed937269ef71cc766186499f026b629b"
+      },
+      "C": {
+        "events_sha256": "2f819837f1a5ea9305be36b15976651accc77015939acbc85bc5d5a146f09a94",
+        "journal_has_incomplete_tail": false,
+        "dataset_sha256": "0d60c1740dcbe000a33fed8d5161af2fb2c9e97cee4d6368cd8865c69f947355",
+        "manifest_sha256": "5d68de29e7f7655bcd2a229eac7a2ca34d76141f5f2b179b20bc6792ec379b24"
+      },
+      "D": {
+        "events_sha256": "0bff5ff1df26579e1558b00238add292ccbf07772a423c5d4d53311e2afdbe0f",
+        "journal_has_incomplete_tail": false,
+        "dataset_sha256": "0d60c1740dcbe000a33fed8d5161af2fb2c9e97cee4d6368cd8865c69f947355",
+        "manifest_sha256": "b0684df0d0c3abae69521642be5cf204516f6a7c64b5290f38f231cdd6738bf5"
+      }
+    }
+  },
+  "cost": {
+    "instruction_training_planned_or_reserved_usd": 6.96299016,
+    "four_arm_sampling_accounted_or_reserved_usd": 0.7285017599999999,
+    "selected_scope_estimated_or_reserved_usd": 7.691491920000001,
+    "scope": "C and D instruction training estimates/reservations, including their checkpoint contingencies, plus these four contemporary evaluation arms. Earlier original-text training and earlier model evaluations are excluded.",
+    "provider_invoice_verified": false
+  },
+  "limitations": [
+    "Completion and lower assistant-target prediction loss are not translation-accuracy or historical-understanding scores.",
+    "The small chapter-separated SFT validation measures these reviewed answer targets; larger English and general reasoning improvements remain unestablished.",
+    "Fresh questions and selected chapter families were excluded from instruction training; earlier original-text and base-model exposure is not undone.",
+    "Direct quotation groups were considered during split selection; shared concepts and unrecognized parallels remain possible.",
+    "Provider base weights are unpinned, so requested seeds/settings do not guarantee identical generated answers.",
+    "Latency includes service overhead and loading; this is not a controlled serving benchmark.",
+    "Cost estimates are not a reconciled invoice or provider-enforced hard cap; uncertainty reservations remain included.",
+    "AI source review is not specialist certification, and public adapter serving/export compatibility remains unverified."
+  ]
+}

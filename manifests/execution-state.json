@@ -1,0 +1,575 @@
+{
+  "schema_version": 1,
+  "document_type": "living_execution_state_not_frozen_experiment",
+  "updated_on": "2026-09-10",
+  "plan": "docs/EXECUTION-PLAN.md",
+  "evaluation_runbook": "docs/EVALUATION-RUNBOOK.md",
+  "handoff": "docs/AGENT-HANDOFF.md",
+  "objective": "An English-speaking Bible assistant built around original-language fine-tuning, earliest recoverable wording and historical context, supporting focused textual questions and Bible-based non-denominational reflections when appropriate.",
+  "current_model": {
+    "base": "thinkingmachines/Inkling",
+    "retained_arm": "B",
+    "adaptation": "original_language_development_corpus_only",
+    "latest_decision": "Retain B: G completed six updates and 60 answers, but G/B Bible preferences of 3/10/11 failed the prospective gate. Prediction retention passed. AI review qualifications are documented.",
+    "result_document": "docs/CANDIDATE-G-RESULTS.md",
+    "checkpoint_observation": {
+      "checked_at_utc": "2026-09-09T19:06:12.751668+00:00",
+      "type": "sampler",
+      "status_at_check": "available_private",
+      "expires_at_utc": "2026-10-06T15:58:33.218260Z",
+      "private_receipt": "runs/guidance-collector-v1/preflight/preflight-metadata.json",
+      "private_original_checkpoint_record": "runs/inkling-original-text-v1/checkpoints.json",
+      "preservation_or_external_restore_verified": false,
+      "sampler_size_bytes": 5042146156,
+      "training_state": {
+        "status_at_check": "available_private",
+        "size_bytes": 15125192278,
+        "expires_at_utc": "2026-10-06T15:58:28.568704Z"
+      },
+      "combined_estimated_storage_usd_per_month": 2.016734
+    }
+  },
+  "completed_milestones": [
+    {
+      "id": "M1",
+      "description": "Selected original-language editions prepared",
+      "artifact": "docs/PRETRAINING-READINESS.md"
+    },
+    {
+      "id": "M2",
+      "description": "Model comparison and original-language B fine-tuning completed",
+      "artifact": "docs/INKLING-TRAINING.md"
+    },
+    {
+      "id": "M3",
+      "description": "English instruction experiments through F reviewed; B retained",
+      "artifact": "docs/INKLING-REVISION-RESULTS-V3.md"
+    },
+    {
+      "id": "M4",
+      "description": "Private B chat and explicit passage lookup implemented",
+      "artifact": "docs/PRIVATE-CHAT.md"
+    },
+    {
+      "id": "M5",
+      "description": "Eight historical-evidence drafts prepared; scholarly/use approvals pending",
+      "artifact": "docs/EVIDENCE-FIRST-PACK.md"
+    },
+    {
+      "id": "M6",
+      "description": "Consolidated execution plan, evaluation map and agent handoff prepared",
+      "artifact": "docs/EXECUTION-PLAN.md"
+    },
+    {
+      "id": "M7",
+      "description": "P1 evidence review tool accepted after parent review: eight records, 130 review tasks, 22 passing tests; no source promotion or model calls.",
+      "artifact": "docs/EVIDENCE-REVIEW.md"
+    }
+  ],
+  "first_check": "P0 metadata and pricing preparation is complete; both checkpoints were available/private at the recorded check. A retention-change decision is pending.",
+  "next_implementation_task": "P6",
+  "tasks": [
+    {
+      "id": "P0",
+      "title": "Preserve and restore B",
+      "status": "provider_retention_complete_training_restore_and_external_export_unverified",
+      "depends_on": [],
+      "next_action": "Preserve original receipts and launch retention receipt; no expiry refresh needed for the two retained B checkpoints. Training-state restore and external export remain unverified.",
+      "done_when": "A preserved artifact or extended checkpoint and a bounded verified restore path are recorded with provenance and next expiry.",
+      "completed_artifacts": [
+        "docs/CHECKPOINT-PRESERVATION.md",
+        "runs/checkpoint-preservation-v1/read-only-metadata.json"
+      ]
+    },
+    {
+      "id": "P1",
+      "title": "Private evidence review export and gap queue",
+      "status": "complete",
+      "depends_on": [
+        "M5"
+      ],
+      "next_action": "Use the final packet for P2 source-gap work; preserve v1 inputs and completed outputs.",
+      "done_when": "All eight records render with traceable claims, citations, rights and unresolved issues; focused tests pass and v1 bytes remain unchanged.",
+      "completed_artifacts": [
+        "bibleprep/evidence_review.py",
+        "tests/test_evidence_review.py",
+        "manifests/evidence-reference-map-v1.json",
+        "docs/EVIDENCE-REVIEW.md",
+        "runs/evidence-review-v1/final/review.json",
+        "runs/evidence-review-v1/final/index.html",
+        "runs/orchestration-p1-v1/acceptance.json"
+      ]
+    },
+    {
+      "id": "P2",
+      "title": "Resolve source/use gaps and expand evidence",
+      "status": "six_conditional_private_delivery_components_ready_remaining_source_work_pending",
+      "depends_on": [
+        "M5",
+        "P1"
+      ],
+      "next_action": "Use the six reviewed components only through current-registry and exact-manifest verified notice delivery; continue remaining source/specialist gap work separately. Preserve all earlier drafts and registries.",
+      "done_when": "An explicitly reviewed and use-eligible subset is available, with gaps retained and a batch plan for the remaining forty-item inventory.",
+      "external_dependency": "Qualified specialist review is pending; no external messages or commissions have been authorized.",
+      "completed_artifacts": [
+        "docs/SOURCE-GAP-REVIEW-P2.md",
+        "manifests/source-gap-followups-p2-v1.json",
+        "runs/source-gap-p2-v1/addenda-mechanical-check.json",
+        "bibleprep/evidence_eligibility.py",
+        "tests/test_evidence_eligibility.py",
+        "docs/EVIDENCE-ELIGIBILITY.md",
+        "docs/SPECIALIST-REVIEW-PACKET.md",
+        "data/evidence/eligibility/evidence-eligibility-v1.json",
+        "data/evidence/review-packets/p2-v1/questions.json",
+        "runs/eligibility-p2-v1/acceptance.json",
+        "docs/SOURCE-COMPONENT-REVIEW-P2.md",
+        "data/evidence/component-reviews/p2-v1/GT01.json",
+        "data/evidence/component-reviews/p2-v1/AT03.json",
+        "data/evidence/eligibility/evidence-eligibility-v2-ai-reviewed.json",
+        "runs/evidence-request-pairwise-p3-v1/source-review-acceptance.json",
+        "bibleprep/evidence_delivery.py",
+        "tests/test_evidence_delivery.py",
+        "docs/EVIDENCE-NOTICE-DELIVERY.md",
+        "data/evidence/delivery/p2-v1/notice-manifest.json",
+        "data/evidence/delivery/p2-v1/notice-review.md",
+        "data/evidence/eligibility/evidence-eligibility-v3-private-delivery.json",
+        "runs/evidence-delivery-p2-v1/integration-check.json"
+      ]
+    },
+    {
+      "id": "P3",
+      "title": "Freeze fresh evaluation and prepare runner",
+      "status": "known_topic_pilot_complete_broader_fresh_source_evaluation_pending",
+      "depends_on": [
+        "M6"
+      ],
+      "next_action": "Preserve the frozen known-topic pilot. Use its bounded result for P4 packaging and attribution diagnosis; a broader evaluation requires newly frozen source families and criteria.",
+      "done_when": "The known-topic protocol, exact 18-slot inventory, source closure, review method and cost plan were frozen before generation; all 18 answers were native verified and reviewed.",
+      "completed_artifacts": [
+        "docs/EVIDENCE-EVAL-ENTRY-CONTRACT.md",
+        "bibleprep/evaluate_evidence.py",
+        "tests/test_evaluate_evidence.py",
+        "bibleprep/evidence_collection.py",
+        "tests/test_evidence_collection.py",
+        "docs/EVIDENCE-EVALUATION-TOOLING.md",
+        "docs/EVIDENCE-COLLECTION-ACCOUNTING.md",
+        "runs/evidence-tooling-p3-v1/integration-check.json",
+        "runs/evidence-tooling-p3-v1/actual-pending-readiness/plan.json",
+        "runs/evidence-tooling-p3-v1/acceptance.json",
+        "bibleprep/evidence_native.py",
+        "tests/test_evidence_native.py",
+        "docs/EVIDENCE-NATIVE-BRIDGE.md",
+        "bibleprep/evidence_blinded_review.py",
+        "tests/test_evidence_blinded_review.py",
+        "docs/EVIDENCE-BLINDED-REVIEW.md",
+        "runs/evidence-native-review-p3-v1/review-integration-check.json",
+        "runs/evidence-native-review-p3-v1/acceptance.json",
+        "bibleprep/evidence_requests.py",
+        "tests/test_evidence_requests.py",
+        "docs/EVIDENCE-REQUEST-PREPARATION.md",
+        "bibleprep/evidence_pairwise.py",
+        "tests/test_evidence_pairwise.py",
+        "docs/EVIDENCE-PAIRWISE-REVIEW.md",
+        "runs/evidence-request-pairwise-p3-v1/request-integration-check.json",
+        "runs/evidence-request-pairwise-p3-v1/pair-integration-check.json",
+        "runs/evidence-request-pairwise-p3-v1/acceptance.json",
+        "bibleprep/evidence_coordinator.py",
+        "tests/test_evidence_coordinator.py",
+        "docs/EVIDENCE-COORDINATOR.md",
+        "docs/EVIDENCE-PILOT-READINESS.md",
+        "runs/evidence-coordinator-p3-v1/integration-check.json",
+        "bibleprep/evidence_pilot.py",
+        "tests/test_evidence_pilot.py",
+        "docs/EVIDENCE-PILOT-RUNNER.md",
+        "docs/EVIDENCE-PILOT-V1.md",
+        "runs/evidence-pilot-v1/freeze-receipt.json",
+        "runs/evidence-pilot-v1/live/summary.json",
+        "runs/evidence-pilot-v1/review/integration.json"
+      ]
+    },
+    {
+      "id": "P4",
+      "title": "Integrate eligible evidence and compare English answers",
+      "status": "guidance_comparison_complete_gate_failed_current_chat_retained",
+      "depends_on": [
+        "P2",
+        "P3"
+      ],
+      "next_action": "Preserve the completed sixteen-answer run and both frozen reviews. Use its attribution/scope findings for P5; further prompt or evidence integration needs a separate prospective comparison.",
+      "done_when": "Packaging and attribution failure modes are addressed and tested; a new-source controlled comparison records quality, completeness, costs and a bounded decision before any chat integration.",
+      "completed_artifacts": [
+        "docs/EVIDENCE-PILOT-V1.md",
+        "bibleprep/evidence_answer_context.py",
+        "tests/test_evidence_answer_context.py",
+        "docs/EVIDENCE-ANSWER-CONTEXT.md",
+        "docs/EVIDENCE-ATTRIBUTION-AUDIT.md",
+        "runs/evidence-attribution-v1/integration.json",
+        "docs/ATTRIBUTION-COMPARISON-PREPARATION.md",
+        "bibleprep/evidence_guidance_comparison.py",
+        "tests/test_evidence_guidance_comparison.py",
+        "data/evidence/eligibility/evidence-eligibility-v4-guidance-comparison.json",
+        "data/evidence/delivery/guidance-comparison-v1/notice-manifest.json",
+        "runs/attribution-comparison-prep-v1/parent-integration.json",
+        "docs/GUIDANCE-COMPARISON-COLLECTION.md",
+        "bibleprep/guidance_collection.py",
+        "tests/test_guidance_collection.py",
+        "bibleprep/guidance_review.py",
+        "tests/test_guidance_review.py",
+        "runs/guidance-collector-v1/driver.py",
+        "runs/guidance-collector-v1/implementation-freeze.json",
+        "runs/guidance-collector-v1/evaluation/parent-criteria-review.json",
+        "runs/guidance-comparison-v1/protocol-freeze-v2.json",
+        "runs/guidance-comparison-v1/preparation-receipt.json",
+        "docs/GUIDANCE-COMPARISON-RESULTS.md",
+        "reports/guidance-comparison-v1.json",
+        "runs/guidance-comparison-v1/live/collection.json",
+        "runs/guidance-comparison-v1/review/individual-freeze.json",
+        "runs/guidance-comparison-v1/review/pair-freeze.json",
+        "runs/guidance-comparison-v1/review/parent-pre-map-freeze.json",
+        "runs/guidance-comparison-v1/review/integration.json"
+      ]
+    },
+    {
+      "id": "P5",
+      "title": "Test a distinct further Inkling fine-tuning hypothesis",
+      "status": "complete_candidate_G_gate_failed_B_retained",
+      "depends_on": [
+        "P0",
+        "P4"
+      ],
+      "next_action": "Preserve G and original AI judgments plus root qualifications. No further training; audit evaluation severity and task-relevant coverage before proposing a distinct experiment.",
+      "done_when": "A separately named candidate is compared to B under a prospective protocol; promotion or retention is justified by English answers and retention checks.",
+      "completed_artifacts": [
+        "docs/RECURRENCE-RESEARCH.md",
+        "docs/CANDIDATE-G-PREPARATION.md",
+        "runs/candidate-g-proposal-v1/decision-memo.md",
+        "docs/CANDIDATE-G-DATA-PLAN.md",
+        "manifests/candidate-g-data-plan-v1.json",
+        "bibleprep/candidate_g_plan.py",
+        "tests/test_candidate_g_plan.py",
+        "runs/candidate-g-data-plan-v1/source/family-inventory.json",
+        "runs/candidate-g-data-plan-v1/source/permission-inventory.json",
+        "runs/candidate-g-data-plan-v1/source/row-plan.json",
+        "runs/candidate-g-data-plan-v1/parent-source-verification-final.json",
+        "runs/candidate-g-data-plan-v1/acceptance.json",
+        "docs/CANDIDATE-G-RESULTS.md",
+        "reports/candidate-g-v1.json"
+      ]
+    },
+    {
+      "id": "P6",
+      "title": "Prove sustainable public adapter serving",
+      "status": "read_only_research_complete_exact_B_export_and_capacity_unverified",
+      "depends_on": [],
+      "next_action": "Compare exact B recipe/base revision and converter/target support locally, then plan bounded native serving measurements. No weight download, deployment or model substitution implicit.",
+      "done_when": "Actual adapter identity, restoration, latency, completion, concurrency, cost and public access/data controls are verified.",
+      "completed_artifacts": [
+        "docs/INKLING-B-SERVING-FEASIBILITY.md",
+        "runs/serving-feasibility-v1/research.json"
+      ]
+    },
+    {
+      "id": "P7",
+      "title": "Open-source release and public beta",
+      "status": "ready_for_repository_release_preparation_only",
+      "depends_on": [],
+      "next_action": "Prepare clean-clone documentation, model/source cards and exact publication candidates; app launch separately requires P4 and P6 quality/serving evidence.",
+      "done_when": "Reviewed code/docs and eligible artifacts are published with honest reproduction limits; a later bounded public beta satisfies its separate quality and operating requirements.",
+      "completed_artifacts": []
+    }
+  ],
+  "evaluation_state": {
+    "historical_question_sets": "development_material_now",
+    "first_eight_evidence_topics": "development_material_not_hidden_benchmark",
+    "next_evidence_runner_implemented": true,
+    "next_evidence_protocol_frozen": true,
+    "next_evidence_run_executed": true,
+    "expert_accuracy_established": false,
+    "offline_slot_planner_implemented": true,
+    "normalized_collection_auditor_implemented": true,
+    "native_evidence_transport_implemented": true,
+    "blinded_evidence_review_pipeline_implemented": true,
+    "native_result_normalization_implemented": true,
+    "constructed_native_collection_simulator_implemented": true,
+    "blinded_evidence_review_scope": "actual_known_topic_individual_and_paired_reviews_complete_before_map",
+    "paired_evidence_preference_review_implemented": true,
+    "prospective_evidence_completeness_gate_implemented": true,
+    "native_planner_prompt_equivalence_verified": true,
+    "native_planner_prompt_equivalence_scope": "actual_known_topic_pilot_exact_prepared_prompt_tokens_and_native_receipts",
+    "native_request_preparation_implemented": true,
+    "completeness_gate_scope": "known_topic_pilot_v1_passed_18_of_18",
+    "evidence_quality_promotion_gate_implemented": true,
+    "notice_complete_delivery_implemented": true,
+    "notice_complete_delivery_integrated_into_chat_or_runner": true,
+    "notice_complete_mock_coordinator_implemented": true,
+    "proposed_known_topic_pilot": {
+      "cases": 6,
+      "bible_cases": 4,
+      "source_families": 2,
+      "general_controls": 2,
+      "conditions": 3,
+      "planned_slots": 18,
+      "protocol_frozen": true,
+      "executed": true,
+      "complete_answers": 18,
+      "reviewed_answers": 18,
+      "gate_result": "passed_within_frozen_criteria_post_freeze_concern_recorded"
+    },
+    "known_topic_pilot_result": {
+      "report": "docs/EVIDENCE-PILOT-V1.md",
+      "actual_provider_collection": true,
+      "planned_answers": 18,
+      "complete_native_verified_answers": 18,
+      "reviewed_answers": 18,
+      "general_controls_passed": 6,
+      "memory_critical_error_answers": 2,
+      "memory_omission_answers": 3,
+      "packet_critical_error_answers": 0,
+      "packet_omission_answers": 0,
+      "lookup_critical_error_answers": 0,
+      "lookup_omission_answers": 0,
+      "packet_vs_memory": {
+        "packet_preferred": 3,
+        "memory_preferred": 0,
+        "ties": 1
+      },
+      "lookup_vs_packet": {
+        "lookup_preferred": 1,
+        "packet_preferred": 2,
+        "ties": 1,
+        "identical_inputs": true,
+        "interpretation": "generation_variability_not_retrieval_gain"
+      },
+      "input_tokens": 24529,
+      "generated_tokens_including_reasoning": 8517,
+      "estimated_sampling_usd": "0.08572879",
+      "invoice_reconciled": false,
+      "operator_cap_usd": "2",
+      "automatic_promotion": false,
+      "expert_certified": false,
+      "post_freeze_limitation": "A separate audit found a Daniel language-boundary error and blurred project-English-gloss/source-edition attribution outside the frozen criteria."
+    },
+    "answer_context_candidate": {
+      "guidance_version": "evidence-answer-context-v1",
+      "implemented": true,
+      "actual_source_offline_verified": true,
+      "new_answers_generated": false,
+      "answer_improvement_measured": false,
+      "chat_integrated": false,
+      "fresh_followup": {
+        "status": "complete_gate_failed_original_guidance_retained",
+        "bible_cases": 6,
+        "minimum_new_source_families": 3,
+        "general_controls": 2,
+        "conditions": 2,
+        "planned_slots": 16
+      }
+    },
+    "guidance_comparison_preparation": {
+      "report": "docs/GUIDANCE-COMPARISON-RESULTS.md",
+      "two_condition_input_preparer_implemented": true,
+      "new_private_components": 6,
+      "families": [
+        "HT01",
+        "HT07",
+        "GC01"
+      ],
+      "development_exposure_disclosed": true,
+      "constructed_input_pairs_verified": 4,
+      "native_two_condition_collector_implemented": true,
+      "questions_authored": true,
+      "protocol_frozen": true,
+      "run_executed": true,
+      "answer_improvement_established": false,
+      "run_started": true,
+      "masked_review_implemented": true,
+      "private_driver_implemented": true,
+      "implementation_frozen_before_question_authoring": true,
+      "active_protocol": "runs/guidance-comparison-v1/protocol-v2.json",
+      "active_protocol_sha256": "8198f82a8b1a638487f524d4910868007155b17fdd47f9857e179392d15c6b78",
+      "run_complete": true,
+      "masked_reviews_complete": true,
+      "reviews_frozen_before_mapping": true,
+      "adoption_gate_passed": false,
+      "training_calls": 0,
+      "actual_model_calls": 16
+    },
+    "guidance_comparison_result": {
+      "report": "docs/GUIDANCE-COMPARISON-RESULTS.md",
+      "public_aggregate": "reports/guidance-comparison-v1.json",
+      "planned": 16,
+      "complete": 16,
+      "reviewed": 16,
+      "guided_bible_preferences": {
+        "preferred": 1,
+        "less_preferred": 2,
+        "tied": 3
+      },
+      "guided_attribution_error_answers": 2,
+      "original_scope_error_answers": 1,
+      "general_controls_correct": 4,
+      "estimated_sampling_cost_usd": "0.09301348",
+      "invoice_reconciled": false,
+      "gate_passed": false,
+      "chat_changed": false,
+      "expert_certified": false
+    }
+  },
+  "handoff_change_scope": "Preserve completed G and all prior artifacts; retain B. Improve evaluation severity before another distinct training proposal, and proceed with B beta/recovery readiness. No automatic retraining, recollection, promotion, deployment or publication.",
+  "resume_rules": [
+    "This living file may be updated; completed experimental protocols, datasets, reports and private receipts remain immutable.",
+    "Verify recorded artifacts before marking a task complete; do not treat a proposed filename as an implemented tool.",
+    "Retain B and continue independent offline work while an external review or newly paid operation is pending.",
+    "Update next actions, meaningful decisions and validation evidence after each bounded deliverable."
+  ],
+  "orchestration": {
+    "primary_role": "integration_review_evaluation_and_training_decisions",
+    "owner_selected_primary_effort": "xhigh",
+    "worker_model": "gpt-5.6-sol",
+    "typical_worker_effort": "high",
+    "typical_concurrent_workers": "1-2",
+    "context_policy": "compact_task_specific_briefs_without_full_history_by_default"
+  },
+  "latest_completed_increment": {
+    "description": "Candidate G sequence complete: six updates, 60 native-verified answers, and 60 individual / 30 paired judgments frozen before mapping. G 3 / B 10 / 11 ties; retain B. Prediction retention passed; root severity qualifications are preserved. Beta 24 tests and clean-source 540 tests passed.",
+    "report": "docs/CANDIDATE-G-RESULTS.md",
+    "training_calls": "sixforward_backward_updates_with_six_optimizer_steps",
+    "evaluation_requests": 60,
+    "chat_changes": 0,
+    "publication_actions": 0
+  },
+  "training_hold": {
+    "status": "authorized_single_G_sequence_completed_no_further_training_authorized",
+    "instruction_on": "2026-09-08",
+    "topic_received_on": "2026-09-09",
+    "topic": "Recurrent depth, shared middle-layer reuse, J-space and related latent-computation approaches",
+    "research_report": "docs/RECURRENCE-RESEARCH.md",
+    "before_training": [
+      "Complete reviewed dataset, source-use decisions and prospective evaluation freeze.",
+      "Verify B identity/retention and current rates; reserve full bounded cost.",
+      "Notify owner with exact concrete G setup and cost before training."
+    ],
+    "independent_offline_preparation_may_continue": true,
+    "generic_continue_lifts_hold": false,
+    "research_review_status": "discussed_with_owner_recurrence_optional_resume_inkling",
+    "latest_authorization": "Owner explicitly requested completing the described sequence on September 9; root will give exact training notice and budget before one bounded G run."
+  },
+  "optional_research": {
+    "recurrence": {
+      "status": "researched_deferred",
+      "report": "docs/RECURRENCE-RESEARCH.md",
+      "required_before_inkling_training": false,
+      "pilot_authorized": false
+    }
+  },
+  "candidate_g_preparation": {
+    "status": "complete_experiment_gate_failed_B_retained",
+    "report": "docs/CANDIDATE-G-DATA-PLAN.md",
+    "source_family_counts": {
+      "train": 40,
+      "validation": 12
+    },
+    "planned_rows": {
+      "train": 96,
+      "validation": 24,
+      "rehearsal_in_train": 16
+    },
+    "source_layers": [
+      "oshb-wlc-main-ketiv-hbo",
+      "oshb-wlc-main-ketiv-arc",
+      "sblgnt-main-grc"
+    ],
+    "unique_selected_verse_ids": 1419,
+    "all_selected_verses_exposed_in_B_raw_training": true,
+    "new_questions_authored": 104,
+    "new_targets_authored": 104,
+    "training_ready": false,
+    "training_authorized": false,
+    "private_source_registry_changed": false,
+    "expert_certified": false,
+    "prepared_manifest": "runs/candidate-g-execution-v1/prepared-v2/manifest.json",
+    "training_protocol": "runs/candidate-g-execution-v1/training-protocol.json",
+    "prepared_training_input_tokens": 115354,
+    "prepared_training_loss_tokens": 11023,
+    "training_steps": 6,
+    "total_reserved_usd": "7.66376908",
+    "sequence_cap_usd": "20.00",
+    "authorization_limit": "One bounded G sequence after frozen fresh evaluation and exact pre-training notice; no automatic model promotion or public deployment."
+  },
+  "candidate_g_execution": {
+    "status": "complete_gate_failed_B_retained",
+    "private_root": "runs/candidate-g-execution-v1",
+    "training_started": true,
+    "fresh_evaluation_questions_authored": 30,
+    "native_serving_probe_requests": 3,
+    "serving_probe_estimated_usd": "0.00276835",
+    "beta_backend_offline_tests_passed": 16,
+    "beta_backend_report": "docs/BETA-BACKEND-CANDIDATE.md",
+    "public_deployment": false,
+    "repository_published": false,
+    "pre_run_advisory_dispositions": "runs/candidate-g-execution-v1/evaluation/pre-run-dispositions.json",
+    "recovery_snapshot": "runs/candidate-g-execution-v1/recovery-before-training/manifest.json",
+    "evaluation_protocol": "runs/candidate-g-execution-v1/evaluation/protocol.json",
+    "evaluation_protocol_sha256": "450606703aa454f9d0fcf7715e8da6ee2456942367355d8b7e7428c237b8afc4",
+    "independent_question_review_passed": true,
+    "beta_preview_tests_passed": 24,
+    "beta_preview_report": "docs/BETA-PREVIEW-CANDIDATE.md",
+    "training_complete": true,
+    "training_steps_completed": 6,
+    "post_training_checkpoint_roles_verified": 4,
+    "evaluation_complete": true,
+    "evaluation_answers_complete": 60,
+    "evaluation_sampling_estimated_usd": "0.23695746",
+    "answer_reviews_complete": true,
+    "answer_reviews_frozen_before_mapping": true,
+    "bible_preferences": {
+      "G": 3,
+      "B": 10,
+      "tie": 11
+    },
+    "retention_gate_passed": true,
+    "combined_gate_passed": false,
+    "result_document": "docs/CANDIDATE-G-RESULTS.md",
+    "public_aggregate": "reports/candidate-g-v1.json",
+    "root_review_qualifications": "runs/candidate-g-execution-v1/answer-review/root-interpretation.json",
+    "estimated_compute_sampling_usd": "1.58403889",
+    "estimated_plus_storage_contingency_usd": "4.58403889",
+    "new_training_authorized": false,
+    "local_B_preview": "restarted_loopback_8765_http_verified_no_sampling",
+    "g_checkpoint_expiry_utc": "2026-10-10T19:39:01.667545+00:00",
+    "source_only_tests_passed": 540,
+    "source_only_asset_tests_excluded": 94
+  },
+  "launch_priority": {
+    "owner_direction": "Proceed with the launch work; prefer minimal steering and check actual model responses before featuring suggested questions.",
+    "selected_model": "Inkling B",
+    "next_milestone": "Hosted limited beta with actual end-to-end verification",
+    "further_training_required": false,
+    "evaluation_severity_audit_blocks_initial_beta": false,
+    "next_steps": [
+      "Re-authenticate GitHub and push the reviewed local source commit to rowant-labs/meforash main.",
+      "Connect meforash.com DNS and switch canonical origin only after HTTPS verification.",
+      "Choose Supabase project and execute RLS tests before optional account/history integration.",
+      "Implement bounded guest access and a fair request queue before opening guest traffic."
+    ],
+    "hosting_access_observation": "Railway CLI is installed but not authenticated in this environment.",
+    "publication_status": "Public rowant-labs/meforash repository created; exact reviewed source commit prepared locally, first push blocked by expired GitHub CLI authentication.",
+    "brand": "Meforash",
+    "repository_target": "rowant-labs/meforash",
+    "implementation_status": "owner_beta_hosted_HTTPS_B_answer_verified",
+    "optional_accounts": "Supabase project selection pending; guest access and saved history not yet implemented",
+    "constructed_conversation_checks": "Four unchanged-B product checks, reserved $0.33287424 under $0.40 cap; private runs/launch-v1; not a comparative benchmark",
+    "hosting_url": "https://meforash-production.up.railway.app",
+    "repository_url": "https://github.com/rowant-labs/meforash",
+    "source_only_tests_passed": 552,
+    "source_only_asset_tests_excluded": 94,
+    "hosted_answer_elapsed_seconds": 32.416,
+    "hosted_answer_estimated_usd": 0.00464031,
+    "source_bundle_files": 25,
+    "public_guest_access": false,
+    "saved_conversations_enabled": false,
+    "b_retention": "Both existing checkpoint expiries removed and verified; private; estimated combined storage $2.016734/month.",
+    "restart_accounting_verified": true,
+    "owner_access_file_private": "runs/launch-v1/hosted-access/owner-access.txt"
+  }
+}

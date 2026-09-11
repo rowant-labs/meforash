@@ -1,0 +1,440 @@
+{
+  "schema_version": 3,
+  "status": "frozen_preoutput_criteria_review_complete",
+  "expert_certified": false,
+  "frozen_at_utc": "2026-09-06T21:55:38.554218+00:00",
+  "evaluation": {
+    "path": "evals/instruction-target-revision-v3.jsonl",
+    "sha256": "7a92dd0ab693eb2e79699d6fccbfe8ece8576fcc34ba443ab05dd39fe81c89d9"
+  },
+  "evaluation_manifest": {
+    "path": "manifests/instruction-target-revision-evaluation-v3.json",
+    "sha256": "cb3df12e9f760e2186530dabbc0192e3a93eee116e350087648c773c5caf19fe"
+  },
+  "preparation_manifest": {
+    "path": "manifests/preparation-instruction-v3.json",
+    "sha256": "06390023a3c78e88692d73add87a1b7a60c01576b54c265daf68675d653e093c"
+  },
+  "dataset_freeze": {
+    "path": "runs/instruction-v3-prep/reviewed/freeze.json",
+    "sha256": "c642a669b7175afc4fd03e9e72a4939cfb12fd3125126c6fef04799658308280"
+  },
+  "counts": {
+    "cases": 30,
+    "bible": 24,
+    "general": 6,
+    "material_prompt_defects": 0,
+    "supporting_source_verses_checked": 65
+  },
+  "review_receipts": [
+    {
+      "path": "runs/instruction-v3-prep/reviews/evaluation-hebrew-general.json",
+      "sha256": "f60271237159a645aef481973f7ed4c7d5aa37a86e17d5431d078728d2728181",
+      "cases": 13,
+      "reviewer": "root_hebrew_general_preoutput_reviewer_v3"
+    },
+    {
+      "path": "runs/instruction-v3-prep/reviews/evaluation-aramaic-greek-application.json",
+      "sha256": "2b843c7fa6b9f32a681e02fadd3ecf16e54d6a12121c435b74a42eb862820a05",
+      "cases": 17,
+      "reviewer": "instruction_format_v3_evaluation_independent_source_reviewer"
+    }
+  ],
+  "global_scoring_supplement": [
+    "Preserve the frozen prompts, original criteria, author caveats and these separate pre-output clarifications for all arms. No model outputs were used to set them.",
+    "Source fidelity and requested coverage precede style. Correct plain-English grammar explanations need not reproduce every technical label in reviewer notes; explicitly wrong technical claims remain errors.",
+    "Native completion, requested-content coverage and factual correctness are distinct. Review available partial final text without inventing a continuation.",
+    "Equivalent defensible translations are accepted. Note genuine reading or lexical alternatives without awarding unsupported claims or compulsory hedging.",
+    "Application prompts ask for grounded non-denominational reflection, not a full translation, compulsory preface or unsolicited list of disclaimers.",
+    "General fixtures are a limited retention check. Parsed whitespace/key order and equal numeric values are not semantic errors; extra or duplicate JSON keys require separate format review."
+  ],
+  "cases": [
+    {
+      "id": "G301",
+      "case_sha256": "fb042b65fbe0ab58d1bf1608cf3ca7f1cbe2e974f1e7864f59975b36bce09c93",
+      "status": "approved",
+      "scoring_caveats": [
+        "Computed from the supplied fixture. Exact categorical codes and correct parsed values are required; object order and whitespace are immaterial. Existing automatic checks do not reject every extra field or duplicate JSON key; semantic review and format compliance remain distinct."
+      ],
+      "source_urls": []
+    },
+    {
+      "id": "G302",
+      "case_sha256": "ba37dec1888bf27328d7117705b2768decc79364780c9900d92f3dc592e7bc86",
+      "status": "approved",
+      "scoring_caveats": [
+        "Computed from the supplied fixture. Exact categorical codes and correct parsed values are required; object order and whitespace are immaterial. Existing automatic checks do not reject every extra field or duplicate JSON key; semantic review and format compliance remain distinct."
+      ],
+      "source_urls": []
+    },
+    {
+      "id": "G303",
+      "case_sha256": "8edcc04132015184a77f6d91821b41807bc35c1da68bdc616c8cbda2da369b49",
+      "status": "approved",
+      "scoring_caveats": [
+        "Computed from the supplied fixture. Exact categorical codes and correct parsed values are required; object order and whitespace are immaterial. Existing automatic checks do not reject every extra field or duplicate JSON key; semantic review and format compliance remain distinct."
+      ],
+      "source_urls": []
+    },
+    {
+      "id": "G304",
+      "case_sha256": "b9a17080f10ac79161e77eddbf1a2e7308e9d055d94709ad7a29f0e2526b8089",
+      "status": "approved",
+      "scoring_caveats": [
+        "Computed from the supplied fixture. Exact categorical codes and correct parsed values are required; object order and whitespace are immaterial. Existing automatic checks do not reject every extra field or duplicate JSON key; semantic review and format compliance remain distinct."
+      ],
+      "source_urls": []
+    },
+    {
+      "id": "G305",
+      "case_sha256": "6a6dc95577c5a0fbd464b69b287551c22a0b2acf8b8e2d862e66e0be4b053a5b",
+      "status": "approved",
+      "scoring_caveats": [
+        "Computed from the supplied fixture. Exact categorical codes and correct parsed values are required; object order and whitespace are immaterial. Existing automatic checks do not reject every extra field or duplicate JSON key; semantic review and format compliance remain distinct."
+      ],
+      "source_urls": []
+    },
+    {
+      "id": "G306",
+      "case_sha256": "a7866f9ada5ed66c9b829a5d527e3f4f8c9f1f68226432ecfbdc8ea7ae18f563",
+      "status": "approved",
+      "scoring_caveats": [
+        "Computed from the supplied fixture. Exact categorical codes and correct parsed values are required; object order and whitespace are immaterial. Existing automatic checks do not reject every extra field or duplicate JSON key; semantic review and format compliance remain distinct."
+      ],
+      "source_urls": []
+    },
+    {
+      "id": "IA301",
+      "case_sha256": "931a77f60a3ac580bc6bf64e9ec4e2e40c170304c761e109657eaeb5c4c504a5",
+      "status": "approved",
+      "scoring_caveats": [
+        "Retain the author’s wine-expression and ancestry caveats. A straightforward father translation is sufficient without a compulsory genealogy disclaimer; an idiomatic wine-influence rendering is acceptable.",
+        "The prompt tests agency and the order/earlier-removal relationship. Correct English explanation need not recite every morphology-code component."
+      ],
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+      ]
+    },
+    {
+      "id": "IA302",
+      "case_sha256": "50f64926247809ab2918cbee0bca68346d1026a9ed6ac66852ab82e9ee4cc88a",
+      "status": "approved",
+      "scoring_caveats": [
+        "Retain the author’s mixed nominal/verbal list and imperfect-annotation caveat; do not enforce the erroneous plural analysis of the untying expression.",
+        "Full translation includes the explanatory opening and present recommendation, but idiomatic arrangement of the abilities list is acceptable. Equivalent Hithpeel/Ithpeel terminology or a clear passive explanation is sufficient."
+      ],
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+      ]
+    },
+    {
+      "id": "IA303",
+      "case_sha256": "b7684a8d6c37ed0412b193c02fb871636d68ad98a21ad62ac30ec4dd7c6be4c9",
+      "status": "approved",
+      "scoring_caveats": [
+        "Retain the unpointed written-form and annotation caveats for the heart-making and hardening clauses. Do not demand a reconstructed pointing or precise tense/number based on those tags.",
+        "An English passive, an indefinite they agent, or idiomatic grass-eating language can convey the humbling; the more literal being fed is also sound. Do not require a proper name outside the excerpt or a medical disclaimer.",
+        "Hophal, passive causative or equivalent supported terminology is acceptable when the affected ruler and passive sense are clear."
+      ],
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+      ]
+    },
+    {
+      "id": "IA304",
+      "case_sha256": "96dd67b226d84169d15e681fbfbc7dbde0a13cb9b61a8ac61ce8a703017c262f",
+      "status": "approved",
+      "scoring_caveats": [
+        "Retain the author’s absent-antecedent and inscription-wordplay caveats. Transliteration variants with the two repeated first items and final conjunction are acceptable; no exact transliteration alphabet is required.",
+        "Passive/result-state descriptions and conventional Peil terminology are acceptable without a forced label dispute over identical passive-form morphology. Later decoding is not required for requested completeness."
+      ],
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+      ]
+    },
+    {
+      "id": "IA305",
+      "case_sha256": "c1adbe4c848d978e18fe149be1331f8c05ed54594c6faa2c73322e5019863ae7",
+      "status": "approved",
+      "scoring_caveats": [
+        "Retain the source’s written-form and rank-language caveats. Third-rank or a defensible one-of-three administrative rendering must not be penalized merely for failing to settle the historical office.",
+        "Daniel is the clothing recipient and the person about whom the proclamation is made. He is not necessarily the direct grammatical object of every proclamation construction; preserve that distinction when judging explanations.",
+        "No named killer or extra political-security warning is necessary."
+      ],
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+      ]
+    },
+    {
+      "id": "IA306",
+      "case_sha256": "61291e6970284f9bbddfc875432e199defaaed78a77b8c414e685423fa174943",
+      "status": "approved",
+      "scoring_caveats": [
+        "Retain the promptness/diligence and unpointed-written-form caveats.",
+        "The criterion’s third-person reference to their God is explanatory paraphrase. A direct translation should preserve the source’s plural your God and must not be penalized for doing so.",
+        "Brothers, companions or fellow members can be defensible in the institutional context; do not impose biological siblings or a particular modern spending procedure."
+      ],
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ezra.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+      ]
+    },
+    {
+      "id": "IA307",
+      "case_sha256": "97f1557a886ee7514e72a3275eab895548ab625cfb9ba112ac9f931671845685",
+      "status": "approved",
+      "scoring_caveats": [
+        "Retain the rare written-form, property-sanction and passive-stem terminology caveats. Equivalent wording for banishment/uprooting and fine/confiscation is acceptable.",
+        "The active versus passive auxiliary-plus-participle relation and judgment/offender distinction matter more than a mandatory conjugation label.",
+        "Judge this as translation of a decree. Neither endorsement nor an unsolicited modern enforcement disclaimer is required."
+      ],
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ezra.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html",
+        "https://biblehub.com/hebrew/8332.htm"
+      ]
+    },
+    {
+      "id": "IG301",
+      "case_sha256": "09cef68ec9069f9f842918b98a6de09fa542afb9ade9fac5905e540a62037ff8",
+      "status": "approved",
+      "scoring_caveats": [
+        "Perfect middle/passive-form terminology with a correct passive-state explanation is acceptable. The hidden-state participle does not identify the earlier hider.",
+        "Natural English tense choices may render narrative historical presents without requiring an identical tense label for every clause. Do not require historical property-law claims."
+      ],
+      "source_urls": [
+        "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Matt.txt",
+        "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/61-Mt-morphgnt.txt",
+        "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/README.md"
+      ]
+    },
+    {
+      "id": "IG302",
+      "case_sha256": "b8362b624a36e63cc6fb32d462756ae4f801209674c2b3782857430dd7c7f619",
+      "status": "approved",
+      "scoring_caveats": [
+        "Retain the author’s middle/passive terminology caveat. Natural reported-speech backshift for the recognized healed state is acceptable.",
+        "Opening present and aorist participles are not all simultaneous or all passive. Reward correct relationships without demanding the full parse of each one.",
+        "Do not require a medical warning in this focused translation task; evaluate the reported narrative without turning it into a present treatment recommendation."
+      ],
+      "source_urls": [
+        "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Mark.txt",
+        "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/62-Mk-morphgnt.txt",
+        "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/README.md"
+      ]
+    },
+    {
+      "id": "IG303",
+      "case_sha256": "25460e55c0338ba2c3595e9f20af20210570602a24d3489b8c19c881b7eddcf6",
+      "status": "approved",
+      "scoring_caveats": [
+        "Equivalent English wording for lacking the means to repay is sufficient; no ancient-to-modern currency conversion is necessary.",
+        "The greater-forgiveness identification must retain the comparison, while the full translation should also convey Simon’s tentative introductory reply and Jesus’s affirmation. Exact words are not mandated."
+      ],
+      "source_urls": [
+        "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Luke.txt",
+        "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/63-Lk-morphgnt.txt",
+        "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/README.md"
+      ]
+    },
+    {
+      "id": "IG304",
+      "case_sha256": "d66d858b93b9a7fa6eced895d4e2058e15e2df9325a6d7de47598a5a307de77a",
+      "status": "approved",
+      "scoring_caveats": [
+        "The criterion compresses the scent clause as Mary filling the house. The actual source makes the house the subject of a passive verb. Accept and prefer a faithful house-was-filled rendering; do not require Mary to be its grammatical agent. This wording clarification does not change the prompt or evaluated event.",
+        "Retain the pure/genuine-nard and monetary-conversion caveats. The carrying/taking verb need not be narrowed to one English lexeme, provided the explicit thief portrayal and narrator/objection distinction remain.",
+        "No requirement to infer an actual completed sale or donation from the rhetorical question."
+      ],
+      "source_urls": [
+        "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/John.txt",
+        "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/64-Jn-morphgnt.txt",
+        "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/README.md"
+      ]
+    },
+    {
+      "id": "IG305",
+      "case_sha256": "ac2f6172750d95ef52af3fb616b6ab1a8ed36efdf13df7bad66207a5956cd2bb",
+      "status": "approved",
+      "scoring_caveats": [
+        "Acts9:22 is expressly supplied to identify the person; the prompt requires complete translation of verses26–28, not an additional full rendering of verse22.",
+        "The prompt asks for the contrast and reported experiences. Correct roles and negation can satisfy it without the criterion’s optional full participle labels.",
+        "The pinned wording distinguishes Jesus in verse27 and Lord in verse28. Normal English referent clarification is acceptable, but do not call an added alternate Greek reading the exact printed source."
+      ],
+      "source_urls": [
+        "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Acts.txt",
+        "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/65-Ac-morphgnt.txt",
+        "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/README.md"
+      ]
+    },
+    {
+      "id": "IG306",
+      "case_sha256": "79a1ff864791006ce7ccbc8066679ad8d36edcce8a3698c0c333db802716168b",
+      "status": "approved",
+      "scoring_caveats": [
+        "Retain the author’s passive versus middle/passive-form terminology caveat. Reckoned, credited, counted and other accurate equivalents can all preserve the contrast.",
+        "No denominational theory, employment prohibition or comprehensive account of salvation is needed. The source-level contrast and agency remain the tests."
+      ],
+      "source_urls": [
+        "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Rom.txt",
+        "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/66-Ro-morphgnt.txt",
+        "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/README.md"
+      ]
+    },
+    {
+      "id": "IH301",
+      "case_sha256": "0c9f4b15c6fa680bcaec639dbb2d1d5201e9354fd992a672a413d81fd7b646ef",
+      "status": "approved_with_scoring_caveats",
+      "scoring_caveats": [
+        "All four verses and both requested forms check. The imperative addresses the woman with the servant as object; the narrative causative has the woman as subject and him as object. Preserve the author caveat correcting the erroneous jar-suffix occurrence tag. Include the request, invitation, lowering, giving drink, camel promise, trough, return to well and drawing; neither a specific servant name nor technical stem terminology is mandatory."
+      ],
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Gen.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+      ]
+    },
+    {
+      "id": "IH302",
+      "case_sha256": "057a189426e0b6c1b168e75dd51ce628f224f5c2d7a61b915f0558e9799d3566",
+      "status": "approved_with_scoring_caveats",
+      "scoring_caveats": [
+        "Both verses preserve the alternating temporal relationship and full assistance scene through sunset. Steadiness of the supported hands is the local sense of emunah; its broader theological semantic range is not denied. The prompt does not require the additional technical parsing offered as reviewer background."
+      ],
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Exod.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+      ]
+    },
+    {
+      "id": "IH303",
+      "case_sha256": "da2f030140c594d0f26dfce1a5d21797dcab1742f67c25d4799126c80072027c",
+      "status": "approved_with_scoring_caveats",
+      "scoring_caveats": [
+        "The source marks the cloud’s lifting/rising with Niphal infinitive construct, followed by plural Israel travel/camp verbs; the repeated mouth expression is directional authority. All duration and location clauses must be covered. Neither an imperative to raise the cloud nor travel while it remains follows."
+      ],
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Num.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+      ]
+    },
+    {
+      "id": "IH304",
+      "case_sha256": "4c396cbb53c04744c2a2ea3744e82d8ed1ef13df9b73e67fe38499255b75594f",
+      "status": "approved_with_scoring_caveats",
+      "scoring_caveats": [
+        "Too many people, giving Midian into their hands, prevention of Israel’s boast and the quoted hand’s saving action are correctly separated. The feminine perfect agrees with hand; first-person possessive and benefactive suffixes do not change verb person. Preserve the author caveat about the incorrect occurrence suffix gender for Gideon’s address."
+      ],
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Judg.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+      ]
+    },
+    {
+      "id": "IH305",
+      "case_sha256": "706d1853753fd0bf65669f8f359d1691603a40bc7839c435069dc1094701c8b6",
+      "status": "approved_with_scoring_caveats",
+      "scoring_caveats": [
+        "All four verses distinguish the request for a sword, its being brought, initial division order, maternal compassion and plea, other woman’s reply, and final protective ruling. Both repeated killing constructions remain negated; infinitive absolute does not command an extra killing. Accept prohibitive/jussive terminology or a correct plain-English explanation. The excerpt narrates orders and identification; do not demand a separate assertion that physical delivery of the child was narrated."
+      ],
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/1Kgs.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+      ]
+    },
+    {
+      "id": "IH306",
+      "case_sha256": "811bc8e20dbbd79cd253077826ea99b356bb9653d07b1adfdbab91de0451a6ff",
+      "status": "approved_with_scoring_caveats",
+      "scoring_caveats": [
+        "The entire ethical sequence and the cease/learn plus infinitive-absolute constructions are supported. The lexical crux genuinely allows competing analyses. The NET translators’ own note also questions the proposed sense of the verb, so neither its lexeme nor hamots should be treated as mechanically settled. Accept an accurately explained oppressor/oppressed distinction or another defensible contextual rendering; do not require reproducing one dictionary gloss."
+      ],
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Isa.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html",
+        "https://biblehub.com/hebrew/2541.htm",
+        "https://classic.net.bible.org/verse.php?book=Isa&chapter=1&tab=commentaries&theme=false&verse=17",
+        "https://www.biblegateway.com/passage/?search=Isaiah+1%3A17&version=NET"
+      ]
+    },
+    {
+      "id": "IH307",
+      "case_sha256": "16f821eefde2dea9174af91eeec8ecb522e59f6c66d3c9abc20239fa0fae2ca6",
+      "status": "approved_with_scoring_caveats",
+      "scoring_caveats": [
+        "All four verses preserve the creatures/addressee agency and the third-plural versus second-singular possessors. Niphal plural creation and Piel second-singular renewal are correct. Breath/spirit wording can vary; the passage does not require a later doctrinal identification or an imported exhaustive creature list."
+      ],
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ps.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+      ]
+    },
+    {
+      "id": "IM301",
+      "case_sha256": "79c4e978c22f4a94cdc65de2d8d0c4bd6df97e1a29fcc7076e34055a07872de2",
+      "status": "approved",
+      "scoring_caveats": [
+        "Retain the author’s figurative and limited-scope caveat. Profuse, excessive or deceitful enemy-kiss renderings can support the contextual contrast; do not require a single disputed lexical gloss.",
+        "The listed practical steps are examples, not exclusive required advice. A grounded alternative that leaves room to evaluate the criticism can satisfy the prompt.",
+        "Do not require a long disclaimer or diagnose the friend’s motives."
+      ],
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Prov.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+      ]
+    },
+    {
+      "id": "IM302",
+      "case_sha256": "19772e816f422d3840173fedb7fc1a509f960889fc33fb97e34c996d3157df1f",
+      "status": "approved",
+      "scoring_caveats": [
+        "Treat the practical steps as optional examples. A concise application can meet the task without a full verse translation or every morphology label.",
+        "The passage’s preference for an end does not guarantee a project’s success, and its rebuke of the nostalgia question does not prove that the past was objectively worse. Do not require medical or clinical commentary."
+      ],
+      "source_urls": [
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Eccl.xml",
+        "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+      ]
+    },
+    {
+      "id": "IM303",
+      "case_sha256": "5ccdf0bc1387858cc20e38fa205e5d1628a7debbfd6ecd7671e48f117e0770a2",
+      "status": "approved",
+      "scoring_caveats": [
+        "Retain the author’s relational-language and unreported-emotion caveat. The account supports an inference of continued learning; it does not explicitly report Apollos’s embarrassment, a private emotional response or the instruction’s full contents.",
+        "Learned and eloquent are both defensible. Both named instructors and subsequent contribution should remain, without forcing a denominational hierarchy or an invented rebaptism scene.",
+        "Community encouragement or commendation is appropriate; do not insist that the brief exhortation phrase identifies only one possible addressee."
+      ],
+      "source_urls": [
+        "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Acts.txt",
+        "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/65-Ac-morphgnt.txt",
+        "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/README.md"
+      ]
+    },
+    {
+      "id": "IM304",
+      "case_sha256": "48ef9523b5401a8666dc380f0c17a88a60d8414524e1aa5e1cc6a64f8b451cc8",
+      "status": "approved",
+      "scoring_caveats": [
+        "Retain the author’s contextual good-work caveat. The source’s community/gospel setting matters, but no exact terminology or disputed theological definition of the good work is mandatory.",
+        "A specific expression of thanks or hopeful prayer is an example of a suitable response; another concrete, grounded expression can also pass.",
+        "Do not require a full translation or a lengthy interpretive disclaimer in this personal reflection task."
+      ],
+      "source_urls": [
+        "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Phil.txt",
+        "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/71-Php-morphgnt.txt",
+        "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/README.md"
+      ]
+    }
+  ],
+  "limitations": [
+    "Two AI reviewers cover separate partitions and share project roles; there is no human expert certification or duplicate independent scoring per case.",
+    "The revised training data were frozen before its authors opened the new evaluation, but this is a procedural separation, not proof about all prior reviewer knowledge.",
+    "All supporting chapters had raw-text exposure and the seven Aramaic cases share two previously evaluated chapter families; this is not an unseen-text benchmark.",
+    "The evaluation and scoring supplement are prepared; no new model answers or quality measurements exist."
+  ]
+}

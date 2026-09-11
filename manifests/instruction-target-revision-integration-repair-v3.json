@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_review_integration",
+  "frozen_at_utc": "2026-09-06T23:24:51.419118+00:00",
+  "original_contingency_sha256": "b53983f74bde63c6283337f4d7240e361294298e8c2d07ec501957f582db7001",
+  "original_integrator_preserved_sha256": "50c2b04f6f914763271595f041b1b78a831f20803364920abd5afc7deb1d4a03",
+  "software_sha256": {
+    "runs/instruction-v3-execution/integrate_available_reviews_v3_fix1.py": "de8829c6d53e390a73aa4e28c761962d42d214ef9459a299faf09b46cfd1a55a",
+    "runs/instruction-v3-execution/test_integrate_available_reviews_v3_fix1.py": "5744f747981e9620f2296476ec6b83f31555e52f217e806f3a84fa527c96207b"
+  },
+  "independent_review": {
+    "path": "runs/instruction-v3-execution/integration-fix1-independent-review.json",
+    "sha256": "cf5628cad51a5067775892481912dcdab3d21e21d55d358494d89d455e4ce8b7"
+  },
+  "focused_tests_passed": 18,
+  "issue": "Legacy aggregate missing_results counts unsubmitted questions as well as unresolved results. E has25 missing_results,25 not_started,0 unresolved; the first available-answer integrator incorrectly required missing_results to be zero.",
+  "correction": "Require missing_results equal not_started while retaining zero unresolved and missing_usage; continue deriving actual answers from availability.returned.",
+  "timing": "After candidate review began, before the all-review freeze and before condition-key access. The defect was found by reading safe aggregate counters.",
+  "preserved": [
+    "Original experiment and contingency manifests",
+    "Original and first-contingency collector/integrator/schema/tests",
+    "All native receipts and costs",
+    "All94 candidate answers and all120 availability states",
+    "All frozen questions, criteria and source-review judgments"
+  ],
+  "no_new_model_calls": true,
+  "no_scoring_change": true,
+  "condition_key_opened": false
+}

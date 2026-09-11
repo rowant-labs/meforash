@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "experiment": "original_text_inkling_adaptation",
+  "generated_at": "2026-09-06T16:08:33.885631+00:00",
+  "contains_answer_text": false,
+  "provider_invoice_verified": false,
+  "accuracy_or_improvement_score_assigned": false,
+  "partial": false,
+  "protocol": {
+    "model": "thinkingmachines/Inkling",
+    "provider_weight_revision": "unpinned",
+    "renderer": "official native TML v0",
+    "evidence_mode": "provided",
+    "reasoning_effort": "medium",
+    "max_input_tokens": 6000,
+    "max_output_tokens": 8192,
+    "seed": 20260905,
+    "temperature": 0.0,
+    "thinking_effort_numeric": 0.7,
+    "tokenizer_sha256": "9fb6333a7db8fe5da90728e741e4a3ee4ac2ae12c5dd4958cc6f31688787d3c2",
+    "chat_template_sha256": "0aa1aa0c729d90176dcaa00c440c8faffca2957ffb2cc4b79456ee6d02bcf43b",
+    "comparison_manifest_sha256": "87de6c1bf7d7e2e6d6e8bccc90a229a7744fa5091684ae51c3fa98023af853a4",
+    "settings_sha256": "831724d18b988d2db4cd412e1304e7f132af6b2329cfd12c912e493131b0537c"
+  },
+  "comparison_validation": {
+    "frozen_question_rows_and_complete_shard_union_verified": true,
+    "initialized_adapter_shards": 3,
+    "planned_adapter_shards": 3,
+    "generation_settings_match_for_initialized_shards": true,
+    "checkpoint_identity_matches_for_initialized_shards": true,
+    "paired_prompt_hashes_verified": 24,
+    "question_pairs_without_returned_prompt_verification": 0,
+    "all_question_prompt_hashes_verified": true,
+    "system_prompt_sha256": "405c027ca4ca122501eaee2fb4d01605e86a35501ba8a084eada5b3417bec7e3"
+  },
+  "training": {
+    "calibration": {
+      "status": "complete",
+      "recipe_sha256": "7efef6738f803b48a8759e707ccd2a1e11879975223c422ca7fe05c8683286e7",
+      "prepared_corpus_manifest_sha256": "de9ac547385956ba3c3bfbd45bb4c86661bc4e2a2e1b26ccacda34c5fea00cbd",
+      "sequence_order_sha256": "e0ef7de154162d8aefeedd853b35fac984c702585e441c083404584a63070deb",
+      "training_sequences": 16,
+      "training_batches": 1,
+      "training_processed_tokens": 21943,
+      "training_loss_tokens": 21575,
+      "planned_estimated_or_reserved_usd": 3.35530935,
+      "compute_reserve_usd": 0.35530935,
+      "checkpoint_contingency_usd": 3.0,
+      "checkpoint_ttl_seconds": 2592000,
+      "baseline_holdout": {
+        "weighted_nll": 0.050675008690354725,
+        "weighted_loss_sum": 1034.733002448353,
+        "loss_tokens": 20419,
+        "processed_tokens": 20696
+      },
+      "end_holdout": {
+        "weighted_nll": 0.05159795170667133,
+        "weighted_loss_sum": 1053.5785758985219,
+        "loss_tokens": 20419,
+        "processed_tokens": 20696
+      },
+      "holdout_nll_change": 0.0009229430163166033,
+      "training_weighted_nll": 0.07818384386693768,
+      "provenance": {
+        "plan_sha256": "86336b8bc392c2266f86705822d40f3c05fc4c5232cf6392049e06314d17b4c6",
+        "summary_sha256": "75f3687e595bcd20351b44c333c84fab8134e0f922b522988e0fee20ab081bd7",
+        "software_manifest_content_sha256": "9e1931c545b8dc8bb18b3b8be788100aa72b6a9bef7404a7856643441b772782"
+      }
+    },
+    "development_pass": {
+      "status": "complete",
+      "recipe_sha256": "7efef6738f803b48a8759e707ccd2a1e11879975223c422ca7fe05c8683286e7",
+      "prepared_corpus_manifest_sha256": "de9ac547385956ba3c3bfbd45bb4c86661bc4e2a2e1b26ccacda34c5fea00cbd",
+      "sequence_order_sha256": "9d2bcd49ab064e8591339ad5dda8c31f627f26d4a8e519524e0d439973550dcb",
+      "training_sequences": 2169,
+      "training_batches": 136,
+      "training_processed_tokens": 3280433,
+      "training_loss_tokens": 3229825,
+      "planned_estimated_or_reserved_usd": 21.63543825,
+      "compute_reserve_usd": 18.63543825,
+      "checkpoint_contingency_usd": 3.0,
+      "checkpoint_ttl_seconds": 2592000,
+      "baseline_holdout": {
+        "weighted_nll": 0.050675008690354725,
+        "weighted_loss_sum": 1034.733002448353,
+        "loss_tokens": 20419,
+        "processed_tokens": 20696
+      },
+      "end_holdout": {
+        "weighted_nll": 0.011512644586663094,
+        "weighted_loss_sum": 235.0766898150737,
+        "loss_tokens": 20419,
+        "processed_tokens": 20696
+      },
+      "holdout_nll_change": -0.03916236410369163,
+      "training_weighted_nll": 0.017540500036950363,
+      "provenance": {
+        "plan_sha256": "066bb04eb66c9e3c383fd4138aafa337ef5f99c069d83db63fd5d4b9dbbf8b02",
+        "summary_sha256": "fd028cfbff399adeaa76910ba60a14ad0080721ae44bdf4ad0eb22067d7086f1",
+        "software_manifest_content_sha256": "839996614a8fe58566f4f027e006b07715ace2936f5be224be41aab63134fc45"
+      }
+    }
+  },
+  "english_evaluation": {
+    "unchanged_model": {
+      "counts": {
+        "selected": 24,
+        "started": 24,
+        "received": 24,
+        "complete_answers": 24,
+        "incomplete_answers": 0,
+        "errors": 0,
+        "unresolved": 0,
+        "not_started": 0,
+        "missing_results": 0,
+        "missing_usage": 0
+      },
+      "tokens": {
+        "input": 8252,
+        "output": 35095
+      },
+      "partial": false,
+      "journal_has_incomplete_tail": false,
+      "latency_seconds": {
+        "returned_responses": 24,
+        "median": 21.813200000000002,
+        "mean": 20.843625,
+        "minimum": 5.8411,
+        "maximum": 36.7085
+      },
+      "request_deadline_seconds": [
+        240
+      ],
+      "cost": {
+        "known_token_estimate_usd": 0.17967584,
+        "journal_accounted_or_reserved_usd": 0.17967584,
+        "uncertain_accounted_or_reserved_usd": 0.0,
+        "provider_invoice_verified": false
+      },
+      "by_language": {
+        "aramaic": {
+          "selected": 7,
+          "complete_answers": 7,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        },
+        "greek": {
+          "selected": 6,
+          "complete_answers": 6,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        },
+        "hebrew": {
+          "selected": 7,
+          "complete_answers": 7,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        },
+        "mixed": {
+          "selected": 4,
+          "complete_answers": 4,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        }
+      }
+    },
+    "adapted_model": {
+      "counts": {
+        "selected": 24,
+        "started": 24,
+        "received": 24,
+        "complete_answers": 24,
+        "incomplete_answers": 0,
+        "errors": 0,
+        "unresolved": 0,
+        "not_started": 0,
+        "missing_results": 0,
+        "missing_usage": 0
+      },
+      "tokens": {
+        "input": 8252,
+        "output": 23866
+      },
+      "partial": false,
+      "journal_has_incomplete_tail": false,
+      "latency_seconds": {
+        "returned_responses": 24,
+        "median": 59.15885,
+        "mean": 59.691925,
+        "minimum": 14.7302,
+        "maximum": 155.3045
+      },
+      "request_deadline_seconds": [
+        300
+      ],
+      "cost": {
+        "known_token_estimate_usd": 0.12712411999999998,
+        "journal_accounted_or_reserved_usd": 0.12712411999999998,
+        "uncertain_accounted_or_reserved_usd": 0.0,
+        "provider_invoice_verified": false
+      },
+      "by_language": {
+        "aramaic": {
+          "selected": 7,
+          "complete_answers": 7,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        },
+        "greek": {
+          "selected": 6,
+          "complete_answers": 6,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        },
+        "hebrew": {
+          "selected": 7,
+          "complete_answers": 7,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        },
+        "mixed": {
+          "selected": 4,
+          "complete_answers": 4,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        }
+      }
+    }
+  },
+  "provenance": {
+    "frozen_question_dataset_sha256": "a8039aae01f8a65e7d1daa4b3ed243c8fc868c7a3cfc672a97f2a8ffe0e75ade",
+    "baseline": {
+      "events_sha256": "17c2367d78aa5105cb84a6111605565fe08a3dd30cd76bb40de9cd4da6bc87d3",
+      "journal_has_incomplete_tail": false,
+      "dataset_sha256": "a8039aae01f8a65e7d1daa4b3ed243c8fc868c7a3cfc672a97f2a8ffe0e75ade",
+      "manifest_sha256": "09cfcbf711294b5c0eae099fddcfe15d6c6119ee687293b1f3da0cd3514c8a7b"
+    },
+    "adapter_shards": [
+      {
+        "events_sha256": "64db1ce8ed06c9136b95ab02a7018e9bfd3814b5a2c9b33aec9b59a31b9cf3c1",
+        "journal_has_incomplete_tail": false,
+        "dataset_sha256": "21d18d0d894bcbc2722f035f6914ee67fa5f76d0794ac784da64050da7689b01",
+        "manifest_sha256": "0826b1e0f5ff732baf5879ce0d509757cac4b2991591575e8043cbc9cf38436b"
+      },
+      {
+        "events_sha256": "2c77c2c778e4ff5da320b5de0401f5b70da98c2427606c93c52596f4bd35de59",
+        "journal_has_incomplete_tail": false,
+        "dataset_sha256": "8113914014f5c5dbb72e66d0e4502e77a30910fd7f16d1b362ed9bcb58bec9b4",
+        "manifest_sha256": "a14d54b09ec7affcdaaf655939c0d2938ee9631370df05da7fb253c38b2bef3b"
+      },
+      {
+        "events_sha256": "e2e2eba75eb4903f2b4607e3cd863c6e3abb158d9e8f4b5b05de307fd634e722",
+        "journal_has_incomplete_tail": false,
+        "dataset_sha256": "d8d4bf9964c4a3159510cf627a512ece86090a38214402feb83355871009b856",
+        "manifest_sha256": "096d9511a9a6fe5b567ee5a38713a75fb0446a4937daba28c9b1c8de7a902956"
+      }
+    ]
+  },
+  "cost_scope": "Calibration and development training reservations plus the specified baseline and final English evaluations. Earlier model comparisons and calibration retention sampling are excluded.",
+  "selected_scope_estimated_or_reserved_usd": 25.29754756,
+  "limitations": [
+    "Response completion and lower next-token loss do not establish better biblical interpretation or English answers.",
+    "These are diagnostic development questions, not an unbiased final benchmark; base-model pretraining exposure is unknown.",
+    "The frozen NLL validation corpus contains Hebrew and Greek, with no Aramaic chapters. Aramaic is assessed in the English questions.",
+    "Checkpoint charges and provider metering remain unreconciled; local estimates are not a provider-enforced spending cap.",
+    "Latency includes observed request overhead and depends on service load and shard concurrency; request deadlines are reported separately.",
+    "No scholarly accuracy score is computed here. Missing and incomplete results remain explicit."
+  ]
+}

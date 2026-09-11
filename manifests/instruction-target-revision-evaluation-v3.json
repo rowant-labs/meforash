@@ -1,0 +1,1024 @@
+{
+  "schema_version": 3,
+  "status": "frozen_before_training_and_sampling",
+  "dataset": {
+    "path": "evals/instruction-target-revision-v3.jsonl",
+    "sha256": "7a92dd0ab693eb2e79699d6fccbfe8ece8576fcc34ba443ab05dd39fe81c89d9",
+    "cases": 30,
+    "case_ids": [
+      "IH301",
+      "IH302",
+      "IH303",
+      "IH304",
+      "IH305",
+      "IH306",
+      "IH307",
+      "IA301",
+      "IA302",
+      "IA303",
+      "IA304",
+      "IA305",
+      "IA306",
+      "IA307",
+      "IG301",
+      "IG302",
+      "IG303",
+      "IG304",
+      "IG305",
+      "IG306",
+      "IM301",
+      "IM302",
+      "IM303",
+      "IM304",
+      "G301",
+      "G302",
+      "G303",
+      "G304",
+      "G305",
+      "G306"
+    ]
+  },
+  "case_counts": {
+    "hebrew": 7,
+    "aramaic": 7,
+    "greek": 6,
+    "application": 4,
+    "general_english": 6,
+    "bible": 24,
+    "total": 30
+  },
+  "scope": "New concealed evaluation for a potential English-target revision; no training or sampling authorized by this freeze.",
+  "review": {
+    "type": "ai_source_checked_not_expert_certified",
+    "expert_certified": false,
+    "authored_by_training_target_reviser": false,
+    "contents_concealed_from_training_revision_authors_until_revised_data_freeze": true,
+    "candidate_answers_used_for_new_criteria": false,
+    "previous_development_findings_known": true,
+    "method": "Pinned source words, occurrence annotations and documented lexical alternatives checked before any new outputs. Multiple genres, agents, conditions, voices and application intents are represented; no pass/fail biblical exact-answer score.",
+    "source_audit_sha256": "9926325675ff5c93de481877dfc26f567f039537c364ec7d115d192bd863e02d",
+    "source_files_verified_against_pinned_git_objects": 18,
+    "separate_post_freeze_criterion_review": "Required before any v3 model calls; newly available reviewers may review after the revised data freeze. Preserve this initial freeze and record any later correction with a new version rather than overwriting it."
+  },
+  "fixed_instruction_dataset": {
+    "preparation_manifest_path": "manifests/preparation-instruction-v1.json",
+    "preparation_manifest_sha256": "b851caf978f50c63ef5f2cba856e74f46ab751090ee47401100fcf9cff8b34cc",
+    "reviewed_dataset_sha256": "2bb0e9d842564267173bf8de1c8481fa03996a960a3719eabb633281c963a567",
+    "train": {
+      "path": "data/prepared/instruction-v1/train.jsonl",
+      "sha256": "984ed342dec4cd3637023d02873b96a5731f3d6cf75877dd24cf3a4cd265866c",
+      "sequences": 104,
+      "processed_tokens": 64154,
+      "loss_tokens": 15554
+    },
+    "validation": {
+      "path": "data/prepared/instruction-v1/validation.jsonl",
+      "sha256": "695f578c1bd8e068d7b5ad1903f9860c8d1c030c176335e0902d18ef3ec33f00",
+      "sequences": 16,
+      "processed_tokens": 10837,
+      "loss_tokens": 2344
+    },
+    "chapter_families": 102,
+    "excluded_from_new_evaluation": [
+      "oshb:1Kgs.8",
+      "oshb:1Sam.16",
+      "oshb:2Kgs.5",
+      "oshb:2Sam.7",
+      "oshb:Amos.5",
+      "oshb:Dan.2",
+      "oshb:Dan.3",
+      "oshb:Dan.4",
+      "oshb:Dan.6",
+      "oshb:Dan.7",
+      "oshb:Deut.30",
+      "oshb:Deut.6",
+      "oshb:Deut.8",
+      "oshb:Eccl.1",
+      "oshb:Exod.12",
+      "oshb:Exod.16",
+      "oshb:Exod.2",
+      "oshb:Exod.3",
+      "oshb:Ezek.36",
+      "oshb:Ezra.4",
+      "oshb:Ezra.5",
+      "oshb:Ezra.6",
+      "oshb:Gen.16",
+      "oshb:Gen.2",
+      "oshb:Gen.22",
+      "oshb:Gen.32",
+      "oshb:Gen.4",
+      "oshb:Gen.45",
+      "oshb:Gen.8",
+      "oshb:Hos.6",
+      "oshb:Isa.40",
+      "oshb:Isa.55",
+      "oshb:Jer.10",
+      "oshb:Jer.31",
+      "oshb:Job.1",
+      "oshb:Job.42",
+      "oshb:Josh.1",
+      "oshb:Judg.6",
+      "oshb:Lev.25",
+      "oshb:Mal.3",
+      "oshb:Num.11",
+      "oshb:Num.14",
+      "oshb:Prov.1",
+      "oshb:Prov.10",
+      "oshb:Prov.15",
+      "oshb:Prov.16",
+      "oshb:Prov.17",
+      "oshb:Prov.18",
+      "oshb:Prov.19",
+      "oshb:Prov.21",
+      "oshb:Ps.23",
+      "oshb:Ps.51",
+      "oshb:Ps.8",
+      "oshb:Ruth.1",
+      "sblgnt:1Cor.10",
+      "sblgnt:1Cor.12",
+      "sblgnt:1Cor.3",
+      "sblgnt:1Pet.5",
+      "sblgnt:1Thess.5",
+      "sblgnt:2Cor.4",
+      "sblgnt:2Cor.5",
+      "sblgnt:2Tim.2",
+      "sblgnt:Acts.10",
+      "sblgnt:Acts.16",
+      "sblgnt:Acts.2",
+      "sblgnt:Acts.20",
+      "sblgnt:Acts.4",
+      "sblgnt:Acts.8",
+      "sblgnt:Col.3",
+      "sblgnt:Eph.2",
+      "sblgnt:Eph.4",
+      "sblgnt:Gal.5",
+      "sblgnt:Gal.6",
+      "sblgnt:Heb.10",
+      "sblgnt:Jas.1",
+      "sblgnt:John.13",
+      "sblgnt:John.15",
+      "sblgnt:John.2",
+      "sblgnt:John.20",
+      "sblgnt:John.4",
+      "sblgnt:John.6",
+      "sblgnt:John.9",
+      "sblgnt:Luke.15",
+      "sblgnt:Luke.18",
+      "sblgnt:Luke.19",
+      "sblgnt:Luke.5",
+      "sblgnt:Luke.6",
+      "sblgnt:Mark.12",
+      "sblgnt:Mark.2",
+      "sblgnt:Mark.4",
+      "sblgnt:Mark.8",
+      "sblgnt:Mark.9",
+      "sblgnt:Matt.4",
+      "sblgnt:Matt.6",
+      "sblgnt:Matt.7",
+      "sblgnt:Matt.9",
+      "sblgnt:Phil.2",
+      "sblgnt:Rev.3",
+      "sblgnt:Rom.14",
+      "sblgnt:Rom.5",
+      "sblgnt:Rom.8",
+      "sblgnt:Titus.3"
+    ],
+    "overlap_with_v3_chapters": [],
+    "metadata_only_inspection": true,
+    "revision_scope": "Existing 120 IDs and source spans with the 104/16 split are preserved. Target revisions and a few training-prompt revisions may be authored without seeing this evaluation; no new source chapters are planned."
+  },
+  "evaluation_chapter_keys": [
+    "oshb:1Kgs.3",
+    "oshb:Dan.5",
+    "oshb:Eccl.7",
+    "oshb:Exod.17",
+    "oshb:Ezra.7",
+    "oshb:Gen.24",
+    "oshb:Isa.1",
+    "oshb:Judg.7",
+    "oshb:Num.9",
+    "oshb:Prov.27",
+    "oshb:Ps.104",
+    "sblgnt:Acts.18",
+    "sblgnt:Acts.9",
+    "sblgnt:John.12",
+    "sblgnt:Luke.7",
+    "sblgnt:Mark.5",
+    "sblgnt:Matt.13",
+    "sblgnt:Phil.1",
+    "sblgnt:Rom.4"
+  ],
+  "old_new_overlap_inventory": {
+    "prior_datasets": [
+      {
+        "path": "evals/comparison-large-v1.jsonl",
+        "sha256": "a8039aae01f8a65e7d1daa4b3ed243c8fc868c7a3cfc672a97f2a8ffe0e75ade",
+        "cases": 24,
+        "source_refs": [
+          "oshb:1Sam.1.12",
+          "oshb:1Sam.1.13",
+          "oshb:1Sam.1.14",
+          "oshb:1Sam.1.15",
+          "oshb:2Kgs.6.21",
+          "oshb:2Kgs.6.22",
+          "oshb:2Kgs.6.23",
+          "oshb:Dan.2.20",
+          "oshb:Dan.3.16",
+          "oshb:Dan.3.17",
+          "oshb:Dan.3.18",
+          "oshb:Dan.6.11",
+          "oshb:Exod.20.13",
+          "oshb:Exod.3.14",
+          "oshb:Ezra.4.21",
+          "oshb:Ezra.6.7",
+          "oshb:Ezra.6.8",
+          "oshb:Gen.1.1",
+          "oshb:Jer.29.11",
+          "oshb:Job.1.1",
+          "oshb:Prov.26.4",
+          "oshb:Prov.26.5",
+          "oshb:Ruth.2.8",
+          "sblgnt:2Thess.3.10",
+          "sblgnt:2Thess.3.11",
+          "sblgnt:2Thess.3.12",
+          "sblgnt:Eph.4.32",
+          "sblgnt:John.1.1",
+          "sblgnt:John.9.1",
+          "sblgnt:Mark.1.1",
+          "sblgnt:Mark.1.4",
+          "sblgnt:Mark.10.45",
+          "sblgnt:Matt.18.21",
+          "sblgnt:Phlm.1.13",
+          "sblgnt:Phlm.1.14"
+        ],
+        "additional_explicit_prose_refs": []
+      },
+      {
+        "path": "evals/comparison-v1.jsonl",
+        "sha256": "b0b89db022cbac79a2d0297c971a2ca6cc58e358f4a585587673a3e0678ef26c",
+        "cases": 16,
+        "source_refs": [
+          "oshb:Dan.2.20",
+          "oshb:Dan.3.16",
+          "oshb:Dan.3.17",
+          "oshb:Dan.3.18",
+          "oshb:Exod.20.13",
+          "oshb:Exod.3.14",
+          "oshb:Gen.1.1",
+          "oshb:Jer.29.11",
+          "oshb:Job.1.1",
+          "oshb:Prov.26.4",
+          "oshb:Prov.26.5",
+          "sblgnt:Eph.4.32",
+          "sblgnt:John.1.1",
+          "sblgnt:John.9.1",
+          "sblgnt:Mark.1.1",
+          "sblgnt:Mark.1.4",
+          "sblgnt:Mark.10.45",
+          "sblgnt:Matt.18.21"
+        ],
+        "additional_explicit_prose_refs": []
+      },
+      {
+        "path": "evals/instruction-calibration-v2.jsonl",
+        "sha256": "9e0e1ff8aab7eb4a553b070b4b7bcdebf0239037c43f2da51caa1116714b2b20",
+        "cases": 30,
+        "source_refs": [
+          "oshb:1Sam.12.20",
+          "oshb:1Sam.12.21",
+          "oshb:1Sam.12.22",
+          "oshb:1Sam.12.23",
+          "oshb:1Sam.12.24",
+          "oshb:1Sam.3.10",
+          "oshb:1Sam.3.9",
+          "oshb:2Kgs.7.3",
+          "oshb:2Kgs.7.4",
+          "oshb:Dan.5.10",
+          "oshb:Dan.5.11",
+          "oshb:Dan.5.13",
+          "oshb:Dan.5.14",
+          "oshb:Dan.5.18",
+          "oshb:Dan.5.19",
+          "oshb:Dan.5.6",
+          "oshb:Dan.5.7",
+          "oshb:Dan.5.8",
+          "oshb:Eccl.4.10",
+          "oshb:Eccl.4.11",
+          "oshb:Eccl.4.12",
+          "oshb:Eccl.4.9",
+          "oshb:Exod.23.4",
+          "oshb:Ezra.7.14",
+          "oshb:Ezra.7.15",
+          "oshb:Ezra.7.16",
+          "oshb:Ezra.7.21",
+          "oshb:Ezra.7.22",
+          "oshb:Ezra.7.23",
+          "oshb:Gen.18.13",
+          "oshb:Gen.18.14",
+          "oshb:Gen.18.15",
+          "oshb:Job.14.7",
+          "oshb:Job.14.8",
+          "oshb:Job.14.9",
+          "oshb:Lev.5.1",
+          "oshb:Ps.121.3",
+          "oshb:Ps.121.4",
+          "sblgnt:2Cor.1.3",
+          "sblgnt:2Cor.1.4",
+          "sblgnt:2Cor.1.5",
+          "sblgnt:2Cor.1.6",
+          "sblgnt:2Cor.1.7",
+          "sblgnt:Acts.27.30",
+          "sblgnt:Acts.27.31",
+          "sblgnt:Acts.27.32",
+          "sblgnt:John.11.21",
+          "sblgnt:John.11.22",
+          "sblgnt:John.11.23",
+          "sblgnt:John.11.24",
+          "sblgnt:John.11.25",
+          "sblgnt:John.11.26",
+          "sblgnt:John.11.27",
+          "sblgnt:Luke.14.10",
+          "sblgnt:Luke.14.11",
+          "sblgnt:Luke.14.7",
+          "sblgnt:Luke.14.8",
+          "sblgnt:Luke.14.9",
+          "sblgnt:Luke.17.14",
+          "sblgnt:Luke.17.15",
+          "sblgnt:Luke.17.16",
+          "sblgnt:Luke.17.17",
+          "sblgnt:Luke.17.18",
+          "sblgnt:Luke.17.19",
+          "sblgnt:Mark.6.37",
+          "sblgnt:Mark.6.38",
+          "sblgnt:Matt.8.8",
+          "sblgnt:Matt.8.9",
+          "sblgnt:Rom.15.4",
+          "sblgnt:Rom.15.5",
+          "sblgnt:Rom.15.6",
+          "sblgnt:Rom.15.7"
+        ],
+        "additional_explicit_prose_refs": []
+      },
+      {
+        "path": "evals/instruction-comparison-v1.jsonl",
+        "sha256": "0d60c1740dcbe000a33fed8d5161af2fb2c9e97cee4d6368cd8865c69f947355",
+        "cases": 24,
+        "source_refs": [
+          "oshb:1Kgs.19.11",
+          "oshb:1Kgs.19.12",
+          "oshb:1Kgs.19.13",
+          "oshb:Dan.5.17",
+          "oshb:Dan.5.22",
+          "oshb:Dan.5.23",
+          "oshb:Dan.5.26",
+          "oshb:Dan.5.27",
+          "oshb:Dan.5.28",
+          "oshb:Dan.5.5",
+          "oshb:Deut.24.14",
+          "oshb:Deut.24.15",
+          "oshb:Eccl.3.1",
+          "oshb:Eccl.3.2",
+          "oshb:Eccl.3.3",
+          "oshb:Ezra.7.12",
+          "oshb:Ezra.7.13",
+          "oshb:Ezra.7.19",
+          "oshb:Ezra.7.20",
+          "oshb:Ezra.7.24",
+          "oshb:Ezra.7.25",
+          "oshb:Isa.6.8",
+          "oshb:Jonah.4.10",
+          "oshb:Jonah.4.11",
+          "oshb:Lev.19.17",
+          "oshb:Lev.19.18",
+          "oshb:Mic.6.6",
+          "oshb:Mic.6.7",
+          "oshb:Mic.6.8",
+          "oshb:Num.6.24",
+          "oshb:Num.6.25",
+          "oshb:Num.6.26",
+          "oshb:Ps.42.1",
+          "oshb:Ps.42.10",
+          "oshb:Ps.42.11",
+          "oshb:Ps.42.12",
+          "oshb:Ps.42.2",
+          "oshb:Ps.42.3",
+          "oshb:Ps.42.4",
+          "oshb:Ps.42.5",
+          "oshb:Ps.42.6",
+          "oshb:Ps.42.7",
+          "oshb:Ps.42.8",
+          "oshb:Ps.42.9",
+          "sblgnt:1Cor.13.4",
+          "sblgnt:1Cor.13.5",
+          "sblgnt:1Cor.13.6",
+          "sblgnt:1Cor.13.7",
+          "sblgnt:Acts.17.24",
+          "sblgnt:Acts.17.25",
+          "sblgnt:Jas.2.15",
+          "sblgnt:Jas.2.16",
+          "sblgnt:Jas.2.17",
+          "sblgnt:Luke.10.36",
+          "sblgnt:Luke.10.37",
+          "sblgnt:Luke.12.13",
+          "sblgnt:Luke.12.14",
+          "sblgnt:Luke.12.15",
+          "sblgnt:Luke.12.16",
+          "sblgnt:Luke.12.17",
+          "sblgnt:Luke.12.18",
+          "sblgnt:Luke.12.19",
+          "sblgnt:Luke.12.20",
+          "sblgnt:Luke.12.21",
+          "sblgnt:Matt.5.23",
+          "sblgnt:Matt.5.24",
+          "sblgnt:Phil.4.10",
+          "sblgnt:Phil.4.11",
+          "sblgnt:Phil.4.12",
+          "sblgnt:Phil.4.13",
+          "sblgnt:Phil.4.14",
+          "sblgnt:Rom.12.1",
+          "sblgnt:Rom.12.2"
+        ],
+        "additional_explicit_prose_refs": []
+      },
+      {
+        "path": "evals/pilot-v1.jsonl",
+        "sha256": "65b89f3c448d966ee7682ebe9e73ace556e8f742fd1920e1352e7c86a4a631e0",
+        "cases": 40,
+        "source_refs": [
+          "oshb:Dan.2.20",
+          "oshb:Dan.2.27",
+          "oshb:Dan.2.30",
+          "oshb:Dan.3.16",
+          "oshb:Dan.3.17",
+          "oshb:Dan.3.18",
+          "oshb:Dan.4.27",
+          "oshb:Dan.7.13",
+          "oshb:Deut.32.8",
+          "oshb:Deut.6.4",
+          "oshb:Exod.20.13",
+          "oshb:Exod.3.14",
+          "oshb:Ezra.4.8",
+          "oshb:Ezra.5.1",
+          "oshb:Ezra.5.11",
+          "oshb:Ezra.5.2",
+          "oshb:Gen.1.1",
+          "oshb:Hab.1.2",
+          "oshb:Hab.3.17",
+          "oshb:Jer.10.11",
+          "oshb:Jer.29.11",
+          "oshb:Job.1.1",
+          "oshb:Prov.26.4",
+          "oshb:Prov.26.5",
+          "oshb:Prov.3.5",
+          "oshb:Ps.13.2",
+          "oshb:Ps.22.17",
+          "oshb:Ps.23.1",
+          "oshb:Ps.25.4",
+          "sblgnt:1Thess.4.13",
+          "sblgnt:2Cor.9.7",
+          "sblgnt:Eph.4.32",
+          "sblgnt:John.1.1",
+          "sblgnt:John.9.1",
+          "sblgnt:Mark.1.1",
+          "sblgnt:Mark.1.4",
+          "sblgnt:Mark.10.45",
+          "sblgnt:Mark.16.9",
+          "sblgnt:Matt.18.21",
+          "sblgnt:Matt.6.11",
+          "sblgnt:Matt.6.25",
+          "sblgnt:Phil.2.6",
+          "sblgnt:Rom.13.1"
+        ],
+        "additional_explicit_prose_refs": [
+          "oshb:Ps.22.16",
+          "sblgnt:Mark.16.10",
+          "sblgnt:Mark.16.11",
+          "sblgnt:Mark.16.12",
+          "sblgnt:Mark.16.13",
+          "sblgnt:Mark.16.14",
+          "sblgnt:Mark.16.15",
+          "sblgnt:Mark.16.16",
+          "sblgnt:Mark.16.17",
+          "sblgnt:Mark.16.18",
+          "sblgnt:Mark.16.19",
+          "sblgnt:Mark.16.20"
+        ]
+      }
+    ],
+    "new_source_refs": [
+      "oshb:1Kgs.3.24",
+      "oshb:1Kgs.3.25",
+      "oshb:1Kgs.3.26",
+      "oshb:1Kgs.3.27",
+      "oshb:Dan.5.1",
+      "oshb:Dan.5.12",
+      "oshb:Dan.5.2",
+      "oshb:Dan.5.20",
+      "oshb:Dan.5.21",
+      "oshb:Dan.5.24",
+      "oshb:Dan.5.25",
+      "oshb:Dan.5.29",
+      "oshb:Dan.5.30",
+      "oshb:Eccl.7.10",
+      "oshb:Eccl.7.8",
+      "oshb:Eccl.7.9",
+      "oshb:Exod.17.11",
+      "oshb:Exod.17.12",
+      "oshb:Ezra.7.17",
+      "oshb:Ezra.7.18",
+      "oshb:Ezra.7.26",
+      "oshb:Gen.24.17",
+      "oshb:Gen.24.18",
+      "oshb:Gen.24.19",
+      "oshb:Gen.24.20",
+      "oshb:Isa.1.16",
+      "oshb:Isa.1.17",
+      "oshb:Judg.7.2",
+      "oshb:Num.9.17",
+      "oshb:Num.9.18",
+      "oshb:Prov.27.5",
+      "oshb:Prov.27.6",
+      "oshb:Ps.104.27",
+      "oshb:Ps.104.28",
+      "oshb:Ps.104.29",
+      "oshb:Ps.104.30",
+      "sblgnt:Acts.18.24",
+      "sblgnt:Acts.18.25",
+      "sblgnt:Acts.18.26",
+      "sblgnt:Acts.18.27",
+      "sblgnt:Acts.18.28",
+      "sblgnt:Acts.9.22",
+      "sblgnt:Acts.9.26",
+      "sblgnt:Acts.9.27",
+      "sblgnt:Acts.9.28",
+      "sblgnt:John.12.3",
+      "sblgnt:John.12.4",
+      "sblgnt:John.12.5",
+      "sblgnt:John.12.6",
+      "sblgnt:Luke.7.40",
+      "sblgnt:Luke.7.41",
+      "sblgnt:Luke.7.42",
+      "sblgnt:Luke.7.43",
+      "sblgnt:Mark.5.25",
+      "sblgnt:Mark.5.26",
+      "sblgnt:Mark.5.27",
+      "sblgnt:Mark.5.28",
+      "sblgnt:Mark.5.29",
+      "sblgnt:Matt.13.44",
+      "sblgnt:Phil.1.3",
+      "sblgnt:Phil.1.4",
+      "sblgnt:Phil.1.5",
+      "sblgnt:Phil.1.6",
+      "sblgnt:Rom.4.4",
+      "sblgnt:Rom.4.5"
+    ],
+    "exact_referenced_or_explicit_prose_verse_overlap": [],
+    "exact_prompt_overlap_count": 0,
+    "prior_evaluation_chapter_overlap": [
+      "oshb:Dan.5",
+      "oshb:Ezra.7"
+    ],
+    "cases_in_previously_evaluated_chapters": [
+      "IA301",
+      "IA302",
+      "IA303",
+      "IA304",
+      "IA305",
+      "IA306",
+      "IA307"
+    ],
+    "limits": [
+      "All seven Aramaic questions use new spans within two previously evaluated chapter families. Their clustered outcomes are not seven independent samples of corpus-wide competence.",
+      "Exact overlap checks cover the five earlier datasets, their source_refs and mechanically recognized explicit chapter:verse references in prose. They do not prove absence of allusions, parallel wording, adjacent context or earlier generated-answer references.",
+      "Hebrew, Greek and application chapter families are disjoint from earlier explicit evaluation chapters and all SFT chapters. Shared themes and unrecognized literary parallels remain possible."
+    ]
+  },
+  "prior_original_text_exposure": {
+    "preparation_manifest_path": "manifests/preparation-inkling-v1.json",
+    "preparation_manifest_sha256": "de9ac547385956ba3c3bfbd45bb4c86661bc4e2a2e1b26ccacda34c5fea00cbd",
+    "prepared_artifact_hashes": {
+      "train": "1917fdbebe5466b8bf9b8ff11e6e6bd842571bd32a864befd9935b15d7f79817",
+      "validation": "25ab80e174d310ad5330751554f16871f86829be0ef6a4d4b62afefb202a6eff"
+    },
+    "v3_chapters_in_completed_raw_text_training_split": [
+      "oshb:1Kgs.3",
+      "oshb:Dan.5",
+      "oshb:Eccl.7",
+      "oshb:Exod.17",
+      "oshb:Ezra.7",
+      "oshb:Gen.24",
+      "oshb:Isa.1",
+      "oshb:Judg.7",
+      "oshb:Num.9",
+      "oshb:Prov.27",
+      "oshb:Ps.104",
+      "sblgnt:Acts.18",
+      "sblgnt:Acts.9",
+      "sblgnt:John.12",
+      "sblgnt:Luke.7",
+      "sblgnt:Mark.5",
+      "sblgnt:Matt.13",
+      "sblgnt:Phil.1",
+      "sblgnt:Rom.4"
+    ],
+    "v3_chapters_in_raw_text_validation_split": [],
+    "interpretation": "New questions are not necessarily unseen source texts. This inventory describes the prepared raw-text split used in the completed pass; base pretraining exposure remains unknown."
+  },
+  "source_verification": {
+    "oshb_revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+    "sblgnt_revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+    "oshb_manifest_sha256": "734a189a35da43e88a3240248aa450612183a30ff3d16b245d95062f1fbc58a7",
+    "sblgnt_manifest_sha256": "901aa2084c29f3ac138f465114aa6888e17745629efc48c5f269d15f1f76e337",
+    "exact_selected_source_files": {
+      "data/raw/oshb/wlc/Gen.xml": {
+        "sha256": "0526e5c9a5fb4d907847645f954ed3d1268fa69decbd872056cedd2668d86449",
+        "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Gen.xml"
+      },
+      "data/raw/oshb/wlc/Exod.xml": {
+        "sha256": "04868367cdacb6ccdc61488e923e20f918172042e6437842a0621f63ac5b847f",
+        "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Exod.xml"
+      },
+      "data/raw/oshb/wlc/Num.xml": {
+        "sha256": "02e4febfcc027d10b3e35e4f091eae67a40d26f37b6254faac6b4af053fe4896",
+        "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Num.xml"
+      },
+      "data/raw/oshb/wlc/Judg.xml": {
+        "sha256": "3b3a909f04041dbd52dc6b7293a96ce75d94db8a90fdeda878943db7b8fac57f",
+        "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Judg.xml"
+      },
+      "data/raw/oshb/wlc/1Kgs.xml": {
+        "sha256": "832ba10f605dce34c4888ee0a795d91edc2b293391d6ae9c36c36c6350761a3e",
+        "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/1Kgs.xml"
+      },
+      "data/raw/oshb/wlc/Isa.xml": {
+        "sha256": "0807678de609bdef284bed5400b94ddab570d101b593c7f59ae1939015572fa2",
+        "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Isa.xml"
+      },
+      "data/raw/oshb/wlc/Ps.xml": {
+        "sha256": "fe55eef316a65fb0f46d833d526ca2fd722e86ff7339f1a39f0c5b7f9062ced2",
+        "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ps.xml"
+      },
+      "data/raw/oshb/wlc/Dan.xml": {
+        "sha256": "bc69d0fa9708dacb11ea6d587509250bf1bcc1b4343eac2d6e97f8b41518fc0d",
+        "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+      },
+      "data/raw/oshb/wlc/Ezra.xml": {
+        "sha256": "fb28ff697d0ee17eba5b4db47fb7261ee1870cea0d5701bfc77c9e28d4138129",
+        "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ezra.xml"
+      },
+      "data/raw/sblgnt/data/sblgnt/text/Matt.txt": {
+        "sha256": "4fa718540cbc6330591b233c99c68bbf52b85afc90016e4188efe5cd9719eeb0",
+        "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Matt.txt"
+      },
+      "data/raw/sblgnt/data/sblgnt/text/Mark.txt": {
+        "sha256": "fe1b5a4c15db71e7e30f33fb67966ca93baffae377085ece0b88f66316729638",
+        "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Mark.txt"
+      },
+      "data/raw/sblgnt/data/sblgnt/text/Luke.txt": {
+        "sha256": "102d65ec7a91271777115d1a605688776adfda6a1188680ccf593e27e3e876d6",
+        "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Luke.txt"
+      },
+      "data/raw/sblgnt/data/sblgnt/text/John.txt": {
+        "sha256": "ada9643154a990ae2725ab847c6cfb576ce2c3bcd4945d47606e8a90c8d065f5",
+        "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/John.txt"
+      },
+      "data/raw/sblgnt/data/sblgnt/text/Acts.txt": {
+        "sha256": "199867a92d9a1ef73abe85986e4489d4799bb187bdd22845f3c168c93cafa9c8",
+        "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Acts.txt"
+      },
+      "data/raw/sblgnt/data/sblgnt/text/Rom.txt": {
+        "sha256": "a919e44983ec633d541ec1084da79cfba1c1aa7f0eac6470c1ac7ec66cf774e8",
+        "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Rom.txt"
+      },
+      "data/raw/oshb/wlc/Prov.xml": {
+        "sha256": "964f99c00239b53b854c4686c99490c8d1ac7664784a30afdfc23781a3abb161",
+        "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Prov.xml"
+      },
+      "data/raw/oshb/wlc/Eccl.xml": {
+        "sha256": "2dfc858d19048f6479eca33b9fe781c2d7e9059e9ae3ab0b37b802d3afec02bb",
+        "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Eccl.xml"
+      },
+      "data/raw/sblgnt/data/sblgnt/text/Phil.txt": {
+        "sha256": "c99e25ea7856fd7a3edb1055716869117c4cba4c15f07567ea22c0269e211b85",
+        "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Phil.txt"
+      }
+    },
+    "morphology_code_key": {
+      "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html",
+      "sha256": "4ef067cd9f2508de19d81aab93bf2d7e24d1687a7664c5168de1411adaf4ee1d"
+    },
+    "morphgnt": {
+      "revision": "aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d",
+      "attribution": "Tauber, J. K., ed. (2017), MorphGNT: SBLGNT Edition, version 6.12; DOI 10.5281/zenodo.376200",
+      "annotation_license": "CC-BY-SA-3.0",
+      "usage": "Private occurrence-level review aid; exact supplied Greek remains pinned SBLGNT.",
+      "files": [
+        {
+          "filename": "61-Mt-morphgnt.txt",
+          "url": "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/61-Mt-morphgnt.txt",
+          "sha256": "95b360228bedd1c2d06655469111d3f028a4ce1d46939d440ed549feee8b73ec"
+        },
+        {
+          "filename": "62-Mk-morphgnt.txt",
+          "url": "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/62-Mk-morphgnt.txt",
+          "sha256": "4a2d2365cfe3e8d6c20b7c130c2c46363fa4459c3a6004992eba0a18231b183e"
+        },
+        {
+          "filename": "63-Lk-morphgnt.txt",
+          "url": "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/63-Lk-morphgnt.txt",
+          "sha256": "a6f10ccf27a905f21ecbec96c3c01f220c39dd37aae118022113a52dfeb7528e"
+        },
+        {
+          "filename": "64-Jn-morphgnt.txt",
+          "url": "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/64-Jn-morphgnt.txt",
+          "sha256": "1b1de3e48e3f3d212ba19c76e5b2f1749833f888f5b52513099ec13cc01b619c"
+        },
+        {
+          "filename": "65-Ac-morphgnt.txt",
+          "url": "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/65-Ac-morphgnt.txt",
+          "sha256": "04349afeba263d667698b37d39465d746530434b455fb6ac2941ec5c59fb85ca"
+        },
+        {
+          "filename": "66-Ro-morphgnt.txt",
+          "url": "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/66-Ro-morphgnt.txt",
+          "sha256": "364b3b57c70e731920c7fa8a61f09ecd53eed858f7f3590596066484d0638cc6"
+        },
+        {
+          "filename": "71-Php-morphgnt.txt",
+          "url": "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/71-Php-morphgnt.txt",
+          "sha256": "6e6133fba46c164c16264c4d9563b30d5634effba5792419f8ed5d5ec08961a4"
+        },
+        {
+          "filename": "README.md",
+          "url": "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/README.md",
+          "sha256": "043bb6c0d654e85fa8a8db19e177ee035623e23b7ff1556e5431ad95184d5830"
+        }
+      ]
+    },
+    "additional_lexical_review_sources": [
+      {
+        "url": "https://biblehub.com/hebrew/2541.htm",
+        "used_section": "BDB lexical entry, reproduced primary lexicography",
+        "basis": "Active versus passive interpretation of a rare Hebrew lexical form; no modern translation copied."
+      },
+      {
+        "url": "https://classic.net.bible.org/verse.php?book=Isa&chapter=1&tab=commentaries&theme=false&verse=17",
+        "used_section": "Primary translator note",
+        "basis": "Explicitly disclosed revocalization; brief original paraphrase only."
+      },
+      {
+        "url": "https://biblehub.com/hebrew/8332.htm",
+        "used_section": "BDB lexical entry, reproduced primary lexicography",
+        "basis": "Rare Aramaic noun and written/read forms; brief original paraphrase only."
+      }
+    ],
+    "source_licenses": "Underlying WLC text is public domain according to upstream; OSHB morphology and SBLGNT are CC-BY-4.0. Existing source manifests and license notices preserve attribution. MorphGNT annotations have separate CC-BY-SA-3.0 rights and remain private review aids.",
+    "annotation_limit": "Known disagreement or uncertainty in occurrence annotations is explicitly disclosed. Named grammatical traditions may classify some forms differently; score the requested grammatical relation fairly, not annotation mimicry."
+  },
+  "input_and_objective_fixture_checks": {
+    "all_30_load_in_current_evaluation_schema": true,
+    "input_ceiling": 6000,
+    "maximum_conservative_input_proxy": 2639,
+    "by_case": [
+      {
+        "case_id": "IH301",
+        "message_utf8_bytes": 1772,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 2284
+      },
+      {
+        "case_id": "IH302",
+        "message_utf8_bytes": 1563,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 2075
+      },
+      {
+        "case_id": "IH303",
+        "message_utf8_bytes": 1540,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 2052
+      },
+      {
+        "case_id": "IH304",
+        "message_utf8_bytes": 1246,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 1758
+      },
+      {
+        "case_id": "IH305",
+        "message_utf8_bytes": 2104,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 2616
+      },
+      {
+        "case_id": "IH306",
+        "message_utf8_bytes": 1352,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 1864
+      },
+      {
+        "case_id": "IH307",
+        "message_utf8_bytes": 1546,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 2058
+      },
+      {
+        "case_id": "IA301",
+        "message_utf8_bytes": 1610,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 2122
+      },
+      {
+        "case_id": "IA302",
+        "message_utf8_bytes": 1455,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 1967
+      },
+      {
+        "case_id": "IA303",
+        "message_utf8_bytes": 1726,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 2238
+      },
+      {
+        "case_id": "IA304",
+        "message_utf8_bytes": 1340,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 1852
+      },
+      {
+        "case_id": "IA305",
+        "message_utf8_bytes": 1453,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 1965
+      },
+      {
+        "case_id": "IA306",
+        "message_utf8_bytes": 1572,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 2084
+      },
+      {
+        "case_id": "IA307",
+        "message_utf8_bytes": 1344,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 1856
+      },
+      {
+        "case_id": "IG301",
+        "message_utf8_bytes": 1256,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 1768
+      },
+      {
+        "case_id": "IG302",
+        "message_utf8_bytes": 1794,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 2306
+      },
+      {
+        "case_id": "IG303",
+        "message_utf8_bytes": 1748,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 2260
+      },
+      {
+        "case_id": "IG304",
+        "message_utf8_bytes": 1882,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 2394
+      },
+      {
+        "case_id": "IG305",
+        "message_utf8_bytes": 2127,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 2639
+      },
+      {
+        "case_id": "IG306",
+        "message_utf8_bytes": 1324,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 1836
+      },
+      {
+        "case_id": "IM301",
+        "message_utf8_bytes": 868,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 1380
+      },
+      {
+        "case_id": "IM302",
+        "message_utf8_bytes": 792,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 1304
+      },
+      {
+        "case_id": "IM303",
+        "message_utf8_bytes": 798,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 1310
+      },
+      {
+        "case_id": "IM304",
+        "message_utf8_bytes": 813,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 1325
+      },
+      {
+        "case_id": "G301",
+        "message_utf8_bytes": 925,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 1437
+      },
+      {
+        "case_id": "G302",
+        "message_utf8_bytes": 879,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 1391
+      },
+      {
+        "case_id": "G303",
+        "message_utf8_bytes": 963,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 1475
+      },
+      {
+        "case_id": "G304",
+        "message_utf8_bytes": 965,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 1477
+      },
+      {
+        "case_id": "G305",
+        "message_utf8_bytes": 865,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 1377
+      },
+      {
+        "case_id": "G306",
+        "message_utf8_bytes": 942,
+        "reserved_framing_positions": 512,
+        "conservative_input_proxy": 1454
+      }
+    ],
+    "proxy_definition": "UTF-8 bytes of system and user message content plus 512 reserved native framing positions, not a measured tokenizer count.",
+    "general_fixtures": [
+      {
+        "case_id": "G301",
+        "ground_truth_independently_computed": true,
+        "canonical_and_key_order_whitespace_numeric_equivalents_pass": true,
+        "empty_and_non_json_negative_controls_fail": true
+      },
+      {
+        "case_id": "G302",
+        "ground_truth_independently_computed": true,
+        "canonical_and_key_order_whitespace_numeric_equivalents_pass": true,
+        "empty_and_non_json_negative_controls_fail": true
+      },
+      {
+        "case_id": "G303",
+        "ground_truth_independently_computed": true,
+        "canonical_and_key_order_whitespace_numeric_equivalents_pass": true,
+        "empty_and_non_json_negative_controls_fail": true
+      },
+      {
+        "case_id": "G304",
+        "ground_truth_independently_computed": true,
+        "canonical_and_key_order_whitespace_numeric_equivalents_pass": true,
+        "empty_and_non_json_negative_controls_fail": true
+      },
+      {
+        "case_id": "G305",
+        "ground_truth_independently_computed": true,
+        "canonical_and_key_order_whitespace_numeric_equivalents_pass": true,
+        "empty_and_non_json_negative_controls_fail": true
+      },
+      {
+        "case_id": "G306",
+        "ground_truth_independently_computed": true,
+        "canonical_and_key_order_whitespace_numeric_equivalents_pass": true,
+        "empty_and_non_json_negative_controls_fail": true
+      }
+    ],
+    "criteria_and_gold_answers_absent_from_model_payload": true,
+    "semantic_equivalence_policy": "Parsed JSON object-key order and whitespace do not matter; equal numeric representations pass. Categorical tasks explicitly request fixed codes, removing unrequested free-phrase equality traps. Bible semantic judgments remain source review, not literal-field checks.",
+    "automatic_check_limit": "The existing field checker does not prohibit extra keys or duplicate JSON keys; unsolicited fields and structure should be reviewed separately. A passed simple fixture is not a broad capability score."
+  },
+  "freeze_limitations": [
+    "No new model calls, candidate sampling or specialist certification are part of this authoring process.",
+    "The evaluator has prior development knowledge and authored the criteria. It is independent of the target revisers, not an independently replicated panel of scholars.",
+    "Question contents are withheld from revision authors until their revised data are frozen; a file cannot prove what any reviewer knew privately.",
+    "This is a fresh development evaluation, not an untouched final benchmark or evidence of recovery of every original reading.",
+    "Preserve every later output, including partial or malformed states, and distinguish native completion from semantic coverage without inventing missing continuations."
+  ],
+  "frozen_at_utc": "2026-09-06T21:45:01.280607+00:00",
+  "revised_instruction_dataset_freeze": {
+    "path": "runs/instruction-v3-prep/reviewed/all.jsonl",
+    "sha256": "5603342caed02a6b3210d554e131d6b8955fdb17601dff6e7e1a388880de5be2",
+    "cases": 120,
+    "freeze_receipt_path": "runs/instruction-v3-prep/reviewed/freeze.json",
+    "freeze_receipt_sha256": "c642a669b7175afc4fd03e9e72a4939cfb12fd3125126c6fef04799658308280",
+    "contents_disclosed_to_revision_authors_only_after_this_data_freeze": true,
+    "source_spans_and_102_chapter_families_preserved": true
+  }
+}

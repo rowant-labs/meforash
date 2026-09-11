@@ -1,0 +1,2189 @@
+{
+  "schema_version": 3,
+  "status": "audit_complete_revised_dataset_frozen_not_trained",
+  "expert_certified": false,
+  "objective": "Broaden complete supplied-passage translation supervision after v2 requested-content omissions, without claiming old narrow targets were erroneous.",
+  "original_dataset": {
+    "path": "runs/instruction-v1-prep/reviewed/all.jsonl",
+    "sha256": "2bb0e9d842564267173bf8de1c8481fa03996a960a3719eabb633281c963a567"
+  },
+  "revised_dataset": {
+    "path": "runs/instruction-v3-prep/reviewed/all.jsonl",
+    "sha256": "5603342caed02a6b3210d554e131d6b8955fdb17601dff6e7e1a388880de5be2",
+    "examples": 120
+  },
+  "counts": {
+    "audited": 120,
+    "training": 104,
+    "validation": 16,
+    "clear_material_errors_found": 0,
+    "revised_training_examples": 14,
+    "unchanged_training_examples": 90,
+    "unchanged_validation_examples": 16,
+    "new_complete_multiverse_translation_tasks": 10,
+    "new_complete_singleverse_aramaic_tasks": 4
+  },
+  "audit_findings": [
+    "The old targets answered their actual narrow questions adequately; no clear material factual error was found in this AI audit. This is not proof of error-free targets.",
+    "The Hebrew textual subset had no explicit full-supplied-passage translation request.",
+    "The only two explicit complete multiverse translation tasks in the Greek textual subset were both validation examples, IG027 and IG036.",
+    "The Aramaic subset uses only single supplied verses; IA024 already requested a whole verse, while IA004 and IA014 requested selected parts.",
+    "All sixteen application examples are preserved. Their intent-based, Bible-based reflection contract remains unchanged."
+  ],
+  "scope_change": {
+    "changed_training_ids": [
+      "IA004",
+      "IA006",
+      "IA010",
+      "IA020",
+      "IG002",
+      "IG035",
+      "IH004",
+      "IH006",
+      "IH013",
+      "IH021",
+      "IH028",
+      "IH031",
+      "IH037",
+      "IH040"
+    ],
+    "prompt_and_answer_both_changed": true,
+    "source_passages_added": 0,
+    "source_text_changed": false,
+    "chapter_split_changed": false,
+    "reasoning_traces_added": false,
+    "grammar_errors_claimed_corrected": 0
+  },
+  "provenance": {
+    "audit_partitions": [
+      {
+        "path": "runs/instruction-v3-prep/hebrew/audit.json",
+        "sha256": "ab81259d54e1e4de03fe460862a7b1410eb7eb7d6da7ba1fefdd5b4fd5ae1bbe",
+        "cases": 40
+      },
+      {
+        "path": "runs/instruction-v3-prep/aramaic/audit.json",
+        "sha256": "98bfacaa9e2687ba8f5105e36dfb31cb7e6fbd0a87d3f0cb3a3cdebda2220765",
+        "cases": 24
+      },
+      {
+        "path": "runs/instruction-v3-prep/greek-application/audit.json",
+        "sha256": "8d4eb7e059b1682e93aeed99c7fb1a40da8a150f43545fcea634745afc75d007",
+        "cases": 56
+      }
+    ],
+    "review_groups": [
+      {
+        "name": "hebrew",
+        "ids": [
+          "IH004",
+          "IH006",
+          "IH013",
+          "IH021",
+          "IH028",
+          "IH031",
+          "IH037",
+          "IH040"
+        ],
+        "revision_drafts": {
+          "path": "runs/instruction-v3-prep/hebrew/revisions.jsonl",
+          "sha256": "b95b419cf17ccc66f066a5cba1a685b8c0e630b8692484238ea51ae49254bb7d"
+        },
+        "receipt": {
+          "path": "runs/instruction-v3-prep/reviews/hebrew.json",
+          "sha256": "99ae0db179c640dff9e371bbb953bfd28263fbcb0e7743b831b3814e68019be8"
+        }
+      },
+      {
+        "name": "aramaic",
+        "ids": [
+          "IA004",
+          "IA006",
+          "IA010",
+          "IA020"
+        ],
+        "revision_drafts": {
+          "path": "runs/instruction-v3-prep/aramaic/revisions.jsonl",
+          "sha256": "64efdf4c1ebf1843bdffc97e08593af66e795fbdb62123ffb6985b8b568144c6"
+        },
+        "receipt": {
+          "path": "runs/instruction-v3-prep/reviews/aramaic.json",
+          "sha256": "b5c7c90fbdea74e12c04393221ee7810ae999bbb87cfdc21e0c367947791ebba"
+        }
+      },
+      {
+        "name": "greek",
+        "ids": [
+          "IG002",
+          "IG035"
+        ],
+        "revision_drafts": {
+          "path": "runs/instruction-v3-prep/greek-application/revisions.jsonl",
+          "sha256": "73127b251f1ac596056d73938d2d16ebed83e4484d96cb608ea4cf0da6cd4db1"
+        },
+        "receipt": {
+          "path": "runs/instruction-v3-prep/reviews/greek.json",
+          "sha256": "3f7d3536da26907474990396db3be91939dab7bbb4518beb541069c9db08e23d"
+        }
+      }
+    ],
+    "dataset_freeze": {
+      "path": "runs/instruction-v3-prep/reviewed/freeze.json",
+      "sha256": "c642a669b7175afc4fd03e9e72a4939cfb12fd3125126c6fef04799658308280"
+    },
+    "dataset_integration": {
+      "path": "runs/instruction-v3-prep/reviews/dataset-integration.json",
+      "sha256": "8b92bb32aa030d6d9e0859fb1a5afacd6f8a6ffea5abd69d21d77364ab1df622"
+    }
+  },
+  "cases": [
+    {
+      "id": "IA001",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Dan.2.21",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+        }
+      ],
+      "old_content_sha256": "ae91f2b609decc051e43268f56638ebe548be971bea13e0ad9d37f0547b1336d",
+      "revised_content_sha256": "ae91f2b609decc051e43268f56638ebe548be971bea13e0ad9d37f0547b1336d",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IA002",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Dan.2.22",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+        }
+      ],
+      "old_content_sha256": "50b997699ff11032d51633bf0cda38069496927fcdb346fcc6b4e59e34c539be",
+      "revised_content_sha256": "50b997699ff11032d51633bf0cda38069496927fcdb346fcc6b4e59e34c539be",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IA003",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Dan.2.23",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+        }
+      ],
+      "old_content_sha256": "cb44f08aad12f2ddba69884056cc03f906053628b78813ed6960c010834e39e0",
+      "revised_content_sha256": "cb44f08aad12f2ddba69884056cc03f906053628b78813ed6960c010834e39e0",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IA004",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Dan.3.24",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+        }
+      ],
+      "old_content_sha256": "a7dd7c55c3df338a7a89d0b54f125f72dd58bada980f8b5770f8b07f282ff185",
+      "revised_content_sha256": "4fa983bd5456f1df15755451fd2f302518610a837b4e82e4d1333f48dd4dbc4f",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "expand_prompt_and_target_to_complete_supplied_passage_translation_plus_existing_explanation"
+    },
+    {
+      "id": "IA005",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Dan.3.25",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+        }
+      ],
+      "old_content_sha256": "6c7885d368524d6ef1534cd40c081b5b6835e3146482aaf4a3e99cfdea2f51b8",
+      "revised_content_sha256": "6c7885d368524d6ef1534cd40c081b5b6835e3146482aaf4a3e99cfdea2f51b8",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IA006",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Dan.3.26",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+        }
+      ],
+      "old_content_sha256": "fe91adaadcfa96f00b0b57c2530ac6d2c3c7985f775907d39b4a18ca2331f1c9",
+      "revised_content_sha256": "6cc2e7c6f57d342b81514fe9498b2c601883b6323f67ea1fb3ef4e33b99301ff",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "expand_prompt_and_target_to_complete_supplied_passage_translation_plus_existing_explanation"
+    },
+    {
+      "id": "IA007",
+      "split": "validation",
+      "source_refs": [
+        {
+          "passage": "Dan.4.31",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+        }
+      ],
+      "old_content_sha256": "c62260db00b117defa5dbfb9cdba50bcbd8c224cd1d83585bf7900559e8d525f",
+      "revised_content_sha256": "c62260db00b117defa5dbfb9cdba50bcbd8c224cd1d83585bf7900559e8d525f",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IA008",
+      "split": "validation",
+      "source_refs": [
+        {
+          "passage": "Dan.4.32",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+        }
+      ],
+      "old_content_sha256": "6e0d88746369577afbcb6c0022b7e8246f870edbbbfe0a5e40f056de14d18227",
+      "revised_content_sha256": "6e0d88746369577afbcb6c0022b7e8246f870edbbbfe0a5e40f056de14d18227",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IA009",
+      "split": "validation",
+      "source_refs": [
+        {
+          "passage": "Dan.4.34",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+        }
+      ],
+      "old_content_sha256": "3ebea340cdabb5e656d8134084cd03f1dc8f4343d13f638a69417038b52b066a",
+      "revised_content_sha256": "3ebea340cdabb5e656d8134084cd03f1dc8f4343d13f638a69417038b52b066a",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IA010",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Dan.6.23",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+        }
+      ],
+      "old_content_sha256": "033c648f8c3ee28b03ba37cbf5dcdb094cbf3713f42e0a88742941e02eb797d5",
+      "revised_content_sha256": "6397566d916c71967c9a79d2438614f99ffa2b3a904b91410585117f2bf26777",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "expand_prompt_and_target_to_complete_supplied_passage_translation_plus_existing_explanation"
+    },
+    {
+      "id": "IA011",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Dan.6.24",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+        }
+      ],
+      "old_content_sha256": "417da6d2d76dd6f26278853b3327ce8762f8d39ea1d837de8c5a7464a58f5a49",
+      "revised_content_sha256": "417da6d2d76dd6f26278853b3327ce8762f8d39ea1d837de8c5a7464a58f5a49",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IA012",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Dan.6.27",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+        }
+      ],
+      "old_content_sha256": "2fe92630fd72f5f63f4bb40fc43ef84480f69c9c1fc7504e840606775ea15aa1",
+      "revised_content_sha256": "2fe92630fd72f5f63f4bb40fc43ef84480f69c9c1fc7504e840606775ea15aa1",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IA013",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Dan.7.13",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+        }
+      ],
+      "old_content_sha256": "8e14963d27eb5003928cbfbccaab267a86a9601607e022005915aaefb57c0064",
+      "revised_content_sha256": "8e14963d27eb5003928cbfbccaab267a86a9601607e022005915aaefb57c0064",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IA014",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Dan.7.14",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+        }
+      ],
+      "old_content_sha256": "2f826074a79e6ba9a0f90948e70dec96b15b06463c626177b0aaa2af18a27dbc",
+      "revised_content_sha256": "2f826074a79e6ba9a0f90948e70dec96b15b06463c626177b0aaa2af18a27dbc",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IA015",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Dan.7.28",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+        }
+      ],
+      "old_content_sha256": "34d77583334d5c32f2f7962b71808f9cbe6dff6b57f18ddbfdeaa46631cde09d",
+      "revised_content_sha256": "34d77583334d5c32f2f7962b71808f9cbe6dff6b57f18ddbfdeaa46631cde09d",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IA016",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Ezra.4.12",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ezra.xml"
+        }
+      ],
+      "old_content_sha256": "2e01202b45d808a579da90790d247fe358aacceee197648503db851093f0df68",
+      "revised_content_sha256": "2e01202b45d808a579da90790d247fe358aacceee197648503db851093f0df68",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IA017",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Ezra.4.13",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ezra.xml"
+        }
+      ],
+      "old_content_sha256": "c0d0fedc2cb3a21cf8d969fe27e923baade122150ed19dfbf24bda5cf1511b09",
+      "revised_content_sha256": "c0d0fedc2cb3a21cf8d969fe27e923baade122150ed19dfbf24bda5cf1511b09",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IA018",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Ezra.4.16",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ezra.xml"
+        }
+      ],
+      "old_content_sha256": "4bfa26d240c812ea016aea1c44ae88aa48e2733db98d799bc65ef329e77e4510",
+      "revised_content_sha256": "4bfa26d240c812ea016aea1c44ae88aa48e2733db98d799bc65ef329e77e4510",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IA019",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Ezra.5.5",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ezra.xml"
+        }
+      ],
+      "old_content_sha256": "1f7e669dcf7c62f3bea3888a65f383a5128e13c12c6f7d836b3450b1879879e5",
+      "revised_content_sha256": "1f7e669dcf7c62f3bea3888a65f383a5128e13c12c6f7d836b3450b1879879e5",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IA020",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Ezra.5.9",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ezra.xml"
+        }
+      ],
+      "old_content_sha256": "dbe882ffc566ed03c975357fe43e3ac69f58ea0f3ff33698c40df50cee86de51",
+      "revised_content_sha256": "90e24892939854ba650a47f05674e5bc8017afd49d3856352e926af86453dbbc",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "expand_prompt_and_target_to_complete_supplied_passage_translation_plus_existing_explanation"
+    },
+    {
+      "id": "IA021",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Ezra.5.11",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ezra.xml"
+        }
+      ],
+      "old_content_sha256": "d0f939554d83459097cee59f51bdef5b659431484efb3a327815a61121d287de",
+      "revised_content_sha256": "d0f939554d83459097cee59f51bdef5b659431484efb3a327815a61121d287de",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IA022",
+      "split": "validation",
+      "source_refs": [
+        {
+          "passage": "Ezra.6.3",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ezra.xml"
+        }
+      ],
+      "old_content_sha256": "0a45ab8f2138d149550557ec4618b7bc9869f0cac20ceecfa374959f25cd9c6c",
+      "revised_content_sha256": "0a45ab8f2138d149550557ec4618b7bc9869f0cac20ceecfa374959f25cd9c6c",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IA023",
+      "split": "validation",
+      "source_refs": [
+        {
+          "passage": "Ezra.6.5",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ezra.xml"
+        }
+      ],
+      "old_content_sha256": "e4e9de7efebd1e27a67bf5aff5dd8a9e94b51bf248112446cd276e5d34f7774c",
+      "revised_content_sha256": "e4e9de7efebd1e27a67bf5aff5dd8a9e94b51bf248112446cd276e5d34f7774c",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IA024",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Jer.10.11",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Jer.xml"
+        }
+      ],
+      "old_content_sha256": "bb643aa4c4edc7e653559fb609a8d32c93ce8f15e76d290ecca8ad2fb93e4d2f",
+      "revised_content_sha256": "bb643aa4c4edc7e653559fb609a8d32c93ce8f15e76d290ecca8ad2fb93e4d2f",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG001",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Matt.4.19-20",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Matt.txt"
+        }
+      ],
+      "old_content_sha256": "a5e919c0b12e64431188380faa3ccf96058d1138290f50549b8e346093cc815b",
+      "revised_content_sha256": "a5e919c0b12e64431188380faa3ccf96058d1138290f50549b8e346093cc815b",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG002",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Matt.7.1-2",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Matt.txt"
+        }
+      ],
+      "old_content_sha256": "9790f2786a1e3cc72ba4d47a879a181b6146c45e9fa04f17aada3f0d6bb7dea3",
+      "revised_content_sha256": "0b62ba7a2fc73a727a11b5fe9268883784309cf3d5787d262e8a113a0626ac3c",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "expand_prompt_and_target_to_complete_supplied_passage_translation_plus_existing_explanation"
+    },
+    {
+      "id": "IG003",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Matt.9.12-13",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Matt.txt"
+        }
+      ],
+      "old_content_sha256": "356814d6f35fd9ad0967e5d89a9f824df6be4d6d1c894490716c3e331be60e7e",
+      "revised_content_sha256": "356814d6f35fd9ad0967e5d89a9f824df6be4d6d1c894490716c3e331be60e7e",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG004",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Mark.2.27-28",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Mark.txt"
+        }
+      ],
+      "old_content_sha256": "05c1b2ce40953636eaf107121c2f1f062f743f0b00b845a5a711f31537c8e5cb",
+      "revised_content_sha256": "05c1b2ce40953636eaf107121c2f1f062f743f0b00b845a5a711f31537c8e5cb",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG005",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Mark.4.26-27",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Mark.txt"
+        }
+      ],
+      "old_content_sha256": "10df2f79c53fbce80e4a69fa5485cb9b1e07a6badee3154b9ab855b3b60616d9",
+      "revised_content_sha256": "10df2f79c53fbce80e4a69fa5485cb9b1e07a6badee3154b9ab855b3b60616d9",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG006",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Mark.8.34-35",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Mark.txt"
+        }
+      ],
+      "old_content_sha256": "9fe61a0594134e3b1d75ff6f8c336a74decac5ef4c2777d5dfa088dd51221f1c",
+      "revised_content_sha256": "9fe61a0594134e3b1d75ff6f8c336a74decac5ef4c2777d5dfa088dd51221f1c",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG007",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Mark.9.24",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Mark.txt"
+        }
+      ],
+      "old_content_sha256": "15410a78c73d9ff41ff4758a03904df57bdefd34f9fe9bb43643e7af70269a21",
+      "revised_content_sha256": "15410a78c73d9ff41ff4758a03904df57bdefd34f9fe9bb43643e7af70269a21",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG008",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Mark.12.28-30",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Mark.txt"
+        }
+      ],
+      "old_content_sha256": "7022ce8da2e3fe3e974ffd4f0deab61a03f25669ae52d94cd37f4e6bfe336011",
+      "revised_content_sha256": "7022ce8da2e3fe3e974ffd4f0deab61a03f25669ae52d94cd37f4e6bfe336011",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG009",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Luke.5.31-32",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Luke.txt"
+        }
+      ],
+      "old_content_sha256": "3eb6d6b87756774d0439183a6e8c4c2377dba661920dea9e68f72ddf0bbd91c1",
+      "revised_content_sha256": "3eb6d6b87756774d0439183a6e8c4c2377dba661920dea9e68f72ddf0bbd91c1",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG010",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Luke.15.20-21",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Luke.txt"
+        }
+      ],
+      "old_content_sha256": "1fb9cda5d5e9f58b3034dd395bcc4f31d50cd1587378145a3ed3675a8a40a98e",
+      "revised_content_sha256": "1fb9cda5d5e9f58b3034dd395bcc4f31d50cd1587378145a3ed3675a8a40a98e",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG011",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Luke.18.13-14",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Luke.txt"
+        }
+      ],
+      "old_content_sha256": "a0ae2fefe9fad3520536bebd18fd928b2917caccacdf56791c7e05d030dd9aaf",
+      "revised_content_sha256": "a0ae2fefe9fad3520536bebd18fd928b2917caccacdf56791c7e05d030dd9aaf",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG012",
+      "split": "validation",
+      "source_refs": [
+        {
+          "passage": "Luke.19.8-9",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Luke.txt"
+        }
+      ],
+      "old_content_sha256": "6037fcdcdbe076e83e46400cb8bbf7de9210c9dca464a0763ea16093f071cd9d",
+      "revised_content_sha256": "6037fcdcdbe076e83e46400cb8bbf7de9210c9dca464a0763ea16093f071cd9d",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG013",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "John.2.19-21",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/John.txt"
+        }
+      ],
+      "old_content_sha256": "97cccd2d4bbb177af8762d57eb57a3b2f2195a64d5f4b9ba78608dc719357fab",
+      "revised_content_sha256": "97cccd2d4bbb177af8762d57eb57a3b2f2195a64d5f4b9ba78608dc719357fab",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG014",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "John.4.13-14",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/John.txt"
+        }
+      ],
+      "old_content_sha256": "2232dcc4c27c32238a1051a0d9ca917ed8c9137abbfef8d89eefa2302bc36f33",
+      "revised_content_sha256": "2232dcc4c27c32238a1051a0d9ca917ed8c9137abbfef8d89eefa2302bc36f33",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG015",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "John.6.37-40",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/John.txt"
+        }
+      ],
+      "old_content_sha256": "5d2afd3f7355faaebca1ad1b509e87071d80431a4dff9790950152fbfa4dfb7b",
+      "revised_content_sha256": "5d2afd3f7355faaebca1ad1b509e87071d80431a4dff9790950152fbfa4dfb7b",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG016",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "John.9.1-3",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/John.txt"
+        }
+      ],
+      "old_content_sha256": "0d763592897ab709b3d57ddf7be9b5b454e7484a78bda3dd9f079951a72498c7",
+      "revised_content_sha256": "0d763592897ab709b3d57ddf7be9b5b454e7484a78bda3dd9f079951a72498c7",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG017",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "John.13.14-15",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/John.txt"
+        }
+      ],
+      "old_content_sha256": "77ae0a6122aaf5b891b79613dc22683f8b69daf1e30b65d4178693f43621f4e4",
+      "revised_content_sha256": "77ae0a6122aaf5b891b79613dc22683f8b69daf1e30b65d4178693f43621f4e4",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG018",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "John.15.4-5",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/John.txt"
+        }
+      ],
+      "old_content_sha256": "b37a2db23f12483871cf8a26c19f5b0338cd526a9624d4791ce67f893421e86a",
+      "revised_content_sha256": "b37a2db23f12483871cf8a26c19f5b0338cd526a9624d4791ce67f893421e86a",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG019",
+      "split": "validation",
+      "source_refs": [
+        {
+          "passage": "John.20.30-31",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/John.txt"
+        }
+      ],
+      "old_content_sha256": "4faa39497e0cabe3db9f145926d973f897a742382c00712d112dea5a11bedaff",
+      "revised_content_sha256": "4faa39497e0cabe3db9f145926d973f897a742382c00712d112dea5a11bedaff",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG020",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Acts.2.6-8",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Acts.txt"
+        }
+      ],
+      "old_content_sha256": "6b626e622e8d542be8185f83d16cae5eb02e92566b9aa5fe3fb99394427c6611",
+      "revised_content_sha256": "6b626e622e8d542be8185f83d16cae5eb02e92566b9aa5fe3fb99394427c6611",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG021",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Acts.4.19-20",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Acts.txt"
+        }
+      ],
+      "old_content_sha256": "e030f95f9c4da30fe00e10b0cbe509ead1d7881ab41a2690ad7a0ccdf193f923",
+      "revised_content_sha256": "e030f95f9c4da30fe00e10b0cbe509ead1d7881ab41a2690ad7a0ccdf193f923",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG022",
+      "split": "validation",
+      "source_refs": [
+        {
+          "passage": "Acts.8.30-31",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Acts.txt"
+        }
+      ],
+      "old_content_sha256": "70e03e646460ffae313e2156fb3e9ad782b40bb6db1552a40bb51216fdfe71e6",
+      "revised_content_sha256": "70e03e646460ffae313e2156fb3e9ad782b40bb6db1552a40bb51216fdfe71e6",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG023",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Acts.10.34-35",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Acts.txt"
+        }
+      ],
+      "old_content_sha256": "fe3323d92c755a0e8db6e9d06c1b590d0477207ae8c388481a5a050ccd971a02",
+      "revised_content_sha256": "fe3323d92c755a0e8db6e9d06c1b590d0477207ae8c388481a5a050ccd971a02",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG024",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Acts.16.30-32",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Acts.txt"
+        }
+      ],
+      "old_content_sha256": "22fd9602844edc9d6079e04569b1b1c31f54b7283dfd30411a0355851c4a26bd",
+      "revised_content_sha256": "22fd9602844edc9d6079e04569b1b1c31f54b7283dfd30411a0355851c4a26bd",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG025",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Acts.20.35",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Acts.txt"
+        }
+      ],
+      "old_content_sha256": "fbfbd75746af4e534cf24a43c11a1713c72fc5594da39695f3529a297d1416dc",
+      "revised_content_sha256": "fbfbd75746af4e534cf24a43c11a1713c72fc5594da39695f3529a297d1416dc",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG026",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Rom.5.1",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Rom.txt"
+        }
+      ],
+      "old_content_sha256": "dd7cff4829b10ef857555235221390b63cff297482f4584b3322ac604889688a",
+      "revised_content_sha256": "dd7cff4829b10ef857555235221390b63cff297482f4584b3322ac604889688a",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG027",
+      "split": "validation",
+      "source_refs": [
+        {
+          "passage": "Rom.8.1-2",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Rom.txt"
+        }
+      ],
+      "old_content_sha256": "f538efd6b43c9a99530004e58bde5730b7cd9b0c4c4672f5251880d2d96105fd",
+      "revised_content_sha256": "f538efd6b43c9a99530004e58bde5730b7cd9b0c4c4672f5251880d2d96105fd",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG028",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "1Cor.3.6-7",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/1Cor.txt"
+        }
+      ],
+      "old_content_sha256": "b29c6c7a55cc6f0385e29c855d0b79d6d754868fe0ec05bee01f6d4eceda6a5c",
+      "revised_content_sha256": "b29c6c7a55cc6f0385e29c855d0b79d6d754868fe0ec05bee01f6d4eceda6a5c",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG029",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "1Cor.10.23-24",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/1Cor.txt"
+        }
+      ],
+      "old_content_sha256": "268e5953850dd8700a156b1b7d8a933a5f62595799c94311ce2e2fdcf30b666c",
+      "revised_content_sha256": "268e5953850dd8700a156b1b7d8a933a5f62595799c94311ce2e2fdcf30b666c",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG030",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "2Cor.4.16-18",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/2Cor.txt"
+        }
+      ],
+      "old_content_sha256": "25d9bb498e273ba61c25b700417f7f4b2aaddb19dd6294659ffa00e4b2e20c87",
+      "revised_content_sha256": "25d9bb498e273ba61c25b700417f7f4b2aaddb19dd6294659ffa00e4b2e20c87",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG031",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "2Cor.5.17-18",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/2Cor.txt"
+        }
+      ],
+      "old_content_sha256": "534d0bc443d492ac53cf829d62ffa10d2b948a79a8cec1358c47b44c4ef56445",
+      "revised_content_sha256": "534d0bc443d492ac53cf829d62ffa10d2b948a79a8cec1358c47b44c4ef56445",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG032",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Gal.5.13",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Gal.txt"
+        }
+      ],
+      "old_content_sha256": "69dc1e049fd4bea4f9eefb9da60a5e30aa26618f033f05363863f6e2793e439b",
+      "revised_content_sha256": "69dc1e049fd4bea4f9eefb9da60a5e30aa26618f033f05363863f6e2793e439b",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG033",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Eph.2.8-10",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Eph.txt"
+        }
+      ],
+      "old_content_sha256": "5ae76c99d77cc771b8786c5e29fe8a06d41a69750b65121544fb5d0038adb819",
+      "revised_content_sha256": "5ae76c99d77cc771b8786c5e29fe8a06d41a69750b65121544fb5d0038adb819",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG034",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Phil.2.12-13",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Phil.txt"
+        }
+      ],
+      "old_content_sha256": "18a104524b47c5c5bb16dff4be5631de7b0b8f972cfe4bc91b2fedec6f2201a3",
+      "revised_content_sha256": "18a104524b47c5c5bb16dff4be5631de7b0b8f972cfe4bc91b2fedec6f2201a3",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG035",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Col.3.12-13",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Col.txt"
+        }
+      ],
+      "old_content_sha256": "553ffc3c33e2efc3eaa8d9e2e5734ab65de8d3d0581efa56cc9ca05db20f4fa4",
+      "revised_content_sha256": "7cebb4be08dd8a5130f7bb7afd71bdee37e36f6f00853e8062967d0e41eb9e5f",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "expand_prompt_and_target_to_complete_supplied_passage_translation_plus_existing_explanation"
+    },
+    {
+      "id": "IG036",
+      "split": "validation",
+      "source_refs": [
+        {
+          "passage": "1Thess.5.19-22",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/1Thess.txt"
+        }
+      ],
+      "old_content_sha256": "654921f3d40bc13b0849c7c91d465fd769353e627ee77893825cc1592c250afa",
+      "revised_content_sha256": "654921f3d40bc13b0849c7c91d465fd769353e627ee77893825cc1592c250afa",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG037",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "2Tim.2.24-25",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/2Tim.txt"
+        }
+      ],
+      "old_content_sha256": "277e3d0d61a7d941bcf16b097818fe8d3d044197162b144c1b3d3529dba132e9",
+      "revised_content_sha256": "277e3d0d61a7d941bcf16b097818fe8d3d044197162b144c1b3d3529dba132e9",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG038",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Titus.3.5",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Titus.txt"
+        }
+      ],
+      "old_content_sha256": "91d6f5cc4db0b9893f3ff7b20be9f11e9dcd5e1282280d75f2e6ce9e9dfd1624",
+      "revised_content_sha256": "91d6f5cc4db0b9893f3ff7b20be9f11e9dcd5e1282280d75f2e6ce9e9dfd1624",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG039",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "1Pet.5.6-7",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/1Pet.txt"
+        }
+      ],
+      "old_content_sha256": "0e9bc7686e7eadac54e95e5251b78bcc5bcb72304b2800fafafcb303779593ae",
+      "revised_content_sha256": "0e9bc7686e7eadac54e95e5251b78bcc5bcb72304b2800fafafcb303779593ae",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IG040",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Rev.3.20",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Rev.txt"
+        }
+      ],
+      "old_content_sha256": "cc942b0f662386ad7f3a32dd6a7458762b31c69634a423401d1114ece57ccca9",
+      "revised_content_sha256": "cc942b0f662386ad7f3a32dd6a7458762b31c69634a423401d1114ece57ccca9",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH001",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Gen.2.7",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Gen.xml"
+        }
+      ],
+      "old_content_sha256": "0898b600d2c9d834884e839c0df7cd792a374d0409e5491610b4085ff69be35d",
+      "revised_content_sha256": "0898b600d2c9d834884e839c0df7cd792a374d0409e5491610b4085ff69be35d",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH002",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Gen.2.18-23",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Gen.xml"
+        }
+      ],
+      "old_content_sha256": "5bbf372684802213b91cd0e2a814d1c1d7477c2bd5dd11cb791e645556a44b1f",
+      "revised_content_sha256": "5bbf372684802213b91cd0e2a814d1c1d7477c2bd5dd11cb791e645556a44b1f",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH003",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Gen.4.6-7",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Gen.xml"
+        }
+      ],
+      "old_content_sha256": "67762acf15a82160609866525850484326e12d28940d4456b712331b3e3d33ad",
+      "revised_content_sha256": "67762acf15a82160609866525850484326e12d28940d4456b712331b3e3d33ad",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH004",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Gen.8.20-22",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Gen.xml"
+        }
+      ],
+      "old_content_sha256": "0e54a19e642f40ac8cca73ec5c4b8906773c2a6421f9f79881cd9a8d2c44af7f",
+      "revised_content_sha256": "cf500ea09906e18bd0def7bb0eb5f39359f0bba9f7a555bd5d6296e32215d688",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "expand_prompt_and_target_to_complete_supplied_passage_translation_plus_existing_explanation"
+    },
+    {
+      "id": "IH005",
+      "split": "validation",
+      "source_refs": [
+        {
+          "passage": "Gen.16.7-14",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Gen.xml"
+        }
+      ],
+      "old_content_sha256": "9f4d909c3984343cbec9d8602a19e4f64fb1cb6a9bc7632b351f07d4ad760b68",
+      "revised_content_sha256": "9f4d909c3984343cbec9d8602a19e4f64fb1cb6a9bc7632b351f07d4ad760b68",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH006",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Gen.22.11-12",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Gen.xml"
+        }
+      ],
+      "old_content_sha256": "5d2bf960e68dafb1c74fda52a085df0df37aa8615e428a74c6583341512149b5",
+      "revised_content_sha256": "8b0f452d286e010fd44a4fe9d9cc3abe4b7fd96f0e6a1a3952e18880f0252a38",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "expand_prompt_and_target_to_complete_supplied_passage_translation_plus_existing_explanation"
+    },
+    {
+      "id": "IH007",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Gen.32.28-30",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Gen.xml"
+        }
+      ],
+      "old_content_sha256": "41d227b355a7119fa04f8ccb2361eacf04ac0b9dc3791abaa0640097ca285e24",
+      "revised_content_sha256": "41d227b355a7119fa04f8ccb2361eacf04ac0b9dc3791abaa0640097ca285e24",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH008",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Gen.45.4-8",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Gen.xml"
+        }
+      ],
+      "old_content_sha256": "a6df2c249a3a90addfcc34aac4d4f8768a2cfe4faf542b78d8ce20e28d1d43ac",
+      "revised_content_sha256": "a6df2c249a3a90addfcc34aac4d4f8768a2cfe4faf542b78d8ce20e28d1d43ac",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH009",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Exod.2.5-10",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Exod.xml"
+        }
+      ],
+      "old_content_sha256": "0947f8ef3db11aa50d42f1522ba6954a379b786150fb1f88bf67f3dfbd42b163",
+      "revised_content_sha256": "0947f8ef3db11aa50d42f1522ba6954a379b786150fb1f88bf67f3dfbd42b163",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH010",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Exod.3.11-12",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Exod.xml"
+        }
+      ],
+      "old_content_sha256": "9981865373cf0e0b4985b716b07311ad61141c3cc9238f1fe1efa5615a2e17af",
+      "revised_content_sha256": "9981865373cf0e0b4985b716b07311ad61141c3cc9238f1fe1efa5615a2e17af",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH011",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Exod.12.1-3",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Exod.xml"
+        }
+      ],
+      "old_content_sha256": "de209a6300ed6b681fc56619b95d74ecea73aeeef40a57095ff808d9290c8648",
+      "revised_content_sha256": "de209a6300ed6b681fc56619b95d74ecea73aeeef40a57095ff808d9290c8648",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH012",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Exod.16.14-16",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Exod.xml"
+        }
+      ],
+      "old_content_sha256": "1bf50fa61acc3f8c4e3c2d891db5bec5c1046d3849def00e738d6808aceb8641",
+      "revised_content_sha256": "1bf50fa61acc3f8c4e3c2d891db5bec5c1046d3849def00e738d6808aceb8641",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH013",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Lev.25.23-24",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Lev.xml"
+        }
+      ],
+      "old_content_sha256": "a2f0fc5b4ed0caa599f299db9c47053a192395f3e5c0532c37623e92a932f5e0",
+      "revised_content_sha256": "a89a48cb3f1a503eb8d737a9fc4aa89497ad76f453226990124424d3c2cf03ed",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "expand_prompt_and_target_to_complete_supplied_passage_translation_plus_existing_explanation"
+    },
+    {
+      "id": "IH014",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Num.11.27-30",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Num.xml"
+        }
+      ],
+      "old_content_sha256": "e26054782b5154d8f23b519c52b7ffbb27b3882443a6722be91e74ce6f1fffb6",
+      "revised_content_sha256": "e26054782b5154d8f23b519c52b7ffbb27b3882443a6722be91e74ce6f1fffb6",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH015",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Num.14.18-19",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Num.xml"
+        }
+      ],
+      "old_content_sha256": "83bf1c514f25786c1f6fb47cbeb12f48f2721e3f571fb11fc5d137b767e5debf",
+      "revised_content_sha256": "83bf1c514f25786c1f6fb47cbeb12f48f2721e3f571fb11fc5d137b767e5debf",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH016",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Deut.6.4-5",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Deut.xml"
+        }
+      ],
+      "old_content_sha256": "5b91292f1f4631d8a3f398a91e399778ff542072f4c69c0b383eb5463a8fea08",
+      "revised_content_sha256": "5b91292f1f4631d8a3f398a91e399778ff542072f4c69c0b383eb5463a8fea08",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH017",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Deut.8.2-3",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Deut.xml"
+        }
+      ],
+      "old_content_sha256": "8dc69c5f154b5a5fd8203142481b7ce04a02f16610daa98dd3d46ab262bb34f8",
+      "revised_content_sha256": "8dc69c5f154b5a5fd8203142481b7ce04a02f16610daa98dd3d46ab262bb34f8",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH018",
+      "split": "validation",
+      "source_refs": [
+        {
+          "passage": "Deut.30.11-14",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Deut.xml"
+        }
+      ],
+      "old_content_sha256": "d134b89bfbeffdd5585599e519bb91f3e66a4fb6e49b6d2f2b41b089ddf92f2d",
+      "revised_content_sha256": "d134b89bfbeffdd5585599e519bb91f3e66a4fb6e49b6d2f2b41b089ddf92f2d",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH019",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Josh.1.6-9",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Josh.xml"
+        }
+      ],
+      "old_content_sha256": "053008ca344112d6105350082be0d21e1f289ad894d3db6b63168c5511991645",
+      "revised_content_sha256": "053008ca344112d6105350082be0d21e1f289ad894d3db6b63168c5511991645",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH020",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Judg.6.14-16",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Judg.xml"
+        }
+      ],
+      "old_content_sha256": "2527664a5b1342a09d938656cb901848b9ec754c030e76c72a90f4495ed32ba4",
+      "revised_content_sha256": "2527664a5b1342a09d938656cb901848b9ec754c030e76c72a90f4495ed32ba4",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH021",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Ruth.1.15-17",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ruth.xml"
+        }
+      ],
+      "old_content_sha256": "2bcb84c8ba3428565eb207863fc48171df2643498289dff39bf5cf9d8229185a",
+      "revised_content_sha256": "42cde43b4a25fc4dc1042de3974551d69e4b9c3cc9bf2e46ef3943ff4e6fbba4",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "expand_prompt_and_target_to_complete_supplied_passage_translation_plus_existing_explanation"
+    },
+    {
+      "id": "IH022",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "1Sam.16.6-7",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/1Sam.xml"
+        }
+      ],
+      "old_content_sha256": "1507d613b0d4066e73ddcaf8b8f275453f04e5b5f2e33cee9e3b5ebb73a0620e",
+      "revised_content_sha256": "1507d613b0d4066e73ddcaf8b8f275453f04e5b5f2e33cee9e3b5ebb73a0620e",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH023",
+      "split": "validation",
+      "source_refs": [
+        {
+          "passage": "2Sam.7.12-16",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/2Sam.xml"
+        }
+      ],
+      "old_content_sha256": "50a3b1e6103d4397a74b8d44091f696718e0e9221ee60e6f6f81ee3942a26b97",
+      "revised_content_sha256": "50a3b1e6103d4397a74b8d44091f696718e0e9221ee60e6f6f81ee3942a26b97",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH024",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "1Kgs.8.27-30",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/1Kgs.xml"
+        }
+      ],
+      "old_content_sha256": "c43108c140d544c1f54588d82ef4dac82a37f16db9fb34d876c0d0c3b0333e6a",
+      "revised_content_sha256": "c43108c140d544c1f54588d82ef4dac82a37f16db9fb34d876c0d0c3b0333e6a",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH025",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "2Kgs.5.10-14",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/2Kgs.xml"
+        }
+      ],
+      "old_content_sha256": "0b7edb334e7c07b2a24f142cfba574056711cfed27bc77a5b1a9a1416a5d59b9",
+      "revised_content_sha256": "0b7edb334e7c07b2a24f142cfba574056711cfed27bc77a5b1a9a1416a5d59b9",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH026",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Ps.8.4-6",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ps.xml"
+        }
+      ],
+      "old_content_sha256": "b6fa7ea935889ccabcdc887a8f0658d55f62bf4736ffe33b8348f5ae308f42c4",
+      "revised_content_sha256": "b6fa7ea935889ccabcdc887a8f0658d55f62bf4736ffe33b8348f5ae308f42c4",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH027",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Ps.23.1-4",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ps.xml"
+        }
+      ],
+      "old_content_sha256": "3a4cd0619bab0af862da2a42fb71cac8d024e6fa83ee87789df754a62843f0da",
+      "revised_content_sha256": "3a4cd0619bab0af862da2a42fb71cac8d024e6fa83ee87789df754a62843f0da",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH028",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Ps.51.12-14",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ps.xml"
+        }
+      ],
+      "old_content_sha256": "678d3c61c0c72ff311ac36c5b6c688aa1bc485aa9c789b6577533c00703fedc7",
+      "revised_content_sha256": "08ab0fefad3ebbf01f3b8beacf4d47524496580a0beb0de6d472d03995207366",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "expand_prompt_and_target_to_complete_supplied_passage_translation_plus_existing_explanation"
+    },
+    {
+      "id": "IH029",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Prov.1.2-7",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Prov.xml"
+        }
+      ],
+      "old_content_sha256": "c9722414f6cfbfd1232a634a20768ac2b71f570ef289d70922b2cb0990625e5d",
+      "revised_content_sha256": "c9722414f6cfbfd1232a634a20768ac2b71f570ef289d70922b2cb0990625e5d",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH030",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Prov.10.12",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Prov.xml"
+        }
+      ],
+      "old_content_sha256": "da9b693de153f6e4bffdf61ceaab7fcd0ff0fc8418624f24d0ebfa0a64df56b0",
+      "revised_content_sha256": "da9b693de153f6e4bffdf61ceaab7fcd0ff0fc8418624f24d0ebfa0a64df56b0",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH031",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Job.1.20-22",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Job.xml"
+        }
+      ],
+      "old_content_sha256": "477d303f97bd7a8c6ad3f7a0e313726ff747bcdea9c824f43774998fcae3467a",
+      "revised_content_sha256": "55ae05fdc1aa7213868b5d164d1dd9937963d0214f1a6cede06e8e83b57d49cb",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "expand_prompt_and_target_to_complete_supplied_passage_translation_plus_existing_explanation"
+    },
+    {
+      "id": "IH032",
+      "split": "validation",
+      "source_refs": [
+        {
+          "passage": "Job.42.1-6",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Job.xml"
+        }
+      ],
+      "old_content_sha256": "1c1f22f5b1e1b7ca4bcfd4e6700a635f391e56ebec10dd76744e2f87945732e9",
+      "revised_content_sha256": "1c1f22f5b1e1b7ca4bcfd4e6700a635f391e56ebec10dd76744e2f87945732e9",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH033",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Eccl.1.2-4",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Eccl.xml"
+        }
+      ],
+      "old_content_sha256": "f9dabc9b02a4a3713b5cffde615f4d871c62277ddc3f7db78f5addeccf91d565",
+      "revised_content_sha256": "f9dabc9b02a4a3713b5cffde615f4d871c62277ddc3f7db78f5addeccf91d565",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH034",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Isa.40.28-31",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Isa.xml"
+        }
+      ],
+      "old_content_sha256": "c674df66b76a8008d6895576f13d89cca009d14df907f12c2d3732624082149e",
+      "revised_content_sha256": "c674df66b76a8008d6895576f13d89cca009d14df907f12c2d3732624082149e",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH035",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Isa.55.6-9",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Isa.xml"
+        }
+      ],
+      "old_content_sha256": "4847b09fea8fca558b02c5452f0b2a7c86b5c41f753775eaab851afe714d0f13",
+      "revised_content_sha256": "4847b09fea8fca558b02c5452f0b2a7c86b5c41f753775eaab851afe714d0f13",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH036",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Jer.31.31-34",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Jer.xml"
+        }
+      ],
+      "old_content_sha256": "d1698f93e59217874a3e1e7287959ce371f323d1ba9e97d4da1f72b4803b9b8d",
+      "revised_content_sha256": "d1698f93e59217874a3e1e7287959ce371f323d1ba9e97d4da1f72b4803b9b8d",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH037",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Ezek.36.25-27",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ezek.xml"
+        }
+      ],
+      "old_content_sha256": "4a84bcca8a05ecdafd0bb0fc80a2b0c53f55b2a9e26e460f6d45ee96c134a799",
+      "revised_content_sha256": "625de4d5b5e833407d3a175d720888e65df892f5f6fcfefcd2eed9b61b3c91b4",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "expand_prompt_and_target_to_complete_supplied_passage_translation_plus_existing_explanation"
+    },
+    {
+      "id": "IH038",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Hos.6.4-6",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Hos.xml"
+        }
+      ],
+      "old_content_sha256": "2fda7503cb8f673769e90d19c550737d9b9438e3b69cda22a8ac5be7804c0131",
+      "revised_content_sha256": "2fda7503cb8f673769e90d19c550737d9b9438e3b69cda22a8ac5be7804c0131",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH039",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Amos.5.21-24",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Amos.xml"
+        }
+      ],
+      "old_content_sha256": "70a048f2538d936eb7cbb6438fe676e19afec7f7200e4fe136cd53b4d2f36006",
+      "revised_content_sha256": "70a048f2538d936eb7cbb6438fe676e19afec7f7200e4fe136cd53b4d2f36006",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IH040",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Mal.3.6-7",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Mal.xml"
+        }
+      ],
+      "old_content_sha256": "40126919200afeac01c13a5aaa862d3fe47e01a33ccdd74057d2121dbfe542f1",
+      "revised_content_sha256": "486391e38b395f65b01b7c13494c64ba188159dd0b05c83b608f38d9fbe97680",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "expand_prompt_and_target_to_complete_supplied_passage_translation_plus_existing_explanation"
+    },
+    {
+      "id": "IM001",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Prov.15.1",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Prov.xml"
+        }
+      ],
+      "old_content_sha256": "8112d7b02061f2b79405caca72f05df0257671741c2fe0c425135194598962ac",
+      "revised_content_sha256": "8112d7b02061f2b79405caca72f05df0257671741c2fe0c425135194598962ac",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IM002",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Prov.15.22",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Prov.xml"
+        }
+      ],
+      "old_content_sha256": "58bc5a2c797fad3fb65bc071dc6ed0d94e9dbd84d3f3068263f9e521fba1ac3d",
+      "revised_content_sha256": "58bc5a2c797fad3fb65bc071dc6ed0d94e9dbd84d3f3068263f9e521fba1ac3d",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IM003",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Prov.16.9",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Prov.xml"
+        }
+      ],
+      "old_content_sha256": "e3e1bc36a6b1d32a9ad86c91539f7551abdde663f777aa87fe7899897cff487d",
+      "revised_content_sha256": "e3e1bc36a6b1d32a9ad86c91539f7551abdde663f777aa87fe7899897cff487d",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IM004",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Prov.17.17",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Prov.xml"
+        }
+      ],
+      "old_content_sha256": "73d0211fab281d0746e56aca131a254e1293851f5cc7e65ec7096947ca8ecf80",
+      "revised_content_sha256": "73d0211fab281d0746e56aca131a254e1293851f5cc7e65ec7096947ca8ecf80",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IM005",
+      "split": "validation",
+      "source_refs": [
+        {
+          "passage": "Prov.18.13",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Prov.xml"
+        }
+      ],
+      "old_content_sha256": "9556f3cf21cbb236f2b7775ed9c9c6af5bb5d2dc9d833f0605ca3a13b21af5a2",
+      "revised_content_sha256": "9556f3cf21cbb236f2b7775ed9c9c6af5bb5d2dc9d833f0605ca3a13b21af5a2",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IM006",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Prov.19.11",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Prov.xml"
+        }
+      ],
+      "old_content_sha256": "d65c2e62f5004e2d8ad87cbabfc944e0f15a7743ae91dd2ff76c89b71f6beeb9",
+      "revised_content_sha256": "d65c2e62f5004e2d8ad87cbabfc944e0f15a7743ae91dd2ff76c89b71f6beeb9",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IM007",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Prov.21.5",
+          "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+          "source_id": "oshb",
+          "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Prov.xml"
+        }
+      ],
+      "old_content_sha256": "8728c1688dc95e21e825cebb628b6c8b82bd30b6f7a2d879112b5a3801b3869a",
+      "revised_content_sha256": "8728c1688dc95e21e825cebb628b6c8b82bd30b6f7a2d879112b5a3801b3869a",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IM008",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Jas.1.19-20",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Jas.txt"
+        }
+      ],
+      "old_content_sha256": "04f699829f9524dbc2710072aa444117b7970fb4db5a48a5ca348f5c81b1ea44",
+      "revised_content_sha256": "04f699829f9524dbc2710072aa444117b7970fb4db5a48a5ca348f5c81b1ea44",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IM009",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Matt.6.34",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Matt.txt"
+        }
+      ],
+      "old_content_sha256": "4acc57733d24fe681d7226adeeba53e023cc7e39e7e62d41681126d62ac01618",
+      "revised_content_sha256": "4acc57733d24fe681d7226adeeba53e023cc7e39e7e62d41681126d62ac01618",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IM010",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Luke.6.36-37",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Luke.txt"
+        }
+      ],
+      "old_content_sha256": "87ed4c1a4290021e93f5a5f154903cf0ac335bcb167919cd7ec284c82b5a33f2",
+      "revised_content_sha256": "87ed4c1a4290021e93f5a5f154903cf0ac335bcb167919cd7ec284c82b5a33f2",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IM011",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Gal.6.2-5",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Gal.txt"
+        }
+      ],
+      "old_content_sha256": "556afb709e28ad1493bfdfd32276300abe565ceb988441525700595d24102fb5",
+      "revised_content_sha256": "556afb709e28ad1493bfdfd32276300abe565ceb988441525700595d24102fb5",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IM012",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Rom.14.3",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Rom.txt"
+        }
+      ],
+      "old_content_sha256": "44fd21b408e0433aba17840535ebe607b1c913e32e40e638fcb67495dbcebc56",
+      "revised_content_sha256": "44fd21b408e0433aba17840535ebe607b1c913e32e40e638fcb67495dbcebc56",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IM013",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "1Cor.12.21-22",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/1Cor.txt"
+        }
+      ],
+      "old_content_sha256": "d9ee364b3507cb1eeba79bb40e869e7a7d50ebff949350c6531fcf5e93b40b56",
+      "revised_content_sha256": "d9ee364b3507cb1eeba79bb40e869e7a7d50ebff949350c6531fcf5e93b40b56",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IM014",
+      "split": "validation",
+      "source_refs": [
+        {
+          "passage": "Heb.10.24-25",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Heb.txt"
+        }
+      ],
+      "old_content_sha256": "028d5a89589082136f08fb80016ecc92785e33b165c3f6cae8f4568b4c0c15a5",
+      "revised_content_sha256": "028d5a89589082136f08fb80016ecc92785e33b165c3f6cae8f4568b4c0c15a5",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IM015",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Eph.4.26-27",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Eph.txt"
+        }
+      ],
+      "old_content_sha256": "87c748f8a95918d895e8c5e85474af86617d23b0b9762cf27ca97607b80bfc99",
+      "revised_content_sha256": "87c748f8a95918d895e8c5e85474af86617d23b0b9762cf27ca97607b80bfc99",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    },
+    {
+      "id": "IM016",
+      "split": "train",
+      "source_refs": [
+        {
+          "passage": "Gal.6.9-10",
+          "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+          "source_id": "sblgnt",
+          "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Gal.txt"
+        }
+      ],
+      "old_content_sha256": "d5e2d85e08b0eafa1c58efd3de38de9d7a2f0a435da965f3e76874b62aefab81",
+      "revised_content_sha256": "d5e2d85e08b0eafa1c58efd3de38de9d7a2f0a435da965f3e76874b62aefab81",
+      "clear_material_error_found": false,
+      "original_answer_adequate_for_original_request": true,
+      "action": "preserve_byte_identical"
+    }
+  ],
+  "limitations": [
+    "All audits and separate source reviews were performed by AI agents with shared project context, not a human expert panel.",
+    "No causal link between missing training-task coverage and the v2 model omissions has been established.",
+    "Four Aramaic expansions cover individual verses only; multiverse Aramaic transfer remains untrained in this dataset.",
+    "The revision changes prompt scope, answer length and loss-token volume together; it is a bundled data-composition test, not a length-controlled causal ablation.",
+    "The selected modern editions are not autograph texts or a complete manuscript/context corpus.",
+    "No paid model calls, model training or quality measurements were performed in this preparation phase."
+  ]
+}

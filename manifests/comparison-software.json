@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-09-05",
+  "scope": "Final reproducibility reference snapshot, not a byte-identical launch-source claim for every worker. No immutable Git revision exists; model support was extended sequentially with existing execution branches preserved.",
+  "files": [
+    {
+      "path": "bibleprep/tinker_compare.py",
+      "sha256": "84d39646253b800e85c98ba287f624afcae02a1b25995c79bbf38d732b46fefb"
+    },
+    {
+      "path": "bibleprep/tinker_evaluate.py",
+      "sha256": "e8bbb9e58a44f7cdd63bb81a1fdf9ff84b9fc0f514a5e4a6318327d49500e4d8"
+    },
+    {
+      "path": "bibleprep/evaluate.py",
+      "sha256": "b4dd4e64315314c43283443c6832669a5077e3eab85ef313b7da418a340838ad"
+    },
+    {
+      "path": "bibleprep/summarize_evaluation.py",
+      "sha256": "53039d15be5323c5045d6e8d42d91bd2bbf0bb037c8415e2681a7dc5d3a4d3d0"
+    },
+    {
+      "path": "bibleprep/fetch_comparison.py",
+      "sha256": "3d3ff491065c71afa4e54a62844bce7e9c7d2e96747c9f49bb8c11282b274ba0"
+    },
+    {
+      "path": "requirements-comparison.txt",
+      "sha256": "582ee05c0fb6831b78c03ee2997909a83f488d3aa5043c0144fe2293f677abb7"
+    },
+    {
+      "path": "requirements-comparison.lock.txt",
+      "sha256": "ae7d474f773ddeafc5fe5adb616869475a080a3ab111590699f67d87b3414865"
+    }
+  ]
+}

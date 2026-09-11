@@ -1,0 +1,75 @@
+{
+  "schema_version": 3,
+  "status": "proposed_not_reserved_or_executed",
+  "experiment_id": "instruction-target-revision-v3",
+  "preparation_manifest": {
+    "path": "manifests/preparation-instruction-v3.json",
+    "sha256": "06390023a3c78e88692d73add87a1b7a60c01576b54c265daf68675d653e093c"
+  },
+  "proposed_arm": "F",
+  "parent_arm": "B",
+  "comparison_arms": [
+    "A",
+    "B",
+    "E",
+    "F"
+  ],
+  "recipe_reference": "manifests/instruction-calibration-training-v2.json",
+  "changed_factor": "reviewed_instruction_dataset_version; prompt scope, answer length and supervised-token volume change together",
+  "counts": {
+    "training_examples": 104,
+    "validation_examples": 16,
+    "training_processed_tokens": 65573,
+    "training_loss_tokens": 16598,
+    "validation_processed_tokens": 10837,
+    "validation_loss_tokens": 2344,
+    "training_updates": 7,
+    "epochs": 1,
+    "validation_forward_passes": 2,
+    "evaluation_cases_per_arm": 30,
+    "evaluation_arms": 4,
+    "evaluation_requests": 120
+  },
+  "proposed_sampling_limits": {
+    "maximum_input_tokens_per_request": 6000,
+    "maximum_output_tokens_per_request": 8192,
+    "thinking_effort_numeric": 0.7,
+    "temperature": 0,
+    "seed": 20260906
+  },
+  "price_snapshot": {
+    "checked_date": "2026-09-06",
+    "source": "https://tinker-docs.thinkingmachines.ai/tinker/models/",
+    "model": "thinkingmachines/Inkling",
+    "usd_per_million_input_tokens": 1.87,
+    "usd_per_million_output_tokens": 4.68,
+    "usd_per_million_training_tokens": 5.61,
+    "limited_time_discount": true,
+    "must_recheck_before_execution": true
+  },
+  "estimate_nano_usd": {
+    "one_training_epoch_and_two_validation_passes": 489455670,
+    "four_arm_sampling_at_both_per_request_token_ceilings": 5947027200,
+    "checkpoint_storage_contingency": 3000000000,
+    "total_conservative_proposal": 9436482870
+  },
+  "proposed_incremental_cap_usd": 10,
+  "prior_shared_training_reservation_usd": 35.43523284,
+  "projected_shared_training_reservation_usd_if_F_reserved": 38.92468851,
+  "shared_training_cap_usd": 50,
+  "new_paid_calls": 0,
+  "new_reservations": 0,
+  "execution_prerequisites": [
+    "Freeze a versioned F training and A/B/E/F evaluation execution protocol binding the revised artifacts and pre-output review supplements.",
+    "Verify B and E private checkpoint receipts and availability; preserve all previous evidence.",
+    "Recheck provider prices and local shared ledger; enforce incremental and shared reservation limits before submission.",
+    "Use the established native diagnostics, review all final and structurally available partial answers, and prohibit selective retries."
+  ],
+  "limitations": [
+    "Estimates use prepared input positions; billing, padding, validation pricing and invoice reconciliation remain unverified.",
+    "Validation forwards are conservatively priced at the training rate, consistent with the prior reservation method.",
+    "Both sampling token ceilings are assumed on all120 requests; this is a conservative planning reservation, not expected actual consumption.",
+    "The local cap is not a provider-enforced dollar limit. No money was reserved or spent by this proposal.",
+    "The temporary provider discount, checkpoint retention and unpinned provider base revision limit future reproducibility."
+  ]
+}

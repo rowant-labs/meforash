@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "experiment": "unchanged_inkling_repeat_control",
+  "generated_at": "2026-09-06T15:53:20.585134+00:00",
+  "contains_answer_text": false,
+  "provider_invoice_verified": false,
+  "accuracy_or_improvement_score_assigned": false,
+  "partial": false,
+  "protocol": {
+    "model": "thinkingmachines/Inkling",
+    "provider_weight_revision": "unpinned",
+    "renderer": "official native TML v0",
+    "evidence_mode": "provided",
+    "reasoning_effort": "medium",
+    "max_input_tokens": 6000,
+    "max_output_tokens": 8192,
+    "seed": 20260905,
+    "temperature": 0.0,
+    "thinking_effort_numeric": 0.7,
+    "tokenizer_sha256": "9fb6333a7db8fe5da90728e741e4a3ee4ac2ae12c5dd4958cc6f31688787d3c2",
+    "chat_template_sha256": "0aa1aa0c729d90176dcaa00c440c8faffca2957ffb2cc4b79456ee6d02bcf43b",
+    "comparison_manifest_sha256": "87de6c1bf7d7e2e6d6e8bccc90a229a7744fa5091684ae51c3fa98023af853a4",
+    "settings_sha256": "831724d18b988d2db4cd412e1304e7f132af6b2329cfd12c912e493131b0537c"
+  },
+  "comparison": {
+    "selected_question_pairs": 24,
+    "paired_returned_responses": 24,
+    "pairs_with_both_answers_complete": 24,
+    "identical_generated_token_streams": 0,
+    "different_generated_token_streams": 24,
+    "exact_final_text_matches": 0,
+    "different_final_texts": 24,
+    "exact_nonempty_final_text_matches": 0,
+    "both_final_texts_empty": 0,
+    "question_pairs_without_returned_prompt_verification": 0,
+    "all_question_prompt_hashes_verified": true,
+    "frozen_question_rows_and_complete_union_verified": true,
+    "system_prompt_sha256": "405c027ca4ca122501eaee2fb4d01605e86a35501ba8a084eada5b3417bec7e3",
+    "generation_settings_match_for_initialized_controls": true,
+    "paired_comparison_evidence_sha256": "16550607e362763f45485b1e1accc00febad8232a6ea330c66fc2d525e5baf36",
+    "token_stream_comparison": "Equality of hashes of every generated token, including protocol and reasoning tokens; reasoning text is not retained or published.",
+    "final_text_comparison": "Exact equality of parsed final-answer strings, without trimming or Unicode normalization; empty-string matches are counted separately."
+  },
+  "observations": {
+    "original_baseline": {
+      "counts": {
+        "selected": 24,
+        "started": 24,
+        "received": 24,
+        "complete_answers": 24,
+        "incomplete_answers": 0,
+        "errors": 0,
+        "unresolved": 0,
+        "not_started": 0,
+        "missing_results": 0,
+        "missing_usage": 0
+      },
+      "tokens": {
+        "input": 8252,
+        "output": 35095
+      },
+      "partial": false,
+      "journal_has_incomplete_tail": false,
+      "latency_seconds": {
+        "returned_responses": 24,
+        "median": 21.813200000000002,
+        "mean": 20.843625,
+        "minimum": 5.8411,
+        "maximum": 36.7085
+      },
+      "request_deadline_seconds": [
+        240
+      ],
+      "cost": {
+        "known_token_estimate_usd": 0.17967584,
+        "journal_accounted_or_reserved_usd": 0.17967584,
+        "uncertain_accounted_or_reserved_usd": 0.0,
+        "provider_invoice_verified": false
+      },
+      "by_language": {
+        "aramaic": {
+          "selected": 7,
+          "complete_answers": 7,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        },
+        "greek": {
+          "selected": 6,
+          "complete_answers": 6,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        },
+        "hebrew": {
+          "selected": 7,
+          "complete_answers": 7,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        },
+        "mixed": {
+          "selected": 4,
+          "complete_answers": 4,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        }
+      }
+    },
+    "repeat_control": {
+      "counts": {
+        "selected": 24,
+        "started": 24,
+        "received": 24,
+        "complete_answers": 24,
+        "incomplete_answers": 0,
+        "errors": 0,
+        "unresolved": 0,
+        "not_started": 0,
+        "missing_results": 0,
+        "missing_usage": 0
+      },
+      "tokens": {
+        "input": 8252,
+        "output": 32609
+      },
+      "partial": false,
+      "journal_has_incomplete_tail": false,
+      "latency_seconds": {
+        "returned_responses": 24,
+        "median": 36.0364,
+        "mean": 32.721716666666666,
+        "minimum": 6.9345,
+        "maximum": 56.5513
+      },
+      "request_deadline_seconds": [
+        240
+      ],
+      "cost": {
+        "known_token_estimate_usd": 0.16804136,
+        "journal_accounted_or_reserved_usd": 0.16804136,
+        "uncertain_accounted_or_reserved_usd": 0.0,
+        "provider_invoice_verified": false
+      },
+      "by_language": {
+        "aramaic": {
+          "selected": 7,
+          "complete_answers": 7,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        },
+        "greek": {
+          "selected": 6,
+          "complete_answers": 6,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        },
+        "hebrew": {
+          "selected": 7,
+          "complete_answers": 7,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        },
+        "mixed": {
+          "selected": 4,
+          "complete_answers": 4,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "missing_results": 0
+        }
+      }
+    }
+  },
+  "repeat_control_additional_estimated_or_reserved_usd": 0.16804136,
+  "planned_control_budget_usd": 1.45,
+  "provenance": {
+    "control_manifest_sha256": "610f8c7a4b5e55222cd4a028ca1dabd134da54db4a4cffc6dc8db18dce81c4ed",
+    "frozen_question_dataset_sha256": "a8039aae01f8a65e7d1daa4b3ed243c8fc868c7a3cfc672a97f2a8ffe0e75ade",
+    "tail_question_dataset_sha256": "2d846a2bd2867ee0221cb47fca5a23b6c761f923bc592d6215bb650e55aba181",
+    "baseline": {
+      "events_sha256": "17c2367d78aa5105cb84a6111605565fe08a3dd30cd76bb40de9cd4da6bc87d3",
+      "journal_has_incomplete_tail": false,
+      "dataset_sha256": "a8039aae01f8a65e7d1daa4b3ed243c8fc868c7a3cfc672a97f2a8ffe0e75ade",
+      "manifest_sha256": "09cfcbf711294b5c0eae099fddcfe15d6c6119ee687293b1f3da0cd3514c8a7b"
+    },
+    "prefix_control": {
+      "events_sha256": "6359f5cb48a42b52397f37eb56281a2c714c51b49c9b1e1a5b8ae672cd5bb079",
+      "journal_has_incomplete_tail": false,
+      "dataset_sha256": "a8039aae01f8a65e7d1daa4b3ed243c8fc868c7a3cfc672a97f2a8ffe0e75ade",
+      "manifest_sha256": "eb79e4c0bd375cdd75865c58f7af316b22f26c6c8104fc414ba76568fb4ecd2c"
+    },
+    "tail_control": {
+      "events_sha256": "4908d10b79af47348f7855878edd601cdf89189cbaf68f921e5354d7b15de8ec",
+      "journal_has_incomplete_tail": false,
+      "dataset_sha256": "2d846a2bd2867ee0221cb47fca5a23b6c761f923bc592d6215bb650e55aba181",
+      "manifest_sha256": "54daf182ced4def1c41437bb5c90f6075883a0603bdb073e276068ed80f8fa24"
+    }
+  },
+  "limitations": [
+    "This is a repeated unchanged-model control, separate from the adapter evaluation; the original baseline remains preserved.",
+    "Matching request settings and prompt hashes do not establish identical provider weights or backend execution. The provider weight revision is unpinned, so this report does not assign a cause to observed variation.",
+    "Token-stream equality and final-text equality are different observations. Neither agreement nor disagreement measures biblical accuracy.",
+    "These are diagnostic development questions. Completion and response variation do not establish adaptation improvement or regression.",
+    "The control was expanded after variation appeared in the initial prefix. This is a diagnostic comparison, not a preregistered estimate of variation across all possible questions.",
+    "Token-price estimates and local reservations are not reconciled invoices. Latency also depends on service load and concurrent training."
+  ]
+}

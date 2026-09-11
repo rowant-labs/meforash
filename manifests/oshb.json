@@ -1,0 +1,1766 @@
+{
+  "schema_version": 1,
+  "source_id": "oshb",
+  "name": "Open Scriptures Hebrew Bible",
+  "repository": "https://github.com/openscriptures/morphhb",
+  "pinned_commit": "3d15126fb1ef74867fc1434be1942e837932691f",
+  "source_git_revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+  "release_input_hashes_verified": true,
+  "acquired_date": "2026-09-05",
+  "scope": "All 39 OSHB wlc book XML files; Hebrew and Aramaic; Masoretic/Leningrad base; Bible.MT references.",
+  "status": "Prepared and mechanically validated; no expert textual review, model training or publication performed.",
+  "licenses": [
+    {
+      "component": "Underlying Westminster Leningrad Codex text",
+      "status": "Public domain according to upstream LICENSE.md and README.md"
+    },
+    {
+      "component": "OSHB lemma and morphology annotations",
+      "spdx": "CC-BY-4.0",
+      "url": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution": "Original work of the Open Scriptures Hebrew Bible available at https://github.com/openscriptures/morphhb"
+    }
+  ],
+  "redistribution": "Retain upstream attribution, license links and modification notices for annotations and derived data. Original project code license does not replace upstream data terms.",
+  "preparation_command": "python -m bibleprep.hebrew --source-dir data/raw/oshb --output-dir data/processed/oshb --manifest manifests/oshb.json --notices-dir licenses/oshb",
+  "preparation_module": "bibleprep/hebrew.py",
+  "preparation_module_sha256": "b7e7ef069f9c972440a41769967511afa4ad291c87ea21a1341640ccd2a3da2f",
+  "method": {
+    "text_layer": "main/ketiv",
+    "selection": "Direct verse words and punctuation; ketiv retained; all notes and qere/accent alternatives excluded from text.",
+    "unicode": "Original code points retained; no Unicode normalization or removal of vowel/accent marks.",
+    "morpheme_delimiter": "ASCII slash removed only from rendered word text; raw_text and morpheme_segments preserve it.",
+    "paragraph_markers": "Standalone x-samekh/x-pe glyphs excluded from text and retained in segments with source positions.",
+    "other_segments": "Maqqef, sof-pasuq, paseq, reversed-nun and inline special-letter characters retained; segment attributes preserved.",
+    "spacing": "One space between ordinary words/standalone signs; maqqef joins neighbors; sof-pasuq attaches to preceding text.",
+    "language": "Each word follows its upstream morphology prefix H=hbo or A=arc; verse is mul only when both occur in main text.",
+    "notes": "Structured mixed-content trees retained separately, including catchWord, rdg, types, attributes and tails.",
+    "versification": "Bible.MT as encoded in OSHB; no English reference remapping.",
+    "order": "Conventional 39-file order; not a claim about an ancient canonical book order."
+  },
+  "source_notices_directory": "licenses/oshb",
+  "notice_artifacts": [
+    {
+      "path": "LICENSE.md",
+      "bytes": 1476,
+      "sha256": "9bf4a2890c25372e4c1dc750d550bfb4eacfbfcb63c53123b0628159370d1878"
+    },
+    {
+      "path": "UPSTREAM-README.md",
+      "bytes": 5027,
+      "sha256": "2da25acf89375558b843dab582bdf00833137baf1c8afe2b32cf09e251179999"
+    },
+    {
+      "path": "XML-HEADER-NOTICES.json",
+      "bytes": 469708,
+      "sha256": "355a71a40b3ac9f5911718c0b78a22b0976ca9b75d335ede6a85022351bf7f2a"
+    }
+  ],
+  "counts": {
+    "books": 39,
+    "chapters": 929,
+    "ketiv_words": 1268,
+    "main_words": 305507,
+    "note_words": 1278,
+    "notes": 4499,
+    "paragraph_markers_excluded_from_text": 3162,
+    "reading_alternatives": 1388,
+    "segments": 71206,
+    "verses": 23213
+  },
+  "verse_languages": {
+    "arc": 267,
+    "hbo": 22944,
+    "mul": 2
+  },
+  "main_word_languages": {
+    "arc": 4828,
+    "hbo": 300679
+  },
+  "mixed_language_verses": [
+    "Gen.31.47",
+    "Dan.2.4"
+  ],
+  "books": [
+    {
+      "book": "Gen",
+      "verses": 1533,
+      "main_words": 20612,
+      "notes": 118,
+      "segments": 4670,
+      "chapters": 50,
+      "verse_languages": {
+        "hbo": 1532,
+        "mul": 1
+      },
+      "chapter_verse_counts": [
+        31,
+        25,
+        24,
+        26,
+        32,
+        22,
+        24,
+        22,
+        29,
+        32,
+        32,
+        20,
+        18,
+        24,
+        21,
+        16,
+        27,
+        33,
+        38,
+        18,
+        34,
+        24,
+        20,
+        67,
+        34,
+        35,
+        46,
+        22,
+        35,
+        43,
+        54,
+        33,
+        20,
+        31,
+        29,
+        43,
+        36,
+        30,
+        23,
+        23,
+        57,
+        38,
+        34,
+        34,
+        28,
+        34,
+        31,
+        22,
+        33,
+        26
+      ],
+      "artifact": {
+        "path": "wlc/Gen.xml",
+        "bytes": 1859928,
+        "sha256": "0526e5c9a5fb4d907847645f954ed3d1268fa69decbd872056cedd2668d86449"
+      }
+    },
+    {
+      "book": "Exod",
+      "verses": 1213,
+      "main_words": 16713,
+      "notes": 162,
+      "segments": 3892,
+      "chapters": 40,
+      "verse_languages": {
+        "hbo": 1213
+      },
+      "chapter_verse_counts": [
+        22,
+        25,
+        22,
+        31,
+        23,
+        30,
+        29,
+        28,
+        35,
+        29,
+        10,
+        51,
+        22,
+        31,
+        27,
+        36,
+        16,
+        27,
+        25,
+        26,
+        37,
+        30,
+        33,
+        18,
+        40,
+        37,
+        21,
+        43,
+        46,
+        38,
+        18,
+        35,
+        23,
+        35,
+        35,
+        38,
+        29,
+        31,
+        43,
+        38
+      ],
+      "artifact": {
+        "path": "wlc/Exod.xml",
+        "bytes": 1524391,
+        "sha256": "04868367cdacb6ccdc61488e923e20f918172042e6437842a0621f63ac5b847f"
+      }
+    },
+    {
+      "book": "Lev",
+      "verses": 859,
+      "main_words": 11950,
+      "notes": 52,
+      "segments": 2891,
+      "chapters": 27,
+      "verse_languages": {
+        "hbo": 859
+      },
+      "chapter_verse_counts": [
+        17,
+        16,
+        17,
+        35,
+        26,
+        23,
+        38,
+        36,
+        24,
+        20,
+        47,
+        8,
+        59,
+        57,
+        33,
+        34,
+        16,
+        30,
+        37,
+        27,
+        24,
+        33,
+        44,
+        23,
+        55,
+        46,
+        34
+      ],
+      "artifact": {
+        "path": "wlc/Lev.xml",
+        "bytes": 1085066,
+        "sha256": "e21e70265c9ef500182f8ccb4f4e1186e5a79e1169d24cef23cc479baf07b191"
+      }
+    },
+    {
+      "book": "Num",
+      "verses": 1289,
+      "main_words": 16413,
+      "notes": 88,
+      "segments": 3810,
+      "chapters": 36,
+      "verse_languages": {
+        "hbo": 1289
+      },
+      "chapter_verse_counts": [
+        54,
+        34,
+        51,
+        49,
+        31,
+        27,
+        89,
+        26,
+        23,
+        36,
+        35,
+        16,
+        33,
+        45,
+        41,
+        35,
+        28,
+        32,
+        22,
+        29,
+        35,
+        41,
+        30,
+        25,
+        19,
+        65,
+        23,
+        31,
+        39,
+        17,
+        54,
+        42,
+        56,
+        29,
+        34,
+        13
+      ],
+      "artifact": {
+        "path": "wlc/Num.xml",
+        "bytes": 1496830,
+        "sha256": "02e4febfcc027d10b3e35e4f091eae67a40d26f37b6254faac6b4af053fe4896"
+      }
+    },
+    {
+      "book": "Deut",
+      "verses": 959,
+      "main_words": 14294,
+      "notes": 274,
+      "segments": 3117,
+      "chapters": 34,
+      "verse_languages": {
+        "hbo": 959
+      },
+      "chapter_verse_counts": [
+        46,
+        37,
+        29,
+        49,
+        33,
+        25,
+        26,
+        20,
+        29,
+        22,
+        32,
+        31,
+        19,
+        29,
+        23,
+        22,
+        20,
+        22,
+        21,
+        20,
+        23,
+        29,
+        26,
+        22,
+        19,
+        19,
+        26,
+        69,
+        28,
+        20,
+        30,
+        52,
+        29,
+        12
+      ],
+      "artifact": {
+        "path": "wlc/Deut.xml",
+        "bytes": 1315399,
+        "sha256": "04f8087442a1e67a631cd70f2ac4e42fe0a780ae132edb165a3a29f3f290358f"
+      }
+    },
+    {
+      "book": "Josh",
+      "verses": 658,
+      "main_words": 10051,
+      "notes": 38,
+      "segments": 2431,
+      "chapters": 24,
+      "verse_languages": {
+        "hbo": 658
+      },
+      "chapter_verse_counts": [
+        18,
+        24,
+        17,
+        24,
+        15,
+        27,
+        26,
+        35,
+        27,
+        43,
+        23,
+        24,
+        33,
+        15,
+        63,
+        10,
+        18,
+        28,
+        51,
+        9,
+        45,
+        34,
+        16,
+        33
+      ],
+      "artifact": {
+        "path": "wlc/Josh.xml",
+        "bytes": 919916,
+        "sha256": "a066200ab2269c0a86a2e9ba119a3d0fce8c5f7ecc44bb53ec134b83dffc6006"
+      }
+    },
+    {
+      "book": "Judg",
+      "verses": 618,
+      "main_words": 9885,
+      "notes": 100,
+      "segments": 2218,
+      "chapters": 21,
+      "verse_languages": {
+        "hbo": 618
+      },
+      "chapter_verse_counts": [
+        36,
+        23,
+        31,
+        24,
+        31,
+        40,
+        25,
+        35,
+        57,
+        18,
+        40,
+        15,
+        25,
+        20,
+        20,
+        31,
+        13,
+        31,
+        30,
+        48,
+        25
+      ],
+      "artifact": {
+        "path": "wlc/Judg.xml",
+        "bytes": 904347,
+        "sha256": "3b3a909f04041dbd52dc6b7293a96ce75d94db8a90fdeda878943db7b8fac57f"
+      }
+    },
+    {
+      "book": "Ruth",
+      "verses": 85,
+      "main_words": 1294,
+      "notes": 36,
+      "segments": 269,
+      "chapters": 4,
+      "verse_languages": {
+        "hbo": 85
+      },
+      "chapter_verse_counts": [
+        22,
+        23,
+        18,
+        22
+      ],
+      "artifact": {
+        "path": "wlc/Ruth.xml",
+        "bytes": 136188,
+        "sha256": "fb6a2660383c7176941cb87b2be182ef634b66d49d057635869f4d9cb1f0a11e"
+      }
+    },
+    {
+      "book": "1Sam",
+      "verses": 811,
+      "main_words": 13264,
+      "notes": 132,
+      "segments": 2986,
+      "chapters": 31,
+      "verse_languages": {
+        "hbo": 811
+      },
+      "chapter_verse_counts": [
+        28,
+        36,
+        21,
+        22,
+        12,
+        21,
+        17,
+        22,
+        27,
+        27,
+        15,
+        25,
+        23,
+        52,
+        35,
+        23,
+        58,
+        30,
+        24,
+        42,
+        16,
+        23,
+        28,
+        23,
+        44,
+        25,
+        12,
+        25,
+        11,
+        31,
+        13
+      ],
+      "artifact": {
+        "path": "wlc/1Sam.xml",
+        "bytes": 1206608,
+        "sha256": "960432732c22286b82d80b6b25af8d10dc5f2e82a4e5e48b2e3a1b1eea17f3cb"
+      }
+    },
+    {
+      "book": "2Sam",
+      "verses": 695,
+      "main_words": 11039,
+      "notes": 159,
+      "segments": 2632,
+      "chapters": 24,
+      "verse_languages": {
+        "hbo": 695
+      },
+      "chapter_verse_counts": [
+        27,
+        32,
+        39,
+        12,
+        25,
+        23,
+        29,
+        18,
+        13,
+        19,
+        27,
+        31,
+        39,
+        33,
+        37,
+        23,
+        29,
+        32,
+        44,
+        26,
+        22,
+        51,
+        39,
+        25
+      ],
+      "artifact": {
+        "path": "wlc/2Sam.xml",
+        "bytes": 1013552,
+        "sha256": "e7793e141ed94eadbd2dfb23936abbb4062e81a7dcd41114a6e36644f50b8333"
+      }
+    },
+    {
+      "book": "1Kgs",
+      "verses": 817,
+      "main_words": 13140,
+      "notes": 106,
+      "segments": 2951,
+      "chapters": 22,
+      "verse_languages": {
+        "hbo": 817
+      },
+      "chapter_verse_counts": [
+        53,
+        46,
+        28,
+        20,
+        32,
+        38,
+        51,
+        66,
+        28,
+        29,
+        43,
+        33,
+        34,
+        31,
+        34,
+        34,
+        24,
+        46,
+        21,
+        43,
+        29,
+        54
+      ],
+      "artifact": {
+        "path": "wlc/1Kgs.xml",
+        "bytes": 1189874,
+        "sha256": "832ba10f605dce34c4888ee0a795d91edc2b293391d6ae9c36c36c6350761a3e"
+      }
+    },
+    {
+      "book": "2Kgs",
+      "verses": 719,
+      "main_words": 12281,
+      "notes": 119,
+      "segments": 2863,
+      "chapters": 25,
+      "verse_languages": {
+        "hbo": 719
+      },
+      "chapter_verse_counts": [
+        18,
+        25,
+        27,
+        44,
+        27,
+        33,
+        20,
+        29,
+        37,
+        36,
+        20,
+        22,
+        25,
+        29,
+        38,
+        20,
+        41,
+        37,
+        37,
+        21,
+        26,
+        20,
+        37,
+        20,
+        30
+      ],
+      "artifact": {
+        "path": "wlc/2Kgs.xml",
+        "bytes": 1115537,
+        "sha256": "056db5393beaef0a1159d9bcaac7dfd865df9bab2eb240ea90e9fa3f0c0e7449"
+      }
+    },
+    {
+      "book": "1Chr",
+      "verses": 943,
+      "main_words": 10747,
+      "notes": 169,
+      "segments": 2752,
+      "chapters": 29,
+      "verse_languages": {
+        "hbo": 943
+      },
+      "chapter_verse_counts": [
+        54,
+        55,
+        24,
+        43,
+        41,
+        66,
+        40,
+        40,
+        44,
+        14,
+        47,
+        41,
+        14,
+        17,
+        29,
+        43,
+        27,
+        17,
+        19,
+        8,
+        30,
+        19,
+        32,
+        31,
+        31,
+        32,
+        34,
+        21,
+        30
+      ],
+      "artifact": {
+        "path": "wlc/1Chr.xml",
+        "bytes": 1014881,
+        "sha256": "8b59992b6607c6ca0fc423813be8cc244f011c1da32bc8485c0c0f581a897ed4"
+      }
+    },
+    {
+      "book": "2Chr",
+      "verses": 822,
+      "main_words": 13316,
+      "notes": 95,
+      "segments": 3004,
+      "chapters": 36,
+      "verse_languages": {
+        "hbo": 822
+      },
+      "chapter_verse_counts": [
+        18,
+        17,
+        17,
+        22,
+        14,
+        42,
+        22,
+        18,
+        31,
+        19,
+        23,
+        16,
+        23,
+        14,
+        19,
+        14,
+        19,
+        34,
+        11,
+        37,
+        20,
+        12,
+        21,
+        27,
+        28,
+        23,
+        9,
+        27,
+        36,
+        27,
+        21,
+        33,
+        25,
+        33,
+        27,
+        23
+      ],
+      "artifact": {
+        "path": "wlc/2Chr.xml",
+        "bytes": 1222694,
+        "sha256": "507294e8ca0fcf31ec25fe62fa24a7f2581f53116519bf08cfe96ff85e9c99fb"
+      }
+    },
+    {
+      "book": "Ezra",
+      "verses": 280,
+      "main_words": 3754,
+      "notes": 66,
+      "segments": 875,
+      "chapters": 10,
+      "verse_languages": {
+        "arc": 67,
+        "hbo": 213
+      },
+      "chapter_verse_counts": [
+        11,
+        70,
+        13,
+        24,
+        17,
+        22,
+        28,
+        36,
+        15,
+        44
+      ],
+      "artifact": {
+        "path": "wlc/Ezra.xml",
+        "bytes": 369918,
+        "sha256": "fb28ff697d0ee17eba5b4db47fb7261ee1870cea0d5701bfc77c9e28d4138129"
+      }
+    },
+    {
+      "book": "Neh",
+      "verses": 405,
+      "main_words": 5312,
+      "notes": 115,
+      "segments": 1245,
+      "chapters": 13,
+      "verse_languages": {
+        "hbo": 405
+      },
+      "chapter_verse_counts": [
+        11,
+        20,
+        38,
+        17,
+        19,
+        19,
+        72,
+        18,
+        37,
+        40,
+        36,
+        47,
+        31
+      ],
+      "artifact": {
+        "path": "wlc/Neh.xml",
+        "bytes": 512876,
+        "sha256": "be082e95c206469122455b9849d4dd08da50c817732d8198c1beece90402801a"
+      }
+    },
+    {
+      "book": "Esth",
+      "verses": 167,
+      "main_words": 3045,
+      "notes": 26,
+      "segments": 675,
+      "chapters": 10,
+      "verse_languages": {
+        "hbo": 167
+      },
+      "chapter_verse_counts": [
+        22,
+        23,
+        15,
+        17,
+        14,
+        14,
+        10,
+        17,
+        32,
+        3
+      ],
+      "artifact": {
+        "path": "wlc/Esth.xml",
+        "bytes": 292184,
+        "sha256": "f9b5b8adaf504dcac409bb6a27c9328967f47eeb4e920070cd53ef5301299019"
+      }
+    },
+    {
+      "book": "Job",
+      "verses": 1070,
+      "main_words": 8343,
+      "notes": 149,
+      "segments": 2442,
+      "chapters": 42,
+      "verse_languages": {
+        "hbo": 1070
+      },
+      "chapter_verse_counts": [
+        22,
+        13,
+        26,
+        21,
+        27,
+        30,
+        21,
+        22,
+        35,
+        22,
+        20,
+        25,
+        28,
+        22,
+        35,
+        22,
+        16,
+        21,
+        29,
+        29,
+        34,
+        30,
+        17,
+        25,
+        6,
+        14,
+        23,
+        28,
+        25,
+        31,
+        40,
+        22,
+        33,
+        37,
+        16,
+        33,
+        24,
+        41,
+        30,
+        32,
+        26,
+        17
+      ],
+      "artifact": {
+        "path": "wlc/Job.xml",
+        "bytes": 813715,
+        "sha256": "7db3311184122f37a8fd52f3c7c0c4a6d2da7b77ee82f4fdb26bcba9171d297f"
+      }
+    },
+    {
+      "book": "Ps",
+      "verses": 2527,
+      "main_words": 19587,
+      "notes": 1176,
+      "segments": 5459,
+      "chapters": 150,
+      "verse_languages": {
+        "hbo": 2527
+      },
+      "chapter_verse_counts": [
+        6,
+        12,
+        9,
+        9,
+        13,
+        11,
+        18,
+        10,
+        21,
+        18,
+        7,
+        9,
+        6,
+        7,
+        5,
+        11,
+        15,
+        51,
+        15,
+        10,
+        14,
+        32,
+        6,
+        10,
+        22,
+        12,
+        14,
+        9,
+        11,
+        13,
+        25,
+        11,
+        22,
+        23,
+        28,
+        13,
+        40,
+        23,
+        14,
+        18,
+        14,
+        12,
+        5,
+        27,
+        18,
+        12,
+        10,
+        15,
+        21,
+        23,
+        21,
+        11,
+        7,
+        9,
+        24,
+        14,
+        12,
+        12,
+        18,
+        14,
+        9,
+        13,
+        12,
+        11,
+        14,
+        20,
+        8,
+        36,
+        37,
+        6,
+        24,
+        20,
+        28,
+        23,
+        11,
+        13,
+        21,
+        72,
+        13,
+        20,
+        17,
+        8,
+        19,
+        13,
+        14,
+        17,
+        7,
+        19,
+        53,
+        17,
+        16,
+        16,
+        5,
+        23,
+        11,
+        13,
+        12,
+        9,
+        9,
+        5,
+        8,
+        29,
+        22,
+        35,
+        45,
+        48,
+        43,
+        14,
+        31,
+        7,
+        10,
+        10,
+        9,
+        8,
+        18,
+        19,
+        2,
+        29,
+        176,
+        7,
+        8,
+        9,
+        4,
+        8,
+        5,
+        6,
+        5,
+        6,
+        8,
+        8,
+        3,
+        18,
+        3,
+        3,
+        21,
+        26,
+        9,
+        8,
+        24,
+        14,
+        10,
+        8,
+        12,
+        15,
+        21,
+        10,
+        20,
+        14,
+        9,
+        6
+      ],
+      "artifact": {
+        "path": "wlc/Ps.xml",
+        "bytes": 1925086,
+        "sha256": "fe55eef316a65fb0f46d833d526ca2fd722e86ff7339f1a39f0c5b7f9062ced2"
+      }
+    },
+    {
+      "book": "Prov",
+      "verses": 915,
+      "main_words": 6915,
+      "notes": 142,
+      "segments": 1933,
+      "chapters": 31,
+      "verse_languages": {
+        "hbo": 915
+      },
+      "chapter_verse_counts": [
+        33,
+        22,
+        35,
+        27,
+        23,
+        35,
+        27,
+        36,
+        18,
+        32,
+        31,
+        28,
+        25,
+        35,
+        33,
+        33,
+        28,
+        24,
+        29,
+        30,
+        31,
+        29,
+        35,
+        34,
+        28,
+        28,
+        27,
+        28,
+        27,
+        33,
+        31
+      ],
+      "artifact": {
+        "path": "wlc/Prov.xml",
+        "bytes": 678669,
+        "sha256": "964f99c00239b53b854c4686c99490c8d1ac7664784a30afdfc23781a3abb161"
+      }
+    },
+    {
+      "book": "Eccl",
+      "verses": 222,
+      "main_words": 2987,
+      "notes": 53,
+      "segments": 651,
+      "chapters": 12,
+      "verse_languages": {
+        "hbo": 222
+      },
+      "chapter_verse_counts": [
+        18,
+        26,
+        22,
+        17,
+        19,
+        12,
+        29,
+        17,
+        18,
+        20,
+        10,
+        14
+      ],
+      "artifact": {
+        "path": "wlc/Eccl.xml",
+        "bytes": 285122,
+        "sha256": "2dfc858d19048f6479eca33b9fe781c2d7e9059e9ae3ab0b37b802d3afec02bb"
+      }
+    },
+    {
+      "book": "Song",
+      "verses": 117,
+      "main_words": 1251,
+      "notes": 49,
+      "segments": 261,
+      "chapters": 8,
+      "verse_languages": {
+        "hbo": 117
+      },
+      "chapter_verse_counts": [
+        17,
+        17,
+        11,
+        16,
+        16,
+        12,
+        14,
+        14
+      ],
+      "artifact": {
+        "path": "wlc/Song.xml",
+        "bytes": 138554,
+        "sha256": "5cd6ae36d32c059aaf794af5a5eaed914ac643486db3e412eb0b969760db82ca"
+      }
+    },
+    {
+      "book": "Isa",
+      "verses": 1291,
+      "main_words": 16932,
+      "notes": 120,
+      "segments": 3427,
+      "chapters": 66,
+      "verse_languages": {
+        "hbo": 1291
+      },
+      "chapter_verse_counts": [
+        31,
+        22,
+        26,
+        6,
+        30,
+        13,
+        25,
+        23,
+        20,
+        34,
+        16,
+        6,
+        22,
+        32,
+        9,
+        14,
+        14,
+        7,
+        25,
+        6,
+        17,
+        25,
+        18,
+        23,
+        12,
+        21,
+        13,
+        29,
+        24,
+        33,
+        9,
+        20,
+        24,
+        17,
+        10,
+        22,
+        38,
+        22,
+        8,
+        31,
+        29,
+        25,
+        28,
+        28,
+        25,
+        13,
+        15,
+        22,
+        26,
+        11,
+        23,
+        15,
+        12,
+        17,
+        13,
+        12,
+        21,
+        14,
+        21,
+        22,
+        11,
+        12,
+        19,
+        11,
+        25,
+        24
+      ],
+      "artifact": {
+        "path": "wlc/Isa.xml",
+        "bytes": 1548674,
+        "sha256": "0807678de609bdef284bed5400b94ddab570d101b593c7f59ae1939015572fa2"
+      }
+    },
+    {
+      "book": "Jer",
+      "verses": 1364,
+      "main_words": 21836,
+      "notes": 206,
+      "segments": 5295,
+      "chapters": 52,
+      "verse_languages": {
+        "arc": 1,
+        "hbo": 1363
+      },
+      "chapter_verse_counts": [
+        19,
+        37,
+        25,
+        31,
+        31,
+        30,
+        34,
+        23,
+        25,
+        25,
+        23,
+        17,
+        27,
+        22,
+        21,
+        21,
+        27,
+        23,
+        15,
+        18,
+        14,
+        30,
+        40,
+        10,
+        38,
+        24,
+        22,
+        17,
+        32,
+        24,
+        40,
+        44,
+        26,
+        22,
+        19,
+        32,
+        21,
+        28,
+        18,
+        16,
+        18,
+        22,
+        13,
+        30,
+        5,
+        28,
+        7,
+        47,
+        39,
+        46,
+        64,
+        34
+      ],
+      "artifact": {
+        "path": "wlc/Jer.xml",
+        "bytes": 1977728,
+        "sha256": "1a7ad7bc26a2cae1d3964230e8eb73043bc1f32505cb86cd69a25261dc39f493"
+      }
+    },
+    {
+      "book": "Lam",
+      "verses": 154,
+      "main_words": 1542,
+      "notes": 47,
+      "segments": 419,
+      "chapters": 5,
+      "verse_languages": {
+        "hbo": 154
+      },
+      "chapter_verse_counts": [
+        22,
+        22,
+        66,
+        22,
+        22
+      ],
+      "artifact": {
+        "path": "wlc/Lam.xml",
+        "bytes": 167766,
+        "sha256": "be68fc6a913313367280c2596e28733ee8cf877c12a65227237733b40d0248c4"
+      }
+    },
+    {
+      "book": "Ezek",
+      "verses": 1273,
+      "main_words": 18730,
+      "notes": 211,
+      "segments": 3944,
+      "chapters": 48,
+      "verse_languages": {
+        "hbo": 1273
+      },
+      "chapter_verse_counts": [
+        28,
+        10,
+        27,
+        17,
+        17,
+        14,
+        27,
+        18,
+        11,
+        22,
+        25,
+        28,
+        23,
+        23,
+        8,
+        63,
+        24,
+        32,
+        14,
+        44,
+        37,
+        31,
+        49,
+        27,
+        17,
+        21,
+        36,
+        26,
+        21,
+        26,
+        18,
+        32,
+        33,
+        31,
+        15,
+        38,
+        28,
+        23,
+        29,
+        49,
+        26,
+        20,
+        27,
+        31,
+        25,
+        24,
+        23,
+        35
+      ],
+      "artifact": {
+        "path": "wlc/Ezek.xml",
+        "bytes": 1724378,
+        "sha256": "90bf8adfa66b2f6695c702263fe668755c99c6afc386202c12de4f704f5d4e46"
+      }
+    },
+    {
+      "book": "Dan",
+      "verses": 357,
+      "main_words": 5919,
+      "notes": 217,
+      "segments": 1077,
+      "chapters": 12,
+      "verse_languages": {
+        "arc": 199,
+        "hbo": 157,
+        "mul": 1
+      },
+      "chapter_verse_counts": [
+        21,
+        49,
+        33,
+        34,
+        30,
+        29,
+        28,
+        27,
+        27,
+        21,
+        45,
+        13
+      ],
+      "artifact": {
+        "path": "wlc/Dan.xml",
+        "bytes": 569236,
+        "sha256": "bc69d0fa9708dacb11ea6d587509250bf1bcc1b4343eac2d6e97f8b41518fc0d"
+      }
+    },
+    {
+      "book": "Hos",
+      "verses": 197,
+      "main_words": 2381,
+      "notes": 74,
+      "segments": 500,
+      "chapters": 14,
+      "verse_languages": {
+        "hbo": 197
+      },
+      "chapter_verse_counts": [
+        9,
+        25,
+        5,
+        19,
+        15,
+        11,
+        16,
+        14,
+        17,
+        15,
+        11,
+        15,
+        15,
+        10
+      ],
+      "artifact": {
+        "path": "wlc/Hos.xml",
+        "bytes": 236712,
+        "sha256": "f38ae44a3a97d142768bd5f4d40e77b69265184f9a5aec9e6af1b9b226e8daae"
+      }
+    },
+    {
+      "book": "Joel",
+      "verses": 73,
+      "main_words": 957,
+      "notes": 29,
+      "segments": 183,
+      "chapters": 4,
+      "verse_languages": {
+        "hbo": 73
+      },
+      "chapter_verse_counts": [
+        20,
+        27,
+        5,
+        21
+      ],
+      "artifact": {
+        "path": "wlc/Joel.xml",
+        "bytes": 105277,
+        "sha256": "c0fefc6881afe949b023968106cdccc05a690734b8bb6e9aa48914d77e5369af"
+      }
+    },
+    {
+      "book": "Amos",
+      "verses": 146,
+      "main_words": 2042,
+      "notes": 23,
+      "segments": 452,
+      "chapters": 9,
+      "verse_languages": {
+        "hbo": 146
+      },
+      "chapter_verse_counts": [
+        15,
+        16,
+        15,
+        13,
+        27,
+        14,
+        17,
+        14,
+        15
+      ],
+      "artifact": {
+        "path": "wlc/Amos.xml",
+        "bytes": 201588,
+        "sha256": "6ad94c6a18076762f1a458720c62156d354e5111ee25719b7792b70792d0084d"
+      }
+    },
+    {
+      "book": "Obad",
+      "verses": 21,
+      "main_words": 291,
+      "notes": 7,
+      "segments": 65,
+      "chapters": 1,
+      "verse_languages": {
+        "hbo": 21
+      },
+      "chapter_verse_counts": [
+        21
+      ],
+      "artifact": {
+        "path": "wlc/Obad.xml",
+        "bytes": 44626,
+        "sha256": "1e893e552a7ed7e2e6d4048637ff5da8a2853a9e4432f4095cede80b959d850c"
+      }
+    },
+    {
+      "book": "Jonah",
+      "verses": 48,
+      "main_words": 688,
+      "notes": 15,
+      "segments": 158,
+      "chapters": 4,
+      "verse_languages": {
+        "hbo": 48
+      },
+      "chapter_verse_counts": [
+        16,
+        11,
+        10,
+        11
+      ],
+      "artifact": {
+        "path": "wlc/Jonah.xml",
+        "bytes": 80534,
+        "sha256": "1e1afcc3aaba1399d5c884ee106894c6bfca87c8c81fa57783ab75a923eee17d"
+      }
+    },
+    {
+      "book": "Mic",
+      "verses": 105,
+      "main_words": 1396,
+      "notes": 31,
+      "segments": 277,
+      "chapters": 7,
+      "verse_languages": {
+        "hbo": 105
+      },
+      "chapter_verse_counts": [
+        16,
+        13,
+        12,
+        14,
+        14,
+        16,
+        20
+      ],
+      "artifact": {
+        "path": "wlc/Mic.xml",
+        "bytes": 145482,
+        "sha256": "267e111adc1b941e32444816af07aa136ecde02cb315cd42597f78b393e67a01"
+      }
+    },
+    {
+      "book": "Nah",
+      "verses": 47,
+      "main_words": 558,
+      "notes": 18,
+      "segments": 94,
+      "chapters": 3,
+      "verse_languages": {
+        "hbo": 47
+      },
+      "chapter_verse_counts": [
+        14,
+        14,
+        19
+      ],
+      "artifact": {
+        "path": "wlc/Nah.xml",
+        "bytes": 69823,
+        "sha256": "5993b28bdbee3c922e3e93002d343a655493e8bd45e3472f3b62d77beadcb62c"
+      }
+    },
+    {
+      "book": "Hab",
+      "verses": 56,
+      "main_words": 671,
+      "notes": 12,
+      "segments": 130,
+      "chapters": 3,
+      "verse_languages": {
+        "hbo": 56
+      },
+      "chapter_verse_counts": [
+        17,
+        20,
+        19
+      ],
+      "artifact": {
+        "path": "wlc/Hab.xml",
+        "bytes": 79467,
+        "sha256": "2592b212d816775adc8dac46bd0c46263982c308a186dde64dfb8239c57bd2d1"
+      }
+    },
+    {
+      "book": "Zeph",
+      "verses": 53,
+      "main_words": 767,
+      "notes": 8,
+      "segments": 167,
+      "chapters": 3,
+      "verse_languages": {
+        "hbo": 53
+      },
+      "chapter_verse_counts": [
+        18,
+        15,
+        20
+      ],
+      "artifact": {
+        "path": "wlc/Zeph.xml",
+        "bytes": 87313,
+        "sha256": "eb5bd2a745fba1ffeed31dfafd834ce7c290929c992390be1a2b9451d22dea2e"
+      }
+    },
+    {
+      "book": "Hag",
+      "verses": 38,
+      "main_words": 600,
+      "notes": 4,
+      "segments": 159,
+      "chapters": 2,
+      "verse_languages": {
+        "hbo": 38
+      },
+      "chapter_verse_counts": [
+        15,
+        23
+      ],
+      "artifact": {
+        "path": "wlc/Hag.xml",
+        "bytes": 71754,
+        "sha256": "26ebbae4fe491cf89ce70e1264cbcbf66a562b497cb214b677e67a9a43ad545c"
+      }
+    },
+    {
+      "book": "Zech",
+      "verses": 211,
+      "main_words": 3128,
+      "notes": 43,
+      "segments": 666,
+      "chapters": 14,
+      "verse_languages": {
+        "hbo": 211
+      },
+      "chapter_verse_counts": [
+        17,
+        17,
+        10,
+        14,
+        11,
+        15,
+        14,
+        23,
+        17,
+        12,
+        17,
+        14,
+        9,
+        21
+      ],
+      "artifact": {
+        "path": "wlc/Zech.xml",
+        "bytes": 300202,
+        "sha256": "2e287c8d0e0abd3bf601eb8ef9b4ee6ca3ae12cf36c0ed1612a7dcca54a2e777"
+      }
+    },
+    {
+      "book": "Mal",
+      "verses": 55,
+      "main_words": 876,
+      "notes": 10,
+      "segments": 166,
+      "chapters": 3,
+      "verse_languages": {
+        "hbo": 55
+      },
+      "chapter_verse_counts": [
+        14,
+        17,
+        24
+      ],
+      "artifact": {
+        "path": "wlc/Mal.xml",
+        "bytes": 95722,
+        "sha256": "1583e6a701406dce7b8c2bf85e3522ec31383756de130685fc7c2eb6df8964b2"
+      }
+    }
+  ],
+  "supporting_source_artifacts": [
+    {
+      "path": "LICENSE.md",
+      "bytes": 1476,
+      "sha256": "9bf4a2890c25372e4c1dc750d550bfb4eacfbfcb63c53123b0628159370d1878"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5027,
+      "sha256": "2da25acf89375558b843dab582bdf00833137baf1c8afe2b32cf09e251179999"
+    },
+    {
+      "path": "wlc/VerseMap.xml",
+      "bytes": 106885,
+      "sha256": "6cd269ca3dccef2cb944b9d9dd8afc950f929dab53a534f1268d23affa983163"
+    },
+    {
+      "path": "parsing/HebrewMorphologyCodes.html",
+      "bytes": 18944,
+      "sha256": "4ef067cd9f2508de19d81aab93bf2d7e24d1687a7664c5168de1411adaf4ee1d"
+    }
+  ],
+  "prepared_artifact": {
+    "path": "data/processed/oshb/verses.jsonl",
+    "bytes": 92749492,
+    "sha256": "221a1687c616138470e47e4e12c926e30078b5449abc585f774ff946ef25c63a"
+  },
+  "prepared_summary_sha256": "ce5bac25cf1a48f22e830cd4a64226f1e9e6c6e2ba58f2ace8b6afe2581a46a4",
+  "source_exclusions": [
+    "Non-wlc repository collections",
+    "VerseMap.xml is hashed for provenance but not ingested or used to remap references"
+  ],
+  "training_text_exclusions": [
+    "All note prose",
+    "Qere and accent alternatives",
+    "Standalone samekh/pe paragraph-marker glyphs",
+    "XML ASCII slash morpheme delimiters"
+  ],
+  "limitations": [
+    "Main/ketiv is an explicit reading-layer choice, not a recovered autograph",
+    "Pointed ordinary words and often unpointed ketiv are retained as encoded; no missing vocalization is reconstructed",
+    "Language labels follow OSHB annotations rather than a new linguistic adjudication",
+    "Book and verse counts use this exact source's inventory and versification"
+  ]
+}

@@ -1,0 +1,584 @@
+{
+  "schema_version": 1,
+  "status": "prepared_not_trained",
+  "model": "thinkingmachines/Inkling",
+  "tokenizer": {
+    "repository": "thinkingmachines/Inkling",
+    "revision": "828496eeae4c243ff1a22f7f28ff83694f2f7bc9",
+    "tokenizer_sha256": "9fb6333a7db8fe5da90728e741e4a3ee4ac2ae12c5dd4958cc6f31688787d3c2",
+    "asset_manifest": "manifests/comparison-large-models-v1.json",
+    "asset_manifest_sha256": "87de6c1bf7d7e2e6d6e8bccc90a229a7744fa5091684ae51c3fa98023af853a4",
+    "runtime_packages": {
+      "tml-renderers": "0.1.0",
+      "torch": "2.14.0",
+      "transformers": "5.16.1",
+      "tokenizers": "0.23.2"
+    },
+    "native_package_identity": {
+      "version": "0.1.0",
+      "files_sha256": "06f5390de806baf7fa756b050a051d165532711cf48513099b669b9e0dd3c667"
+    },
+    "parity": {
+      "vocabulary_sha256": "555ecdb09dcb7d593ce71795cadbae2ef35d68ce4109a4630c9cfaa234c80a89",
+      "vocabulary_entries": 200058,
+      "unicode_probes_passed": 5,
+      "comparison": "official_native_tml_package_vs_pinned_hf_assets",
+      "live_sdk_tokenizer_compared": false,
+      "sdk_tokenizer_accessor": "not_used; version_0.27.1_requires_unpublished_package",
+      "all_encoded_header_and_body_token_ids_compared": true,
+      "all_encoded_header_and_body_unicode_roundtrips_checked": true
+    }
+  },
+  "input_sha256": {
+    "oshb": "221a1687c616138470e47e4e12c926e30078b5449abc585f774ff946ef25c63a",
+    "sblgnt": "fac6138a792ee1d099889d352015c10ff9748250ef034dba174e5e76d740af4f"
+  },
+  "seed": "bible-v1",
+  "maximum_input_tokens": 2048,
+  "preparation_code_sha256": {
+    "bibleprep/hebrew.py": "b7e7ef069f9c972440a41769967511afa4ad291c87ea21a1341640ccd2a3da2f",
+    "bibleprep/greek.py": "df4831fb98afab3a97a6a125d002bae413367539d90820df7fe9e570f108203f",
+    "bibleprep/tokenize.py": "8d0f81cce45ae7bce6b202b3c86ac4dce7f9bdadf8435f7e26698bbe0fe8b7ea",
+    "bibleprep/prepare_inkling.py": "59c458d5dd6232b61d91cf2be5f79c76940331e8ace0d469173fc76e09c09271",
+    "bibleprep/tinker_compare.py": "b050a9ad9e246599138b62fa366d4e558619151d97a30d805c6abaca553856ff",
+    "bibleprep/tinker_evaluate.py": "e8bbb9e58a44f7cdd63bb81a1fdf9ff84b9fc0f514a5e4a6318327d49500e4d8",
+    "bibleprep/evaluate.py": "b803a1bf63244ba1f051fc6781a455bbd463ec4ce9f5584c95bb35881cfb02fd"
+  },
+  "bos_token_id": 200028,
+  "eos_token_id": 199999,
+  "unicode_normalization": "none",
+  "framing": {
+    "objective": "raw_original_language_next_token_prediction",
+    "format": "native begin_of_text + masked ordinary metadata + ordinary original-language body + native endoftext",
+    "status": "experimental project design; not a provider-prescribed raw-document recipe",
+    "metadata_loss": "zero",
+    "body_and_eos_loss": "one",
+    "shift": "exactly once; input_ids=full_ids[:-1], target_ids=full_ids[1:], weights=full_weights[1:]",
+    "chat_or_thinking_targets": false,
+    "tokenization_boundaries": "Metadata and body encoded separately to keep the loss boundary exact; each part is checked against pinned HF tokens and round-tripped without Unicode normalization.",
+    "references": [
+      "https://tinker-docs.thinkingmachines.ai/cookbook/inkling/tml-renderers/",
+      "https://tinker-docs.thinkingmachines.ai/tinker/losses/cross-entropy/",
+      "https://huggingface.co/thinkingmachines/Inkling/tree/828496eeae4c243ff1a22f7f28ff83694f2f7bc9"
+    ]
+  },
+  "source_verse_records": 31152,
+  "source_verse_counts": {
+    "oshb": 23213,
+    "sblgnt": 7939
+  },
+  "books": {
+    "oshb": [
+      "Gen",
+      "Exod",
+      "Lev",
+      "Num",
+      "Deut",
+      "Josh",
+      "Judg",
+      "Ruth",
+      "1Sam",
+      "2Sam",
+      "1Kgs",
+      "2Kgs",
+      "1Chr",
+      "2Chr",
+      "Ezra",
+      "Neh",
+      "Esth",
+      "Job",
+      "Ps",
+      "Prov",
+      "Eccl",
+      "Song",
+      "Isa",
+      "Jer",
+      "Lam",
+      "Ezek",
+      "Dan",
+      "Hos",
+      "Joel",
+      "Amos",
+      "Obad",
+      "Jonah",
+      "Mic",
+      "Nah",
+      "Hab",
+      "Zeph",
+      "Hag",
+      "Zech",
+      "Mal"
+    ],
+    "sblgnt": [
+      "Matt",
+      "Mark",
+      "Luke",
+      "John",
+      "Acts",
+      "Rom",
+      "1Cor",
+      "2Cor",
+      "Gal",
+      "Eph",
+      "Phil",
+      "Col",
+      "1Thess",
+      "2Thess",
+      "1Tim",
+      "2Tim",
+      "Titus",
+      "Phlm",
+      "Heb",
+      "Jas",
+      "1Pet",
+      "2Pet",
+      "1John",
+      "2John",
+      "3John",
+      "Jude",
+      "Rev"
+    ]
+  },
+  "artifacts": {
+    "all": {
+      "path": "data/prepared/inkling-v1/all.jsonl",
+      "sha256": "9c4020957ddd4f60def5147829a2c334f565de00325f7dcda2ae1e48f0bff782",
+      "sequences": 2299,
+      "processed_tokens": 3484503,
+      "loss_tokens": 3430822,
+      "body_tokens": 3428523
+    },
+    "train": {
+      "path": "data/prepared/inkling-v1/train.jsonl",
+      "sha256": "1917fdbebe5466b8bf9b8ff11e6e6bd842571bd32a864befd9935b15d7f79817",
+      "sequences": 2169,
+      "processed_tokens": 3280433,
+      "loss_tokens": 3229825,
+      "body_tokens": 3227656
+    },
+    "validation": {
+      "path": "data/prepared/inkling-v1/validation.jsonl",
+      "sha256": "25ab80e174d310ad5330751554f16871f86829be0ef6a4d4b62afefb202a6eff",
+      "sequences": 130,
+      "processed_tokens": 204070,
+      "loss_tokens": 200997,
+      "body_tokens": 200867
+    }
+  },
+  "by_language": {
+    "hbo": {
+      "sequences": 1848,
+      "processed_tokens": 2849040,
+      "body_tokens": 2803657
+    },
+    "mul": {
+      "sequences": 2,
+      "processed_tokens": 252,
+      "body_tokens": 204
+    },
+    "arc": {
+      "sequences": 29,
+      "processed_tokens": 46306,
+      "body_tokens": 45602
+    },
+    "grc": {
+      "sequences": 420,
+      "processed_tokens": 588905,
+      "body_tokens": 579060
+    }
+  },
+  "by_source": {
+    "oshb": {
+      "sequences": 1879,
+      "processed_tokens": 2895598,
+      "body_tokens": 2849463
+    },
+    "sblgnt": {
+      "sequences": 420,
+      "processed_tokens": 588905,
+      "body_tokens": 579060
+    }
+  },
+  "by_book": {
+    "Gen": {
+      "sequences": 121,
+      "processed_tokens": 189874,
+      "body_tokens": 186970
+    },
+    "Exod": {
+      "sequences": 99,
+      "processed_tokens": 156571,
+      "body_tokens": 154096
+    },
+    "Lev": {
+      "sequences": 67,
+      "processed_tokens": 109641,
+      "body_tokens": 108033
+    },
+    "Num": {
+      "sequences": 95,
+      "processed_tokens": 155758,
+      "body_tokens": 153478
+    },
+    "Deut": {
+      "sequences": 84,
+      "processed_tokens": 133968,
+      "body_tokens": 131868
+    },
+    "Josh": {
+      "sequences": 59,
+      "processed_tokens": 96184,
+      "body_tokens": 94768
+    },
+    "Judg": {
+      "sequences": 57,
+      "processed_tokens": 93904,
+      "body_tokens": 92479
+    },
+    "Ruth": {
+      "sequences": 8,
+      "processed_tokens": 12053,
+      "body_tokens": 11853
+    },
+    "1Sam": {
+      "sequences": 77,
+      "processed_tokens": 124084,
+      "body_tokens": 122159
+    },
+    "2Sam": {
+      "sequences": 62,
+      "processed_tokens": 101817,
+      "body_tokens": 100267
+    },
+    "1Kgs": {
+      "sequences": 72,
+      "processed_tokens": 123590,
+      "body_tokens": 121718
+    },
+    "2Kgs": {
+      "sequences": 68,
+      "processed_tokens": 115585,
+      "body_tokens": 113817
+    },
+    "1Chr": {
+      "sequences": 66,
+      "processed_tokens": 105459,
+      "body_tokens": 103809
+    },
+    "2Chr": {
+      "sequences": 83,
+      "processed_tokens": 130565,
+      "body_tokens": 128490
+    },
+    "Ezra": {
+      "sequences": 26,
+      "processed_tokens": 37743,
+      "body_tokens": 37093
+    },
+    "Neh": {
+      "sequences": 32,
+      "processed_tokens": 53166,
+      "body_tokens": 52398
+    },
+    "Esth": {
+      "sequences": 20,
+      "processed_tokens": 29738,
+      "body_tokens": 29238
+    },
+    "Job": {
+      "sequences": 57,
+      "processed_tokens": 79348,
+      "body_tokens": 77980
+    },
+    "Ps": {
+      "sequences": 172,
+      "processed_tokens": 196376,
+      "body_tokens": 192248
+    },
+    "Prov": {
+      "sequences": 49,
+      "processed_tokens": 65439,
+      "body_tokens": 64263
+    },
+    "Eccl": {
+      "sequences": 19,
+      "processed_tokens": 26992,
+      "body_tokens": 26517
+    },
+    "Song": {
+      "sequences": 8,
+      "processed_tokens": 12443,
+      "body_tokens": 12251
+    },
+    "Isa": {
+      "sequences": 107,
+      "processed_tokens": 159864,
+      "body_tokens": 157296
+    },
+    "Jer": {
+      "sequences": 123,
+      "processed_tokens": 201423,
+      "body_tokens": 198471
+    },
+    "Lam": {
+      "sequences": 9,
+      "processed_tokens": 14219,
+      "body_tokens": 14003
+    },
+    "Ezek": {
+      "sequences": 109,
+      "processed_tokens": 177555,
+      "body_tokens": 174830
+    },
+    "Dan": {
+      "sequences": 36,
+      "processed_tokens": 57291,
+      "body_tokens": 56427
+    },
+    "Hos": {
+      "sequences": 15,
+      "processed_tokens": 22559,
+      "body_tokens": 22199
+    },
+    "Joel": {
+      "sequences": 7,
+      "processed_tokens": 9165,
+      "body_tokens": 8997
+    },
+    "Amos": {
+      "sequences": 13,
+      "processed_tokens": 19086,
+      "body_tokens": 18761
+    },
+    "Obad": {
+      "sequences": 2,
+      "processed_tokens": 2693,
+      "body_tokens": 2643
+    },
+    "Jonah": {
+      "sequences": 5,
+      "processed_tokens": 6450,
+      "body_tokens": 6325
+    },
+    "Mic": {
+      "sequences": 9,
+      "processed_tokens": 13237,
+      "body_tokens": 13021
+    },
+    "Nah": {
+      "sequences": 4,
+      "processed_tokens": 5360,
+      "body_tokens": 5264
+    },
+    "Hab": {
+      "sequences": 4,
+      "processed_tokens": 6211,
+      "body_tokens": 6115
+    },
+    "Zeph": {
+      "sequences": 5,
+      "processed_tokens": 7129,
+      "body_tokens": 7004
+    },
+    "Hag": {
+      "sequences": 4,
+      "processed_tokens": 5519,
+      "body_tokens": 5419
+    },
+    "Zech": {
+      "sequences": 20,
+      "processed_tokens": 29336,
+      "body_tokens": 28836
+    },
+    "Mal": {
+      "sequences": 6,
+      "processed_tokens": 8203,
+      "body_tokens": 8059
+    },
+    "Matt": {
+      "sequences": 54,
+      "processed_tokens": 78436,
+      "body_tokens": 77194
+    },
+    "Mark": {
+      "sequences": 37,
+      "processed_tokens": 48564,
+      "body_tokens": 47667
+    },
+    "Luke": {
+      "sequences": 56,
+      "processed_tokens": 83496,
+      "body_tokens": 82208
+    },
+    "John": {
+      "sequences": 44,
+      "processed_tokens": 65516,
+      "body_tokens": 64458
+    },
+    "Acts": {
+      "sequences": 60,
+      "processed_tokens": 80026,
+      "body_tokens": 78646
+    },
+    "Rom": {
+      "sequences": 21,
+      "processed_tokens": 29650,
+      "body_tokens": 29167
+    },
+    "1Cor": {
+      "sequences": 21,
+      "processed_tokens": 28740,
+      "body_tokens": 28236
+    },
+    "2Cor": {
+      "sequences": 15,
+      "processed_tokens": 19623,
+      "body_tokens": 19263
+    },
+    "Gal": {
+      "sequences": 6,
+      "processed_tokens": 9611,
+      "body_tokens": 9473
+    },
+    "Eph": {
+      "sequences": 7,
+      "processed_tokens": 10237,
+      "body_tokens": 10069
+    },
+    "Phil": {
+      "sequences": 5,
+      "processed_tokens": 6848,
+      "body_tokens": 6733
+    },
+    "Col": {
+      "sequences": 5,
+      "processed_tokens": 6757,
+      "body_tokens": 6642
+    },
+    "1Thess": {
+      "sequences": 5,
+      "processed_tokens": 6592,
+      "body_tokens": 6467
+    },
+    "2Thess": {
+      "sequences": 3,
+      "processed_tokens": 3631,
+      "body_tokens": 3556
+    },
+    "1Tim": {
+      "sequences": 6,
+      "processed_tokens": 7184,
+      "body_tokens": 7040
+    },
+    "2Tim": {
+      "sequences": 4,
+      "processed_tokens": 5418,
+      "body_tokens": 5322
+    },
+    "Titus": {
+      "sequences": 3,
+      "processed_tokens": 3081,
+      "body_tokens": 3012
+    },
+    "Phlm": {
+      "sequences": 1,
+      "processed_tokens": 1382,
+      "body_tokens": 1358
+    },
+    "Heb": {
+      "sequences": 16,
+      "processed_tokens": 21448,
+      "body_tokens": 21080
+    },
+    "Jas": {
+      "sequences": 5,
+      "processed_tokens": 7534,
+      "body_tokens": 7414
+    },
+    "1Pet": {
+      "sequences": 5,
+      "processed_tokens": 7591,
+      "body_tokens": 7471
+    },
+    "2Pet": {
+      "sequences": 3,
+      "processed_tokens": 4974,
+      "body_tokens": 4902
+    },
+    "1John": {
+      "sequences": 6,
+      "processed_tokens": 8940,
+      "body_tokens": 8796
+    },
+    "2John": {
+      "sequences": 1,
+      "processed_tokens": 1030,
+      "body_tokens": 1006
+    },
+    "3John": {
+      "sequences": 1,
+      "processed_tokens": 952,
+      "body_tokens": 928
+    },
+    "Jude": {
+      "sequences": 2,
+      "processed_tokens": 2118,
+      "body_tokens": 2070
+    },
+    "Rev": {
+      "sequences": 28,
+      "processed_tokens": 39526,
+      "body_tokens": 38882
+    }
+  },
+  "by_layer": {
+    "main_ketiv": {
+      "sequences": 1879,
+      "processed_tokens": 2895598,
+      "body_tokens": 2849463
+    },
+    "main": {
+      "sequences": 416,
+      "processed_tokens": 587045,
+      "body_tokens": 577384
+    },
+    "supplement:shorter_ending_of_mark:sblgnt:Mark.16.8:editorial:1": {
+      "sequences": 1,
+      "processed_tokens": 184,
+      "body_tokens": 138
+    },
+    "supplement:longer_ending_of_mark:sblgnt:Mark.16.9:editorial:2": {
+      "sequences": 1,
+      "processed_tokens": 782,
+      "body_tokens": 736
+    },
+    "supplement:pericope_adulterae:sblgnt:John.7.53:editorial:1": {
+      "sequences": 2,
+      "processed_tokens": 894,
+      "body_tokens": 802
+    }
+  },
+  "development_split_verification": {
+    "previous_manifest": "manifests/preparation-v1.json",
+    "previous_manifest_sha256": "400daabcb563fe1716f4cb7ede7db1b3d57470f6be369f12cb74b31981bf8d96",
+    "every_reading_fragment_preserves_previous_split": true,
+    "reading_fragments": 31153,
+    "chapters": {
+      "train": 1120,
+      "validation": 69
+    }
+  },
+  "split_policy": "Reuse previous chapter-family grouping and bible-v1 seed across all edition layers; verify every fragment's split against the checksum-verified previous all.jsonl.",
+  "split_limitations": "Development holdout excludes these chapters from adapter updates only. Base pretraining exposure is unknown. all.jsonl includes validation chapters and must not be used for the development pass.",
+  "price_source": "https://tinker-docs.thinkingmachines.ai/tinker/models.json",
+  "price_checked_on": "2026-09-05",
+  "price_manifest": "manifests/comparison-large-pricing-v1.json",
+  "price_manifest_sha256": "e155bdddea2a552da2a4bb628a40ccea7f1d715bc4e66d53a5ba13184c3dd449",
+  "training_usd_per_million_processed_tokens": 5.61,
+  "estimated_training_compute_usd": {
+    "all": 19.548062,
+    "train": 18.403229,
+    "validation": 1.144833
+  },
+  "cost_limitations": "One pass of unpadded input positions at the referenced historical price snapshot, not an invoice or current-price guarantee. Calibration must reconcile provider metering; forward-only evaluation, inference, checkpoint storage and retries excluded."
+}

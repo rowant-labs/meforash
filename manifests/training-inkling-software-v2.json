@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "experiment": "inkling-original-text-v1",
+  "change_from_v1": "Accept the provider colon-delimited training identifier in private checkpoint paths; no change to training or evaluation tokens. First preflight rejection submitted no API calls.",
+  "files_sha256": {
+    "bibleprep/train_inkling.py": "89d0db22618807e4a4b57b37ac8f817bc3491287b83ff47055ed8e667c924520",
+    "bibleprep/prepare_inkling.py": "59c458d5dd6232b61d91cf2be5f79c76940331e8ace0d469173fc76e09c09271",
+    "bibleprep/evaluate_adapter.py": "371cf93fcc1e50f0f86aa1d9a7895f1d51ab75e868c5bbe028383a15cb878df4",
+    "bibleprep/environment.py": "b4d5b205e4540c95fb1a3372cec4f144544f6eec7fbbdb65d276d3e8369fa446",
+    "bibleprep/tinker_compare.py": "b050a9ad9e246599138b62fa366d4e558619151d97a30d805c6abaca553856ff",
+    "bibleprep/tinker_evaluate.py": "e8bbb9e58a44f7cdd63bb81a1fdf9ff84b9fc0f514a5e4a6318327d49500e4d8",
+    "bibleprep/evaluate.py": "b803a1bf63244ba1f051fc6781a455bbd463ec4ce9f5584c95bb35881cfb02fd",
+    "tests/test_train_inkling.py": "11fe412ef25c3b6ecfd1b3c3b1090cb2349c1b8187e79b349d6c758c6b3a7d66",
+    "tests/test_prepare_inkling.py": "122bb206080fcca213a7fbd9352f747ef7c777f4811cf57a2e6d56b0abe24d73",
+    "tests/test_evaluate_adapter.py": "d8931f6028cb1d7622ce24f21bdd9d4b6f19f18023d17cd0c3aae63af39a24f8",
+    "requirements-training.txt": "42340a96d7fcdc963bcfaf2ae11a21979a5b4c63e211edf67effbf86f83cc3f0",
+    "requirements-comparison-large.lock.txt": "f71b8507470fff116ce67238c499c1a2e5175f61f5504d10747adf06de202343",
+    "manifests/preparation-inkling-v1.json": "de9ac547385956ba3c3bfbd45bb4c86661bc4e2a2e1b26ccacda34c5fea00cbd",
+    "evals/comparison-large-v1.jsonl": "a8039aae01f8a65e7d1daa4b3ed243c8fc868c7a3cfc672a97f2a8ffe0e75ade"
+  }
+}

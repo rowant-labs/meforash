@@ -1,0 +1,2022 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "public_candidate_g_source_plan_v1",
+  "status": "source_and_row_plan_only_targets_pending",
+  "training_ready": false,
+  "training_authorized": false,
+  "model_parent": "retained full Inkling original-language adapter B",
+  "new_questions_authored": 0,
+  "new_targets_authored": 0,
+  "training_family_quotas": {
+    "arc": 4,
+    "grc": 14,
+    "hbo": 22
+  },
+  "validation_family_quotas": {
+    "arc": 2,
+    "grc": 4,
+    "hbo": 6
+  },
+  "source_layers": [
+    {
+      "source_id": "oshb",
+      "language": "hbo",
+      "layer": "wlc_main_ketiv",
+      "edition": "Westminster Leningrad Codex as encoded by OSHB; Bible.MT references",
+      "pinned_version": "3d15126fb1ef74867fc1434be1942e837932691f",
+      "content_sha256": "221a1687c616138470e47e4e12c926e30078b5449abc585f774ff946ef25c63a",
+      "training_input_recommendation": "conditionally_eligible_for_training_input_planning",
+      "limits": [
+        "Rendered main/ketiv text and exact source/language metadata only; exclude lemma, morphology, notes, qere alternatives, and historical-evidence components.",
+        "Named Masoretic/Leningrad edition layer, not a recovered autograph.",
+        "Retain original code points; no Unicode normalization."
+      ]
+    },
+    {
+      "source_id": "oshb",
+      "language": "arc",
+      "layer": "wlc_main_ketiv",
+      "edition": "Westminster Leningrad Codex as encoded by OSHB; Bible.MT references",
+      "pinned_version": "3d15126fb1ef74867fc1434be1942e837932691f",
+      "content_sha256": "221a1687c616138470e47e4e12c926e30078b5449abc585f774ff946ef25c63a",
+      "training_input_recommendation": "conditionally_eligible_for_training_input_planning",
+      "limits": [
+        "Arc-only verse records; Daniel 2 starts at verse 5 and Ezra 4 at verse 8 to avoid mixed-language boundary records.",
+        "Exclude lemma, morphology, notes, qere alternatives, and historical-evidence components.",
+        "Retain original code points; no Unicode normalization."
+      ]
+    },
+    {
+      "source_id": "sblgnt",
+      "language": "grc",
+      "layer": "sblgnt_main_text",
+      "edition": "SBL Greek New Testament, pinned public source",
+      "pinned_version": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+      "content_sha256": "fac6138a792ee1d099889d352015c10ff9748250ef034dba174e5e76d740af4f",
+      "training_input_recommendation": "conditionally_eligible_for_training_input_planning",
+      "limits": [
+        "Exact pinned main-text verse records only; exclude apparatus expansion, other editions, historical components, and project English targets.",
+        "Carry attribution, license URI, change notice, and no-endorsement/disclaimer obligations into later review.",
+        "Modern critical edition, not a manuscript or recovered autograph."
+      ]
+    }
+  ],
+  "training_families": [
+    {
+      "family_id": "GTR-HBO-01",
+      "language": "hbo",
+      "book": "Gen",
+      "chapter": "12",
+      "source_span": "Gen.12.1-Gen.12.20",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-HBO-02",
+      "language": "hbo",
+      "book": "Exod",
+      "chapter": "15",
+      "source_span": "Exod.15.1-Exod.15.27",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-HBO-03",
+      "language": "hbo",
+      "book": "Lev",
+      "chapter": "16",
+      "source_span": "Lev.16.1-Lev.16.34",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-HBO-04",
+      "language": "hbo",
+      "book": "Num",
+      "chapter": "13",
+      "source_span": "Num.13.1-Num.13.33",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-HBO-05",
+      "language": "hbo",
+      "book": "Deut",
+      "chapter": "5",
+      "source_span": "Deut.5.1-Deut.5.33",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-HBO-06",
+      "language": "hbo",
+      "book": "Josh",
+      "chapter": "24",
+      "source_span": "Josh.24.1-Josh.24.33",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-HBO-07",
+      "language": "hbo",
+      "book": "Judg",
+      "chapter": "4",
+      "source_span": "Judg.4.1-Judg.4.24",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-HBO-08",
+      "language": "hbo",
+      "book": "Ruth",
+      "chapter": "3",
+      "source_span": "Ruth.3.1-Ruth.3.18",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-HBO-09",
+      "language": "hbo",
+      "book": "1Sam",
+      "chapter": "17",
+      "source_span": "1Sam.17.1-1Sam.17.58",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-HBO-10",
+      "language": "hbo",
+      "book": "2Sam",
+      "chapter": "11",
+      "source_span": "2Sam.11.1-2Sam.11.27",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-HBO-11",
+      "language": "hbo",
+      "book": "1Kgs",
+      "chapter": "18",
+      "source_span": "1Kgs.18.1-1Kgs.18.46",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-HBO-12",
+      "language": "hbo",
+      "book": "2Kgs",
+      "chapter": "4",
+      "source_span": "2Kgs.4.1-2Kgs.4.44",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-HBO-13",
+      "language": "hbo",
+      "book": "1Chr",
+      "chapter": "16",
+      "source_span": "1Chr.16.1-1Chr.16.43",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-HBO-14",
+      "language": "hbo",
+      "book": "2Chr",
+      "chapter": "6",
+      "source_span": "2Chr.6.1-2Chr.6.42",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-HBO-15",
+      "language": "hbo",
+      "book": "Neh",
+      "chapter": "8",
+      "source_span": "Neh.8.1-Neh.8.18",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-HBO-16",
+      "language": "hbo",
+      "book": "Esth",
+      "chapter": "4",
+      "source_span": "Esth.4.1-Esth.4.17",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-HBO-17",
+      "language": "hbo",
+      "book": "Job",
+      "chapter": "28",
+      "source_span": "Job.28.1-Job.28.28",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-HBO-18",
+      "language": "hbo",
+      "book": "Ps",
+      "chapter": "1",
+      "source_span": "Ps.1.1-Ps.1.6",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-HBO-19",
+      "language": "hbo",
+      "book": "Prov",
+      "chapter": "8",
+      "source_span": "Prov.8.1-Prov.8.36",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-HBO-20",
+      "language": "hbo",
+      "book": "Eccl",
+      "chapter": "12",
+      "source_span": "Eccl.12.1-Eccl.12.14",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-HBO-21",
+      "language": "hbo",
+      "book": "Isa",
+      "chapter": "58",
+      "source_span": "Isa.58.1-Isa.58.14",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-HBO-22",
+      "language": "hbo",
+      "book": "Jer",
+      "chapter": "36",
+      "source_span": "Jer.36.1-Jer.36.32",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-GRC-01",
+      "language": "grc",
+      "book": "Matt",
+      "chapter": "11",
+      "source_span": "Matt.11.1-Matt.11.30",
+      "source_id": "sblgnt",
+      "source_layer": "sblgnt_main_text",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-GRC-02",
+      "language": "grc",
+      "book": "Mark",
+      "chapter": "3",
+      "source_span": "Mark.3.1-Mark.3.35",
+      "source_id": "sblgnt",
+      "source_layer": "sblgnt_main_text",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-GRC-03",
+      "language": "grc",
+      "book": "Luke",
+      "chapter": "4",
+      "source_span": "Luke.4.1-Luke.4.44",
+      "source_id": "sblgnt",
+      "source_layer": "sblgnt_main_text",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-GRC-04",
+      "language": "grc",
+      "book": "John",
+      "chapter": "3",
+      "source_span": "John.3.1-John.3.36",
+      "source_id": "sblgnt",
+      "source_layer": "sblgnt_main_text",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-GRC-05",
+      "language": "grc",
+      "book": "Acts",
+      "chapter": "15",
+      "source_span": "Acts.15.1-Acts.15.41",
+      "source_id": "sblgnt",
+      "source_layer": "sblgnt_main_text",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-GRC-06",
+      "language": "grc",
+      "book": "Rom",
+      "chapter": "3",
+      "source_span": "Rom.3.1-Rom.3.31",
+      "source_id": "sblgnt",
+      "source_layer": "sblgnt_main_text",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-GRC-07",
+      "language": "grc",
+      "book": "1Cor",
+      "chapter": "8",
+      "source_span": "1Cor.8.1-1Cor.8.13",
+      "source_id": "sblgnt",
+      "source_layer": "sblgnt_main_text",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-GRC-08",
+      "language": "grc",
+      "book": "2Cor",
+      "chapter": "3",
+      "source_span": "2Cor.3.1-2Cor.3.18",
+      "source_id": "sblgnt",
+      "source_layer": "sblgnt_main_text",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-GRC-09",
+      "language": "grc",
+      "book": "Gal",
+      "chapter": "3",
+      "source_span": "Gal.3.1-Gal.3.29",
+      "source_id": "sblgnt",
+      "source_layer": "sblgnt_main_text",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-GRC-10",
+      "language": "grc",
+      "book": "Eph",
+      "chapter": "1",
+      "source_span": "Eph.1.1-Eph.1.23",
+      "source_id": "sblgnt",
+      "source_layer": "sblgnt_main_text",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-GRC-11",
+      "language": "grc",
+      "book": "Phil",
+      "chapter": "3",
+      "source_span": "Phil.3.1-Phil.3.21",
+      "source_id": "sblgnt",
+      "source_layer": "sblgnt_main_text",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-GRC-12",
+      "language": "grc",
+      "book": "Col",
+      "chapter": "1",
+      "source_span": "Col.1.1-Col.1.29",
+      "source_id": "sblgnt",
+      "source_layer": "sblgnt_main_text",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-GRC-13",
+      "language": "grc",
+      "book": "Heb",
+      "chapter": "4",
+      "source_span": "Heb.4.1-Heb.4.16",
+      "source_id": "sblgnt",
+      "source_layer": "sblgnt_main_text",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-GRC-14",
+      "language": "grc",
+      "book": "Rev",
+      "chapter": "21",
+      "source_span": "Rev.21.1-Rev.21.27",
+      "source_id": "sblgnt",
+      "source_layer": "sblgnt_main_text",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-ARC-01",
+      "language": "arc",
+      "book": "Dan",
+      "chapter": "2",
+      "source_span": "Dan.2.5-Dan.2.49",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": true,
+        "in_prior_evaluation": true,
+        "in_project_research": true,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-ARC-02",
+      "language": "arc",
+      "book": "Dan",
+      "chapter": "3",
+      "source_span": "Dan.3.1-Dan.3.33",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": true,
+        "in_prior_evaluation": true,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-ARC-03",
+      "language": "arc",
+      "book": "Ezra",
+      "chapter": "4",
+      "source_span": "Ezra.4.8-Ezra.4.24",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": true,
+        "in_prior_evaluation": true,
+        "in_project_research": true,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GTR-ARC-04",
+      "language": "arc",
+      "book": "Ezra",
+      "chapter": "5",
+      "source_span": "Ezra.5.1-Ezra.5.17",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": true,
+        "in_prior_evaluation": true,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    }
+  ],
+  "validation_families": [
+    {
+      "family_id": "GVA-HBO-01",
+      "language": "hbo",
+      "book": "Ezek",
+      "chapter": "37",
+      "source_span": "Ezek.37.1-Ezek.37.28",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GVA-HBO-02",
+      "language": "hbo",
+      "book": "Hos",
+      "chapter": "11",
+      "source_span": "Hos.11.1-Hos.11.11",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GVA-HBO-03",
+      "language": "hbo",
+      "book": "Joel",
+      "chapter": "2",
+      "source_span": "Joel.2.1-Joel.2.27",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GVA-HBO-04",
+      "language": "hbo",
+      "book": "Amos",
+      "chapter": "7",
+      "source_span": "Amos.7.1-Amos.7.17",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GVA-HBO-05",
+      "language": "hbo",
+      "book": "Mic",
+      "chapter": "5",
+      "source_span": "Mic.5.1-Mic.5.14",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GVA-HBO-06",
+      "language": "hbo",
+      "book": "Zech",
+      "chapter": "9",
+      "source_span": "Zech.9.1-Zech.9.17",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GVA-GRC-01",
+      "language": "grc",
+      "book": "1Thess",
+      "chapter": "1",
+      "source_span": "1Thess.1.1-1Thess.1.10",
+      "source_id": "sblgnt",
+      "source_layer": "sblgnt_main_text",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GVA-GRC-02",
+      "language": "grc",
+      "book": "1Tim",
+      "chapter": "3",
+      "source_span": "1Tim.3.1-1Tim.3.16",
+      "source_id": "sblgnt",
+      "source_layer": "sblgnt_main_text",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GVA-GRC-03",
+      "language": "grc",
+      "book": "1John",
+      "chapter": "4",
+      "source_span": "1John.4.1-1John.4.21",
+      "source_id": "sblgnt",
+      "source_layer": "sblgnt_main_text",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GVA-GRC-04",
+      "language": "grc",
+      "book": "Jude",
+      "chapter": "1",
+      "source_span": "Jude.1.1-Jude.1.25",
+      "source_id": "sblgnt",
+      "source_layer": "sblgnt_main_text",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": false,
+        "in_prior_evaluation": false,
+        "in_project_research": false,
+        "validation_exposure_exception": null
+      }
+    },
+    {
+      "family_id": "GVA-ARC-01",
+      "language": "arc",
+      "book": "Dan",
+      "chapter": "6",
+      "source_span": "Dan.6.1-Dan.6.29",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": true,
+        "in_prior_evaluation": true,
+        "in_project_research": false,
+        "validation_exposure_exception": "Aramaic development exception: all non-protected ordinary Aramaic chapter families have prior project exposure; this family is disjoint from G training/rehearsal, while protected Dan.4/Ezra.6 and Dan.5/Ezra.7 stay excluded."
+      }
+    },
+    {
+      "family_id": "GVA-ARC-02",
+      "language": "arc",
+      "book": "Dan",
+      "chapter": "7",
+      "source_span": "Dan.7.1-Dan.7.28",
+      "source_id": "oshb",
+      "source_layer": "wlc_main_ketiv",
+      "prior_exposure": {
+        "in_b_raw_text": true,
+        "in_prior_english_training": true,
+        "in_prior_evaluation": true,
+        "in_project_research": false,
+        "validation_exposure_exception": "Aramaic development exception: all non-protected ordinary Aramaic chapter families have prior project exposure; this family is disjoint from G training/rehearsal, while protected Dan.4/Ezra.6 and Dan.5/Ezra.7 stay excluded."
+      }
+    }
+  ],
+  "rehearsal_rows": [
+    {
+      "rehearsal_row_id": "GREH-01",
+      "old_row_id": "IH004",
+      "language": "hbo",
+      "book": "Gen",
+      "chapter": "8",
+      "source_span": "Gen.8.20-22",
+      "full_row_sha256": "5378cbfbce30a2e6d96ade7494a190825bae924fb68ff73410c4a7d8e727912e"
+    },
+    {
+      "rehearsal_row_id": "GREH-02",
+      "old_row_id": "IH013",
+      "language": "hbo",
+      "book": "Lev",
+      "chapter": "25",
+      "source_span": "Lev.25.23-24",
+      "full_row_sha256": "04df17ab59dad539055fd98e44b53acd26e403e7ee19a4d9a8a99c1b9719da9d"
+    },
+    {
+      "rehearsal_row_id": "GREH-03",
+      "old_row_id": "IH028",
+      "language": "hbo",
+      "book": "Ps",
+      "chapter": "51",
+      "source_span": "Ps.51.12-14",
+      "full_row_sha256": "b477e19f86b8a47b20e2b310b3e2825865f032753b860a42b3eecdaf417d70c1"
+    },
+    {
+      "rehearsal_row_id": "GREH-04",
+      "old_row_id": "IH037",
+      "language": "hbo",
+      "book": "Ezek",
+      "chapter": "36",
+      "source_span": "Ezek.36.25-27",
+      "full_row_sha256": "3ba6cb61ee40fcb964d755ca05acd6368fc02ae922744c16749614229bd47469"
+    },
+    {
+      "rehearsal_row_id": "GREH-05",
+      "old_row_id": "IA001",
+      "language": "arc",
+      "book": "Dan",
+      "chapter": "2",
+      "source_span": "Dan.2.21",
+      "full_row_sha256": "4137499b920332c65bbf4d86d9efe4e7eaccc7ac871bbd0db320e9b8dbbac15b"
+    },
+    {
+      "rehearsal_row_id": "GREH-06",
+      "old_row_id": "IA004",
+      "language": "arc",
+      "book": "Dan",
+      "chapter": "3",
+      "source_span": "Dan.3.24",
+      "full_row_sha256": "64a65f0af8f6e217dfbdbd6439567610b9b294e803791b2a54fbfb6466f5ae3e"
+    },
+    {
+      "rehearsal_row_id": "GREH-07",
+      "old_row_id": "IA016",
+      "language": "arc",
+      "book": "Ezra",
+      "chapter": "4",
+      "source_span": "Ezra.4.12",
+      "full_row_sha256": "b944456160493e03d159053270371d0b692404a8ee37f92382812dfd5fc05724"
+    },
+    {
+      "rehearsal_row_id": "GREH-08",
+      "old_row_id": "IA020",
+      "language": "arc",
+      "book": "Ezra",
+      "chapter": "5",
+      "source_span": "Ezra.5.9",
+      "full_row_sha256": "211d9477dbf6fb000f1981ebb5561b2eca56d4c328b73b248ff4f34f1c923f3b"
+    },
+    {
+      "rehearsal_row_id": "GREH-09",
+      "old_row_id": "IG002",
+      "language": "grc",
+      "book": "Matt",
+      "chapter": "7",
+      "source_span": "Matt.7.1-2",
+      "full_row_sha256": "d114ed506e298a9697f475e00f20a504dafb33d1bf246f5025a6f943d82ee0ae"
+    },
+    {
+      "rehearsal_row_id": "GREH-10",
+      "old_row_id": "IG015",
+      "language": "grc",
+      "book": "John",
+      "chapter": "6",
+      "source_span": "John.6.37-40",
+      "full_row_sha256": "77d2f056869defacbce6819bd2604fa9564f42636327a16e5676433527d2916b"
+    },
+    {
+      "rehearsal_row_id": "GREH-11",
+      "old_row_id": "IG025",
+      "language": "grc",
+      "book": "Acts",
+      "chapter": "20",
+      "source_span": "Acts.20.35",
+      "full_row_sha256": "015bde15da1e30409d7e854e16b95329c23afadd3c07b126f1f284cf7096dc26"
+    },
+    {
+      "rehearsal_row_id": "GREH-12",
+      "old_row_id": "IG035",
+      "language": "grc",
+      "book": "Col",
+      "chapter": "3",
+      "source_span": "Col.3.12-13",
+      "full_row_sha256": "b59fd34bddb080dfcaea46578c7204cade8a4381408cd7b0812cf3115d90ab20"
+    },
+    {
+      "rehearsal_row_id": "GREH-13",
+      "old_row_id": "IM001",
+      "language": "hbo",
+      "book": "Prov",
+      "chapter": "15",
+      "source_span": "Prov.15.1",
+      "full_row_sha256": "a6294ca1c0857d87c734b60583fbc57b0c93a66b89a1b90a8025bacc7ad4dcee"
+    },
+    {
+      "rehearsal_row_id": "GREH-14",
+      "old_row_id": "IM003",
+      "language": "hbo",
+      "book": "Prov",
+      "chapter": "16",
+      "source_span": "Prov.16.9",
+      "full_row_sha256": "9f333cd45e9539b71d1b58b53496c8b731b9f7c19a651f99b4f5585d9ba12d1b"
+    },
+    {
+      "rehearsal_row_id": "GREH-15",
+      "old_row_id": "IM008",
+      "language": "grc",
+      "book": "Jas",
+      "chapter": "1",
+      "source_span": "Jas.1.19-20",
+      "full_row_sha256": "db051fcf8a4af7c9fe683fa01740642f3f35d8a7ba35428303b1d4cceae40d7b"
+    },
+    {
+      "rehearsal_row_id": "GREH-16",
+      "old_row_id": "IM012",
+      "language": "grc",
+      "book": "Rom",
+      "chapter": "14",
+      "source_span": "Rom.14.3",
+      "full_row_sha256": "b0570577d46d0a9ab56d21057579c488fe4d93bd00ed5ad98232323b06992cb0"
+    }
+  ],
+  "row_assignments": [
+    {
+      "row_id": "G-TRAIN-GTR-HBO-01-1",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-HBO-01",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-01-2",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-HBO-01",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-02-1",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-HBO-02",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-02-2",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-HBO-02",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-03-1",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-HBO-03",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-03-2",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-HBO-03",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-04-1",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-HBO-04",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-04-2",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-HBO-04",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-05-1",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-HBO-05",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-05-2",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-HBO-05",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-06-1",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-HBO-06",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-06-2",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-HBO-06",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-07-1",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-HBO-07",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-07-2",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-HBO-07",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-08-1",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-HBO-08",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-08-2",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-HBO-08",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-09-1",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-HBO-09",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-09-2",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-HBO-09",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-10-1",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-HBO-10",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-10-2",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-HBO-10",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-11-1",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-HBO-11",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-11-2",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-HBO-11",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-12-1",
+      "split": "train",
+      "group": "boundary",
+      "family_id": "GTR-HBO-12",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-12-2",
+      "split": "train",
+      "group": "boundary",
+      "family_id": "GTR-HBO-12",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-13-1",
+      "split": "train",
+      "group": "boundary",
+      "family_id": "GTR-HBO-13",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-13-2",
+      "split": "train",
+      "group": "boundary",
+      "family_id": "GTR-HBO-13",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-14-1",
+      "split": "train",
+      "group": "boundary",
+      "family_id": "GTR-HBO-14",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-14-2",
+      "split": "train",
+      "group": "boundary",
+      "family_id": "GTR-HBO-14",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-15-1",
+      "split": "train",
+      "group": "boundary",
+      "family_id": "GTR-HBO-15",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-15-2",
+      "split": "train",
+      "group": "boundary",
+      "family_id": "GTR-HBO-15",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-16-1",
+      "split": "train",
+      "group": "boundary",
+      "family_id": "GTR-HBO-16",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-16-2",
+      "split": "train",
+      "group": "boundary",
+      "family_id": "GTR-HBO-16",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-17-1",
+      "split": "train",
+      "group": "boundary",
+      "family_id": "GTR-HBO-17",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-17-2",
+      "split": "train",
+      "group": "boundary",
+      "family_id": "GTR-HBO-17",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-18-1",
+      "split": "train",
+      "group": "boundary",
+      "family_id": "GTR-HBO-18",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-18-2",
+      "split": "train",
+      "group": "boundary",
+      "family_id": "GTR-HBO-18",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-19-1",
+      "split": "train",
+      "group": "intent",
+      "family_id": "GTR-HBO-19",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-19-2",
+      "split": "train",
+      "group": "intent",
+      "family_id": "GTR-HBO-19",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-20-1",
+      "split": "train",
+      "group": "intent",
+      "family_id": "GTR-HBO-20",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-20-2",
+      "split": "train",
+      "group": "intent",
+      "family_id": "GTR-HBO-20",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-21-1",
+      "split": "train",
+      "group": "intent",
+      "family_id": "GTR-HBO-21",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-21-2",
+      "split": "train",
+      "group": "intent",
+      "family_id": "GTR-HBO-21",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-22-1",
+      "split": "train",
+      "group": "intent",
+      "family_id": "GTR-HBO-22",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-HBO-22-2",
+      "split": "train",
+      "group": "intent",
+      "family_id": "GTR-HBO-22",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-GRC-01-1",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-GRC-01",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-GRC-01-2",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-GRC-01",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-GRC-02-1",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-GRC-02",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-GRC-02-2",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-GRC-02",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-GRC-03-1",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-GRC-03",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-GRC-03-2",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-GRC-03",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-GRC-04-1",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-GRC-04",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-GRC-04-2",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-GRC-04",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-GRC-05-1",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-GRC-05",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-GRC-05-2",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-GRC-05",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-GRC-06-1",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-GRC-06",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-GRC-06-2",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-GRC-06",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-GRC-07-1",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-GRC-07",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-GRC-07-2",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-GRC-07",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-GRC-08-1",
+      "split": "train",
+      "group": "boundary",
+      "family_id": "GTR-GRC-08",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-GRC-08-2",
+      "split": "train",
+      "group": "boundary",
+      "family_id": "GTR-GRC-08",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-GRC-09-1",
+      "split": "train",
+      "group": "boundary",
+      "family_id": "GTR-GRC-09",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-GRC-09-2",
+      "split": "train",
+      "group": "boundary",
+      "family_id": "GTR-GRC-09",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-GRC-10-1",
+      "split": "train",
+      "group": "boundary",
+      "family_id": "GTR-GRC-10",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-GRC-10-2",
+      "split": "train",
+      "group": "boundary",
+      "family_id": "GTR-GRC-10",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-GRC-11-1",
+      "split": "train",
+      "group": "boundary",
+      "family_id": "GTR-GRC-11",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-GRC-11-2",
+      "split": "train",
+      "group": "boundary",
+      "family_id": "GTR-GRC-11",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-GRC-12-1",
+      "split": "train",
+      "group": "intent",
+      "family_id": "GTR-GRC-12",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-GRC-12-2",
+      "split": "train",
+      "group": "intent",
+      "family_id": "GTR-GRC-12",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-GRC-13-1",
+      "split": "train",
+      "group": "intent",
+      "family_id": "GTR-GRC-13",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-GRC-13-2",
+      "split": "train",
+      "group": "intent",
+      "family_id": "GTR-GRC-13",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-GRC-14-1",
+      "split": "train",
+      "group": "intent",
+      "family_id": "GTR-GRC-14",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-GRC-14-2",
+      "split": "train",
+      "group": "intent",
+      "family_id": "GTR-GRC-14",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-ARC-01-1",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-ARC-01",
+      "language": "arc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-ARC-01-2",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-ARC-01",
+      "language": "arc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-ARC-02-1",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-ARC-02",
+      "language": "arc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-ARC-02-2",
+      "split": "train",
+      "group": "direct",
+      "family_id": "GTR-ARC-02",
+      "language": "arc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-ARC-03-1",
+      "split": "train",
+      "group": "boundary",
+      "family_id": "GTR-ARC-03",
+      "language": "arc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-ARC-03-2",
+      "split": "train",
+      "group": "boundary",
+      "family_id": "GTR-ARC-03",
+      "language": "arc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-ARC-04-1",
+      "split": "train",
+      "group": "intent",
+      "family_id": "GTR-ARC-04",
+      "language": "arc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GTR-ARC-04-2",
+      "split": "train",
+      "group": "intent",
+      "family_id": "GTR-ARC-04",
+      "language": "arc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-TRAIN-GREH-01",
+      "split": "train",
+      "group": "rehearsal",
+      "family_id": "rehearsal:oshb:Gen.8",
+      "language": "hbo",
+      "rehearsal_row_id": "GREH-01"
+    },
+    {
+      "row_id": "G-TRAIN-GREH-02",
+      "split": "train",
+      "group": "rehearsal",
+      "family_id": "rehearsal:oshb:Lev.25",
+      "language": "hbo",
+      "rehearsal_row_id": "GREH-02"
+    },
+    {
+      "row_id": "G-TRAIN-GREH-03",
+      "split": "train",
+      "group": "rehearsal",
+      "family_id": "rehearsal:oshb:Ps.51",
+      "language": "hbo",
+      "rehearsal_row_id": "GREH-03"
+    },
+    {
+      "row_id": "G-TRAIN-GREH-04",
+      "split": "train",
+      "group": "rehearsal",
+      "family_id": "rehearsal:oshb:Ezek.36",
+      "language": "hbo",
+      "rehearsal_row_id": "GREH-04"
+    },
+    {
+      "row_id": "G-TRAIN-GREH-05",
+      "split": "train",
+      "group": "rehearsal",
+      "family_id": "rehearsal:oshb:Dan.2",
+      "language": "arc",
+      "rehearsal_row_id": "GREH-05"
+    },
+    {
+      "row_id": "G-TRAIN-GREH-06",
+      "split": "train",
+      "group": "rehearsal",
+      "family_id": "rehearsal:oshb:Dan.3",
+      "language": "arc",
+      "rehearsal_row_id": "GREH-06"
+    },
+    {
+      "row_id": "G-TRAIN-GREH-07",
+      "split": "train",
+      "group": "rehearsal",
+      "family_id": "rehearsal:oshb:Ezra.4",
+      "language": "arc",
+      "rehearsal_row_id": "GREH-07"
+    },
+    {
+      "row_id": "G-TRAIN-GREH-08",
+      "split": "train",
+      "group": "rehearsal",
+      "family_id": "rehearsal:oshb:Ezra.5",
+      "language": "arc",
+      "rehearsal_row_id": "GREH-08"
+    },
+    {
+      "row_id": "G-TRAIN-GREH-09",
+      "split": "train",
+      "group": "rehearsal",
+      "family_id": "rehearsal:sblgnt:Matt.7",
+      "language": "grc",
+      "rehearsal_row_id": "GREH-09"
+    },
+    {
+      "row_id": "G-TRAIN-GREH-10",
+      "split": "train",
+      "group": "rehearsal",
+      "family_id": "rehearsal:sblgnt:John.6",
+      "language": "grc",
+      "rehearsal_row_id": "GREH-10"
+    },
+    {
+      "row_id": "G-TRAIN-GREH-11",
+      "split": "train",
+      "group": "rehearsal",
+      "family_id": "rehearsal:sblgnt:Acts.20",
+      "language": "grc",
+      "rehearsal_row_id": "GREH-11"
+    },
+    {
+      "row_id": "G-TRAIN-GREH-12",
+      "split": "train",
+      "group": "rehearsal",
+      "family_id": "rehearsal:sblgnt:Col.3",
+      "language": "grc",
+      "rehearsal_row_id": "GREH-12"
+    },
+    {
+      "row_id": "G-TRAIN-GREH-13",
+      "split": "train",
+      "group": "rehearsal",
+      "family_id": "rehearsal:oshb:Prov.15",
+      "language": "hbo",
+      "rehearsal_row_id": "GREH-13"
+    },
+    {
+      "row_id": "G-TRAIN-GREH-14",
+      "split": "train",
+      "group": "rehearsal",
+      "family_id": "rehearsal:oshb:Prov.16",
+      "language": "hbo",
+      "rehearsal_row_id": "GREH-14"
+    },
+    {
+      "row_id": "G-TRAIN-GREH-15",
+      "split": "train",
+      "group": "rehearsal",
+      "family_id": "rehearsal:sblgnt:Jas.1",
+      "language": "grc",
+      "rehearsal_row_id": "GREH-15"
+    },
+    {
+      "row_id": "G-TRAIN-GREH-16",
+      "split": "train",
+      "group": "rehearsal",
+      "family_id": "rehearsal:sblgnt:Rom.14",
+      "language": "grc",
+      "rehearsal_row_id": "GREH-16"
+    },
+    {
+      "row_id": "G-VALIDATION-GVA-HBO-01-1",
+      "split": "validation",
+      "group": "direct",
+      "family_id": "GVA-HBO-01",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-VALIDATION-GVA-HBO-01-2",
+      "split": "validation",
+      "group": "direct",
+      "family_id": "GVA-HBO-01",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-VALIDATION-GVA-HBO-02-1",
+      "split": "validation",
+      "group": "direct",
+      "family_id": "GVA-HBO-02",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-VALIDATION-GVA-HBO-02-2",
+      "split": "validation",
+      "group": "direct",
+      "family_id": "GVA-HBO-02",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-VALIDATION-GVA-HBO-03-1",
+      "split": "validation",
+      "group": "direct",
+      "family_id": "GVA-HBO-03",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-VALIDATION-GVA-HBO-03-2",
+      "split": "validation",
+      "group": "direct",
+      "family_id": "GVA-HBO-03",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-VALIDATION-GVA-HBO-04-1",
+      "split": "validation",
+      "group": "boundary",
+      "family_id": "GVA-HBO-04",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-VALIDATION-GVA-HBO-04-2",
+      "split": "validation",
+      "group": "boundary",
+      "family_id": "GVA-HBO-04",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-VALIDATION-GVA-HBO-05-1",
+      "split": "validation",
+      "group": "boundary",
+      "family_id": "GVA-HBO-05",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-VALIDATION-GVA-HBO-05-2",
+      "split": "validation",
+      "group": "boundary",
+      "family_id": "GVA-HBO-05",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-VALIDATION-GVA-HBO-06-1",
+      "split": "validation",
+      "group": "intent",
+      "family_id": "GVA-HBO-06",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-VALIDATION-GVA-HBO-06-2",
+      "split": "validation",
+      "group": "intent",
+      "family_id": "GVA-HBO-06",
+      "language": "hbo",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-VALIDATION-GVA-GRC-01-1",
+      "split": "validation",
+      "group": "direct",
+      "family_id": "GVA-GRC-01",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-VALIDATION-GVA-GRC-01-2",
+      "split": "validation",
+      "group": "direct",
+      "family_id": "GVA-GRC-01",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-VALIDATION-GVA-GRC-02-1",
+      "split": "validation",
+      "group": "direct",
+      "family_id": "GVA-GRC-02",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-VALIDATION-GVA-GRC-02-2",
+      "split": "validation",
+      "group": "direct",
+      "family_id": "GVA-GRC-02",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-VALIDATION-GVA-GRC-03-1",
+      "split": "validation",
+      "group": "boundary",
+      "family_id": "GVA-GRC-03",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-VALIDATION-GVA-GRC-03-2",
+      "split": "validation",
+      "group": "boundary",
+      "family_id": "GVA-GRC-03",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-VALIDATION-GVA-GRC-04-1",
+      "split": "validation",
+      "group": "intent",
+      "family_id": "GVA-GRC-04",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-VALIDATION-GVA-GRC-04-2",
+      "split": "validation",
+      "group": "intent",
+      "family_id": "GVA-GRC-04",
+      "language": "grc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-VALIDATION-GVA-ARC-01-1",
+      "split": "validation",
+      "group": "direct",
+      "family_id": "GVA-ARC-01",
+      "language": "arc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-VALIDATION-GVA-ARC-01-2",
+      "split": "validation",
+      "group": "direct",
+      "family_id": "GVA-ARC-01",
+      "language": "arc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-VALIDATION-GVA-ARC-02-1",
+      "split": "validation",
+      "group": "intent",
+      "family_id": "GVA-ARC-02",
+      "language": "arc",
+      "rehearsal_row_id": null
+    },
+    {
+      "row_id": "G-VALIDATION-GVA-ARC-02-2",
+      "split": "validation",
+      "group": "intent",
+      "family_id": "GVA-ARC-02",
+      "language": "arc",
+      "rehearsal_row_id": null
+    }
+  ],
+  "private_artifact_sha256": {
+    "family-inventory.json": "ff960e535f0859d27e3b741262fee40b5108da95d5955bb17116f288baee3df6",
+    "permission-inventory.json": "426ccf2af48aecd2d6600f143d0668e3439361ae87d66e7428499042e1f22cab",
+    "row-plan.json": "5408a7bc7e74b3cfa7c30f44f494f50abe65d6e8a15d6a8f25c1cdb0978ae330",
+    "source-binding-details.json": "7bfc785c08bfc7f6325f66719ea268f2e745ba82e95307ddf84ea23952d83bfa",
+    "rights-facts.json": "23087ba298d4159e8f8f054b3919eaac41dfa73ec1cd1194fd4921ca2087847a"
+  },
+  "limitations": [
+    "Only planning metadata is provided; no English targets or training-ready dataset.",
+    "All selected verse IDs were in B raw-text training. Exposure flags are exact matches in inspected local inventories, not evidence of no other exposure.",
+    "Source/input planning decisions do not approve English targets, dataset redistribution, adapter release or execution.",
+    "AI source and mechanical reviews are not expert certification."
+  ],
+  "report": "docs/CANDIDATE-G-DATA-PLAN.md"
+}

@@ -1,0 +1,38 @@
+{
+  "source": "https://tinker-docs.thinkingmachines.ai/tinker/models.json",
+  "retrieved_on": "2026-09-05",
+  "source_sha256": "1521db910e08c3f2cc052e9c4f831cdc7b9fbca74ca2d4d2f07c1b544530dcef",
+  "unit": "USD per million tokens",
+  "models": [
+    {
+      "name": "GPT-OSS-120B",
+      "url": "https://huggingface.co/openai/gpt-oss-120b",
+      "tinker_id": "openai/gpt-oss-120b",
+      "type": "Reasoning",
+      "arch": "MoE",
+      "size": "Medium",
+      "params": 117000000000,
+      "active_params": 5100000000,
+      "context": "32K",
+      "prefill": "$0.33",
+      "cached_prefill": "$0.066",
+      "sample": "$0.84",
+      "train": "$0.737"
+    },
+    {
+      "name": "GPT-OSS-20B",
+      "url": "https://huggingface.co/openai/gpt-oss-20b",
+      "tinker_id": "openai/gpt-oss-20b",
+      "type": "Reasoning",
+      "arch": "MoE",
+      "size": "Small",
+      "params": 21000000000,
+      "active_params": 3600000000,
+      "context": "32K",
+      "prefill": "$0.18",
+      "cached_prefill": "$0.036",
+      "sample": "$0.45",
+      "train": "$0.396"
+    }
+  ]
+}

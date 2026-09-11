@@ -1,0 +1,1091 @@
+{
+  "schema_version": 1,
+  "source_id": "sblgnt",
+  "title": "The Greek New Testament: SBL Edition",
+  "edition_version": "v1.2 with subsequent source maintenance",
+  "repository": "https://github.com/Faithlife/SBLGNT",
+  "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+  "revision_date": "2025-01-19T12:45:10-08:00",
+  "retrieved_date": "2026-09-05",
+  "revision_url": "https://github.com/Faithlife/SBLGNT/tree/c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+  "language": "grc",
+  "scope": "All 27 New Testament books in the selected SBLGNT edition, including explicitly separated double-bracketed supplements.",
+  "license": {
+    "spdx": "CC-BY-4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/",
+    "official_license_url": "https://sblgnt.com/license/",
+    "copyright": "Copyright 2010 Logos Bible Software and the Society of Biblical Literature",
+    "attribution": "The Greek New Testament: SBL Edition. Michael W. Holmes, General Editor. Copyright 2010 Logos Bible Software and the Society of Biblical Literature.",
+    "evidence": [
+      {
+        "path": "LICENSE",
+        "url": "https://github.com/Faithlife/SBLGNT/blob/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/LICENSE"
+      },
+      {
+        "path": "README.md",
+        "url": "https://github.com/Faithlife/SBLGNT/blob/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/README.md"
+      },
+      {
+        "path": "data/sblgnt/xml/sblgnt.xml",
+        "url": "https://github.com/Faithlife/SBLGNT/blob/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/xml/sblgnt.xml"
+      }
+    ],
+    "notice_directory": "licenses/sblgnt"
+  },
+  "input_format": {
+    "text": "data/sblgnt/text/{OSIS_BOOK}.txt",
+    "xml": "data/sblgnt/xml/{OSIS_BOOK}.xml",
+    "text_use": "Authoritative displayed verse text, including all original punctuation and accents.",
+    "xml_use": "Independent Greek lexical comparison, verse inventory, source references, word counts, and paragraph membership."
+  },
+  "preparation": {
+    "module": "bibleprep.greek",
+    "version": 1,
+    "unicode_normalization": "none",
+    "source_text": "Exact source verse payload after the tab, excluding line ending; includes trailing source layout spaces and apparatus markers.",
+    "text": "Remove apparatus-anchor symbols and attached numeric disambiguators; trim boundary layout whitespace. Retain Greek spelling, interior spacing, punctuation, and both kinds of editorial brackets.",
+    "main_text": "Remove double-bracketed supplements only. Retain doubtful single-bracketed wording and its brackets; this is not a new critical edition.",
+    "alternatives": "Double-bracketed material stored as verse fragments sharing a group_id; emit each group as a separately identified supplement if used in training.",
+    "editorial_spans": "Single/double bracket ranges tracked across verses and chapters; offsets are zero-based Unicode code-point indices in text, with exclusive end.",
+    "missing_verses": "Keep source numbering gaps. Do not manufacture empty verses or borrow text from another edition.",
+    "paragraphs": "XML paragraph numbers with per-verse word-index ranges; do not assume every paragraph boundary falls on a verse boundary.",
+    "excluded_layers": [
+      "Edition-comparison apparatus notes in data/sblgntapp (not imported as verse text)."
+    ],
+    "editorial_evidence": [
+      "https://sblgnt.com/about/introduction/",
+      "https://github.com/Faithlife/SBLGNT/blob/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Mark.txt",
+      "https://github.com/Faithlife/SBLGNT/blob/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/John.txt"
+    ],
+    "limitations": [
+      "SBLGNT is a modern critical edition, not an ancient manuscript or a recovered autograph.",
+      "The apparatus compares editions; this preparation does not import a manuscript apparatus.",
+      "Internal missing-number reports cannot identify a verse absent beyond a chapter's last source number. Chapter maxima belong to SBLGNT versification."
+    ]
+  },
+  "files": [
+    {
+      "path": "LICENSE",
+      "sha256": "7e7170e3cebf88a9f60c7b8421418323c09304da1af4d5e90f4da1dc1c8a2661",
+      "bytes": 18650
+    },
+    {
+      "path": "README.md",
+      "sha256": "7ae1dc2622a8dafe55cf8b17d4935c3e39a70c46636277dd0fc46fe8b7464721",
+      "bytes": 1136
+    },
+    {
+      "path": "About.md",
+      "sha256": "4c7198fb57ce5f3b6572e856bd8b9439c9793c9d6b678e0e1ac123c887591765",
+      "bytes": 3914
+    },
+    {
+      "path": "data/sblgnt/xml/sblgnt.xml",
+      "sha256": "3386e5ce7f960318d99c10e2918a58c0eb8c7dd5f02c9d1ecd37834db5904603",
+      "bytes": 325
+    },
+    {
+      "path": "data/sblgnt/text/1Cor.txt",
+      "sha256": "2a706bac29f1e34568bf6862cbc1616471511e9b915d7292adba3e93fb72c946",
+      "bytes": 86178
+    },
+    {
+      "path": "data/sblgnt/text/1John.txt",
+      "sha256": "074201796600c23d79c0abd26621ed0046290d5f227f4aaea67ac425784094c5",
+      "bytes": 25135
+    },
+    {
+      "path": "data/sblgnt/text/1Pet.txt",
+      "sha256": "9c847143fbecfb2c5d0fc35820f973efb749c04a9badae99eb8d9ac0cf3d2a6d",
+      "bytes": 23064
+    },
+    {
+      "path": "data/sblgnt/text/1Thess.txt",
+      "sha256": "58b57d9b87ee994757a6bd425cfb8a12cecee9b3c7d0206286fdf2b089b44ccf",
+      "bytes": 19334
+    },
+    {
+      "path": "data/sblgnt/text/1Tim.txt",
+      "sha256": "e4813e23b26b8b4763771b252cb41982d3af66abeead62f014e5f5f0a5323dcb",
+      "bytes": 22409
+    },
+    {
+      "path": "data/sblgnt/text/2Cor.txt",
+      "sha256": "af6a60d5f851762c7ee22be6f15975e706a55cf24bd0b890d6ee9ab2ad74bd18",
+      "bytes": 57684
+    },
+    {
+      "path": "data/sblgnt/text/2John.txt",
+      "sha256": "b2daf832c6f88d67ae0bdf2ecfbbb42309e330dc161f5b127c8939d5cb448bc7",
+      "bytes": 3014
+    },
+    {
+      "path": "data/sblgnt/text/2Pet.txt",
+      "sha256": "7afd9df2ea451cc6b3d55984d12fcf8d8d159b5f3d40489b4ebd375dbac8aea0",
+      "bytes": 15288
+    },
+    {
+      "path": "data/sblgnt/text/2Thess.txt",
+      "sha256": "c2a6922591a0282f5c07fe9fa47b8f38cd1aaf15b56eb9364aac91f5546f5822",
+      "bytes": 10591
+    },
+    {
+      "path": "data/sblgnt/text/2Tim.txt",
+      "sha256": "eecea7f17f3493bb3e0d2d5922acf2ab10dae876156e0cbc395355c05f66d2bf",
+      "bytes": 16684
+    },
+    {
+      "path": "data/sblgnt/text/3John.txt",
+      "sha256": "db0bfc024dfbafa4bf0c978d6f53186c35e6eb771058672ff4f1c31708db6c16",
+      "bytes": 2917
+    },
+    {
+      "path": "data/sblgnt/text/Acts.txt",
+      "sha256": "199867a92d9a1ef73abe85986e4489d4799bb187bdd22845f3c168c93cafa9c8",
+      "bytes": 244952
+    },
+    {
+      "path": "data/sblgnt/text/Col.txt",
+      "sha256": "665ef40dbc19bacf2b2642aa0bfc265e3cfab3f37b5757ea1ff69bdaf968bd08",
+      "bytes": 20334
+    },
+    {
+      "path": "data/sblgnt/text/Eph.txt",
+      "sha256": "c15837d245dc849384a0be9f6c76de65590ffd496474f48c16822696ca024f6a",
+      "bytes": 30904
+    },
+    {
+      "path": "data/sblgnt/text/Gal.txt",
+      "sha256": "cea30996850efb7a24d5be03d5d1ea052f2200e292f8bdd190c57298bd8c2fb1",
+      "bytes": 28701
+    },
+    {
+      "path": "data/sblgnt/text/Heb.txt",
+      "sha256": "a89fa2a3a8f04e8bf6a9c71404a9c45fa0e32cff5b6942043e663d8c1f40cc93",
+      "bytes": 66518
+    },
+    {
+      "path": "data/sblgnt/text/Jas.txt",
+      "sha256": "1343ea4125c64585c738a2f8bf54a077947d0a6229b2642b39a1ad845f40e153",
+      "bytes": 22732
+    },
+    {
+      "path": "data/sblgnt/text/John.txt",
+      "sha256": "ada9643154a990ae2725ab847c6cfb576ce2c3bcd4945d47606e8a90c8d065f5",
+      "bytes": 189793
+    },
+    {
+      "path": "data/sblgnt/text/Jude.txt",
+      "sha256": "9d80e8332848395a7af425ebf30edd21c9c43f0f446489f648b65c652630b734",
+      "bytes": 6475
+    },
+    {
+      "path": "data/sblgnt/text/Luke.txt",
+      "sha256": "102d65ec7a91271777115d1a605688776adfda6a1188680ccf593e27e3e876d6",
+      "bytes": 251219
+    },
+    {
+      "path": "data/sblgnt/text/Mark.txt",
+      "sha256": "fe1b5a4c15db71e7e30f33fb67966ca93baffae377085ece0b88f66316729638",
+      "bytes": 148655
+    },
+    {
+      "path": "data/sblgnt/text/Matt.txt",
+      "sha256": "4fa718540cbc6330591b233c99c68bbf52b85afc90016e4188efe5cd9719eeb0",
+      "bytes": 235067
+    },
+    {
+      "path": "data/sblgnt/text/Phil.txt",
+      "sha256": "c99e25ea7856fd7a3edb1055716869117c4cba4c15f07567ea22c0269e211b85",
+      "bytes": 20729
+    },
+    {
+      "path": "data/sblgnt/text/Phlm.txt",
+      "sha256": "0b74d129888819be274cdcf239672f4688691ebab77c627521b5fcb185bea011",
+      "bytes": 4181
+    },
+    {
+      "path": "data/sblgnt/text/Rev.txt",
+      "sha256": "61419de7970661f8c481975c35b50e7c1df0422db0c6400d1ce2c6ade35da9f0",
+      "bytes": 118255
+    },
+    {
+      "path": "data/sblgnt/text/Rom.txt",
+      "sha256": "a919e44983ec633d541ec1084da79cfba1c1aa7f0eac6470c1ac7ec66cf774e8",
+      "bytes": 88508
+    },
+    {
+      "path": "data/sblgnt/text/Titus.txt",
+      "sha256": "8a7ff3511b7cbaaba481fe92b9aa716b8fd2abcc9d54829939c2fa3f836a2267",
+      "bytes": 9470
+    },
+    {
+      "path": "data/sblgnt/xml/1Cor.xml",
+      "sha256": "5a12d44dd6a9c7c236da21dc85a1d60915c54c988c59ba456f27bf528da1812b",
+      "bytes": 342330
+    },
+    {
+      "path": "data/sblgnt/xml/1John.xml",
+      "sha256": "3786d543f13a83d0e5f3cc1fd645c3b9e240a4c14fd412e0b2fa304d27d4a66b",
+      "bytes": 102101
+    },
+    {
+      "path": "data/sblgnt/xml/1Pet.xml",
+      "sha256": "82693ac93851f9f415fa126508f6e893dfb4b2f8131ee953c822a342eb78d5fa",
+      "bytes": 85461
+    },
+    {
+      "path": "data/sblgnt/xml/1Thess.xml",
+      "sha256": "22a5dcf8e0cc80d06fcb8fcd01aef72860058cfab4b7b42cfa94dd229e2c7065",
+      "bytes": 73887
+    },
+    {
+      "path": "data/sblgnt/xml/1Tim.xml",
+      "sha256": "7078cf18cf4325e4fb093785da774b48cc8306fd24dd2aa00041335c1bc88efc",
+      "bytes": 81717
+    },
+    {
+      "path": "data/sblgnt/xml/2Cor.xml",
+      "sha256": "897a92f3f010f796b8549e643c0ae96957827020a890808a689c6ba389085a43",
+      "bytes": 222992
+    },
+    {
+      "path": "data/sblgnt/xml/2John.xml",
+      "sha256": "132d3e497afb40247097175b9de4a8791de14366a0c5a923ed59f05a7c0d9586",
+      "bytes": 12074
+    },
+    {
+      "path": "data/sblgnt/xml/2Pet.xml",
+      "sha256": "59612036f3847ddd1e6f5435b62458a9c1aa7eff4c6fc6107659e980346275b2",
+      "bytes": 55525
+    },
+    {
+      "path": "data/sblgnt/xml/2Thess.xml",
+      "sha256": "3b7fbae3d238039f11bb599e1b99139a2d2a8626f293ccefc601d1a50a03d433",
+      "bytes": 40902
+    },
+    {
+      "path": "data/sblgnt/xml/2Tim.xml",
+      "sha256": "6d3add4060e870089d71e4621bcec5cc12759ebb4689fe6864368ae56c76b6fc",
+      "bytes": 62532
+    },
+    {
+      "path": "data/sblgnt/xml/3John.xml",
+      "sha256": "389c6751dc8e5de45c9173fdd3b499aa8574d425345055723ff2a46b2d8d173f",
+      "bytes": 11161
+    },
+    {
+      "path": "data/sblgnt/xml/Acts.xml",
+      "sha256": "5040d5a8570ce8f391209f228707c560e83fccc439f364d0a8baf89666025ea3",
+      "bytes": 921255
+    },
+    {
+      "path": "data/sblgnt/xml/Col.xml",
+      "sha256": "87079753db107d3034b8af8a91ccb0495da393389a02df4588cff3a4de4cd837",
+      "bytes": 79114
+    },
+    {
+      "path": "data/sblgnt/xml/Eph.xml",
+      "sha256": "9edf592842f0a94d35790ad999ed51049a19510178bd2b858c3f29849d44df45",
+      "bytes": 120457
+    },
+    {
+      "path": "data/sblgnt/xml/Gal.xml",
+      "sha256": "02188ec87b20a983424693971f2710b7b77c53ae0a7d6c4bd95a7fc293f2f17a",
+      "bytes": 111663
+    },
+    {
+      "path": "data/sblgnt/xml/Heb.xml",
+      "sha256": "50ee82c41b032b4b786ca7790eb3ce412865bd80e823d9cfdc22a812a1d6a865",
+      "bytes": 247580
+    },
+    {
+      "path": "data/sblgnt/xml/Jas.xml",
+      "sha256": "5cb6fdeefb734ef842e102938f0f10791415276ae09cbd33215a359e1025f7e5",
+      "bytes": 87475
+    },
+    {
+      "path": "data/sblgnt/xml/John.xml",
+      "sha256": "11fa4ec61127f109f4582845737963dc66a532e33dca7d489875b9dd91da00e2",
+      "bytes": 762321
+    },
+    {
+      "path": "data/sblgnt/xml/Jude.xml",
+      "sha256": "b83680c0d23b032273ec0e0c858f3c24ba684114b78ebddb2475dd78aac7165b",
+      "bytes": 23202
+    },
+    {
+      "path": "data/sblgnt/xml/Luke.xml",
+      "sha256": "960c0f7743f6ee68b7ee341991b76e14e83143eac4ba1f2df179327ec4bae8d5",
+      "bytes": 970739
+    },
+    {
+      "path": "data/sblgnt/xml/Mark.xml",
+      "sha256": "5901ccefcd7d9aedfaf228b1f99c3a13f37b4509c1b38d16123a860247a59d76",
+      "bytes": 572329
+    },
+    {
+      "path": "data/sblgnt/xml/Matt.xml",
+      "sha256": "98030ff7ddec7d1b89811c912b64e52a6c6a5806048e619abc708fe19a416424",
+      "bytes": 909675
+    },
+    {
+      "path": "data/sblgnt/xml/Phil.xml",
+      "sha256": "2f8933cdf0f8f459a6e192ad99c8aa07cb06e94d400875f88e64290bf489ed54",
+      "bytes": 80931
+    },
+    {
+      "path": "data/sblgnt/xml/Phlm.xml",
+      "sha256": "5e055c7dbe6b8326b559f6d7d135a39e6da0b499271f1eec6eae87fd93590ef3",
+      "bytes": 16865
+    },
+    {
+      "path": "data/sblgnt/xml/Rev.xml",
+      "sha256": "f6ba340dfd9010436aac55a17246ed45ef24c6b8e4510dc4bcb62c0a9ac4bc83",
+      "bytes": 474728
+    },
+    {
+      "path": "data/sblgnt/xml/Rom.xml",
+      "sha256": "99f8cced61efe841d146bd1e0c67333d7a4cca78a55e14da8c9390166e0a6209",
+      "bytes": 347059
+    },
+    {
+      "path": "data/sblgnt/xml/Titus.xml",
+      "sha256": "4c66c26c8ce316056d0423018d3497501e1a9ef033a1fc1ebd5829ba2d177fd9",
+      "bytes": 33932
+    }
+  ],
+  "book_inventory": [
+    {
+      "book": "Matt",
+      "chapters": 28,
+      "verses": 1068,
+      "main_nonempty_verses": 1068,
+      "source_words": 18329,
+      "missing_internal_verse_numbers": [
+        "Matt.17.21",
+        "Matt.18.11",
+        "Matt.23.14"
+      ],
+      "chapter_verse_maxima": {
+        "1": 25,
+        "2": 23,
+        "3": 17,
+        "4": 25,
+        "5": 48,
+        "6": 34,
+        "7": 29,
+        "8": 34,
+        "9": 38,
+        "10": 42,
+        "11": 30,
+        "12": 50,
+        "13": 58,
+        "14": 36,
+        "15": 39,
+        "16": 28,
+        "17": 27,
+        "18": 35,
+        "19": 30,
+        "20": 34,
+        "21": 46,
+        "22": 46,
+        "23": 39,
+        "24": 51,
+        "25": 46,
+        "26": 75,
+        "27": 66,
+        "28": 20
+      }
+    },
+    {
+      "book": "Mark",
+      "chapters": 16,
+      "verses": 673,
+      "main_nonempty_verses": 661,
+      "source_words": 11286,
+      "missing_internal_verse_numbers": [
+        "Mark.7.16",
+        "Mark.9.44",
+        "Mark.9.46",
+        "Mark.11.26",
+        "Mark.15.28"
+      ],
+      "chapter_verse_maxima": {
+        "1": 45,
+        "2": 28,
+        "3": 35,
+        "4": 41,
+        "5": 43,
+        "6": 56,
+        "7": 37,
+        "8": 38,
+        "9": 50,
+        "10": 52,
+        "11": 33,
+        "12": 44,
+        "13": 37,
+        "14": 72,
+        "15": 47,
+        "16": 20
+      }
+    },
+    {
+      "book": "Luke",
+      "chapters": 24,
+      "verses": 1149,
+      "main_nonempty_verses": 1149,
+      "source_words": 19446,
+      "missing_internal_verse_numbers": [
+        "Luke.17.36",
+        "Luke.23.17"
+      ],
+      "chapter_verse_maxima": {
+        "1": 80,
+        "2": 52,
+        "3": 38,
+        "4": 44,
+        "5": 39,
+        "6": 49,
+        "7": 50,
+        "8": 56,
+        "9": 62,
+        "10": 42,
+        "11": 54,
+        "12": 59,
+        "13": 35,
+        "14": 35,
+        "15": 32,
+        "16": 31,
+        "17": 37,
+        "18": 43,
+        "19": 48,
+        "20": 47,
+        "21": 38,
+        "22": 71,
+        "23": 56,
+        "24": 53
+      }
+    },
+    {
+      "book": "John",
+      "chapters": 21,
+      "verses": 878,
+      "main_nonempty_verses": 866,
+      "source_words": 15625,
+      "missing_internal_verse_numbers": [
+        "John.5.4"
+      ],
+      "chapter_verse_maxima": {
+        "1": 51,
+        "2": 25,
+        "3": 36,
+        "4": 54,
+        "5": 47,
+        "6": 71,
+        "7": 53,
+        "8": 59,
+        "9": 41,
+        "10": 42,
+        "11": 57,
+        "12": 50,
+        "13": 38,
+        "14": 31,
+        "15": 27,
+        "16": 33,
+        "17": 26,
+        "18": 40,
+        "19": 42,
+        "20": 31,
+        "21": 25
+      }
+    },
+    {
+      "book": "Acts",
+      "chapters": 28,
+      "verses": 1002,
+      "main_nonempty_verses": 1002,
+      "source_words": 18412,
+      "missing_internal_verse_numbers": [
+        "Acts.8.37",
+        "Acts.15.34",
+        "Acts.24.7",
+        "Acts.28.29"
+      ],
+      "chapter_verse_maxima": {
+        "1": 26,
+        "2": 47,
+        "3": 26,
+        "4": 37,
+        "5": 42,
+        "6": 15,
+        "7": 60,
+        "8": 40,
+        "9": 43,
+        "10": 48,
+        "11": 30,
+        "12": 25,
+        "13": 52,
+        "14": 28,
+        "15": 41,
+        "16": 40,
+        "17": 34,
+        "18": 28,
+        "19": 40,
+        "20": 38,
+        "21": 40,
+        "22": 30,
+        "23": 35,
+        "24": 27,
+        "25": 27,
+        "26": 32,
+        "27": 44,
+        "28": 31
+      }
+    },
+    {
+      "book": "Rom",
+      "chapters": 16,
+      "verses": 430,
+      "main_nonempty_verses": 430,
+      "source_words": 7055,
+      "missing_internal_verse_numbers": [],
+      "chapter_verse_maxima": {
+        "1": 32,
+        "2": 29,
+        "3": 31,
+        "4": 25,
+        "5": 21,
+        "6": 23,
+        "7": 25,
+        "8": 39,
+        "9": 33,
+        "10": 21,
+        "11": 36,
+        "12": 21,
+        "13": 14,
+        "14": 23,
+        "15": 33,
+        "16": 24
+      }
+    },
+    {
+      "book": "1Cor",
+      "chapters": 16,
+      "verses": 437,
+      "main_nonempty_verses": 437,
+      "source_words": 6812,
+      "missing_internal_verse_numbers": [],
+      "chapter_verse_maxima": {
+        "1": 31,
+        "2": 16,
+        "3": 23,
+        "4": 21,
+        "5": 13,
+        "6": 20,
+        "7": 40,
+        "8": 13,
+        "9": 27,
+        "10": 33,
+        "11": 34,
+        "12": 31,
+        "13": 13,
+        "14": 40,
+        "15": 58,
+        "16": 24
+      }
+    },
+    {
+      "book": "2Cor",
+      "chapters": 13,
+      "verses": 256,
+      "main_nonempty_verses": 256,
+      "source_words": 4473,
+      "missing_internal_verse_numbers": [],
+      "chapter_verse_maxima": {
+        "1": 24,
+        "2": 17,
+        "3": 18,
+        "4": 18,
+        "5": 21,
+        "6": 18,
+        "7": 16,
+        "8": 24,
+        "9": 15,
+        "10": 18,
+        "11": 33,
+        "12": 21,
+        "13": 13
+      }
+    },
+    {
+      "book": "Gal",
+      "chapters": 6,
+      "verses": 149,
+      "main_nonempty_verses": 149,
+      "source_words": 2226,
+      "missing_internal_verse_numbers": [],
+      "chapter_verse_maxima": {
+        "1": 24,
+        "2": 21,
+        "3": 29,
+        "4": 31,
+        "5": 26,
+        "6": 18
+      }
+    },
+    {
+      "book": "Eph",
+      "chapters": 6,
+      "verses": 155,
+      "main_nonempty_verses": 155,
+      "source_words": 2416,
+      "missing_internal_verse_numbers": [],
+      "chapter_verse_maxima": {
+        "1": 23,
+        "2": 22,
+        "3": 21,
+        "4": 32,
+        "5": 33,
+        "6": 24
+      }
+    },
+    {
+      "book": "Phil",
+      "chapters": 4,
+      "verses": 104,
+      "main_nonempty_verses": 104,
+      "source_words": 1626,
+      "missing_internal_verse_numbers": [],
+      "chapter_verse_maxima": {
+        "1": 30,
+        "2": 30,
+        "3": 21,
+        "4": 23
+      }
+    },
+    {
+      "book": "Col",
+      "chapters": 4,
+      "verses": 95,
+      "main_nonempty_verses": 95,
+      "source_words": 1580,
+      "missing_internal_verse_numbers": [],
+      "chapter_verse_maxima": {
+        "1": 29,
+        "2": 23,
+        "3": 25,
+        "4": 18
+      }
+    },
+    {
+      "book": "1Thess",
+      "chapters": 5,
+      "verses": 89,
+      "main_nonempty_verses": 89,
+      "source_words": 1473,
+      "missing_internal_verse_numbers": [],
+      "chapter_verse_maxima": {
+        "1": 10,
+        "2": 20,
+        "3": 13,
+        "4": 18,
+        "5": 28
+      }
+    },
+    {
+      "book": "2Thess",
+      "chapters": 3,
+      "verses": 47,
+      "main_nonempty_verses": 47,
+      "source_words": 820,
+      "missing_internal_verse_numbers": [],
+      "chapter_verse_maxima": {
+        "1": 12,
+        "2": 17,
+        "3": 18
+      }
+    },
+    {
+      "book": "1Tim",
+      "chapters": 6,
+      "verses": 113,
+      "main_nonempty_verses": 113,
+      "source_words": 1591,
+      "missing_internal_verse_numbers": [],
+      "chapter_verse_maxima": {
+        "1": 20,
+        "2": 15,
+        "3": 16,
+        "4": 16,
+        "5": 25,
+        "6": 21
+      }
+    },
+    {
+      "book": "2Tim",
+      "chapters": 4,
+      "verses": 83,
+      "main_nonempty_verses": 83,
+      "source_words": 1235,
+      "missing_internal_verse_numbers": [],
+      "chapter_verse_maxima": {
+        "1": 18,
+        "2": 26,
+        "3": 17,
+        "4": 22
+      }
+    },
+    {
+      "book": "Titus",
+      "chapters": 3,
+      "verses": 46,
+      "main_nonempty_verses": 46,
+      "source_words": 659,
+      "missing_internal_verse_numbers": [],
+      "chapter_verse_maxima": {
+        "1": 16,
+        "2": 15,
+        "3": 15
+      }
+    },
+    {
+      "book": "Phlm",
+      "chapters": 1,
+      "verses": 25,
+      "main_nonempty_verses": 25,
+      "source_words": 334,
+      "missing_internal_verse_numbers": [],
+      "chapter_verse_maxima": {
+        "1": 25
+      }
+    },
+    {
+      "book": "Heb",
+      "chapters": 13,
+      "verses": 303,
+      "main_nonempty_verses": 303,
+      "source_words": 4935,
+      "missing_internal_verse_numbers": [],
+      "chapter_verse_maxima": {
+        "1": 14,
+        "2": 18,
+        "3": 19,
+        "4": 16,
+        "5": 14,
+        "6": 20,
+        "7": 28,
+        "8": 13,
+        "9": 28,
+        "10": 39,
+        "11": 40,
+        "12": 29,
+        "13": 25
+      }
+    },
+    {
+      "book": "Jas",
+      "chapters": 5,
+      "verses": 108,
+      "main_nonempty_verses": 108,
+      "source_words": 1739,
+      "missing_internal_verse_numbers": [],
+      "chapter_verse_maxima": {
+        "1": 27,
+        "2": 26,
+        "3": 18,
+        "4": 17,
+        "5": 20
+      }
+    },
+    {
+      "book": "1Pet",
+      "chapters": 5,
+      "verses": 105,
+      "main_nonempty_verses": 105,
+      "source_words": 1678,
+      "missing_internal_verse_numbers": [],
+      "chapter_verse_maxima": {
+        "1": 25,
+        "2": 25,
+        "3": 22,
+        "4": 19,
+        "5": 14
+      }
+    },
+    {
+      "book": "2Pet",
+      "chapters": 3,
+      "verses": 61,
+      "main_nonempty_verses": 61,
+      "source_words": 1098,
+      "missing_internal_verse_numbers": [],
+      "chapter_verse_maxima": {
+        "1": 21,
+        "2": 22,
+        "3": 18
+      }
+    },
+    {
+      "book": "1John",
+      "chapters": 5,
+      "verses": 105,
+      "main_nonempty_verses": 105,
+      "source_words": 2137,
+      "missing_internal_verse_numbers": [],
+      "chapter_verse_maxima": {
+        "1": 10,
+        "2": 29,
+        "3": 24,
+        "4": 21,
+        "5": 21
+      }
+    },
+    {
+      "book": "2John",
+      "chapters": 1,
+      "verses": 13,
+      "main_nonempty_verses": 13,
+      "source_words": 245,
+      "missing_internal_verse_numbers": [],
+      "chapter_verse_maxima": {
+        "1": 13
+      }
+    },
+    {
+      "book": "3John",
+      "chapters": 1,
+      "verses": 15,
+      "main_nonempty_verses": 15,
+      "source_words": 219,
+      "missing_internal_verse_numbers": [],
+      "chapter_verse_maxima": {
+        "1": 15
+      }
+    },
+    {
+      "book": "Jude",
+      "chapters": 1,
+      "verses": 25,
+      "main_nonempty_verses": 25,
+      "source_words": 459,
+      "missing_internal_verse_numbers": [],
+      "chapter_verse_maxima": {
+        "1": 25
+      }
+    },
+    {
+      "book": "Rev",
+      "chapters": 22,
+      "verses": 405,
+      "main_nonempty_verses": 405,
+      "source_words": 9833,
+      "missing_internal_verse_numbers": [],
+      "chapter_verse_maxima": {
+        "1": 20,
+        "2": 29,
+        "3": 22,
+        "4": 11,
+        "5": 14,
+        "6": 17,
+        "7": 17,
+        "8": 13,
+        "9": 21,
+        "10": 11,
+        "11": 19,
+        "12": 18,
+        "13": 18,
+        "14": 20,
+        "15": 8,
+        "16": 21,
+        "17": 18,
+        "18": 24,
+        "19": 21,
+        "20": 15,
+        "21": 27,
+        "22": 21
+      }
+    }
+  ],
+  "observed_editorial_groups": [
+    {
+      "group_id": "sblgnt:Mark.16.8:editorial:1",
+      "kind": "shorter_ending_of_mark",
+      "editorial_status": "double_bracketed",
+      "source_span": {
+        "start": {
+          "id": "sblgnt:Mark.16.8",
+          "offset": 116
+        },
+        "end": {
+          "id": "sblgnt:Mark.16.8",
+          "offset": 327
+        }
+      },
+      "fragments": 1
+    },
+    {
+      "group_id": "sblgnt:Mark.16.9:editorial:2",
+      "kind": "longer_ending_of_mark",
+      "editorial_status": "double_bracketed",
+      "source_span": {
+        "start": {
+          "id": "sblgnt:Mark.16.9",
+          "offset": 0
+        },
+        "end": {
+          "id": "sblgnt:Mark.16.20",
+          "offset": 124
+        }
+      },
+      "fragments": 12
+    },
+    {
+      "group_id": "sblgnt:Luke.22.19:editorial:1",
+      "kind": "doubtful_wording",
+      "editorial_status": "doubtful",
+      "source_span": {
+        "start": {
+          "id": "sblgnt:Luke.22.19",
+          "offset": 86
+        },
+        "end": {
+          "id": "sblgnt:Luke.22.20",
+          "offset": 128
+        }
+      },
+      "fragments": 2
+    },
+    {
+      "group_id": "sblgnt:Luke.24.40:editorial:2",
+      "kind": "doubtful_wording",
+      "editorial_status": "doubtful",
+      "source_span": {
+        "start": {
+          "id": "sblgnt:Luke.24.40",
+          "offset": 0
+        },
+        "end": {
+          "id": "sblgnt:Luke.24.40",
+          "offset": 59
+        }
+      },
+      "fragments": 1
+    },
+    {
+      "group_id": "sblgnt:Luke.24.51:editorial:3",
+      "kind": "doubtful_wording",
+      "editorial_status": "doubtful",
+      "source_span": {
+        "start": {
+          "id": "sblgnt:Luke.24.51",
+          "offset": 57
+        },
+        "end": {
+          "id": "sblgnt:Luke.24.51",
+          "offset": 88
+        }
+      },
+      "fragments": 1
+    },
+    {
+      "group_id": "sblgnt:Luke.24.52:editorial:4",
+      "kind": "doubtful_wording",
+      "editorial_status": "doubtful",
+      "source_span": {
+        "start": {
+          "id": "sblgnt:Luke.24.52",
+          "offset": 10
+        },
+        "end": {
+          "id": "sblgnt:Luke.24.52",
+          "offset": 32
+        }
+      },
+      "fragments": 1
+    },
+    {
+      "group_id": "sblgnt:John.7.53:editorial:1",
+      "kind": "pericope_adulterae",
+      "editorial_status": "double_bracketed",
+      "source_span": {
+        "start": {
+          "id": "sblgnt:John.7.53",
+          "offset": 0
+        },
+        "end": {
+          "id": "sblgnt:John.8.11",
+          "offset": 94
+        }
+      },
+      "fragments": 12
+    },
+    {
+      "group_id": "sblgnt:Eph.1.1:editorial:1",
+      "kind": "doubtful_wording",
+      "editorial_status": "doubtful",
+      "source_span": {
+        "start": {
+          "id": "sblgnt:Eph.1.1",
+          "offset": 73
+        },
+        "end": {
+          "id": "sblgnt:Eph.1.1",
+          "offset": 83
+        }
+      },
+      "fragments": 1
+    },
+    {
+      "group_id": "sblgnt:Col.1.20:editorial:1",
+      "kind": "doubtful_wording",
+      "editorial_status": "doubtful",
+      "source_span": {
+        "start": {
+          "id": "sblgnt:Col.1.20",
+          "offset": 97
+        },
+        "end": {
+          "id": "sblgnt:Col.1.20",
+          "offset": 108
+        }
+      },
+      "fragments": 1
+    }
+  ],
+  "prepared_outputs": {
+    "verses.jsonl": {
+      "sha256": "fac6138a792ee1d099889d352015c10ff9748250ef034dba174e5e76d740af4f",
+      "bytes": 8693157
+    },
+    "summary.json": {
+      "sha256": "c3d7c1ec56ab3106afc27526f0d507fb3cd0d4fa320b45234589f19dfab2fffa",
+      "bytes": 12086
+    }
+  },
+  "measured_counts": {
+    "books": 27,
+    "verses": 7939,
+    "main_nonempty_verses": 7915,
+    "source_words": 137741,
+    "alternative_fragments": 25,
+    "editorial_groups": 9,
+    "missing_internal_verse_numbers": [
+      "Matt.17.21",
+      "Matt.18.11",
+      "Matt.23.14",
+      "Mark.7.16",
+      "Mark.9.44",
+      "Mark.9.46",
+      "Mark.11.26",
+      "Mark.15.28",
+      "Luke.17.36",
+      "Luke.23.17",
+      "John.5.4",
+      "Acts.8.37",
+      "Acts.15.34",
+      "Acts.24.7",
+      "Acts.28.29"
+    ]
+  }
+}

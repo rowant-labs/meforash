@@ -1,0 +1,63 @@
+{
+  "source": "https://tinker-docs.thinkingmachines.ai/tinker/models.json",
+  "retrieved_on": "2026-09-05",
+  "source_sha256": "1521db910e08c3f2cc052e9c4f831cdc7b9fbca74ca2d4d2f07c1b544530dcef",
+  "unit": "USD per million tokens",
+  "models": [
+    {
+      "name": "Inkling",
+      "url": "https://huggingface.co/thinkingmachines/Inkling",
+      "tinker_id": "thinkingmachines/Inkling",
+      "type": "Hybrid + Audio + Vision",
+      "arch": "MoE",
+      "size": "Large",
+      "params": 975000000000,
+      "active_params": 41000000000,
+      "context": "64K",
+      "prefill": "$1.87",
+      "cached_prefill": "$0.374",
+      "sample": "$4.68",
+      "train": "$5.61",
+      "note": "Limited-time 50% discount",
+      "original_prefill": "$3.74",
+      "original_cached_prefill": "$0.748",
+      "original_sample": "$9.36",
+      "original_train": "$11.22"
+    },
+    {
+      "name": "Nemotron-3-Ultra-550B-A55B",
+      "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16",
+      "tinker_id": "nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16",
+      "type": "Hybrid",
+      "arch": "MoE",
+      "size": "Large",
+      "params": 550000000000,
+      "active_params": 55000000000,
+      "context": "64K",
+      "prefill": "$2.49",
+      "cached_prefill": "$0.498",
+      "sample": "$6.225",
+      "train": "$5.478",
+      "note": "Limited-time 50% discount",
+      "original_prefill": "$4.98",
+      "original_cached_prefill": "$0.996",
+      "original_sample": "$12.45",
+      "original_train": "$10.956"
+    },
+    {
+      "name": "Kimi-K2.6",
+      "url": "https://huggingface.co/moonshotai/Kimi-K2.6",
+      "tinker_id": "moonshotai/Kimi-K2.6",
+      "type": "Hybrid + Vision",
+      "arch": "MoE",
+      "size": "Large",
+      "params": 1000000000000,
+      "active_params": 32000000000,
+      "context": "32K",
+      "prefill": "$2.205",
+      "cached_prefill": "$0.441",
+      "sample": "$5.49",
+      "train": "$4.84"
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "id": "evidence-reference-map-v1",
+  "status": "reviewed_engineering_coordinate_mapping",
+  "scope": "Explicit normalization of the chapter_keys in the eight evidence-first-pack-v1 drafts. This does not rewrite the drafts or certify textual or historical claims.",
+  "review": {
+    "review_type": "ai_engineering_coordinate_check",
+    "reviewer_role": "AI development assistant",
+    "reviewed_on": "2026-09-07",
+    "specialist_certification": false
+  },
+  "entries": [
+    {
+      "record_id": "AC01",
+      "record_sha256": "bf53e6b2f67b5f35ea6b307302d29923d4dad70c43b88bd22629c23f2398b8b5",
+      "original_chapter_key": "Ezra.4",
+      "normalized_chapter_key": "bible:Ezra.4",
+      "source_id": "oshb-ezra",
+      "edition": "OSHB/WLC",
+      "edition_coordinate": "oshb:Ezra.4",
+      "mapping_citation_ids": [
+        "ezra-edition"
+      ],
+      "note": "The draft's bare key is mapped explicitly to its cited OSHB/WLC coordinate; it is not joined by raw key equality."
+    },
+    {
+      "record_id": "AT03",
+      "record_sha256": "a3ac84d6c32fb9429921e7aabbefa97539e5745e4de839e7ab1d1fae92d190f9",
+      "original_chapter_key": "Dan.2",
+      "normalized_chapter_key": "bible:Dan.2",
+      "source_id": "oshb-dan",
+      "edition": "OSHB/WLC",
+      "edition_coordinate": "oshb:Dan.2",
+      "mapping_citation_ids": [
+        "dan-edition"
+      ],
+      "note": "The draft's bare key is mapped explicitly to the cited Hebrew/Aramaic edition coordinate; separate Greek coordinates remain in mapped_references."
+    },
+    {
+      "record_id": "GC01",
+      "record_sha256": "f063fc2ab3c06a9e2a3cf6cd33bf64236ed566074480d40c1fa21431429ffe51",
+      "original_chapter_key": "sblgnt:Luke.3",
+      "normalized_chapter_key": "bible:Luke.3",
+      "source_id": "sblgnt",
+      "edition": "SBLGNT",
+      "edition_coordinate": "sblgnt:Luke.3",
+      "mapping_citation_ids": [
+        "GC-C1"
+      ],
+      "note": "The source-prefixed draft key is retained as the edition coordinate and normalized separately for later indexing."
+    },
+    {
+      "record_id": "GT01",
+      "record_sha256": "8ba33bc61005d54bbe62f34d62f29e9e3aef165788c34fc876820a0c750c4ebe",
+      "original_chapter_key": "sblgnt:Mark.1",
+      "normalized_chapter_key": "bible:Mark.1",
+      "source_id": "sblgnt",
+      "edition": "SBLGNT",
+      "edition_coordinate": "sblgnt:Mark.1",
+      "mapping_citation_ids": [
+        "GT-C1"
+      ],
+      "note": "CNTR verse mappings remain explicit in the draft; this row identifies only the draft chapter anchor."
+    },
+    {
+      "record_id": "HC01",
+      "record_sha256": "43b7f6b5bfd9750658758580d90ba4a29c002e78a09e0f37ca3806f290b2e975",
+      "original_chapter_key": "oshb:2Kgs.18",
+      "normalized_chapter_key": "bible:2Kgs.18",
+      "source_id": "oshb",
+      "edition": "OSHB/WLC",
+      "edition_coordinate": "oshb:2Kgs.18",
+      "mapping_citation_ids": [
+        "HC01-WLC"
+      ],
+      "note": "The source-prefixed draft key is retained as the edition coordinate and normalized separately for later indexing."
+    },
+    {
+      "record_id": "HC01",
+      "record_sha256": "43b7f6b5bfd9750658758580d90ba4a29c002e78a09e0f37ca3806f290b2e975",
+      "original_chapter_key": "oshb:2Kgs.19",
+      "normalized_chapter_key": "bible:2Kgs.19",
+      "source_id": "oshb",
+      "edition": "OSHB/WLC",
+      "edition_coordinate": "oshb:2Kgs.19",
+      "mapping_citation_ids": [
+        "HC01-WLC"
+      ],
+      "note": "The source-prefixed draft key is retained as the edition coordinate and normalized separately for later indexing."
+    },
+    {
+      "record_id": "HC03",
+      "record_sha256": "77b5c9e14abae6323d8cb505d1c24a555867dba044c3f357a188fbdc169a5a19",
+      "original_chapter_key": "oshb:Ezra.1",
+      "normalized_chapter_key": "bible:Ezra.1",
+      "source_id": "oshb",
+      "edition": "OSHB/WLC",
+      "edition_coordinate": "oshb:Ezra.1",
+      "mapping_citation_ids": [
+        "HC03-WLC"
+      ],
+      "note": "The source-prefixed draft key is retained as the edition coordinate and normalized separately for later indexing."
+    },
+    {
+      "record_id": "HT01",
+      "record_sha256": "e761e0a76916e117cd75a0a028c1daed21ccebaeaaa15b7c883e5e8093b01e26",
+      "original_chapter_key": "oshb:Gen.4",
+      "normalized_chapter_key": "bible:Gen.4",
+      "source_id": "oshb",
+      "edition": "OSHB/WLC",
+      "edition_coordinate": "oshb:Gen.4",
+      "mapping_citation_ids": [
+        "HT01-WLC"
+      ],
+      "note": "The source-prefixed draft key is retained as the edition coordinate and normalized separately for later indexing."
+    },
+    {
+      "record_id": "HT07",
+      "record_sha256": "82f1b4054eed13d542886a71299f0f14f73c0a51b2d446fe366160835988b231",
+      "original_chapter_key": "oshb:Isa.53",
+      "normalized_chapter_key": "bible:Isa.53",
+      "source_id": "oshb",
+      "edition": "OSHB/WLC",
+      "edition_coordinate": "oshb:Isa.53",
+      "mapping_citation_ids": [
+        "HT07-WLC"
+      ],
+      "note": "The source-prefixed draft key is retained as the edition coordinate and normalized separately for later indexing."
+    }
+  ],
+  "limitations": [
+    "This mapping is an AI-assisted engineering coordinate check, not specialist certification.",
+    "A normalized chapter key identifies an indexing coordinate, not equivalence among editions or witnesses.",
+    "Mapped references and their qualifications remain unchanged in the source drafts."
+  ]
+}

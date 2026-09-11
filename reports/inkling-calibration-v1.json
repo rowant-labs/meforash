@@ -1,0 +1,35 @@
+{
+  "accounting_is_invoice": false,
+  "baseline_holdout": {
+    "loss_tokens": 20419,
+    "processed_tokens": 20696,
+    "weighted_loss_sum": 1034.733002448353,
+    "weighted_nll": 0.050675008690354725
+  },
+  "checkpoint_ttl_seconds": 2592000,
+  "combined_reserved_estimated_usd": 3.35530935,
+  "end_holdout": {
+    "loss_tokens": 20419,
+    "processed_tokens": 20696,
+    "weighted_loss_sum": 1053.5785758985219,
+    "weighted_nll": 0.05159795170667133
+  },
+  "phase": "calibration",
+  "planned_estimated_usd": 3.35530935,
+  "recipe_sha256": "7efef6738f803b48a8759e707ccd2a1e11879975223c422ca7fe05c8683286e7",
+  "status": "complete",
+  "training_batches": 1,
+  "training_loss_tokens": 21575,
+  "training_processed_tokens": 21943,
+  "training_weighted_nll": 0.07818384386693768,
+  "retention": {
+    "questions": 4,
+    "complete_answers": 4,
+    "exact_baseline_prompt_token_hashes_match": true,
+    "estimated_sampling_usd": 0.02523628,
+    "median_seconds": 63.222449999999995,
+    "quality_note": "Basic English responsiveness retained; known Daniel2:20 infinitive analysis error remains, Proverbs26 answer misattributes shared quotation wording to multiple English versions. Not evidence of improvement."
+  },
+  "training_software_manifest": "manifests/training-inkling-software-v1.json",
+  "retention_software_manifest": "manifests/training-inkling-software-v2.json"
+}

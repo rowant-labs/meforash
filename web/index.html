@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <meta name="description" content="A private research preview for exploring biblical Hebrew, Aramaic, and Greek through conversation in English.">
+    <title>Bible, in context</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#question">Skip to your question</a>
+    <div class="app-shell">
+      <header class="site-header">
+        <a class="wordmark" href="/" aria-label="Bible, in context — home">
+          <svg class="brand-mark" viewBox="0 0 36 38" fill="none" aria-hidden="true"><path d="M18 33V8M18 8C13 4 7 4 3 5v24c5-1 10 0 15 4 5-4 10-5 15-4V5c-4-1-10-1-15 3Z"/><path d="M8 11c2 0 4 .5 6 1.5M8 17c2 0 4 .5 6 1.5M22 12.5c2-1 4-1.5 6-1.5M22 18.5c2-1 4-1.5 6-1.5"/></svg>
+          <span>Bible<span class="wordmark-rest">, in context</span></span>
+        </a>
+        <div class="header-actions">
+          <span class="preview-badge">Research preview</span>
+          <button class="quiet-button header-sources" id="open-sources" type="button" aria-haspopup="dialog">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 4H5a2 2 0 0 0-2 2v13a1 1 0 0 0 1.4.9L12 17l7.6 2.9A1 1 0 0 0 21 19V6a2 2 0 0 0-2-2h-2M12 17V7M8 3h8v8l-4-2-4 2V3Z"/></svg>
+            <span>Passages</span><span class="source-count" id="source-count" hidden>0</span>
+          </button>
+          <button class="quiet-button new-chat" id="new-chat" type="button">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>New chat</span>
+          </button>
+        </div>
+      </header>
+
+      <main id="main" class="main-content">
+        <section class="welcome" id="welcome" aria-labelledby="welcome-title">
+          <div class="welcome-eyebrow"><span></span> A little closer to the words <span></span></div>
+          <h1 id="welcome-title">Ancient words.<br>A conversation in English.</h1>
+          <p class="welcome-subtitle">Explore with a model fine-tuned on biblical<br class="desktop-break"> Hebrew, Aramaic, and Greek.</p>
+
+          <details class="training-details" id="training-details">
+            <summary>What this model was trained on <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></summary>
+            <div class="training-content">
+              <p>This model was adapted on original-language biblical text from two named editions, using a development split:</p>
+              <div class="edition-list">
+                <div><span class="edition-label">Hebrew &amp; Aramaic</span><strong>OSHB / WLC</strong><p>The Open Scriptures Hebrew Bible’s Westminster Leningrad Codex text.</p></div>
+                <div><span class="edition-label">Greek New Testament</span><strong>SBLGNT</strong><p>The Society of Biblical Literature Greek New Testament, a modern edited text.</p></div>
+              </div>
+              <p class="training-limit">These editions are a starting point. They do not recover the earliest wording of every passage, and the model has not been adapted on the full range of ancient manuscripts and versions. This research preview can make translation and interpretation mistakes.</p>
+            </div>
+          </details>
+
+          <section class="starters" aria-labelledby="starters-title">
+            <h2 id="starters-title">A place to begin</h2>
+            <div class="starter-grid">
+              <button class="starter" type="button" data-question="How do the Psalms describe hope in difficult times?">
+                <span class="starter-category">The bigger picture</span><span class="starter-question">How do the Psalms describe hope in difficult times?</span><span class="starter-arrow" aria-hidden="true">↗</span>
+              </button>
+              <button class="starter" type="button" data-question="What does “mercy” mean in Micah 6:8 in its original context?">
+                <span class="starter-category">A closer reading</span><span class="starter-question">What does “mercy” mean in Micah 6:8?</span><span class="starter-arrow" aria-hidden="true">↗</span>
+              </button>
+              <button class="starter" type="button" data-question="I’m struggling to forgive someone. What might the Bible help me reflect on?">
+                <span class="starter-category">In everyday life</span><span class="starter-question">I’m struggling to forgive someone. Where might I begin?</span><span class="starter-arrow" aria-hidden="true">↗</span>
+              </button>
+            </div>
+          </section>
+        </section>
+
+        <section class="conversation" id="conversation" aria-label="Conversation" hidden>
+          <div class="conversation-heading"><span class="small-rule"></span> A conversation in context</div>
+          <div class="messages" id="messages"></div>
+          <div id="conversation-end" tabindex="-1"></div>
+        </section>
+
+        <section class="composer-section" aria-label="Ask a question">
+          <div class="model-line">
+            <span class="model-identity"><span class="status-dot" id="status-dot" data-state="checking" aria-hidden="true"></span><span id="model-label">Original-language model</span></span>
+            <span class="model-state" id="model-state" role="status">Connecting</span>
+          </div>
+          <form id="chat-form" class="composer">
+            <label class="sr-only" for="question">Your question</label>
+            <textarea id="question" name="question" rows="2" maxlength="6000" placeholder="Ask a question, bring a passage, or share what’s on your mind…" autocomplete="off" spellcheck="true" enterkeyhint="send" aria-describedby="composer-help keyboard-help"></textarea>
+            <span class="sr-only" id="keyboard-help">Press Enter to send. Press Shift and Enter for a new line.</span>
+            <div class="composer-bottom">
+              <span class="composer-hint" id="composer-hint">You can start wherever you are.</span>
+              <button class="send-button" id="send" type="submit" disabled aria-label="Send question">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 19V5m-6 6 6-6 6 6"/></svg>
+              </button>
+            </div>
+          </form>
+          <div class="composer-help" id="composer-help">
+            <span id="connection-note">Chat is not saved here. Messages are sent to Tinker for answers.</span>
+            <button id="check-connection" class="text-button" type="button" hidden>Check connection</button>
+            <button id="check-answer" class="text-button" type="button" hidden>Check for answer</button>
+          </div>
+          <p class="preview-note">A starting point for study and reflection. Check important details against the text.</p>
+        </section>
+      </main>
+
+      <footer class="site-footer"><span>Ancient languages. Room for questions.</span><span class="footer-privacy">Private preview</span></footer>
+    </div>
+
+    <dialog class="sources-drawer" id="sources-drawer" aria-labelledby="sources-title" aria-describedby="sources-description">
+      <div class="drawer-header"><span class="drawer-eyebrow">Alongside the conversation</span><button class="icon-button" id="close-sources" type="button" aria-label="Close passages"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div>
+      <h2 id="sources-title">Passages supplied<br>to the model</h2>
+      <p id="sources-description">These excerpts accompanied this answer. They aren’t a citation for every claim it makes.</p>
+      <div class="source-notes" id="source-notes"></div>
+      <div class="source-cards" id="source-cards"></div>
+    </dialog>
+    <div id="announcer" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+    <noscript><p class="noscript-note">Please enable JavaScript to use this private chat preview.</p></noscript>
+  </body>
+</html>

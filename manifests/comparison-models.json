@@ -1,0 +1,203 @@
+{
+  "schema_version": 1,
+  "retrieved_on": "2026-09-05",
+  "cookbook_revision": "1f962eda3a2cec8de284725f2adc9978e93dfcd3",
+  "models": [
+    {
+      "id": "nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16",
+      "slug": "nemotron-lightning",
+      "revision": "a9904d24bcc1d289a1950fa9d2b978c47cf903b9",
+      "renderer": "nemotron3_ultra",
+      "thinking_settings": {
+        "supported": [
+          "on",
+          "off"
+        ],
+        "default": "on"
+      },
+      "license": "OpenMDW-1.1",
+      "tokenizer_repository": "nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16",
+      "files": [
+        {
+          "path": "tokenizer.json",
+          "sha256": "623c34567aebb18582765289fbe23d901c62704d6518d71866e0e58db892b5b7",
+          "bytes": 17077484,
+          "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/resolve/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/tokenizer.json"
+        },
+        {
+          "path": "tokenizer_config.json",
+          "sha256": "10f93eabcb9b1602fbb991d6308e787ce1df28ee9cd7a1c6d1e8c3f338b957bc",
+          "bytes": 177209,
+          "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/resolve/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/tokenizer_config.json"
+        },
+        {
+          "path": "chat_template.jinja",
+          "sha256": "58933db77d3099b4f78c55a38347a72e1ea05b97d6bd8f38775303dc0194e0a9",
+          "bytes": 9867,
+          "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/resolve/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/chat_template.jinja"
+        },
+        {
+          "path": "special_tokens_map.json",
+          "sha256": "e9435fefd6d838fd9fcbbc44b97a8e3ff322be7f6dfb7e4fd2468586574bb52b",
+          "bytes": 563,
+          "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16/resolve/a9904d24bcc1d289a1950fa9d2b978c47cf903b9/special_tokens_map.json"
+        }
+      ]
+    },
+    {
+      "id": "thinkingmachines/Inkling-Small",
+      "slug": "inkling-small",
+      "revision": "8cc5877b44d343f88b92086aa1fb72897950f06a",
+      "renderer": "tml_v0",
+      "thinking_settings": {
+        "supported": [
+          "low",
+          "medium",
+          "high"
+        ],
+        "default": "low"
+      },
+      "license": "Apache-2.0",
+      "tokenizer_repository": "thinkingmachines/Inkling-Small",
+      "files": [
+        {
+          "path": "tokenizer.json",
+          "sha256": "9fb6333a7db8fe5da90728e741e4a3ee4ac2ae12c5dd4958cc6f31688787d3c2",
+          "bytes": 27875797,
+          "url": "https://huggingface.co/thinkingmachines/Inkling-Small/resolve/8cc5877b44d343f88b92086aa1fb72897950f06a/tokenizer.json"
+        },
+        {
+          "path": "tokenizer_config.json",
+          "sha256": "2e36c9748a2081abb935b2e745ee22e82efa32589c2500df7e5bc0f93145cd77",
+          "bytes": 12111,
+          "url": "https://huggingface.co/thinkingmachines/Inkling-Small/resolve/8cc5877b44d343f88b92086aa1fb72897950f06a/tokenizer_config.json"
+        },
+        {
+          "path": "chat_template.jinja",
+          "sha256": "0aa1aa0c729d90176dcaa00c440c8faffca2957ffb2cc4b79456ee6d02bcf43b",
+          "bytes": 6294,
+          "url": "https://huggingface.co/thinkingmachines/Inkling-Small/resolve/8cc5877b44d343f88b92086aa1fb72897950f06a/chat_template.jinja"
+        },
+        {
+          "path": "special_tokens_map.json",
+          "sha256": "abc97715b4b3b30eb65ea6895afd7b529c32bd10c28901f9ddae7edc39723b0f",
+          "bytes": 517,
+          "url": "https://huggingface.co/thinkingmachines/Inkling-Small/resolve/8cc5877b44d343f88b92086aa1fb72897950f06a/special_tokens_map.json"
+        },
+        {
+          "path": "tiktoken/tokenizer.model",
+          "url": "https://huggingface.co/thinkingmachines/Inkling-Small/resolve/8cc5877b44d343f88b92086aa1fb72897950f06a/tiktoken/tokenizer.model",
+          "bytes": 3615874,
+          "sha256": "bc253fd2b702f7a6da7105eaa8f3463b2f1247e83614f23e5323b921088bed2a"
+        }
+      ],
+      "native_tokenizer": {
+        "package": "tml-renderers",
+        "version": "0.1.0",
+        "function": "tml_renderers.tokenizers.o200k_base_chat",
+        "canonical_vocabulary_sha256": "555ecdb09dcb7d593ce71795cadbae2ef35d68ce4109a4630c9cfaa234c80a89",
+        "entries": 200058,
+        "sdk_tokenizer_accessor": "unavailable: SDK0.27.1 references unpublished tml_tokenizers package; use documented official native tokenizer"
+      }
+    },
+    {
+      "id": "Qwen/Qwen3.8-27B",
+      "slug": "qwen3.8-27b",
+      "revision": "1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0",
+      "renderer": "qwen3_8",
+      "thinking_settings": {
+        "supported": [
+          "low",
+          "medium",
+          "xhigh",
+          "off"
+        ],
+        "default": "low"
+      },
+      "license": "Apache-2.0",
+      "tokenizer_repository": "Qwen/Qwen3.8-27B",
+      "files": [
+        {
+          "path": "tokenizer.json",
+          "sha256": "0997f410c57a1f4e53b09e4be8f4a172d90edd9564368fb0847030937229b9f3",
+          "bytes": 12809320,
+          "url": "https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/tokenizer.json"
+        },
+        {
+          "path": "tokenizer_config.json",
+          "sha256": "b11349aafa7cdc6a320767cf7ceb29ed82f7eda5d65e8e0819e76f0ce947bf27",
+          "bytes": 17928,
+          "url": "https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/tokenizer_config.json"
+        },
+        {
+          "path": "chat_template.jinja",
+          "sha256": "c3cf9e34abf4f9e36c2d72165aa9c132d3e2a725b6c2586aaa3a8af9d7a81041",
+          "bytes": 8952,
+          "url": "https://huggingface.co/Qwen/Qwen3.8-27B/resolve/1d4bf0f2ff6012fd82039f2fa52739d0dd7c60c0/chat_template.jinja"
+        }
+      ]
+    },
+    {
+      "id": "thinkingmachines/Inkling",
+      "slug": "inkling",
+      "revision": "828496eeae4c243ff1a22f7f28ff83694f2f7bc9",
+      "renderer": "tml_v0",
+      "thinking_settings": {
+        "supported": [
+          "low",
+          "medium",
+          "high"
+        ],
+        "default": "low"
+      },
+      "license": "Apache-2.0",
+      "tokenizer_repository": "thinkingmachines/Inkling",
+      "files": [
+        {
+          "path": "tokenizer.json",
+          "url": "https://huggingface.co/thinkingmachines/Inkling/resolve/828496eeae4c243ff1a22f7f28ff83694f2f7bc9/tokenizer.json",
+          "bytes": 27875797,
+          "sha256": "9fb6333a7db8fe5da90728e741e4a3ee4ac2ae12c5dd4958cc6f31688787d3c2"
+        },
+        {
+          "path": "tokenizer_config.json",
+          "url": "https://huggingface.co/thinkingmachines/Inkling/resolve/828496eeae4c243ff1a22f7f28ff83694f2f7bc9/tokenizer_config.json",
+          "bytes": 12111,
+          "sha256": "2e36c9748a2081abb935b2e745ee22e82efa32589c2500df7e5bc0f93145cd77"
+        },
+        {
+          "path": "chat_template.jinja",
+          "url": "https://huggingface.co/thinkingmachines/Inkling/resolve/828496eeae4c243ff1a22f7f28ff83694f2f7bc9/chat_template.jinja",
+          "bytes": 6294,
+          "sha256": "0aa1aa0c729d90176dcaa00c440c8faffca2957ffb2cc4b79456ee6d02bcf43b"
+        },
+        {
+          "path": "special_tokens_map.json",
+          "url": "https://huggingface.co/thinkingmachines/Inkling/resolve/828496eeae4c243ff1a22f7f28ff83694f2f7bc9/special_tokens_map.json",
+          "bytes": 517,
+          "sha256": "abc97715b4b3b30eb65ea6895afd7b529c32bd10c28901f9ddae7edc39723b0f"
+        },
+        {
+          "path": "tiktoken/tokenizer.model",
+          "url": "https://huggingface.co/thinkingmachines/Inkling/resolve/828496eeae4c243ff1a22f7f28ff83694f2f7bc9/tiktoken/tokenizer.model",
+          "bytes": 3615874,
+          "sha256": "bc253fd2b702f7a6da7105eaa8f3463b2f1247e83614f23e5323b921088bed2a"
+        }
+      ],
+      "native_tokenizer": {
+        "package": "tml-renderers",
+        "version": "0.1.0",
+        "function": "tml_renderers.tokenizers.o200k_base_chat",
+        "canonical_vocabulary_sha256": "555ecdb09dcb7d593ce71795cadbae2ef35d68ce4109a4630c9cfaa234c80a89",
+        "entries": 200058,
+        "sdk_tokenizer_accessor": "unavailable: SDK0.27.1 references unpublished tml_tokenizers package; use documented official native tokenizer"
+      }
+    }
+  ],
+  "runtime_packages": {
+    "tml-renderers": "0.1.0",
+    "torch": "2.14.0"
+  },
+  "extended_from_manifest_sha256": "42651a2efd5cc6237c9322c61f1021ea00c50d0dd42ea2b4301408726673297d",
+  "extension_reason": "Add larger Inkling after preliminary source checks found shared Aramaic weaknesses; original three-model manifest preserved separately."
+}

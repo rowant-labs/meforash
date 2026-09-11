@@ -1,0 +1,34 @@
+{
+  "source_id": "gpt-oss-120b-tokenizer",
+  "repository": "openai/gpt-oss-120b",
+  "revision": "b5c939de8f754692c1647ca79fbf85e8c1e70f8a",
+  "license": "Apache-2.0",
+  "retrieved_on": "2026-09-05",
+  "files": [
+    {
+      "path": "tokenizer.json",
+      "url": "https://huggingface.co/openai/gpt-oss-120b/resolve/b5c939de8f754692c1647ca79fbf85e8c1e70f8a/tokenizer.json",
+      "sha256": "0614fe83cadab421296e664e1f48f4261fa8fef6e03e63bb75c20f38e37d07d3",
+      "bytes": 27868174
+    },
+    {
+      "path": "tokenizer_config.json",
+      "url": "https://huggingface.co/openai/gpt-oss-120b/resolve/b5c939de8f754692c1647ca79fbf85e8c1e70f8a/tokenizer_config.json",
+      "sha256": "9279e942392b742d633c7adbb89ebe002c98399db8926a7af5125c726f404070",
+      "bytes": 4200
+    },
+    {
+      "path": "special_tokens_map.json",
+      "url": "https://huggingface.co/openai/gpt-oss-120b/resolve/b5c939de8f754692c1647ca79fbf85e8c1e70f8a/special_tokens_map.json",
+      "sha256": "dd5e191d20c12d2fee1da5bae14ca1db0f5f4215300af691f23cdee97120a293",
+      "bytes": 98
+    },
+    {
+      "path": "LICENSE",
+      "url": "https://huggingface.co/openai/gpt-oss-120b/resolve/b5c939de8f754692c1647ca79fbf85e8c1e70f8a/LICENSE",
+      "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+      "bytes": 11357
+    }
+  ],
+  "weights_downloaded": false
+}

@@ -1,0 +1,77 @@
+{
+  "schema_version": 1,
+  "evaluation_id": "instruction-comparison-v1",
+  "status": "frozen_before_instruction_example_authoring",
+  "frozen_at_utc": "2026-09-06T17:13:08.277130+00:00",
+  "dataset": {
+    "path": "evals/instruction-comparison-v1.jsonl",
+    "sha256": "0d60c1740dcbe000a33fed8d5161af2fb2c9e97cee4d6368cd8865c69f947355",
+    "cases": 24,
+    "languages": {
+      "hebrew": 7,
+      "aramaic": 7,
+      "greek": 6,
+      "mixed": 4
+    },
+    "supplied_excerpt_cases": 20,
+    "no_excerpt_application_cases": 4
+  },
+  "exclusions": {
+    "path": "manifests/instruction-evaluation-exclusions-v1.json",
+    "sha256": "e218628806018aec84d22956d518c1a05189fa546ead6cf47c8871c34ce9098c",
+    "chapter_count": 19
+  },
+  "review": {
+    "status": "ai_source_checked_not_expert_certified",
+    "candidate_model_calls": 0,
+    "gold_answers_created": 0,
+    "private_audit_sha256": "a0156fc9c82de7e0feb91d0eda93394e606f9dd8ae6e784ebf858a00e60f2e43",
+    "private_builder_sha256": "0f55a291d232a8cc6713b7e071200be80c63c0ea5271150fabbc4c424c98b07d"
+  },
+  "sources": {
+    "oshb_revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+    "sblgnt_revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+    "morphgnt_consultation_revision": "aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d",
+    "morphgnt_reference": "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/README.md",
+    "source_file_sha256": {
+      "data/raw/oshb/wlc/Lev.xml": "e21e70265c9ef500182f8ccb4f4e1186e5a79e1169d24cef23cc479baf07b191",
+      "data/raw/oshb/wlc/Num.xml": "02e4febfcc027d10b3e35e4f091eae67a40d26f37b6254faac6b4af053fe4896",
+      "data/raw/oshb/wlc/Deut.xml": "04f8087442a1e67a631cd70f2ac4e42fe0a780ae132edb165a3a29f3f290358f",
+      "data/raw/oshb/wlc/1Kgs.xml": "832ba10f605dce34c4888ee0a795d91edc2b293391d6ae9c36c36c6350761a3e",
+      "data/raw/oshb/wlc/Isa.xml": "0807678de609bdef284bed5400b94ddab570d101b593c7f59ae1939015572fa2",
+      "data/raw/oshb/wlc/Eccl.xml": "2dfc858d19048f6479eca33b9fe781c2d7e9059e9ae3ab0b37b802d3afec02bb",
+      "data/raw/oshb/wlc/Jonah.xml": "1e1afcc3aaba1399d5c884ee106894c6bfca87c8c81fa57783ab75a923eee17d",
+      "data/raw/oshb/wlc/Dan.xml": "bc69d0fa9708dacb11ea6d587509250bf1bcc1b4343eac2d6e97f8b41518fc0d",
+      "data/raw/oshb/wlc/Ezra.xml": "fb28ff697d0ee17eba5b4db47fb7261ee1870cea0d5701bfc77c9e28d4138129",
+      "data/raw/sblgnt/data/sblgnt/text/Matt.txt": "4fa718540cbc6330591b233c99c68bbf52b85afc90016e4188efe5cd9719eeb0",
+      "data/raw/sblgnt/data/sblgnt/text/Luke.txt": "102d65ec7a91271777115d1a605688776adfda6a1188680ccf593e27e3e876d6",
+      "data/raw/sblgnt/data/sblgnt/text/Acts.txt": "199867a92d9a1ef73abe85986e4489d4799bb187bdd22845f3c168c93cafa9c8",
+      "data/raw/sblgnt/data/sblgnt/text/Rom.txt": "a919e44983ec633d541ec1084da79cfba1c1aa7f0eac6470c1ac7ec66cf774e8",
+      "data/raw/sblgnt/data/sblgnt/text/1Cor.txt": "2a706bac29f1e34568bf6862cbc1616471511e9b915d7292adba3e93fb72c946",
+      "data/raw/sblgnt/data/sblgnt/text/Jas.txt": "1343ea4125c64585c738a2f8bf54a077947d0a6229b2642b39a1ad845f40e153",
+      "data/raw/oshb/wlc/Mic.xml": "267e111adc1b941e32444816af07aa136ecde02cb315cd42597f78b393e67a01",
+      "data/raw/oshb/wlc/Ps.xml": "fe55eef316a65fb0f46d833d526ca2fd722e86ff7339f1a39f0c5b7f9062ced2",
+      "data/raw/sblgnt/data/sblgnt/text/Phil.txt": "c99e25ea7856fd7a3edb1055716869117c4cba4c15f07567ea22c0269e211b85"
+    }
+  },
+  "previous_eval_file_sha256": {
+    "evals/comparison-large-v1.jsonl": "a8039aae01f8a65e7d1daa4b3ed243c8fc868c7a3cfc672a97f2a8ffe0e75ade",
+    "evals/comparison-v1.jsonl": "b0b89db022cbac79a2d0297c971a2ca6cc58e358f4a585587673a3e0678ef26c",
+    "evals/pilot-v1.jsonl": "65b89f3c448d966ee7682ebe9e73ace556e8f742fd1920e1352e7c86a4a631e0"
+  },
+  "overlap_with_explicit_prior_eval_source_chapters": [],
+  "limitations": [
+    "Held out from new instruction training and validation only; passages may have been seen in original-text adaptation and unknown base pretraining.",
+    "AI source checking is not specialist certification or an independent gold standard.",
+    "Seven Aramaic cases are concentrated in Daniel 5 and Ezra 7 to avoid previous evaluated chapters while keeping other Aramaic chapters available for instruction training.",
+    "The 24-question set is a small diagnostic and is not a comprehensive assessment of all books, witness traditions, or general reasoning.",
+    "No post-freeze changes to prompts or criteria are allowed in place. Corrections require a new version with the rationale and exposure timing recorded.",
+    "Training authors receive only the chapter exclusion inventory, not questions or criteria. The shared repository is an instruction-based separation, not a technical access-control boundary."
+  ],
+  "publication": {
+    "status": "local_only",
+    "original_questions_and_criteria_license": "Apache-2.0",
+    "source_text_rights": "Third-party source texts retain the rights and attribution recorded in the existing OSHB and SBLGNT source manifests. MorphGNT facts were consulted, not a bulk annotation distribution; its project identifies annotations under CC BY-SA.",
+    "no_private_paths_or_credentials": true
+  }
+}

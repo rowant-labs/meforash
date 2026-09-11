@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bible-model-preparation"
+version = "0.1.0"
+description = "Source preparation and evaluation for whole-Bible model adaptation"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+dependencies = ["tokenizers==0.23.2", "python-dotenv==1.2.3"]
+
+[project.optional-dependencies]
+inference = ["tinker==0.27.1", "transformers==5.16.1", "Jinja2==3.1.6"]
+evidence = ["jsonschema==4.26.0"]
+
+[tool.setuptools.packages.find]
+include = ["bibleprep*"]

@@ -1,0 +1,44 @@
+{
+  "schema_version": 3,
+  "status": "verified_before_paid_v3_execution",
+  "checked_at_utc": "2026-09-06T22:30:02.030634+00:00",
+  "model": "thinkingmachines/Inkling",
+  "pricing": {
+    "source": "https://tinker-docs.thinkingmachines.ai/tinker/models/",
+    "input_usd_per_million": 1.87,
+    "output_usd_per_million": 4.68,
+    "training_usd_per_million": 5.61,
+    "checkpoint_storage_usd_per_gb_month": 0.1,
+    "temporary_discount": true,
+    "cached_prefill_discount_used_in_budget": false,
+    "rates_rechecked_before_run": true
+  },
+  "provider_checkpoint_check": {
+    "path": "runs/instruction-v3-execution/provider-preflight.json",
+    "sha256": "68210379f84fdc3cae38db706916504df77c711f605e68c2b8e779aaf2dc8bd4",
+    "read_only": true,
+    "verified_arms": [
+      "B",
+      "E"
+    ],
+    "training_and_sampler_checkpoints_present": true,
+    "all_checked_checkpoints_unexpired": true,
+    "all_checked_checkpoints_private": true,
+    "B_base_model_rank_and_components_match": true,
+    "earliest_expiry_utc": "2026-10-06T15:58:28.568704+00:00"
+  },
+  "local_training_budget": {
+    "reserved_usd_before_F": 35.43523284,
+    "F_training_plus_checkpoint_reservation_usd": 3.48945567,
+    "reserved_usd_after_F_if_submitted": 38.92468851,
+    "shared_cap_usd": 50,
+    "sampling_cap_usd": 6,
+    "incremental_round_cap_usd": 10
+  },
+  "authorization": "Owner instructed go ahead with the proposed controlled fine-tune and comparison after the prepared-data report.",
+  "limits": [
+    "Metadata availability does not establish export compatibility or public serving feasibility.",
+    "No training or sampling was issued by these metadata checks; checkpoint storage remains a separate ongoing provider charge.",
+    "Prices and local reservations are not a reconciled provider invoice or provider-enforced dollar cap."
+  ]
+}

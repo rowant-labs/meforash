@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#f4f1e9">
+  <title>Meforash · Original-language Bible exploration</title>
+  <link rel="stylesheet" href="/beta/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <header class="site-header">
+    <a class="wordmark" href="/" aria-label="Meforash home">
+      <span class="brand-mark" aria-hidden="true">מ</span>
+      <span class="brand-lockup">
+        <span class="brand-name">Meforash</span>
+        <span class="brand-subtitle">Original-language Bible exploration</span>
+      </span>
+    </a>
+    <span class="preview-badge">Private beta</span>
+    <nav class="header-actions" aria-label="Conversation actions">
+      <button id="sources-button" class="quiet-button" type="button" hidden>Sources</button>
+      <button id="new-chat-button" class="quiet-button" type="button" hidden>New conversation</button>
+      <button id="logout-button" class="quiet-button" type="button" hidden>Sign out</button>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section id="login-view" class="login-view" aria-labelledby="login-title">
+      <div class="login-card">
+        <p class="eyebrow">Invitation access</p>
+        <h1 id="login-title">Welcome to<br>Meforash.</h1>
+        <p class="lede">A quiet place to explore biblical texts in their original languages and historical settings.</p>
+        <form id="login-form" autocomplete="off">
+          <label for="invite-id">Invitation ID</label>
+          <input id="invite-id" name="invite_id" type="text" maxlength="64" autocapitalize="none" spellcheck="false" required>
+          <label for="invite-secret">Invitation secret</label>
+          <input id="invite-secret" name="invite_secret" type="password" minlength="24" maxlength="512" autocomplete="off" required>
+          <button id="login-button" class="primary-button" type="submit">Enter Meforash</button>
+        </form>
+        <p id="login-message" class="form-message" role="status" aria-live="polite"></p>
+      </div>
+
+      <details class="about-panel login-about">
+        <summary>About this private beta</summary>
+        <div class="about-content">
+          <p>Meforash uses a model fine-tuned on selected Hebrew, Aramaic, and Greek biblical editions. It can make mistakes; its training does not establish a single recovered original text.</p>
+          <p>Your invitation credentials are sent only to this beta to start a secure session.</p>
+          <p>Your questions and conversation are sent to Tinker only when you ask for an answer. Conversation text is kept in memory for the session, is not written to disk by this preview, and is not used by Meforash for training.</p>
+          <p>Passage cards use selected scholarly editions of Hebrew, Aramaic, and Greek texts. These editions are not the original manuscripts, and the cards do not independently verify every claim in an answer.</p>
+        </div>
+      </details>
+    </section>
+
+    <section id="chat-view" class="chat-view" aria-labelledby="chat-title" hidden>
+      <div id="welcome" class="welcome">
+        <p class="eyebrow">Read with attention</p>
+        <h1 id="chat-title">Explore the text<br>in context.</h1>
+        <p class="lede">Bring your questions. Explore the Bible in English.</p>
+      </div>
+
+      <div id="conversation" class="conversation" aria-live="polite" aria-relevant="additions"></div>
+
+      <section class="composer-section" aria-label="Ask Meforash">
+        <form id="chat-form" class="composer">
+          <label class="sr-only" for="question">Your question</label>
+          <textarea id="question" maxlength="12000" rows="2" placeholder="What would you like to explore?" required></textarea>
+          <div class="composer-bottom">
+            <span id="request-state" class="composer-hint" role="status" aria-live="polite">Ready</span>
+            <button id="send-button" class="send-button" type="submit" aria-label="Send question">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none"></path></svg>
+            </button>
+          </div>
+        </form>
+
+        <details class="about-panel chat-about">
+          <summary>About, privacy &amp; sources</summary>
+          <div class="about-content">
+          <p>Meforash uses a model fine-tuned on selected Hebrew, Aramaic, and Greek biblical editions. It can make mistakes; its training does not establish a single recovered original text.</p>
+            <p>Your questions and conversation are sent to Tinker only when you ask for an answer. Conversation text is kept in memory for the session, is not written to disk by this preview, and is not used by Meforash for training.</p>
+            <p>Source cards show passages supplied to Meforash from selected scholarly editions. They are not original manuscripts and do not independently verify every claim in an answer.</p>
+            <dl id="service-details" class="service-details"></dl>
+          </div>
+        </details>
+      </section>
+    </section>
+  </main>
+
+  <dialog id="sources-drawer" class="sources-drawer" aria-labelledby="sources-title">
+    <div class="drawer-header">
+      <div>
+        <p class="eyebrow">For the latest answer</p>
+        <h2 id="sources-title">Source passages</h2>
+      </div>
+      <button id="close-sources" class="icon-button" type="button" aria-label="Close sources">×</button>
+    </div>
+    <p class="drawer-intro">The exact passages supplied to Meforash, with their edition details and textual notes.</p>
+    <div id="source-cards"></div>
+    <div id="source-notes" class="source-notes"></div>
+  </dialog>
+
+  <footer class="launch-footer"><span>A project by Rowant Labs</span> · <a href="https://github.com/rowant-labs/meforash" target="_blank" rel="noopener noreferrer">Code &amp; methods</a></footer>
+
+  <noscript><p class="noscript-note">JavaScript is required to use this private beta.</p></noscript>
+  <script src="/beta/app.js" defer></script>
+</body>
+</html>

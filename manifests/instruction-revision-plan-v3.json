@@ -1,0 +1,100 @@
+{
+  "schema_version": 3,
+  "status": "frozen_before_preparation",
+  "revision_id": "instruction-revision-v3",
+  "original_preparation": {
+    "path": "manifests/preparation-instruction-v1.json",
+    "sha256": "b851caf978f50c63ef5f2cba856e74f46ab751090ee47401100fcf9cff8b34cc"
+  },
+  "original_dataset": {
+    "path": "runs/instruction-v1-prep/reviewed/all.jsonl",
+    "sha256": "2bb0e9d842564267173bf8de1c8481fa03996a960a3719eabb633281c963a567"
+  },
+  "revised_dataset": {
+    "path": "runs/instruction-v3-prep/reviewed/all.jsonl",
+    "sha256": "5603342caed02a6b3210d554e131d6b8955fdb17601dff6e7e1a388880de5be2"
+  },
+  "changed_training_ids": [
+    "IA004",
+    "IA006",
+    "IA010",
+    "IA020",
+    "IG002",
+    "IG035",
+    "IH004",
+    "IH006",
+    "IH013",
+    "IH021",
+    "IH028",
+    "IH031",
+    "IH037",
+    "IH040"
+  ],
+  "unchanged_validation_sha256": "695f578c1bd8e068d7b5ad1903f9860c8d1c030c176335e0902d18ef3ec33f00",
+  "evaluation_exclusion": {
+    "path": "manifests/instruction-target-revision-exclusions-v3-compatible.json",
+    "sha256": "2ab35cf2c849d0c8b7da432bfbbbfc657868f51d636f8e61d3975f705c3c4bc4"
+  },
+  "review_groups": [
+    {
+      "name": "hebrew",
+      "ids": [
+        "IH004",
+        "IH006",
+        "IH013",
+        "IH021",
+        "IH028",
+        "IH031",
+        "IH037",
+        "IH040"
+      ],
+      "revision_drafts": {
+        "path": "runs/instruction-v3-prep/hebrew/revisions.jsonl",
+        "sha256": "b95b419cf17ccc66f066a5cba1a685b8c0e630b8692484238ea51ae49254bb7d"
+      },
+      "receipt": {
+        "path": "runs/instruction-v3-prep/reviews/hebrew.json",
+        "sha256": "99ae0db179c640dff9e371bbb953bfd28263fbcb0e7743b831b3814e68019be8"
+      }
+    },
+    {
+      "name": "aramaic",
+      "ids": [
+        "IA004",
+        "IA006",
+        "IA010",
+        "IA020"
+      ],
+      "revision_drafts": {
+        "path": "runs/instruction-v3-prep/aramaic/revisions.jsonl",
+        "sha256": "64efdf4c1ebf1843bdffc97e08593af66e795fbdb62123ffb6985b8b568144c6"
+      },
+      "receipt": {
+        "path": "runs/instruction-v3-prep/reviews/aramaic.json",
+        "sha256": "b5c7c90fbdea74e12c04393221ee7810ae999bbb87cfdc21e0c367947791ebba"
+      }
+    },
+    {
+      "name": "greek",
+      "ids": [
+        "IG002",
+        "IG035"
+      ],
+      "revision_drafts": {
+        "path": "runs/instruction-v3-prep/greek-application/revisions.jsonl",
+        "sha256": "73127b251f1ac596056d73938d2d16ebed83e4484d96cb608ea4cf0da6cd4db1"
+      },
+      "receipt": {
+        "path": "runs/instruction-v3-prep/reviews/greek.json",
+        "sha256": "3f7d3536da26907474990396db3be91939dab7bbb4518beb541069c9db08e23d"
+      }
+    }
+  ],
+  "settings": {
+    "model": "thinkingmachines/Inkling",
+    "thinking_effort_numeric": 0.7,
+    "maximum_input_tokens": 8192,
+    "preserve_original_order": true,
+    "preserve_original_split": true
+  }
+}

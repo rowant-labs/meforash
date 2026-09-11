@@ -1,0 +1,47 @@
+# Local planning documents: reviewed shareable versions are in docs/.
+/BIBLE-PROJECT-PLAN.md
+/BIBLE-TRAINING-PLAN.md
+/evaluation-plan.md
+/research-*.md
+/private/
+/local/
+
+# Credentials and local environment.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials*.json
+.DS_Store
+
+# Raw material and unreviewed training/model artifacts.
+/data/raw/
+/data/processed/
+/data/tokenized/
+/data/prepared/
+/data/cache/
+/data/evidence/
+/checkpoints/
+/adapters/
+/runs/
+/exports/
+/logs/
+*.safetensors
+*.pt
+*.pth
+*.gguf
+*.sqlite
+*.sqlite3
+*.db
+*.log
+
+# Dependency and build output.
+node_modules/
+.next/
+dist/
+.venv/
+__pycache__/
+.ipynb_checkpoints/
+.pytest_cache/
+*.egg-info/

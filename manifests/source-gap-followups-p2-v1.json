@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "document_type": "private_research_followup_inventory_not_eligibility_registry",
+  "checked_on": "2026-09-08",
+  "report": "docs/SOURCE-GAP-REVIEW-P2.md",
+  "original_inventory": "manifests/evidence-first-pack-v1.json",
+  "original_queue_private_path": "runs/evidence-review-v1/final/review.json",
+  "original_queue_sha256": "27b4bb771cd1546f00ed60694aea965d52160d47b6e036f476775d242d8a5348",
+  "records": [
+    {
+      "record_id": "HT01",
+      "parent_draft_sha256": "e761e0a76916e117cd75a0a028c1daed21ccebaeaaa15b7c883e5e8093b01e26",
+      "private_json_path": "data/evidence/followups/p2-v1/HT01.json",
+      "json_sha256": "b50b57a3b9124d88b08bbfc5e1e8ce1ff10a97db50b7591fc2bc8296655b3799",
+      "private_markdown_path": "data/evidence/followups/p2-v1/HT01.md",
+      "markdown_sha256": "0102fb82f909a103a83e9855dae337580a4c03282d1a38c96d3c605a596afd48",
+      "findings": 4,
+      "referenced_original_gap_ids": [
+        "ht01-missing-immutable-version-ht01-ctp",
+        "ht01-missing-immutable-version-ht01-tov",
+        "ht01-missing-source-bytes-ht01-ctp",
+        "ht01-missing-source-bytes-ht01-tov",
+        "ht01-record-review-issue-3",
+        "ht01-record-review-issue-4",
+        "ht01-unchecked-attestation-ht01-reported-4qgenb",
+        "ht01-unchecked-attestation-ht01-reported-samaritan-pentateuch-gen-4-8"
+      ],
+      "app_approved": false,
+      "training_approved": false,
+      "expert_certified": false
+    },
+    {
+      "record_id": "HT07",
+      "parent_draft_sha256": "82f1b4054eed13d542886a71299f0f14f73c0a51b2d446fe366160835988b231",
+      "private_json_path": "data/evidence/followups/p2-v1/HT07.json",
+      "json_sha256": "26db339dda721793917efdd0240a7ee7fd16fd644542c1ac13ccb86aeb30af69",
+      "private_markdown_path": "data/evidence/followups/p2-v1/HT07.md",
+      "markdown_sha256": "5296e570e04798ecd0cad226df39112173a299e92f45a14e2f676e0c53474827",
+      "findings": 4,
+      "referenced_original_gap_ids": [
+        "ht07-missing-immutable-version-ht07-tov",
+        "ht07-missing-source-bytes-ht07-tov",
+        "ht07-record-review-issue-3",
+        "ht07-record-review-issue-4",
+        "ht07-unchecked-attestation-ht07-reported-1qisaa",
+        "ht07-unchecked-attestation-ht07-reported-1qisab",
+        "ht07-unchecked-attestation-ht07-reported-4qisad"
+      ],
+      "app_approved": false,
+      "training_approved": false,
+      "expert_certified": false
+    },
+    {
+      "record_id": "AT03",
+      "parent_draft_sha256": "a3ac84d6c32fb9429921e7aabbefa97539e5745e4de839e7ab1d1fae92d190f9",
+      "private_json_path": "data/evidence/followups/p2-v1/AT03.json",
+      "json_sha256": "111b26b9b98d891c6ebeb8285866994238b0b79848a07a93adf7f3d09434f297",
+      "private_markdown_path": "data/evidence/followups/p2-v1/AT03.md",
+      "markdown_sha256": "f0dc23987371b9f7625dea2da146a80b05876fd83e389ab5f46a645d369a156c",
+      "findings": 5,
+      "referenced_original_gap_ids": [
+        "at03-missing-immutable-version-iaa-catalog",
+        "at03-missing-immutable-version-iaa-rights",
+        "at03-missing-source-bytes-iaa-catalog",
+        "at03-missing-source-bytes-iaa-rights",
+        "at03-record-review-issue-1",
+        "at03-record-review-issue-2",
+        "at03-scholarly-judgment-at-contextual-plural",
+        "at03-scholarly-judgment-at-scroll-gap",
+        "at03-scholarly-judgment-at-vorlage",
+        "at03-unchecked-attestation-dss-extent-unchecked",
+        "at03-use-restriction-iaa-catalog-annotation",
+        "at03-use-restriction-iaa-terms-annotation"
+      ],
+      "app_approved": false,
+      "training_approved": false,
+      "expert_certified": false
+    }
+  ],
+  "counts": {
+    "records": 3,
+    "findings": 13,
+    "referenced_original_gap_ids": 27,
+    "original_gap_items_closed": 0,
+    "distinct_retained_source_files_referenced": 17,
+    "newly_retained_source_files": 14,
+    "finding_evidence_levels": {
+      "scholarly_transcription": 6,
+      "edited_text": 3,
+      "secondary_report": 3,
+      "catalog_only": 1
+    }
+  },
+  "limits": [
+    "Follow-ups preserve v1; their partial-resolution labels do not close the original queue.",
+    "Mechanical and AI review do not establish specialist certification or use approval.",
+    "Snapshots bind retrieved bytes; immutable upstream versions remain distinct.",
+    "No new evidence entered chat or training."
+  ]
+}

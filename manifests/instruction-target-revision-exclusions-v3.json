@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "evaluation_version": 3,
+  "status": "frozen",
+  "evaluation_sha256": "7a92dd0ab693eb2e79699d6fccbfe8ece8576fcc34ba443ab05dd39fe81c89d9",
+  "evaluation_path": "evals/instruction-target-revision-v3.jsonl",
+  "cases": 30,
+  "biblical_cases": 24,
+  "chapter_keys": [
+    "oshb:1Kgs.3",
+    "oshb:Dan.5",
+    "oshb:Eccl.7",
+    "oshb:Exod.17",
+    "oshb:Ezra.7",
+    "oshb:Gen.24",
+    "oshb:Isa.1",
+    "oshb:Judg.7",
+    "oshb:Num.9",
+    "oshb:Prov.27",
+    "oshb:Ps.104",
+    "sblgnt:Acts.18",
+    "sblgnt:Acts.9",
+    "sblgnt:John.12",
+    "sblgnt:Luke.7",
+    "sblgnt:Mark.5",
+    "sblgnt:Matt.13",
+    "sblgnt:Phil.1",
+    "sblgnt:Rom.4"
+  ],
+  "sft_chapter_overlap": 0,
+  "prior_explicit_verse_overlap": 0,
+  "criterion_contents_omitted": true
+}

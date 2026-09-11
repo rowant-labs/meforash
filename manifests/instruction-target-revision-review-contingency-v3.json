@@ -1,0 +1,120 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_answer_review",
+  "frozen_at_utc": "2026-09-06T23:11:10.591827+00:00",
+  "timing": "After generation began and all runs reached terminal summaries; before candidate-text review.",
+  "reason": "The frozen review tooling requires 120 returned outputs. A terminal request failure left unavailable slots; retain all intended slots and review all actual outputs without retrying.",
+  "original_protocol": {
+    "path": "manifests/instruction-target-revision-experiment-v3.json",
+    "sha256": "c2988eb65dac089ee7019618ca144731545a2aea0d580ace5a5e2215af3eac88"
+  },
+  "original_artifacts_preserved_sha256": {
+    "manifests/instruction-target-revision-experiment-v3.json": "c2988eb65dac089ee7019618ca144731545a2aea0d580ace5a5e2215af3eac88",
+    "manifests/instruction-target-revision-training-v3.json": "038133e5704812f6a0459c7407b23d4236ec650d79cf852965640818b3a4d05a",
+    "bibleprep/summarize_instruction_revision.py": "073d25d8ce7f9597c37f789ef0919b32978c517872cfe1e156811c669ce981c2",
+    "runs/instruction-v3-prep/integrate_reviews_v3.py": "e4d642830ba1265d758ec3df477a213de8e1fec8ea7d276ec27ce398bac8c698",
+    "runs/instruction-v3-prep/review-receipt-schema-v3.json": "9b3e3b3a914cad63ee24e3c63cb13fc309f10ae5097fda9a5e86310194170a83"
+  },
+  "software_sha256": {
+    "bibleprep/summarize_instruction_revision_partial.py": "6c0e1363a370c91fb6541bcb4afb29ce69c1c52f01f996686542324549938fc3",
+    "tests/test_summarize_instruction_revision_partial.py": "9595378426d80906f379ca92e5a87fe769fe11c93be3dbf9df6bded0a97dfc27",
+    "runs/instruction-v3-execution/integrate_available_reviews_v3.py": "50c2b04f6f914763271595f041b1b78a831f20803364920abd5afc7deb1d4a03",
+    "runs/instruction-v3-execution/review-available-receipt-schema-v3.json": "672108ae24935183c783c056859b3a7f7dd1087669158ec9ac2d690790a6f067",
+    "runs/instruction-v3-execution/test_integrate_available_reviews_v3.py": "ebca7b4d4a4d387a3f168947d2a6edca90265c9b588a4148b5f1c2f6b0271ba7"
+  },
+  "independent_code_review_sha256": {
+    "runs/instruction-v3-execution/collector-independent-review-v3.json": "1f18f764f66f6d14f33d411863c1f6af5cf35913907574b64e7a46dccff60c8d",
+    "runs/instruction-v3-execution/available-integration-code-review.json": "e94c725347f7e35d74227851b01b566c53a6bda80d0e7baddc2fe244daa8d63e"
+  },
+  "focused_tests": {
+    "partial_collector": 15,
+    "available_review_integration": 16
+  },
+  "stopped_arms": {
+    "E": {
+      "terminal_error_case_id": "IH305",
+      "policy": "no_retry_or_further_requests"
+    }
+  },
+  "observed_failures": {
+    "E": {
+      "case_id": "IH305",
+      "error_kind": "network_error",
+      "elapsed_seconds": 300.0384,
+      "accounted_or_reserved_usd": 0.049558559999999995,
+      "accounting_uncertain": true
+    }
+  },
+  "availability_at_freeze": {
+    "A": {
+      "intended": 30,
+      "started": 30,
+      "returned": 30,
+      "errors": 0,
+      "not_started": 0
+    },
+    "B": {
+      "intended": 30,
+      "started": 30,
+      "returned": 30,
+      "errors": 0,
+      "not_started": 0
+    },
+    "E": {
+      "intended": 30,
+      "started": 5,
+      "returned": 4,
+      "errors": 1,
+      "not_started": 25
+    },
+    "F": {
+      "intended": 30,
+      "started": 30,
+      "returned": 30,
+      "errors": 0,
+      "not_started": 0
+    }
+  },
+  "terminal_receipt_sha256": {
+    "A": {
+      "summary": "72681193e933277d6add8646e544144c4b716631b65ea60f66eb52814f85f366",
+      "events": "1762a05dab7ac1d11441c2d18320b3b02296fd0363835265f4e6e5f3619e902e"
+    },
+    "B": {
+      "summary": "ca3c56785fa258895b96a2d4a07954f8907b4baf86652ef6764837526def1090",
+      "events": "0431f5c2b1609c5328509ca581475388281f0563344be0001e748c631748d367"
+    },
+    "E": {
+      "summary": "2ea973d9c6de22b61258e38f0d60ba0af120cab1de37d699b776e308af6f25c3",
+      "events": "4234519484b297cc2d2dfb63c18446d86425adb4818604bfae70b46224eb1c54"
+    },
+    "F": {
+      "summary": "03b9ae11f95006e6cd1192045e85797b4651116eb19288ee3b086ad44198d279",
+      "events": "866251e378414086f24346cda54bbe621f603a274be1b361b25ba5ccdc414444"
+    }
+  },
+  "evaluation_sha256": "7a92dd0ab693eb2e79699d6fccbfe8ece8576fcc34ba443ab05dd39fe81c89d9",
+  "criteria_review_sha256": "0978eef1e26a512e9c1e7850f3d7c1f431250eebc4c3965b69f1d994a755194a",
+  "unchanged": [
+    "training data and recipe",
+    "questions and source criteria",
+    "model and prompt settings",
+    "request deadlines and budgets",
+    "no selective retries",
+    "final/partial/thinking separation"
+  ],
+  "review_rules": [
+    "Review every returned final or structurally available partial answer.",
+    "Do not assign semantic judgments or preference ranks to unavailable slots.",
+    "Report all intended 120 slots, terminal errors, and unsubmitted questions explicitly.",
+    "Each pairwise Bible preference uses only its actual jointly available questions, with case IDs and denominator.",
+    "Native completion, source accuracy, requested coverage, general semantics and general formatting remain distinct.",
+    "Freeze all available-answer reviews before opening the per-case arm key."
+  ],
+  "review_exposure": "Root and code reviewers saw safe operational counts, timing and prior experiment evidence, but did not open candidate answer text or a condition key before this freeze.",
+  "limitations": [
+    "This is an operational post-generation reporting amendment, not a preregistered complete-case experiment.",
+    "A network error at the 300-second boundary is consistent with a local deadline; provider root cause and final billing are unknown.",
+    "Missing candidate patterns can reduce label concealment; review is not a formal blinded study or expert certification."
+  ]
+}

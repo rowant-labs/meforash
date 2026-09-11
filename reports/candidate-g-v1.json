@@ -1,0 +1,257 @@
+{
+  "schema_version": 1,
+  "experiment": "candidate-g-execution-v1",
+  "status": "completed_training_collection_and_ai_review",
+  "current_chat_model": "Inkling B",
+  "automatic_promotion": false,
+  "expert_certified": false,
+  "training": {
+    "base": "thinkingmachines/Inkling",
+    "parent": "B",
+    "candidate": "G",
+    "lora_rank": 8,
+    "optimizer_restored": false,
+    "learning_rate": 2e-05,
+    "updates": 6,
+    "train_rows": 96,
+    "validation_rows": 24,
+    "new_rows": 104,
+    "rehearsal_rows": 16,
+    "processed_training_positions": 115354,
+    "supervised_training_positions": 11023,
+    "checkpoint_retention_days": 30,
+    "diagnostics": {
+      "candidate_g_validation": {
+        "before_weighted_nll": 1.781634272617965,
+        "after_weighted_nll": 1.4700883413318533,
+        "after_before_ratio": 0.8251347450628458,
+        "language_ratios": {
+          "arc": 0.8095791334293114,
+          "grc": 0.8214346391911547,
+          "hbo": 0.8327376621097925
+        }
+      },
+      "raw_12_retention": {
+        "before_weighted_nll": 0.011512644586663094,
+        "after_weighted_nll": 0.011568553635586027,
+        "after_before_ratio": 1.0048563167656284,
+        "language_ratios": {
+          "grc": 1.0045544598097278,
+          "hbo": 1.0050848679991329
+        }
+      },
+      "legacy_english_16_retention": {
+        "before_weighted_nll": 2.1988224714640094,
+        "after_weighted_nll": 1.8938693504624757,
+        "after_before_ratio": 0.8613107129114924,
+        "language_ratios": {
+          "arc": 0.8380638479747455,
+          "grc": 0.8759400954702501,
+          "hbo": 0.8654307771534056
+        }
+      }
+    }
+  },
+  "evaluation": {
+    "cases": 30,
+    "bible_cases": 24,
+    "general_cases": 6,
+    "languages": {
+      "hbo": 10,
+      "grc": 8,
+      "arc": 6,
+      "en": 6
+    },
+    "source_verse_count": 67,
+    "source_chapter_count": 20,
+    "g_excluded_chapter_count": 64,
+    "status_counts": {
+      "B": {
+        "complete": 30
+      },
+      "G": {
+        "complete": 30
+      }
+    },
+    "reviewed_answers": {
+      "B": 30,
+      "G": 30
+    },
+    "preferences": {
+      "bible": {
+        "B": 10,
+        "G": 3,
+        "tie": 11
+      },
+      "general": {
+        "B": 1,
+        "tie": 5
+      }
+    },
+    "error_answer_counts": {
+      "B": {
+        "attribution_error": 0,
+        "material_error": 1,
+        "requested_coverage_omission": 1,
+        "source_scope_error": 2,
+        "unresolved_claim": 0,
+        "unsafe_or_spiritual_authority_error": 0
+      },
+      "G": {
+        "attribution_error": 0,
+        "material_error": 4,
+        "requested_coverage_omission": 6,
+        "source_scope_error": 2,
+        "unresolved_claim": 0,
+        "unsafe_or_spiritual_authority_error": 0
+      }
+    },
+    "general_controls": {
+      "B": {
+        "correct": 6,
+        "incorrect": 0,
+        "missing": 0
+      },
+      "G": {
+        "correct": 6,
+        "incorrect": 0,
+        "missing": 0
+      }
+    },
+    "answer_gate": {
+      "passed": false,
+      "thresholds": {
+        "all_30_pairs_reviewed": true,
+        "all_60_complete": true,
+        "all_60_whole_answers_reviewed": true,
+        "all_6_g_general_controls_correct": true,
+        "g_at_least_8_bible_preferences": false,
+        "g_omissions_no_more_than_b": false,
+        "g_preference_margin_at_least_4": false,
+        "g_zero_attribution_errors": true,
+        "g_zero_material_errors": false,
+        "g_zero_source_scope_errors": false,
+        "g_zero_unresolved_claims": true,
+        "g_zero_unsafe_or_spiritual_authority_errors": true
+      }
+    },
+    "retention_gate": {
+      "checkpoint_and_artifact_verification": true,
+      "english_validation": {
+        "language_ratios": {
+          "arc": 0.8380638479747455,
+          "grc": 0.8759400954702501,
+          "hbo": 0.8654307771534056
+        },
+        "overall_ratio": 0.8613107129114924,
+        "passed": true,
+        "threshold": 1.15
+      },
+      "passed": true,
+      "raw_text": {
+        "language_ratios": {
+          "grc": 1.0045544598097278,
+          "hbo": 1.0050848679991329
+        },
+        "overall_ratio": 1.0048563167656284,
+        "passed": true,
+        "threshold": 1.1
+      },
+      "status": "complete"
+    },
+    "combined_gate": {
+      "passed": false,
+      "status": "complete"
+    },
+    "recommendation": "retain_B",
+    "reviewers": "Two fresh Sol AI reviewers; neither authored targets or questions; individual and paired judgments frozen before label integration.",
+    "error_count_interpretation": "Original frozen AI reviewer flags, including disputed severity and rubric-specific label/detail omissions. See root_interpretation; not established factual-error rates."
+  },
+  "cost": {
+    "status": "estimated_usage_reconciled_invoice_pending",
+    "training_and_validation_conservative_estimate_nano_usd": 1344313080,
+    "sampling_from_returned_tokens_nano_usd": 236957460,
+    "serving_probe_estimate_nano_usd": 2768350,
+    "known_compute_sampling_estimate_nano_usd": 1584038890,
+    "checkpoint_storage_contingency_nano_usd": 3000000000,
+    "estimated_plus_storage_contingency_nano_usd": 4584038890,
+    "full_sequence_original_reserve_nano_usd": 7663769080,
+    "operator_ceiling_nano_usd": 20000000000,
+    "invoice_reconciled": false,
+    "uncertain_sampling_reserved_nano_usd": 0,
+    "input_tokens": 41334,
+    "generated_tokens_including_reasoning": 34116,
+    "basis": "Training and validation use conservative frozen forward rates; sampling uses native returned token counts. Storage contingency is reserved rather than an invoiced charge. Original full reservation is not summed again with usage."
+  },
+  "limitations": [
+    "All Bible evaluation verses were present in B raw training; base pretraining and provider base revision remain unpinned/unknown.",
+    "Six Aramaic cases use two known development and legacy-validation chapters; one uses exact Dan4:31\u201332 source verses from IA007/IA008. John9 shares a prior source family.",
+    "One sample per arm/question with temperature0 does not establish a replicated causal effect or measured population accuracy. Prior identical-input comparisons varied.",
+    "AI review with same-project role overlap and procedural label masking, not expert certification.",
+    "Selected WLC/SBLGNT editions are not an autograph reconstruction or comprehensive historical evidence.",
+    "This evaluation uses the frozen baseline prompt, not the app product prompt. No model switch, deployment or publication follows automatically."
+  ],
+  "protocol_sha256": "450606703aa454f9d0fcf7715e8da6ee2456942367355d8b7e7428c237b8afc4",
+  "questions_sha256": "8e5ccbca37a06878b6ae7ff7076b2cb9cbc30d07c4ec692703d3b58db902ce4b",
+  "root_interpretation": {
+    "status": "post_unblinding_root_interpretation_original_judgments_preserved",
+    "scope": "Read all15 flagged answer records and all30 paired rationales after both review freezes; rechecked relevant frozen rubrics and consulted primary published translation notes for the disputed James classification. No changed model calls, thresholds or frozen judgments.",
+    "decision": "retain_B",
+    "decision_basis": "G3/B10/tie11 fails the unchanged preference threshold independently of contested individual findings. Retentionpassed. No posthoc score replaces the original integration.",
+    "findings": [
+      {
+        "cases": [
+          "CG-HBO-I03",
+          "CG-HBO-I02"
+        ],
+        "status": "root_confirms_clear_G_reading_errors",
+        "explanation": "G reverses who examines whom in Proverbs18:17 and renders the Psalm90:13 appeal as divine consolation rather than compassion/relenting. The exact supplied source and other frozen answers support the review findings."
+      },
+      {
+        "cases": [
+          "CG-GRC-D04"
+        ],
+        "status": "root_disputes_material_error_classification_for_both_arms",
+        "explanation": "The frozen rubric allows by/for peacemakers and asks caution when making a grammatical claim. Both answers choose by without discussing the alternative. That may miss the rubric-specific qualification, but the wording is defensible, not itself a factual mistranslation. Neither explicitly claims that no alternative exists. NET notes list for and possibly by; NRSVUE uses by. Preserve original material flags, do not call them established factual errors.",
+        "sources": [
+          "https://classic.net.bible.org/verse.php?book=Jam&chapter=3&verse=18",
+          "https://www.biblegateway.com/passage/?search=James+3%3A18&version=NRSVUE"
+        ]
+      },
+      {
+        "cases": [
+          "CG-HBO-I01"
+        ],
+        "status": "root_qualifies_omission_rationale",
+        "explanation": "G explicitly says impartial justice, so claiming no impartiality idea is too strong. Great/mighty/awesome are absent under the detailed frozen rubric, but the user asked for the connection and application, not a complete translation. Treat this as rubric-specific coverage rather than evidence of a factual failure."
+      },
+      {
+        "cases": [
+          "CG-HBO-D01"
+        ],
+        "status": "root_qualifies_material_error_as_context_conflation",
+        "explanation": "G translates the supplied span correctly but folds surrounding Exodus18 delegation details into the explanation without marking source scope, including hard cases brought to God. Stronger evidence of overextended/context-conflating explanation than of a false translation of the supplied clauses."
+      },
+      {
+        "cases": [
+          "CG-GRC-D01",
+          "CG-GRC-B01",
+          "CG-HBO-D03"
+        ],
+        "status": "scope_flags_are_not_falsehood_proofs",
+        "explanation": "Substitutionary death, grace manifested in Christ and appeal to pride are interpretive/contextual extensions. Strict source-scope review can object to unmarked extensions; these counts must not be described as demonstrated false historical facts."
+      },
+      {
+        "cases": [
+          "CG-ARC-B01",
+          "CG-ARC-B02",
+          "CG-ARC-I01",
+          "CG-HBO-B01"
+        ],
+        "status": "coverage_flags_include_notice_and_label_details",
+        "explanation": "Several omissions concern explicit Bible.MT or AI-assisted authorship labels, even where basic source identity and meaning are handled correctly. Report separately from missing translated clauses or reversed agency."
+      }
+    ],
+    "future_evaluation_work": "Before another training proposal, audit judge severity and relevance of required detail to the actual user request. Separate false claims, defensible alternatives lacking qualification, substantive missing content and notice/format omissions; retain historical scores. This does not authorize another run."
+  }
+}

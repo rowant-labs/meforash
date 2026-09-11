@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "retrieved_on": "2026-09-05",
+  "cookbook_revision": "1f962eda3a2cec8de284725f2adc9978e93dfcd3",
+  "cookbook_source": "https://github.com/thinking-machines-lab/tinker-cookbook/tree/1f962eda3a2cec8de284725f2adc9978e93dfcd3",
+  "models": [
+    {
+      "id": "thinkingmachines/Inkling",
+      "slug": "inkling",
+      "revision": "828496eeae4c243ff1a22f7f28ff83694f2f7bc9",
+      "renderer": "tml_v0",
+      "thinking_settings": {
+        "supported": [
+          "low",
+          "medium",
+          "high"
+        ],
+        "default": "low"
+      },
+      "license": "Apache-2.0",
+      "tokenizer_repository": "thinkingmachines/Inkling",
+      "files": [
+        {
+          "path": "tokenizer.json",
+          "url": "https://huggingface.co/thinkingmachines/Inkling/resolve/828496eeae4c243ff1a22f7f28ff83694f2f7bc9/tokenizer.json",
+          "bytes": 27875797,
+          "sha256": "9fb6333a7db8fe5da90728e741e4a3ee4ac2ae12c5dd4958cc6f31688787d3c2"
+        },
+        {
+          "path": "tokenizer_config.json",
+          "url": "https://huggingface.co/thinkingmachines/Inkling/resolve/828496eeae4c243ff1a22f7f28ff83694f2f7bc9/tokenizer_config.json",
+          "bytes": 12111,
+          "sha256": "2e36c9748a2081abb935b2e745ee22e82efa32589c2500df7e5bc0f93145cd77"
+        },
+        {
+          "path": "chat_template.jinja",
+          "url": "https://huggingface.co/thinkingmachines/Inkling/resolve/828496eeae4c243ff1a22f7f28ff83694f2f7bc9/chat_template.jinja",
+          "bytes": 6294,
+          "sha256": "0aa1aa0c729d90176dcaa00c440c8faffca2957ffb2cc4b79456ee6d02bcf43b"
+        },
+        {
+          "path": "special_tokens_map.json",
+          "url": "https://huggingface.co/thinkingmachines/Inkling/resolve/828496eeae4c243ff1a22f7f28ff83694f2f7bc9/special_tokens_map.json",
+          "bytes": 517,
+          "sha256": "abc97715b4b3b30eb65ea6895afd7b529c32bd10c28901f9ddae7edc39723b0f"
+        },
+        {
+          "path": "tiktoken/tokenizer.model",
+          "url": "https://huggingface.co/thinkingmachines/Inkling/resolve/828496eeae4c243ff1a22f7f28ff83694f2f7bc9/tiktoken/tokenizer.model",
+          "bytes": 3615874,
+          "sha256": "bc253fd2b702f7a6da7105eaa8f3463b2f1247e83614f23e5323b921088bed2a"
+        }
+      ],
+      "native_tokenizer": {
+        "package": "tml-renderers",
+        "version": "0.1.0",
+        "function": "tml_renderers.tokenizers.o200k_base_chat",
+        "canonical_vocabulary_sha256": "555ecdb09dcb7d593ce71795cadbae2ef35d68ce4109a4630c9cfaa234c80a89",
+        "entries": 200058,
+        "sdk_tokenizer_accessor": "unavailable: SDK0.27.1 references unpublished tml_tokenizers package; use documented official native tokenizer"
+      }
+    },
+    {
+      "id": "nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16",
+      "slug": "nemotron-ultra",
+      "revision": "77df655d5e9f8362164ed14dd8b48f8bce657498",
+      "renderer": "nemotron3_ultra",
+      "thinking_settings": {
+        "supported": [
+          "on",
+          "medium",
+          "off"
+        ],
+        "default": "on"
+      },
+      "license": "OpenMDW-1.1",
+      "license_source": "https://openmdw.ai/license/1-1/",
+      "tokenizer_repository": "nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16",
+      "files": [
+        {
+          "path": "tokenizer.json",
+          "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16/resolve/77df655d5e9f8362164ed14dd8b48f8bce657498/tokenizer.json",
+          "bytes": 17077484,
+          "sha256": "623c34567aebb18582765289fbe23d901c62704d6518d71866e0e58db892b5b7"
+        },
+        {
+          "path": "tokenizer_config.json",
+          "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16/resolve/77df655d5e9f8362164ed14dd8b48f8bce657498/tokenizer_config.json",
+          "bytes": 177209,
+          "sha256": "10f93eabcb9b1602fbb991d6308e787ce1df28ee9cd7a1c6d1e8c3f338b957bc"
+        },
+        {
+          "path": "chat_template.jinja",
+          "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16/resolve/77df655d5e9f8362164ed14dd8b48f8bce657498/chat_template.jinja",
+          "bytes": 10152,
+          "sha256": "82753bef5cedc4932c1ed509b5c9a12be680fd86d1adb65bc3f7398d11c8eebc"
+        },
+        {
+          "path": "special_tokens_map.json",
+          "url": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16/resolve/77df655d5e9f8362164ed14dd8b48f8bce657498/special_tokens_map.json",
+          "bytes": 563,
+          "sha256": "e9435fefd6d838fd9fcbbc44b97a8e3ff322be7f6dfb7e4fd2468586574bb52b"
+        }
+      ]
+    },
+    {
+      "id": "moonshotai/Kimi-K2.6",
+      "slug": "kimi-k2.6",
+      "revision": "b5aabbfb20227ed42becbf5541dbffd213942c58",
+      "renderer": "kimi_k26",
+      "thinking_settings": {
+        "supported": [
+          "on",
+          "off"
+        ],
+        "default": "on"
+      },
+      "license": "Modified-MIT",
+      "license_source": "https://huggingface.co/moonshotai/Kimi-K2.6/blob/b5aabbfb20227ed42becbf5541dbffd213942c58/LICENSE",
+      "license_sha256": "1d4ab2d8404287de44429024a78b58d3aabc4df9d0c490e73fec9ff1fd842529",
+      "license_note": "Upstream Modified MIT license; preserve copyright and license notices. Additional Kimi K2.6 interface attribution condition applies above stated commercial monthly user/revenue thresholds; consult the pinned license before redistribution.",
+      "tokenizer_repository": "moonshotai/Kimi-K2.6",
+      "revision_rationale": "Use the tokenizer revision explicitly pinned by Tinker SDK 0.27.1 and the official cookbook, rather than newer repository HEAD. This does not pin provider weight revision.",
+      "files": [
+        {
+          "path": "tiktoken.model",
+          "url": "https://huggingface.co/moonshotai/Kimi-K2.6/resolve/b5aabbfb20227ed42becbf5541dbffd213942c58/tiktoken.model",
+          "bytes": 2795286,
+          "sha256": "b6c497a7469b33ced9c38afb1ad6e47f03f5e5dc05f15930799210ec050c5103"
+        },
+        {
+          "path": "tokenization_kimi.py",
+          "url": "https://huggingface.co/moonshotai/Kimi-K2.6/resolve/b5aabbfb20227ed42becbf5541dbffd213942c58/tokenization_kimi.py",
+          "bytes": 13462,
+          "sha256": "2ab1ffb6f5c4380758bd8d9752ff1041c09024182676a4311528fbdf92fb9599"
+        },
+        {
+          "path": "tool_declaration_ts.py",
+          "url": "https://huggingface.co/moonshotai/Kimi-K2.6/resolve/b5aabbfb20227ed42becbf5541dbffd213942c58/tool_declaration_ts.py",
+          "bytes": 16517,
+          "sha256": "97e09ed262f1cd38f87584eaa46c5d4d5b3c9725dd299b21642f389040794ebc"
+        },
+        {
+          "path": "tokenizer_config.json",
+          "url": "https://huggingface.co/moonshotai/Kimi-K2.6/resolve/b5aabbfb20227ed42becbf5541dbffd213942c58/tokenizer_config.json",
+          "bytes": 4862,
+          "sha256": "12fcab43d2b6068f46769f5ff373960bf7c17a94d7abbc50e2491306b2f6cf58"
+        },
+        {
+          "path": "chat_template.jinja",
+          "url": "https://huggingface.co/moonshotai/Kimi-K2.6/resolve/b5aabbfb20227ed42becbf5541dbffd213942c58/chat_template.jinja",
+          "bytes": 4022,
+          "sha256": "8bf859698fd4781c0e1e1c63ce74422aab27e53ccc5f47116317c64cda06132f"
+        }
+      ],
+      "local_tokenizer": {
+        "class": "TikTokenTokenizer",
+        "source_file": "tokenization_kimi.py",
+        "relative_imports": [
+          "tool_declaration_ts.py"
+        ],
+        "loading_policy": "Validate every manifest asset before loading the pinned local Python class; disable remote fallback. The downloader only stores and checks source bytes; it does not execute them.",
+        "source_review": "Read both pinned Python modules before loading. Tokenization uses the supplied local BPE file and tiktoken; its relative helper formats tool declarations. Neither module contains network requests or subprocess/exec calls. This is an implementation review, not a third-party security certification.",
+        "sdk_pin_source": "https://github.com/thinking-machines-lab/tinker-cookbook/blob/1f962eda3a2cec8de284725f2adc9978e93dfcd3/tinker_cookbook/tokenizer_utils.py"
+      }
+    }
+  ],
+  "runtime_packages": {
+    "tml-renderers": "0.1.0",
+    "torch": "2.14.0",
+    "tiktoken": "0.14.0"
+  },
+  "scope": "Separate final large-peer diagnostic comparison; preserves prior comparison manifests and run fingerprints. Full Inkling tokenizer entry is unchanged from the previous comparison. Model weights are not downloaded or independently pinned."
+}

@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "source": "evals/comparison-large-v1.jsonl",
+  "source_sha256": "a8039aae01f8a65e7d1daa4b3ed243c8fc868c7a3cfc672a97f2a8ffe0e75ade",
+  "method": "Round-robin indices0::3,1::3,2::3; every frozen row retained exactly once; separate samplers use the same final checkpoint.",
+  "shards": [
+    {
+      "label": "a",
+      "path": "runs/inkling-training-control-v2/eval-shards/a.jsonl",
+      "sha256": "21d18d0d894bcbc2722f035f6914ee67fa5f76d0794ac784da64050da7689b01",
+      "case_ids": [
+        "H01",
+        "M01",
+        "G02",
+        "M04",
+        "G05",
+        "H10",
+        "H15",
+        "A15"
+      ]
+    },
+    {
+      "label": "b",
+      "path": "runs/inkling-training-control-v2/eval-shards/b.jsonl",
+      "sha256": "8113914014f5c5dbb72e66d0e4502e77a30910fd7f16d1b362ed9bcb58bec9b4",
+      "case_ids": [
+        "A01",
+        "H02",
+        "M02",
+        "H05",
+        "A09",
+        "H13",
+        "A13",
+        "G13"
+      ]
+    },
+    {
+      "label": "c",
+      "path": "runs/inkling-training-control-v2/eval-shards/c.jsonl",
+      "sha256": "d8d4bf9964c4a3159510cf627a512ece86090a38214402feb83355871009b856",
+      "case_ids": [
+        "G01",
+        "A02",
+        "M03",
+        "A05",
+        "G09",
+        "H14",
+        "A14",
+        "G14"
+      ]
+    }
+  ]
+}

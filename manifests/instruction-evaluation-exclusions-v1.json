@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "status": "frozen",
+  "evaluation_id": "instruction-comparison-v1",
+  "evaluation_sha256": "0d60c1740dcbe000a33fed8d5161af2fb2c9e97cee4d6368cd8865c69f947355",
+  "chapter_key_format": "processed_source_id:Book.Chapter",
+  "chapter_keys": [
+    "oshb:1Kgs.19",
+    "oshb:Dan.5",
+    "oshb:Deut.24",
+    "oshb:Eccl.3",
+    "oshb:Ezra.7",
+    "oshb:Isa.6",
+    "oshb:Jonah.4",
+    "oshb:Lev.19",
+    "oshb:Mic.6",
+    "oshb:Num.6",
+    "oshb:Ps.42",
+    "sblgnt:1Cor.13",
+    "sblgnt:Acts.17",
+    "sblgnt:Jas.2",
+    "sblgnt:Luke.10",
+    "sblgnt:Luke.12",
+    "sblgnt:Matt.5",
+    "sblgnt:Phil.4",
+    "sblgnt:Rom.12"
+  ],
+  "scope": "Exclude these complete chapters from instruction training, instruction validation, target drafting, and prompt optimization. This restriction does not undo their possible exposure in earlier original-text adaptation or base pretraining.",
+  "criteria_included": false
+}

@@ -1,0 +1,31 @@
+{
+  "dataset": "pilot-v1",
+  "created": "2026-09-05",
+  "status": "development seeds; no model results; human scholarly criteria unreviewed",
+  "original_prompts_license": "Apache-2.0",
+  "sources": [
+    {
+      "id": "oshb-wlc",
+      "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+      "url": "https://github.com/openscriptures/morphhb",
+      "text_license": "Public domain (WLC); annotations CC BY 4.0, not included in model evidence",
+      "attribution": "Westminster Leningrad Codex distributed by Open Scriptures Hebrew Bible"
+    },
+    {
+      "id": "sblgnt",
+      "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+      "url": "https://github.com/Faithlife/SBLGNT",
+      "license": "CC BY 4.0",
+      "license_url": "https://sblgnt.com/license/",
+      "attribution": "The Greek New Testament: SBL Edition, edited by Michael W. Holmes; Society of Biblical Literature and Logos Bible Software"
+    }
+  ],
+  "evidence_transform": "OSHB verse word elements only, slash morpheme separators removed and joined with spaces; notes and apparatus excluded. SBLGNT exact verse-line excerpts with editorial marks preserved. Source excerpts are optional evidence, never hidden answer keys.",
+  "limitations": [
+    "Not a final holdout; public prompts may be seen by model developers.",
+    "Oversamples Aramaic intentionally; report by language and intent rather than corpus-proportion claims.",
+    "No reference witness attestation claims or scholarly gold answers have been invented.",
+    "Substantive rubrics require qualified review and additional scholarship beyond linked base texts.",
+    "All prompts and scoring material remain excluded from training; passage text can appear in whole-corpus adaptation."
+  ]
+}

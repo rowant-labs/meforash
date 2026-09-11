@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "totals": {
+    "planned": 16,
+    "complete": 16,
+    "partial": 0,
+    "uncertain": 0,
+    "unsubmitted": 0,
+    "reviewable": 16,
+    "reviewed": 16
+  },
+  "conditions": {
+    "B-original": {
+      "planned": 8,
+      "complete": 8,
+      "partial": 0,
+      "uncertain": 0,
+      "unsubmitted": 0,
+      "reviewable": 8,
+      "reviewed": 8,
+      "material_error_answers": 0,
+      "unsupported_or_unverified_assertion_answers": 0,
+      "attribution_error_answers": 0,
+      "scope_error_answers": 1,
+      "omission_answers": 0,
+      "general_correct": 2,
+      "general_incorrect": 0
+    },
+    "B-guided": {
+      "planned": 8,
+      "complete": 8,
+      "partial": 0,
+      "uncertain": 0,
+      "unsubmitted": 0,
+      "reviewable": 8,
+      "reviewed": 8,
+      "material_error_answers": 0,
+      "unsupported_or_unverified_assertion_answers": 0,
+      "attribution_error_answers": 2,
+      "scope_error_answers": 0,
+      "omission_answers": 0,
+      "general_correct": 2,
+      "general_incorrect": 0
+    }
+  },
+  "bible_pairs": {
+    "planned": 6,
+    "complete": 6,
+    "incomplete": 0,
+    "matched_complete_case_ids": [
+      "GC01-clause-office",
+      "GC01-rendering-provenance",
+      "HT01-application-conflict",
+      "HT01-edition-speech",
+      "HT07-edition-light",
+      "HT07-rendering-provenance"
+    ],
+    "preferences": {
+      "B-original": 2,
+      "B-guided": 1,
+      "tie": 3,
+      "unavailable": 0
+    },
+    "regressions": {
+      "material_error_pairs": 0,
+      "unsupported_or_unverified_assertion_pairs": 0,
+      "attribution_error_pairs": 2,
+      "scope_error_pairs": 0,
+      "omission_pairs": 0
+    },
+    "shared_findings": {
+      "material_error_pairs": 0,
+      "unsupported_or_unverified_assertion_pairs": 0,
+      "attribution_error_pairs": 0,
+      "scope_error_pairs": 0,
+      "omission_pairs": 0
+    },
+    "relative_counter_method": "Per-case answer-level presence only; these counters do not match unique semantic findings across answers.",
+    "matched_complete_omission_answers": {
+      "B-original": 0,
+      "B-guided": 0
+    }
+  },
+  "general_controls": {
+    "planned_answers": 4,
+    "reviewable_answers": 4,
+    "correct_answers": 4,
+    "incorrect_answers": 0,
+    "missing_or_unreviewable_answers": 0
+  },
+  "promotion_gate": {
+    "thresholds": {
+      "actual_protocol_counts_required": true,
+      "all_expected_answers_complete": true,
+      "all_expected_bible_pairs_complete": true,
+      "all_complete_bible_pairs_have_preference": true,
+      "no_guided_material_error_answers": true,
+      "no_guided_unresolved_material_assertions": true,
+      "no_guided_attribution_or_scope_error_answers": false,
+      "no_guided_requested_content_omission_answers": true,
+      "guided_bible_pair_wins_exceed_losses": false,
+      "all_general_controls_semantically_correct": true
+    },
+    "passed": false,
+    "recommendation": "retain_original_guidance_and_diagnose",
+    "authorization_granted": false
+  },
+  "bindings": {
+    "planned_slots_sha256": "b08fb6dd2e3c222b186ca04c23561619611da5840b0be2f5481cdbaf711ec91e",
+    "results_sha256": "b72cc4e661cdecd1dbe0394f3e6a17c42bda3c31915e3155311af05b5f3eb835",
+    "criteria_sha256": "4348afe7f8d29ae011f5e5c39f0632bed0ef5512c0c24d9f71f84e04e529d840",
+    "individual_packet_sha256": "1431e094193ba686e6806c7d0bb28eb7f561b3aced050883500435d0d476e54b",
+    "pair_packet_sha256": "10d34592a895bebf91b3018829ee20fb1e5aba953bad6eef4270edc58d3befd2",
+    "individual_review_sha256": "b304563ef06d77675dfce562c69ce04985715d0736b2fd9e29ac1c0d964646fc",
+    "pair_review_sha256": "ca028b40a2b5fc22d3521fa3e28cd47ab5f925b13e01c84689d6e93353e7b50a",
+    "private_map_sha256": "c42de852bf159a64d195f1c2e9bce6437a581de7711dee8ec33f57f865e48ceb"
+  },
+  "expert_certified": false,
+  "limitations": [
+    "Missing or unreviewable output remains in collection denominators and is not counted as a semantic failure.",
+    "All returned final text, including partial and uncertain output, is individually reviewed; pair preferences require two complete answers.",
+    "AI or mixed reviewer judgments do not establish expert accuracy, whole-Bible quality, public readiness, or deployment authorization.",
+    "The gate is comparative: a finding shared by both conditions is reported separately and still limits absolute readiness even when it is not a newly introduced regression.",
+    "The promotion gate is deliberately stricter than the descriptive relative counters: any guided material error, unresolved material assertion, attribution/scope error, or requested-content omission fails it.",
+    "A passing proposed gate supports only the separately bounded limited private trial and never performs promotion automatically.",
+    "Constructed fixtures exercise validation and counters only; they cannot pass the actual-protocol promotion gate or recommend a trial."
+  ],
+  "artifact_kind": "public_guidance_comparison_aggregate_v1",
+  "date": "2026-09-09",
+  "status": "complete_original_guidance_retained",
+  "protocol_sha256": "8198f82a8b1a638487f524d4910868007155b17fdd47f9857e179392d15c6b78",
+  "model": "retained full Inkling original-language LoRA B",
+  "usage": {
+    "accounting_uncertain": false,
+    "complete_slots": 16,
+    "full_run_worst_case_reservation_usd": "0.8585216",
+    "invoice_reconciled": false,
+    "known_accounted_cost_usd": "0.09301348",
+    "known_completion_tokens": 7603,
+    "known_prompt_tokens": 30712,
+    "partial_slots": 0,
+    "submitted_slots": 16,
+    "uncertain_slots": 0,
+    "unsubmitted_slots": 0
+  },
+  "training_calls": 0,
+  "chat_changes": 0,
+  "source_exposure": "All three passages were in B raw-text adaptation and prior project research; no unseen-source or Aramaic claim.",
+  "review_scope": "AI/nonexpert; individual question/source/code-review overlap and paired review-tool/source-review overlap; both judgments frozen before private mapping."
+}

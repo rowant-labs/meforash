@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-06T16:20:02.340834+00:00",
+  "scope": "New calibration, original-text development pass, four calibration English answers, 24 contemporary unchanged-model repeats, and 24 final adapter answers. Excludes the previously incurred original baseline and earlier model comparisons.",
+  "provider_invoice_verified": false,
+  "provider_enforced_spending_cap": false,
+  "estimated_compute_and_sampling_usd": 19.31114936,
+  "checkpoint_storage_contingency_usd": 6.0,
+  "total_estimated_or_reserved_usd": 25.31114936,
+  "line_items": [
+    {
+      "item": "calibration_training_and_validation",
+      "estimated_or_reserved_usd": 0.35530935
+    },
+    {
+      "item": "development_training_and_validation",
+      "estimated_or_reserved_usd": 18.63543825
+    },
+    {
+      "item": "calibration_english_sampling",
+      "estimated_or_reserved_usd": 0.02523628
+    },
+    {
+      "item": "contemporary_unchanged_repeat_sampling",
+      "estimated_or_reserved_usd": 0.16804136
+    },
+    {
+      "item": "final_adapter_english_sampling",
+      "estimated_or_reserved_usd": 0.12712412
+    }
+  ],
+  "limitations": [
+    "Validation forward passes are conservatively reserved at the higher training rate.",
+    "Checkpoint and storage charges are not settled; the contingency is an allowance, not a measured charge.",
+    "Cached-token discounts, provider metering, and final billing have not been reconciled."
+  ],
+  "provenance": [
+    {
+      "report": "reports/inkling-adaptation-v1.json",
+      "sha256": "fdcd4b87be77f4bb033a250733e83d1ebb1505f356ddb457fdaec8bcf83d99ad"
+    },
+    {
+      "report": "reports/inkling-calibration-v1.json",
+      "sha256": "b79b3eb3908061eaf097d92416362b13b9d5563751235e7bcdb7bff0821262b7"
+    },
+    {
+      "report": "reports/inkling-repeat-control-v1.json",
+      "sha256": "dec707e583326f2d64073008cb883b66a8e4a9cc7697cfda49dd2f0f48d6726d"
+    }
+  ]
+}

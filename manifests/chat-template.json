@@ -1,0 +1,10 @@
+{
+  "source": "openai/gpt-oss-120b",
+  "revision": "b5c939de8f754692c1647ca79fbf85e8c1e70f8a",
+  "url": "https://huggingface.co/openai/gpt-oss-120b/resolve/b5c939de8f754692c1647ca79fbf85e8c1e70f8a/chat_template.jinja",
+  "path": "data/raw/tokenizers/gpt-oss-120b/chat_template.jinja",
+  "sha256": "a4c9919cbbd4acdd51ccffe22da049264b1b73e59055fa58811a99efbd7c8146",
+  "bytes": 16738,
+  "retrieved_on": "2026-09-05",
+  "license": "Apache-2.0"
+}

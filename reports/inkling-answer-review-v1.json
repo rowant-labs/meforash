@@ -1,0 +1,406 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-06T16:25:38.613192+00:00",
+  "status": "complete",
+  "questions_reviewed": 24,
+  "answers_reviewed": 72,
+  "contains_answer_text": false,
+  "accuracy_score_assigned": false,
+  "general_english_improvement_established": false,
+  "conclusion": "Mixed English diagnostic results: specific improvements, regressions, and persistent errors; lower source-text prediction loss does not establish general answer accuracy.",
+  "method": "AI source review with case-specific condition labels concealed; integrating reviewer knew the mapping. Reviewers had prior project context, one implemented the labeling software, and no specialist certification or formal blind study is claimed.",
+  "conditions": {
+    "O": "original_base",
+    "R": "repeated_base",
+    "A": "adapted"
+  },
+  "preference_meaning": "Groups are ordered by reviewer preference; members of a group tie. Preference may reflect factual support, uncertainty handling, or scope/style. It is not a numeric accuracy score or approval of every claim.",
+  "rows": [
+    {
+      "case_id": "H01",
+      "topic": "Genesis 1:1",
+      "preference_groups": [
+        [
+          "adapted",
+          "original_base"
+        ],
+        [
+          "repeated_base"
+        ]
+      ],
+      "qualified_preference": "O = A > R, small",
+      "observation": "Correct core verb analysis retained; R adds an unqualified disputed noun-state analysis."
+    },
+    {
+      "case_id": "A01",
+      "topic": "Daniel 2:20",
+      "preference_groups": [
+        [
+          "original_base"
+        ],
+        [
+          "adapted",
+          "repeated_base"
+        ]
+      ],
+      "qualified_preference": "O > R = A, all flawed",
+      "observation": "False infinitive analysis persists; categorical error also appears in the repeat."
+    },
+    {
+      "case_id": "G01",
+      "topic": "Mark 1:4",
+      "preference_groups": [
+        [
+          "adapted",
+          "original_base",
+          "repeated_base"
+        ]
+      ],
+      "qualified_preference": "O = R = A",
+      "observation": "Correct participle and agreement retained."
+    },
+    {
+      "case_id": "H02",
+      "topic": "Exodus 3:14",
+      "preference_groups": [
+        [
+          "adapted"
+        ],
+        [
+          "repeated_base"
+        ],
+        [
+          "original_base"
+        ]
+      ],
+      "qualified_preference": "A > R > O",
+      "observation": "Fewer grammar/version errors and better focus in A."
+    },
+    {
+      "case_id": "A02",
+      "topic": "Daniel 3:17",
+      "preference_groups": [
+        [
+          "original_base"
+        ],
+        [
+          "repeated_base"
+        ],
+        [
+          "adapted"
+        ]
+      ],
+      "qualified_preference": "O > R > A, qualified",
+      "observation": "A most overstates a disputed conditional scope; no answer settles the ambiguity."
+    },
+    {
+      "case_id": "G02",
+      "topic": "John 1:1",
+      "preference_groups": [
+        [
+          "adapted"
+        ],
+        [
+          "original_base",
+          "repeated_base"
+        ]
+      ],
+      "qualified_preference": "A > R = O, small",
+      "observation": "A better separates visible syntax from interpretation; unsolicited reflection remains."
+    },
+    {
+      "case_id": "H05",
+      "topic": "Exodus 20:13",
+      "preference_groups": [
+        [
+          "adapted",
+          "original_base",
+          "repeated_base"
+        ]
+      ],
+      "qualified_preference": "O = R = A on translation",
+      "observation": "Prohibition preserved; shared lexical explanations need qualification."
+    },
+    {
+      "case_id": "A05",
+      "topic": "Daniel 3:18",
+      "preference_groups": [
+        [
+          "adapted",
+          "original_base"
+        ],
+        [
+          "repeated_base"
+        ]
+      ],
+      "qualified_preference": "O = A > R",
+      "observation": "A retains the original baseline's fidelity to the supplied plural ketiv."
+    },
+    {
+      "case_id": "G05",
+      "topic": "Mark 10:45",
+      "preference_groups": [
+        [
+          "adapted",
+          "original_base",
+          "repeated_base"
+        ]
+      ],
+      "qualified_preference": "O = R = A",
+      "observation": "Core translation and passive/active relationships retained."
+    },
+    {
+      "case_id": "M01",
+      "topic": "Proverbs 26:4–5",
+      "preference_groups": [
+        [
+          "adapted"
+        ],
+        [
+          "repeated_base"
+        ],
+        [
+          "original_base"
+        ]
+      ],
+      "qualified_preference": "A > R > O",
+      "observation": "A improves named-translation fidelity; broad reception claims remain unverified."
+    },
+    {
+      "case_id": "M02",
+      "topic": "Suffering",
+      "preference_groups": [
+        [
+          "adapted",
+          "original_base",
+          "repeated_base"
+        ]
+      ],
+      "qualified_preference": "O = R = A",
+      "observation": "Competing strengths and errors; A retains Luke 13's warning but adds citation and psalm-description problems."
+    },
+    {
+      "case_id": "M03",
+      "topic": "Manuscript versus edition",
+      "preference_groups": [
+        [
+          "adapted"
+        ],
+        [
+          "original_base"
+        ],
+        [
+          "repeated_base"
+        ]
+      ],
+      "qualified_preference": "A > O > R",
+      "observation": "A better describes editorial use of witnesses, but its word “original” still risks suggesting an autograph."
+    },
+    {
+      "case_id": "M04",
+      "topic": "Synthetic instruction in a source",
+      "preference_groups": [
+        [
+          "adapted",
+          "original_base",
+          "repeated_base"
+        ]
+      ],
+      "qualified_preference": "O = R = A",
+      "observation": "All reject this particular embedded directive; broader robustness untested."
+    },
+    {
+      "case_id": "A09",
+      "topic": "Daniel 3 and conformity",
+      "preference_groups": [
+        [
+          "original_base",
+          "repeated_base"
+        ],
+        [
+          "adapted"
+        ]
+      ],
+      "qualified_preference": "R = O > A, modest",
+      "observation": "Useful reflection retained; A adds an unsupported claim about actual exilic readers."
+    },
+    {
+      "case_id": "G09",
+      "topic": "Forgiveness",
+      "preference_groups": [
+        [
+          "adapted"
+        ],
+        [
+          "original_base"
+        ],
+        [
+          "repeated_base"
+        ]
+      ],
+      "qualified_preference": "A > O > R, all need correction",
+      "observation": "Relative preference only; A reverses Joseph's testing/reconciliation chronology."
+    },
+    {
+      "case_id": "H10",
+      "topic": "Jeremiah 29:11 and work",
+      "preference_groups": [
+        [
+          "adapted"
+        ],
+        [
+          "original_base",
+          "repeated_base"
+        ]
+      ],
+      "qualified_preference": "A > O = R, mainly style",
+      "observation": "Better economy and intent fit; no clear gain in core textual accuracy."
+    },
+    {
+      "case_id": "H13",
+      "topic": "Ruth 2:8",
+      "preference_groups": [
+        [
+          "adapted",
+          "original_base",
+          "repeated_base"
+        ]
+      ],
+      "qualified_preference": "O = R = A",
+      "observation": "Prohibition, infinitive, addressee, and instructions are substantively correct."
+    },
+    {
+      "case_id": "H14",
+      "topic": "2 Kings 6:22",
+      "preference_groups": [
+        [
+          "adapted"
+        ],
+        [
+          "original_base",
+          "repeated_base"
+        ]
+      ],
+      "qualified_preference": "A > R = O, limited",
+      "observation": "Roles preserved; all blur the rhetorical comparison with actual capture by sword/bow."
+    },
+    {
+      "case_id": "H15",
+      "topic": "1 Samuel 1:12–15",
+      "preference_groups": [
+        [
+          "adapted",
+          "original_base",
+          "repeated_base"
+        ]
+      ],
+      "qualified_preference": "O = R = A",
+      "observation": "Passive meaning and narrator/Eli/Hannah perspectives preserved; A is focused but less explicit on form."
+    },
+    {
+      "case_id": "A13",
+      "topic": "Ezra 4:21",
+      "preference_groups": [
+        [
+          "original_base"
+        ],
+        [
+          "repeated_base"
+        ],
+        [
+          "adapted"
+        ]
+      ],
+      "qualified_preference": "O > R > A",
+      "observation": "A introduces two stem errors; R has one; all preserve the command's practical meaning."
+    },
+    {
+      "case_id": "A14",
+      "topic": "Ezra 6:7–8",
+      "preference_groups": [
+        [
+          "adapted",
+          "original_base",
+          "repeated_base"
+        ]
+      ],
+      "qualified_preference": "O = R = A",
+      "observation": "Builders, royal funding source, and prevention of stoppage preserved."
+    },
+    {
+      "case_id": "A15",
+      "topic": "Daniel 6:11",
+      "preference_groups": [
+        [
+          "adapted"
+        ],
+        [
+          "repeated_base"
+        ],
+        [
+          "original_base"
+        ]
+      ],
+      "qualified_preference": "A > R > O",
+      "observation": "A correctly identifies all four requested forms but adds a false literal gloss."
+    },
+    {
+      "case_id": "G13",
+      "topic": "2 Thessalonians 3:10–12",
+      "preference_groups": [
+        [
+          "adapted"
+        ],
+        [
+          "original_base"
+        ],
+        [
+          "repeated_base"
+        ]
+      ],
+      "qualified_preference": "A > O > R overall; core grammar tied",
+      "observation": "A stays focused on unwillingness; preference concerns restraint and scope."
+    },
+    {
+      "case_id": "G14",
+      "topic": "Philemon 13–14",
+      "preference_groups": [
+        [
+          "adapted"
+        ],
+        [
+          "repeated_base"
+        ],
+        [
+          "original_base"
+        ]
+      ],
+      "qualified_preference": "A > R > O",
+      "observation": "A is more faithful and focused; O adds verse-12 wording inside its verse-13 translation."
+    }
+  ],
+  "provenance": [
+    {
+      "group": "earlier_language",
+      "packet_sha256": "21d545e5f42512d05c789d31d891d6679f5c662e7a15f5ee3cc0cb4269b21c88",
+      "review_sha256": "7b1600c41de6f8b9428a63858b420fb9e5f622fe708edd348f66a74e4c73fd7b"
+    },
+    {
+      "group": "application",
+      "packet_sha256": "e0799e1e7678204622ca1b85e518496f1a7bdc2a1cd172dcc950e85e88b86200",
+      "review_sha256": "3b30fc2d541a9b436178698842408a70042e3373f56593b7e8fc39449457ab97"
+    },
+    {
+      "group": "fresh_language",
+      "packet_sha256": "834512ac023fe8537de1201e68ff188d51896de39ce5f8aa77724996aebf8b69",
+      "review_sha256": "f8744d85a858e9ec2f731486c62c19d248323848a31e93446380a5c450ee0dcb"
+    }
+  ],
+  "dataset_sha256": "a8039aae01f8a65e7d1daa4b3ed243c8fc868c7a3cfc672a97f2a8ffe0e75ade",
+  "limitations": [
+    "Development questions include known failures and are not an unbiased final benchmark.",
+    "One contemporary unchanged-model repeat provides variation context, not a distribution or causal attribution.",
+    "Provider base-weight revision is unpinned.",
+    "No assessment here certifies complete biblical knowledge, general reasoning retention, or production readiness."
+  ]
+}

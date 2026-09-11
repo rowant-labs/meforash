@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "frozen_dataset_sha256": "a8039aae01f8a65e7d1daa4b3ed243c8fc868c7a3cfc672a97f2a8ffe0e75ade",
+  "first_four_case_ids": [
+    "H01",
+    "A01",
+    "G01",
+    "M01"
+  ],
+  "remaining_twenty_case_ids": [
+    "H02",
+    "A02",
+    "G02",
+    "M02",
+    "M03",
+    "M04",
+    "H05",
+    "A05",
+    "G05",
+    "A09",
+    "G09",
+    "H10",
+    "H13",
+    "H14",
+    "H15",
+    "A13",
+    "A14",
+    "A15",
+    "G13",
+    "G14"
+  ],
+  "remaining_dataset_sha256": "2d846a2bd2867ee0221cb47fca5a23b6c761f923bc592d6215bb650e55aba181",
+  "trigger": "First three repeated base answers differed despite identical prompts/settings. Extend contemporary unchanged-model control to all24 questions while training runs; original baseline remains preserved.",
+  "total_control_budget_usd": 1.45
+}

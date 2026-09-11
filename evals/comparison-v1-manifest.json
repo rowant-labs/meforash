@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "created_on": "2026-09-05",
+  "source_dataset": "evals/pilot-v1.jsonl",
+  "source_sha256": "65b89f3c448d966ee7682ebe9e73ace556e8f742fd1920e1352e7c86a4a631e0",
+  "dataset": "evals/comparison-v1.jsonl",
+  "dataset_sha256": "b0b89db022cbac79a2d0297c971a2ca6cc58e358f4a585587673a3e0678ef26c",
+  "case_ids": [
+    "H01",
+    "A01",
+    "G01",
+    "M01",
+    "H02",
+    "A02",
+    "G02",
+    "M02",
+    "M03",
+    "M04",
+    "H05",
+    "A05",
+    "G05",
+    "A09",
+    "G09",
+    "H10"
+  ],
+  "selection": "16 unchanged rows: four per language group; includes previously observed failures, direct translations, and general questions. Selected after observing baseline results; diagnostic, not an unbiased benchmark.",
+  "evidence_mode": "provided",
+  "baseline_run": "tinker-baseline-120b-provided-v1",
+  "baseline_reused": true,
+  "review_status": "AI source checks; qualified review pending"
+}

@@ -1,0 +1,36 @@
+# Development-agent handoff
+
+Latest launch work: read [launch progress](LAUNCH-PROGRESS.md) and the living queue first. B has completed a real HTTPS answer on Railway; prioritize remaining product/auth/DNS work over more training.
+
+Current execution status (September 10, 2026): the bounded [Candidate G sequence is complete](CANDIDATE-G-RESULTS.md). All 60 answers and 30 pairs were reviewed. Across the 24 Bible pairs, G was preferred on 3, B on 10, with 11 ties. Retention diagnostics passed, but the frozen preference gate independently failed, so retain B. Finding counts are AI-review flags rather than factual-accuracy scores; root review disputes the James material-error flag for both arms and treats some omissions as rubric/notice-level, without changing the preference failure. No further training, recollection or promotion is authorized. The B local preview has been restarted and its HTTP/source status verified without a model request; no beta is hosted. Next complete B beta hosting/recovery readiness and audit evaluation severity before proposing any distinct future training plan. See the [frozen method](CANDIDATE-G-EXPERIMENT.md) and [living state](../manifests/execution-state.json).
+
+Current owner preference: the primary agent remains the orchestrator, with the owner now selecting Extra High rather than Ultra; most implementation and source research is delegated to GPT 5.6 Sol. Use this handoff as a selective reference for bounded worker assignments; do not copy the entire conversation into every worker. The primary agent reviews integration and owns evaluation/training decisions, and can recommend effort adjustments when warranted. The standalone continuation prompt below remains available if the owner later chooses a full handoff. Repository instructions record preferences but do not change the active app's model or reasoning setting.
+
+Prepared September 7, 2026. **GPT 5.6 Sol would continue development of this project; the Bible assistant remains full Inkling with the original-language fine-tuned adapter B.** No model switch, new task, paid experiment or deployment is performed by this document.
+
+For the Codex execution agent, `gpt-5.6-sol` is the documented model ID. Select it in the development environment if desired; this does not mean adding an OpenAI inference key to the Bible app. Root `AGENTS.md` provides persistent repository instructions. [Official model documentation](https://developers.openai.com/api/docs/models/gpt-5.6-sol), [official AGENTS.md guidance](https://learn.chatgpt.com/docs/agent-configuration/agents-md).
+
+## Start here
+
+1. Read [AGENTS.md](../AGENTS.md), [the execution plan](EXECUTION-PLAN.md), [the evaluation runbook](EVALUATION-RUNBOOK.md), and [the living state](../manifests/execution-state.json).
+2. Read [the charter](PROJECT_CHARTER.md), the latest entries in [DECISIONS.md](DECISIONS.md), [v3 results](INKLING-REVISION-RESULTS-V3.md), [the first evidence pack](EVIDENCE-FIRST-PACK.md) and [private chat behavior](PRIVATE-CHAT.md). Consult older recipes when changing that subsystem; do not reconstruct every old experiment first.
+3. Work from the project root using `.venv/bin/python`. A local `.env` already supplies Tinker access; do not display its contents. This workspace has private source/checkpoint artifacts that a public clone will not contain.
+4. Check P0's retention decision and deadline first. Verify completed P1/P2/P3 artifacts rather than rebuilding them. Read [the pilot result](EVIDENCE-PILOT-V1.md), [guidance result](GUIDANCE-COMPARISON-RESULTS.md), [Candidate G method](CANDIDATE-G-EXPERIMENT.md), [Candidate G result](CANDIDATE-G-RESULTS.md), and the living state. Candidate G is complete and retains B. The B local preview is running and its HTTP/source status passed without a model request; no hosted beta exists. Resume B beta hosting/recovery readiness and the evaluation-severity audit. Preserve the pilot's post-freeze Daniel concern and do not advertise criterion-scoped zeros or AI flags as factual-accuracy scores. Recurrence remains optional and deferred.
+
+## Copyable continuation prompt
+
+> Continue the Bible project from its repository. Read AGENTS.md, docs/EXECUTION-PLAN.md, docs/EVALUATION-RUNBOOK.md and manifests/execution-state.json, then the current result/source documents they identify. Preserve the user's objective: an English Bible assistant built around actual original-language fine-tuning, earliest recoverable wording and historical context, with Bible-based non-denominational reflections when appropriate. You are the development assistant; retain Inkling adapter B as the chat model.
+>
+> First inspect the recorded B preservation status and expiry. Do not print private checkpoint locations or credentials. Verify completed P1/P2/P3 artifacts rather than rebuilding them. Read docs/EVIDENCE-PILOT-V1.md and docs/GUIDANCE-COMPARISON-RESULTS.md; preserve their frozen runs, narrow claims and negative findings. Then read docs/CANDIDATE-G-EXPERIMENT.md and docs/CANDIDATE-G-RESULTS.md. Candidate G completed its full frozen sequence: 60/60 answers reviewed, with G/B/tie at 3/10/11 across 24 Bible pairs. Retention passed and preference failed, so retain B. Do not promote, recollect or start another training run. Recurrence is optional and deferred.
+>
+> Treat aggregate finding counts as AI-review flags, not factual-accuracy scores. Root review disputes the James material-error flag applied to both arms and treats some omissions as rubric/notice-level; the preference gate still fails independently. Preserve the frozen result and its source-exposure and one-sample limits. Next advance B beta hosting/recovery readiness and perform a separate evaluation-severity audit. Any future training plan must be distinct, newly reviewed and separately authorized.
+>
+> Make a bounded useful increment, run relevant checks, record what changed and what remains uncertain, then update the execution state and meaningful decisions. Keep private research, user chats, credentials, provider receipts and local identity details out of public files. Preserve frozen protocols and negative results. Continue independent work when specialist review is pending; do not claim that structural checks confer scholarly approval.
+
+## Resume discipline
+
+The living state is intentionally editable. Completed experiment manifests, records and reports are not. On resumption, verify the recorded artifacts exist, select the next ready action, and advance one concrete deliverable rather than generating another broad roadmap.
+
+If local research/checkpoint artifacts are missing, say exactly which capability is unavailable. A key alone cannot restore B. If preservation needs a new paid action, present the exact method, cost bound and failure recovery after preparing them. If a fresh evaluator cannot be separated from the training author, label that iteration development-only. If specialist review is unavailable, continue tooling and source-gap work without inventing approval.
+
+At completion, report the artifact, meaningful verification, model/source changes if any, and the next step. State explicitly when a change was documentation or preparation only. Do not claim a future runner exists, an expired checkpoint is usable, or a public release occurred without checking it.

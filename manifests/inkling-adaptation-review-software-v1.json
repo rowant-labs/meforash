@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "experiment": "inkling-original-text-v1",
+  "method": "Freeze finaladapterevaluation and three-condition review code before finaladapteranswers; originalbaselinepluscontemporaryrepeatedbase controls remainseparate.",
+  "adapter_request_deadline_seconds": 300,
+  "baseline_request_deadline_seconds": 240,
+  "files_sha256": {
+    "bibleprep/evaluate_adapter.py": "371cf93fcc1e50f0f86aa1d9a7895f1d51ab75e868c5bbe028383a15cb878df4",
+    "bibleprep/summarize_adaptation.py": "fe4e297e2d27db47532febd914cc3c77fcc5460230f38c1ba1e0185e5e423e51",
+    "bibleprep/summarize_repeat_control.py": "56294cfa0e9dc1aee088aa820669b35cfcb487e4c1439ed1f185daaa3b576761",
+    "bibleprep/build_adaptation_review.py": "5aa70440fdf52ab28753c2f631763c02fdec466282249c535ac920a727b2c462",
+    "tests/test_evaluate_adapter.py": "d8931f6028cb1d7622ce24f21bdd9d4b6f19f18023d17cd0c3aae63af39a24f8",
+    "tests/test_summarize_adaptation.py": "67aaaa64220e270fde854c9efd0df16809ec2886b4a0b4a4c126405d82787165",
+    "tests/test_summarize_repeat_control.py": "a4ea7987107a7af3e72782fb623e1930ff3a1d1761a72896416d066140371155",
+    "manifests/inkling-evaluation-shards-v1.json": "17309dd8ad242de62a29c3a60b07e9ffa8639fd9934a9ea4d058faefd1189d51",
+    "manifests/inkling-repeat-control-v1.json": "610f8c7a4b5e55222cd4a028ca1dabd134da54db4a4cffc6dc8db18dce81c4ed"
+  }
+}

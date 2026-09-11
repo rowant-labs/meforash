@@ -1,0 +1,3882 @@
+{
+  "schema_version": 2,
+  "status": "source_review_complete",
+  "generated_at_utc": "2026-09-06T20:07:15.315348+00:00",
+  "review_type": "label_concealed_ai_source_check",
+  "expert_certified": false,
+  "cases_reviewed": 30,
+  "candidates_reviewed": 120,
+  "accuracy_percentage_assigned": false,
+  "contains_model_answer_or_thinking_text": false,
+  "contains_review_paraphrases": true,
+  "arms": {
+    "A": "unchanged",
+    "B": "original_text_only",
+    "D": "original_text_then_instruction_lr_0.0001",
+    "E": "original_text_then_instruction_lr_0.00002"
+  },
+  "bible": {
+    "cases": 24,
+    "candidates": 96,
+    "by_arm": {
+      "A": {
+        "reviewed": 24,
+        "sound": 12,
+        "native_completion_failures": 0,
+        "natively_completed_with_missing_requested_content": 0,
+        "natively_completed_but_assessed_incomplete": 0,
+        "mixed": 12
+      },
+      "B": {
+        "reviewed": 24,
+        "sound": 17,
+        "native_completion_failures": 0,
+        "natively_completed_with_missing_requested_content": 0,
+        "natively_completed_but_assessed_incomplete": 0,
+        "mixed": 7
+      },
+      "D": {
+        "reviewed": 24,
+        "incomplete": 5,
+        "native_completion_failures": 2,
+        "natively_completed_with_missing_requested_content": 4,
+        "natively_completed_but_assessed_incomplete": 4,
+        "sound": 14,
+        "mixed": 5
+      },
+      "E": {
+        "reviewed": 24,
+        "sound": 19,
+        "native_completion_failures": 0,
+        "natively_completed_with_missing_requested_content": 3,
+        "natively_completed_but_assessed_incomplete": 2,
+        "incomplete": 2,
+        "mixed": 3
+      }
+    },
+    "pairwise_preferences": {
+      "A_vs_B": {
+        "left_preferred": 3,
+        "right_preferred": 9,
+        "tie": 12
+      },
+      "A_vs_D": {
+        "left_preferred": 10,
+        "right_preferred": 10,
+        "tie": 4
+      },
+      "A_vs_E": {
+        "left_preferred": 7,
+        "right_preferred": 12,
+        "tie": 5
+      },
+      "B_vs_D": {
+        "left_preferred": 13,
+        "right_preferred": 5,
+        "tie": 6
+      },
+      "B_vs_E": {
+        "left_preferred": 8,
+        "right_preferred": 7,
+        "tie": 9
+      },
+      "D_vs_E": {
+        "left_preferred": 3,
+        "right_preferred": 12,
+        "tie": 9
+      }
+    },
+    "case_reviews": [
+      {
+        "case_id": "IH201",
+        "language": "hebrew",
+        "category": "grammar",
+        "source_refs": [
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Gen.18.13",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Gen.xml"
+          },
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Gen.18.14",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Gen.xml"
+          },
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Gen.18.15",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Gen.xml"
+          }
+        ],
+        "preference_tiers": [
+          [
+            "B",
+            "E",
+            "A"
+          ],
+          [
+            "D"
+          ]
+        ],
+        "preference_basis": "B, E and A translate the exchange, distinguish the two persons and explain both negations adequately. D never delivers the requested English answer; its retained partial final repeats source lines.",
+        "source_urls": [
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Gen.xml",
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+        ],
+        "candidates": {
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 674,
+            "completed_final_characters": 1044,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Preserves Sarah’s denial and the correction, the promised return/son, and the first-person versus second-feminine forms."
+            ],
+            "notes": "Literal time-of-life wording is acceptable here. The last speaker is implied by the scene; the verse does not repeat the divine name."
+          },
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 210,
+            "completed_final_characters": 695,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Preserves Sarah’s denial and the correction, the promised return/son, and the first-person versus second-feminine forms."
+            ],
+            "notes": "Literal time-of-life wording is acceptable here. The last speaker is implied by the scene; the verse does not repeat the divine name."
+          },
+          "D": {
+            "answer_complete": false,
+            "finish_reason": "length",
+            "native_turn_complete": false,
+            "partial_final_status": "present",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 8192,
+            "completed_final_characters": 0,
+            "partial_final_characters": 8272,
+            "assessment": "incomplete",
+            "requested_content_complete": false,
+            "general_semantic_pass": null,
+            "material_errors": [
+              {
+                "claim": "The retained unfinished final repeats Hebrew source lines and supplies no English translation or explanation.",
+                "correction": "The requested response must translate verses13–15 and explain both verb persons and the two negations. No continuation may be assumed.",
+                "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Gen.xml"
+              }
+            ],
+            "strengths": [],
+            "notes": "Native turn unfinished at the output limit. Every unique retained line was inspected: three source lines recur, with a truncated final source line; this is final-channel content, not an inference about reasoning."
+          },
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1476,
+            "completed_final_characters": 1755,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Preserves Sarah’s denial and the correction, the promised return/son, and the first-person versus second-feminine forms."
+            ],
+            "notes": "Literal time-of-life wording is acceptable here. The last speaker is implied by the scene; the verse does not repeat the divine name."
+          }
+        }
+      },
+      {
+        "case_id": "IH202",
+        "language": "hebrew",
+        "category": "grammar",
+        "source_refs": [
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Exod.23.4",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Exod.xml"
+          }
+        ],
+        "preference_tiers": [
+          [
+            "E",
+            "D"
+          ],
+          [
+            "B",
+            "A"
+          ]
+        ],
+        "preference_basis": "All four preserve the animal, owner and obligation. E and D keep the explanation focused on the textual task; B and A append unrequested application. No material grammatical error distinguishes the four.",
+        "source_urls": [
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Exod.xml",
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+        ],
+        "candidates": {
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 533,
+            "completed_final_characters": 1323,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Preserves the return of the enemy-owner’s animal and the emphatic infinitive-absolute construction."
+            ],
+            "notes": "Accurate requested content, followed by an unrequested present-day reflection."
+          },
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 143,
+            "completed_final_characters": 532,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Preserves the return of the enemy-owner’s animal and the emphatic infinitive-absolute construction."
+            ],
+            "notes": ""
+          },
+          "D": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 126,
+            "completed_final_characters": 514,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Preserves the return of the enemy-owner’s animal and the emphatic infinitive-absolute construction."
+            ],
+            "notes": ""
+          },
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1454,
+            "completed_final_characters": 2493,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Preserves the return of the enemy-owner’s animal and the emphatic infinitive-absolute construction."
+            ],
+            "notes": "Accurate requested content, followed by unrequested reception/application sections. Describing the supplied vocalized text merely as consonantal text is imprecise, but does not change its actual translation."
+          }
+        }
+      },
+      {
+        "case_id": "IH203",
+        "language": "hebrew",
+        "category": "translation",
+        "source_refs": [
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Lev.5.1",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Lev.xml"
+          }
+        ],
+        "preference_tiers": [
+          [
+            "E",
+            "B",
+            "D",
+            "A"
+          ]
+        ],
+        "preference_basis": "All four give a defensible translation and correctly connect knowledge, failure to report and responsibility to the same witness. Differences in lexical rendering and length do not warrant a substantive preference.",
+        "source_urls": [
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Lev.xml",
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+        ],
+        "candidates": {
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 454,
+            "completed_final_characters": 506,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Preserves the witness, negative reporting condition and that witness’s responsibility."
+            ],
+            "notes": ""
+          },
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 430,
+            "completed_final_characters": 767,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Preserves the witness, negative reporting condition and that witness’s responsibility."
+            ],
+            "notes": "Its closing application caution is unnecessary for this textual question, but does not impair the requested answer."
+          },
+          "D": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 194,
+            "completed_final_characters": 522,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Preserves the witness, negative reporting condition and that witness’s responsibility."
+            ],
+            "notes": ""
+          },
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 857,
+            "completed_final_characters": 1486,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Preserves the witness, negative reporting condition and that witness’s responsibility."
+            ],
+            "notes": "The extra reflection largely restates the witness rule; no unrequested modern penalty is imposed."
+          }
+        }
+      },
+      {
+        "case_id": "IH204",
+        "language": "hebrew",
+        "category": "translation",
+        "source_refs": [
+          {
+            "source_id": "oshb-wlc",
+            "passage": "1Sam.3.9",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/1Sam.xml"
+          },
+          {
+            "source_id": "oshb-wlc",
+            "passage": "1Sam.3.10",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/1Sam.xml"
+          }
+        ],
+        "preference_tiers": [
+          [
+            "A"
+          ],
+          [
+            "B"
+          ],
+          [
+            "E"
+          ],
+          [
+            "D"
+          ]
+        ],
+        "preference_basis": "A supplies both narrative verses and the requested grammar. B covers the narrative and reply but omits the comparison with earlier calls. E omits the opening narrative of verse10. D supplies only a paraphrase and grammar, leaving most of the requested translation absent.",
+        "source_urls": [
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/1Sam.xml",
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+        ],
+        "candidates": {
+          "D": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 132,
+            "completed_final_characters": 485,
+            "partial_final_characters": 0,
+            "assessment": "incomplete",
+            "requested_content_complete": false,
+            "general_semantic_pass": null,
+            "material_errors": [
+              {
+                "claim": "Most of the requested translation of verses9–10 is absent.",
+                "correction": "Translate Eli’s instruction and Samuel’s movement, then YHWH’s coming/standing/calling and Samuel’s actual reply, alongside the correct grammar discussion.",
+                "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/1Sam.xml"
+              }
+            ],
+            "strengths": [
+              "Correctly identifies the imperative and participle and the missing divine name in Samuel’s actual reply."
+            ],
+            "notes": ""
+          },
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1035,
+            "completed_final_characters": 961,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Correctly identifies the imperative and participle and the missing divine name in Samuel’s actual reply."
+            ],
+            "notes": "Omits the short comparison with earlier calls, but retains the principal narrative actions and both quoted replies. This localized omission is distinguished from the substantial missing passages in D and E."
+          },
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1310,
+            "completed_final_characters": 887,
+            "partial_final_characters": 0,
+            "assessment": "incomplete",
+            "requested_content_complete": false,
+            "general_semantic_pass": null,
+            "material_errors": [
+              {
+                "claim": "Verse10 is represented only by Samuel’s reply; the preceding narrative is missing.",
+                "correction": "Include YHWH’s coming, standing and calling, as well as Samuel’s response, when translating the supplied verse.",
+                "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/1Sam.xml"
+              }
+            ],
+            "strengths": [
+              "Correctly identifies the imperative and participle and the missing divine name in Samuel’s actual reply."
+            ],
+            "notes": ""
+          },
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1218,
+            "completed_final_characters": 1898,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Correctly identifies the imperative and participle and the missing divine name in Samuel’s actual reply."
+            ],
+            "notes": "Covers all requested content; no motive for omitting YHWH is invented."
+          }
+        }
+      },
+      {
+        "case_id": "IH205",
+        "language": "hebrew",
+        "category": "translation",
+        "source_refs": [
+          {
+            "source_id": "oshb-wlc",
+            "passage": "2Kgs.7.3",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/2Kgs.xml"
+          },
+          {
+            "source_id": "oshb-wlc",
+            "passage": "2Kgs.7.4",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/2Kgs.xml"
+          }
+        ],
+        "preference_tiers": [
+          [
+            "B",
+            "A"
+          ],
+          [
+            "E",
+            "D"
+          ]
+        ],
+        "preference_basis": "B and A preserve the proposed alternatives and correctly explain who acts on whom. E briefly turns the proposed departure into an event before subsequently qualifying the possibilities. D incorrectly calls both verbs Piel. These localized errors distinguish them from B and A.",
+        "source_urls": [
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/2Kgs.xml",
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+        ],
+        "candidates": {
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 161,
+            "completed_final_characters": 598,
+            "partial_final_characters": 0,
+            "assessment": "mixed",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [
+              {
+                "claim": "The opening summary says the men go as the result of their reasoning.",
+                "correction": "The supplied verses contain a proposed departure; the following narrative action is outside this excerpt. Later in the answer the conditional outcomes are correctly treated as possibilities.",
+                "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/2Kgs.xml"
+              }
+            ],
+            "strengths": [
+              "Identifies the famine/staying alternatives, the camp option and the men as recipients of the camp’s actions."
+            ],
+            "notes": ""
+          },
+          "D": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 138,
+            "completed_final_characters": 557,
+            "partial_final_characters": 0,
+            "assessment": "mixed",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [
+              {
+                "claim": "Both keep-us-alive and put-us-to-death forms are labeled Piel.",
+                "correction": "The first is Piel; the second, from the death root, is Hiphil. Both have a third-person plural subject and first-person plural object.",
+                "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/2Kgs.xml"
+              }
+            ],
+            "strengths": [
+              "Identifies the famine/staying alternatives, the camp option and the men as recipients of the camp’s actions."
+            ],
+            "notes": ""
+          },
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 773,
+            "completed_final_characters": 1165,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Identifies the famine/staying alternatives, the camp option and the men as recipients of the camp’s actions."
+            ],
+            "notes": ""
+          },
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1437,
+            "completed_final_characters": 1846,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Identifies the famine/staying alternatives, the camp option and the men as recipients of the camp’s actions."
+            ],
+            "notes": "The volitive label for entering the city is acceptable as a description of function. The answer translates the reasoning and discusses verse3 in prose; a separately numbered verse3 is not required by this question."
+          }
+        }
+      },
+      {
+        "case_id": "IH206",
+        "language": "hebrew",
+        "category": "translation",
+        "source_refs": [
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Job.14.7",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Job.xml"
+          },
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Job.14.8",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Job.xml"
+          },
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Job.14.9",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Job.xml"
+          }
+        ],
+        "preference_tiers": [
+          [
+            "E",
+            "A",
+            "D",
+            "B"
+          ]
+        ],
+        "preference_basis": "All four adequately convey the tree image, passive cutting, renewed growth and water imagery, without promising restoration to the reader. Prose paraphrase versus numbered translation and additional surrounding context do not establish a material quality difference.",
+        "source_urls": [
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Job.xml",
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+        ],
+        "candidates": {
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 184,
+            "completed_final_characters": 683,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Preserves passive cutting of the tree, renewed growth at water and the distinction from a personal promise."
+            ],
+            "notes": "One repeated Hebrew citation has a vowel typo, while the initial supplied form and passive interpretation are correct. Minimal moisture is an interpretation of the poem’s image, not a measured botanical claim."
+          },
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1511,
+            "completed_final_characters": 2677,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Preserves passive cutting of the tree, renewed growth at water and the distinction from a personal promise."
+            ],
+            "notes": "The surrounding mortality context is relevant but not required. Additional reception/reflection sections do not alter the correct requested interpretation; no reward is assigned for their length."
+          },
+          "D": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 131,
+            "completed_final_characters": 558,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Preserves passive cutting of the tree, renewed growth at water and the distinction from a personal promise."
+            ],
+            "notes": "Continuous English paraphrase covers the requested image; a heading or a technical stem name is not itself necessary."
+          },
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1090,
+            "completed_final_characters": 1958,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Preserves passive cutting of the tree, renewed growth at water and the distinction from a personal promise."
+            ],
+            "notes": "Precise Niphal morphology and relevant surrounding context; the appended reflection remains bounded and does not promise personal recovery."
+          }
+        }
+      },
+      {
+        "case_id": "IH207",
+        "language": "hebrew",
+        "category": "grammar",
+        "source_refs": [
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Ps.121.3",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ps.xml"
+          },
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Ps.121.4",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ps.xml"
+          }
+        ],
+        "preference_tiers": [
+          [
+            "B",
+            "A"
+          ],
+          [
+            "E"
+          ],
+          [
+            "D"
+          ]
+        ],
+        "preference_basis": "B and A give the requested translations and volitive/declarative contrast, identifying the divine keeper. E also does so but appends unrequested reflection. D explains the grammar yet wrongly claims the psalm leaves the keeper unnamed and dependent on reader interpretation.",
+        "source_urls": [
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ps.xml",
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+        ],
+        "candidates": {
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 580,
+            "completed_final_characters": 1053,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Gives the negative-volitive and declarative contrast and preserves the keeper as subject of the sleep descriptions."
+            ],
+            "notes": "The answer calls the singular beneficiary the speaker; the wording itself addresses a singular you and does not settle a reconstructed performance arrangement. This imprecision is not treated as a material identity error."
+          },
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1122,
+            "completed_final_characters": 1905,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Gives the negative-volitive and declarative contrast and preserves the keeper as subject of the sleep descriptions."
+            ],
+            "notes": "The answer calls the singular beneficiary the speaker; the wording itself addresses a singular you and does not settle a reconstructed performance arrangement. This imprecision is not treated as a material identity error."
+          },
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 890,
+            "completed_final_characters": 1650,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Gives the negative-volitive and declarative contrast and preserves the keeper as subject of the sleep descriptions."
+            ],
+            "notes": "The answer calls the singular beneficiary the speaker; the wording itself addresses a singular you and does not settle a reconstructed performance arrangement. This imprecision is not treated as a material identity error. The final present-day reflection is unrequested; the form label imperfect is acceptable with its explicit volitive explanation."
+          },
+          "D": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 248,
+            "completed_final_characters": 706,
+            "partial_final_characters": 0,
+            "assessment": "mixed",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [
+              {
+                "claim": "The psalm does not name the guardian and the identification depends on reader interpretation.",
+                "correction": "Although the isolated verses3–4 do not repeat the divine name, Psalm121:2 names YHWH and verse5 explicitly identifies YHWH as your keeper. Do not turn that source identification into arbitrary uncertainty.",
+                "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ps.xml"
+              }
+            ],
+            "strengths": [
+              "Gives the negative-volitive and declarative contrast and preserves the keeper as subject of the sleep descriptions."
+            ],
+            "notes": ""
+          }
+        }
+      },
+      {
+        "case_id": "IA201",
+        "language": "aramaic",
+        "category": "grammar",
+        "source_refs": [
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Dan.5.6",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+          }
+        ],
+        "preference_tiers": [
+          [
+            "E",
+            "A",
+            "B"
+          ],
+          [
+            "D"
+          ]
+        ],
+        "preference_basis": "E, A and B give faithful translations and correctly distinguish the affected king, the thoughts, the loosening joints and the reciprocal knee action. Their different lengths do not justify separating them. D preserves those roles but makes a specific gender error in the requested grammatical explanation.",
+        "source_urls": [
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml",
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+        ],
+        "candidates": {
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1302,
+            "completed_final_characters": 1414,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Preserves all four reactions and their subjects.",
+              "Explains the passive/reflexive bodily loosening and reciprocal knee action."
+            ],
+            "notes": "Formal stem labels are not necessary to answer this wording-focused request when the functions and roles are clear. The final limitation statement adds little but is not a factual defect. No particular medical event is required."
+          },
+          "D": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 195,
+            "completed_final_characters": 463,
+            "partial_final_characters": 0,
+            "assessment": "mixed",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [
+              {
+                "claim": "Classifies the knee-knocking participle as masculine plural.",
+                "correction": "The occurrence is a Peal active participle feminine plural, agreeing with the feminine plural knees; OSHB word 27BtX is AVqrfpa.",
+                "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+              }
+            ],
+            "strengths": [
+              "Correct translation of the reactions and correct subject for each target.",
+              "Correct third-plural subject and third-singular object suffix on the alarming verb."
+            ],
+            "notes": "The short answer addresses the requested tasks, but its feminine-versus-masculine parsing is wrong. Piel/Pael and Ithpaal/Hithpaal naming variation is not independently penalized under the pre-output caveat."
+          },
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1542,
+            "completed_final_characters": 1412,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Faithfully translates the mental and bodily reactions.",
+              "Correctly identifies all three subjects and the reciprocal knee action."
+            ],
+            "notes": "The fuller presentation supplies no material advantage over the other accurate explanations. The hip/loins language is an acceptable account of the source idiom, without a specific physiological diagnosis."
+          },
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 874,
+            "completed_final_characters": 1073,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Preserves the appearance change, alarming thoughts, loosened bonds and knocking knees.",
+              "Keeps the subjects distinct and explains reciprocal action."
+            ],
+            "notes": "Its functional account satisfies the request without a formal parsing table. The idiomatic description of the body giving way is acceptable under the pre-output caveat."
+          }
+        }
+      },
+      {
+        "case_id": "IA202",
+        "language": "aramaic",
+        "category": "translation",
+        "source_refs": [
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Dan.5.7",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+          },
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Dan.5.8",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+          }
+        ],
+        "preference_tiers": [
+          [
+            "B"
+          ],
+          [
+            "D",
+            "A"
+          ],
+          [
+            "E"
+          ]
+        ],
+        "preference_basis": "B most fully supplies the requested translation and explains dependence on negated ability while staying on task, although its purpose/result terminology needs correction. D is accurate but leaves the requested syntactic relationship largely implicit. A explains that relationship but shares the terminology problem and adds unrequested reflection; those different limitations justify a tie. E both loses reward details and misstates the infinitives’ function.",
+        "source_urls": [
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml",
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+        ],
+        "candidates": {
+          "D": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 92,
+            "completed_final_characters": 351,
+            "partial_final_characters": 0,
+            "assessment": "incomplete",
+            "requested_content_complete": false,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Preserves purple, the gold necklace, third-rank authority and both conditions.",
+              "Correctly states the wise men’s inability and gives both infinitive meanings."
+            ],
+            "notes": "No material false claim found. It identifies word class and glosses, but does not explain how the infinitives complement the negated ability expression. This is a limited requested-explanation omission despite a completed native turn, not a mistaken translation or a penalty for brevity."
+          },
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 2220,
+            "completed_final_characters": 2765,
+            "partial_final_characters": 0,
+            "assessment": "mixed",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [
+              {
+                "claim": "Further labels the two infinitival complements as purpose/result clauses.",
+                "correction": "Here they specify the actions the wise men were unable to perform; they are complementary infinitives under negated ability, not the purpose or result of their entering. The surrounding explanation partly corrects this misleading label.",
+                "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+              }
+            ],
+            "strengths": [
+              "Gives the offer and outcome, with both required tasks and the explicit negation.",
+              "Correctly explains that both infinitives complete the ability expression before giving a misleading additional label."
+            ],
+            "notes": "Hiphil/Haphel naming is not scored as a separate error because the causative sense is preserved. No reward is a reasonable consequence of the stated conditions, not a separately narrated event. The extra application and broad reception/history paragraphs exceed this textual request and are not credited as source evidence. Daniel 5:12 and 5:16 concern the announced ability and invitation; the later interpretation itself occurs in 5:25–28."
+          },
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 840,
+            "completed_final_characters": 1292,
+            "partial_final_characters": 0,
+            "assessment": "mixed",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [
+              {
+                "claim": "Calls the infinitives parallel purpose/result complements.",
+                "correction": "Their function here is to complete the negated expression of ability: the wise men could not read or make known. Purpose/result should not replace that complementary function; the answer’s preceding explanation correctly identifies the dependency.",
+                "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+              }
+            ],
+            "strengths": [
+              "Translates the offer and outcome fully, preserving both tasks and the negation.",
+              "Explicitly makes both infinitives depend on the negated ability expression.",
+              "Keeps the answer focused on the requested verses and grammar."
+            ],
+            "notes": "The local purpose/result label is imprecise, but the answer otherwise explicitly gives the correct syntactic dependency and denies success. Third-rank wording is accepted without demanding a co-regency reconstruction."
+          },
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 106,
+            "completed_final_characters": 409,
+            "partial_final_characters": 0,
+            "assessment": "mixed",
+            "requested_content_complete": false,
+            "general_semantic_pass": null,
+            "material_errors": [
+              {
+                "claim": "Explains the infinitives as stating purpose or result in this verse.",
+                "correction": "They specify the actions within the wise men’s negated ability, not an achieved result or the purpose of entering. The reading and making-known complements must remain under that negation.",
+                "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+              }
+            ],
+            "strengths": [
+              "Preserves the reading and interpretation requirements.",
+              "Correctly reports inability rather than success."
+            ],
+            "notes": "The reward summary omits both purple and the specified third-rank element. Its infinitive account does not explain the dependency on inability. These are substantive detail and explanation losses, independent of its completed native turn."
+          }
+        }
+      },
+      {
+        "case_id": "IA203",
+        "language": "aramaic",
+        "category": "grammar",
+        "source_refs": [
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Dan.5.10",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+          },
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Dan.5.11",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+          }
+        ],
+        "preference_tiers": [
+          [
+            "E",
+            "A"
+          ],
+          [
+            "D"
+          ],
+          [
+            "B"
+          ]
+        ],
+        "preference_basis": "E and A translate the address, summarize the recommendation and keep the king, thoughts and queen’s unspecified relationship distinct. D is accurate but does not actually render the full royal wish. B covers the requested material but adds an unsupported inference from the father wording about whose wife the queen could be.",
+        "source_urls": [
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml",
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+        ],
+        "candidates": {
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 224,
+            "completed_final_characters": 799,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Translates the royal wish and both prohibitions.",
+              "Summarizes the man’s qualities and appointment.",
+              "Correctly identifies the masculine addressee, the thoughts as subject and the absence of an exact family relationship."
+            ],
+            "notes": "Directly translating the speech’s father wording is acceptable; no unsolicited biological-genealogy disclaimer is required. The closing identification concerns whose father is addressed, not proof of the king’s biological ancestry."
+          },
+          "D": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 166,
+            "completed_final_characters": 662,
+            "partial_final_characters": 0,
+            "assessment": "incomplete",
+            "requested_content_complete": false,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Correctly explains the masculine imperative, plural alarming subject and masculine singular suffix.",
+              "Keeps the queen’s relationship unspecified and reports the earlier appointment."
+            ],
+            "notes": "The explanation remains accurate, but it does not translate the complete opening salutation, particularly the duration in the long-life wish. Naming a formal greeting and glossing the verb alone leaves part of the explicit translation request unanswered."
+          },
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1367,
+            "completed_final_characters": 1626,
+            "partial_final_characters": 0,
+            "assessment": "mixed",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [
+              {
+                "claim": "Treats the queen’s use of your-father language as evidence against her being Nebuchadnezzar’s wife.",
+                "correction": "A wife or widow can refer to her husband as an addressee’s father; this wording does not exclude that relationship. These verses leave the queen’s precise identity unspecified.",
+                "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+              }
+            ],
+            "strengths": [
+              "Translates the address and gives a substantial summary of the recommendation.",
+              "Correctly identifies the thoughts as subject and the king as addressee.",
+              "Recognizes that the queen’s exact relationship is not named."
+            ],
+            "notes": "Piel/Pael naming is not separately penalized. Calling on Daniel is appropriately identified as the implication and broader context rather than an explicit naming in verse 11. The relationship inference is hedged, which limits its severity, but its linguistic basis is still unsound."
+          },
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1745,
+            "completed_final_characters": 2491,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Translates the entire opening address and preserves the recommendation.",
+              "Explains the addressee and alarming subject without reversing them.",
+              "Distinguishes the queen title from a specific kinship identification."
+            ],
+            "notes": "Imperative form with an optative or wishing use in a royal salutation is acceptable. The reference to Daniel being named in verse 12 is correct. Added presentation length is not a reason to prefer it over E."
+          }
+        }
+      },
+      {
+        "case_id": "IA204",
+        "language": "aramaic",
+        "category": "translation",
+        "source_refs": [
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Dan.5.13",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+          },
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Dan.5.14",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+          }
+        ],
+        "preference_tiers": [
+          [
+            "B",
+            "E",
+            "D"
+          ],
+          [
+            "A"
+          ]
+        ],
+        "preference_basis": "B, E and D accurately render the events and reported praise, with the king and Daniel distinct. Their different direct-speech and prose formats do not materially change coverage. A also covers the task, but its added root alternatives introduce a lexical error.",
+        "source_urls": [
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml",
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html",
+          "https://biblehub.com/hebrew/5954.htm"
+        ],
+        "candidates": {
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1030,
+            "completed_final_characters": 1361,
+            "partial_final_characters": 0,
+            "assessment": "mixed",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [
+              {
+                "claim": "Presents עלה as an alternative lexical root of the brought-in verb in this occurrence.",
+                "correction": "The Daniel 5:13 occurrence belongs to Aramaic עלל, to enter or bring in; OSHB assigns lemma 5954 and Hophal perfect 3ms. The reproduced BDB entry explicitly places this occurrence under that root, without the proposed עלה alternative.",
+                "source_url": "https://biblehub.com/hebrew/5954.htm"
+              }
+            ],
+            "strengths": [
+              "Translates the selected clauses and correctly recognizes the passive.",
+              "Keeps the praise about Daniel within the king’s report of what he heard."
+            ],
+            "notes": "Hofal/Hophal spelling is not an error. The passive interpretation is correct, but the added alternative root conflates different lexical material. Its added vocalization of the supplied unpointed about-you form is not evidence of the edition’s exact pointing and is not counted as a second material error."
+          },
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 726,
+            "completed_final_characters": 653,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Renders the arrival, the king’s identifying address and the reported qualities.",
+              "Correctly explains the passive and the hearing report."
+            ],
+            "notes": "The alternate English brought-up wording does not assert a separate ascent, and the principal translation correctly says brought in. No technical parsing label beyond the requested meaning is necessary."
+          },
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1024,
+            "completed_final_characters": 851,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Translates both verses and preserves every central participant.",
+              "Correctly identifies the Hophal passive and the reported reputation."
+            ],
+            "notes": "The hearing language distinguishes what the king claims here from a firsthand demonstration; it need not establish everything the king had ever previously observed."
+          },
+          "D": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 87,
+            "completed_final_characters": 386,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Gives an accurate continuous English rendering of the selected events and praise.",
+              "Keeps Daniel as the person brought and the king as the speaker reporting what he heard."
+            ],
+            "notes": "This concise rendering changes direct speech into explanatory prose but preserves the substantive clauses and answers both focused questions. Brought up before the king is accepted as a court-arrival rendering without inferring a vertical journey."
+          }
+        }
+      },
+      {
+        "case_id": "IA205",
+        "language": "aramaic",
+        "category": "translation",
+        "source_refs": [
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Dan.5.18",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+          },
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Dan.5.19",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+          }
+        ],
+        "preference_tiers": [
+          [
+            "A"
+          ],
+          [
+            "B"
+          ],
+          [
+            "E"
+          ],
+          [
+            "D"
+          ]
+        ],
+        "preference_basis": "Every candidate preserves the basic translation and the God-versus-king distinction. A gives the clearest generally correct construction account but overclaims immediacy. B has the same temporal overreach and changes a supplied reading in its source transcription. E adds stronger conjugation and grammatical-role errors. D’s retained unfinished final text already covers the requested content, but adds a grammatical overgeneralization and then hundreds of repetitive, unrequested denials; its low preference is not a claim that no English answer was generated.",
+        "source_urls": [
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml",
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+        ],
+        "candidates": {
+          "D": {
+            "answer_complete": false,
+            "finish_reason": "length",
+            "native_turn_complete": false,
+            "partial_final_status": "present",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 8192,
+            "completed_final_characters": 0,
+            "partial_final_characters": 35031,
+            "assessment": "mixed",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [
+              {
+                "claim": "Allows a following imperfect as the form used in the repeated construction being explained.",
+                "correction": "The relevant following predicates in this passage are participles; the past auxiliary plus those participles yields the characteristic account. The overall habitual explanation is right, but the added imperfect alternative is not the occurrence-level analysis.",
+                "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+              }
+            ],
+            "strengths": [
+              "The retained partial final begins with a complete substantive translation.",
+              "Correctly distinguishes the giver from the king exercising power.",
+              "Identifies the characteristic or repeated force of the construction."
+            ],
+            "notes": "The native turn is unfinished, and this assessment uses only the retained partial final. Requested content is already present; no continuation is invented. After its useful opening it repeats six unrequested denial sentences 128 times each and ends in another fragment. That directly observed repetition is a severe scope and usability defect, separate from factual-error counting and from any hidden reasoning."
+          },
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1954,
+            "completed_final_characters": 3116,
+            "partial_final_characters": 0,
+            "assessment": "mixed",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [
+              {
+                "claim": "Calls Nebuchadnezzar the direct object of the giving clause.",
+                "correction": "Nebuchadnezzar is the recipient introduced by ל; kingdom, greatness, honor and splendor are the things given. Its English translation preserves this distinction better than its grammatical label.",
+                "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+              },
+              {
+                "claim": "Calls the four action predicates after the auxiliary perfect verbs.",
+                "correction": "They are participial predicates. The auxiliary itself is perfect, but the following killing, keeping-alive, raising and lowering forms are not finite perfect verbs.",
+                "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+              }
+            ],
+            "strengths": [
+              "Correct English translation and correct broad distinction between the divine giver and royal actor.",
+              "Recognizes a past-habitual auxiliary construction."
+            ],
+            "notes": "The past rendering of the giving verb is accepted despite the recorded OSHB annotation exception. The requested grammatical explanation contains two specific errors; additional reception and reflection sections are outside this textual request."
+          },
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 2168,
+            "completed_final_characters": 4172,
+            "partial_final_characters": 0,
+            "assessment": "mixed",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [
+              {
+                "claim": "Says the doubled auxiliary construction establishes instant realization of the king’s will.",
+                "correction": "The construction supplies a characteristic or ongoing past account and pairs willing with action; it contains no marker proving instantaneous execution. Rhetorical emphasis on power should not become a grammatical claim about timing.",
+                "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+              }
+            ],
+            "strengths": [
+              "Provides the translation and distinguishes all relevant actors.",
+              "Explains the auxiliary construction and characteristic or durative force."
+            ],
+            "notes": "The repeated construction can support an account of broad royal discretion, but it does not encode the speed of execution. The Daniel 4 allusion to subsequent humiliation is supported by the narrative. Unrequested reception and reflection receive no extra credit."
+          },
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1865,
+            "completed_final_characters": 2456,
+            "partial_final_characters": 0,
+            "assessment": "mixed",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [
+              {
+                "claim": "Labels its reprinted Aramaic as the supplied edition while replacing the opening main/ketiv pronoun with the shorter pointed qere form.",
+                "correction": "The supplied main/ketiv begins אנתה; the source separately records אַנְתְּ as qere. A different reading layer must be identified rather than silently substituted in an edition-labelled transcription.",
+                "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+              },
+              {
+                "claim": "Treats the repeated construction as making royal will immediately effective.",
+                "correction": "The repeated auxiliary and participles portray characteristic willing and acting; immediacy is not encoded. A broad rhetorical account of discretion must remain distinct from a timing claim.",
+                "source_url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Dan.xml"
+              }
+            ],
+            "strengths": [
+              "Correct translation and distinction between the giver and royal actor.",
+              "Recognizes the characteristic royal-discretion pattern."
+            ],
+            "notes": "The vague participle/perfective wording is not treated as an additional finite-perfect error. The cited Daniel 5:20–21 context supports humiliation and removal from rule. The present-day reflection was not requested, and the transcription issue concerns edition-layer fidelity rather than a different English meaning."
+          }
+        }
+      },
+      {
+        "case_id": "IA206",
+        "language": "aramaic",
+        "category": "translation",
+        "source_refs": [
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Ezra.7.14",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ezra.xml"
+          },
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Ezra.7.15",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ezra.xml"
+          },
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Ezra.7.16",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ezra.xml"
+          }
+        ],
+        "preference_tiers": [
+          [
+            "D",
+            "A",
+            "B"
+          ],
+          [
+            "E"
+          ]
+        ],
+        "preference_basis": "D, A and B accurately render the main instructions and distinguish the royal commission, inquiry and several groups of goods. E also answers the main tasks accurately, but compresses away the people-and-priests distinction and the law-in-hand qualification. That small coverage difference supports a modest preference without treating brevity or lack of a formal translation layout as an error.",
+        "source_urls": [
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ezra.xml",
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+        ],
+        "candidates": {
+          "D": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 134,
+            "completed_final_characters": 542,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Correctly distinguishes the passive sent person from the royal senders.",
+              "Explains the inquiry infinitive and preserves the location and law-in-hand qualification.",
+              "Preserves the royal gifts, Babylon goods and people’s and priests’ freewill offerings."
+            ],
+            "notes": "This prose rendering covers the main instructions requested. Formal stem names and a verse-by-verse layout are unnecessary when the functions and participants are clear."
+          },
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1779,
+            "completed_final_characters": 2262,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Translates the selected instructions and all main gift groups.",
+              "Correctly identifies the senders, investigator and inquiry standard.",
+              "Explains passive sending and the purpose infinitive without reversing roles."
+            ],
+            "notes": "The participle/passive-perfect-sense wording concerns the English state or result, not a claim that the written form is a finite perfect. Its actual passive-participial account is adequate under the pre-output naming caveat."
+          },
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 115,
+            "completed_final_characters": 475,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Correct royal senders, commissioned investigator and destination.",
+              "Preserves the law standard, royal freewill gift and additional goods for the Jerusalem house.",
+              "Identifies the passive participle and infinitive."
+            ],
+            "notes": "The question asks for main instructions, and those are covered. The summary is less exact about which nonroyal donors are named and omits the in-hand qualification, but it does not reverse roles or convert willing gifts into confiscation."
+          },
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1719,
+            "completed_final_characters": 2051,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Renders the instructions and preserves the law-in-hand qualification.",
+              "Distinguishes the three goods/contribution groups.",
+              "Explains the direction of sending and the inquiry purpose."
+            ],
+            "notes": "Calling Judah and Jerusalem the inquiry’s object is a semantic description of its target, not a claim that the prepositions are absent. The concluding limitation is unnecessary but does not distort the passage."
+          }
+        }
+      },
+      {
+        "case_id": "IA207",
+        "language": "aramaic",
+        "category": "translation",
+        "source_refs": [
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Ezra.7.21",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ezra.xml"
+          },
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Ezra.7.22",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ezra.xml"
+          },
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Ezra.7.23",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ezra.xml"
+          }
+        ],
+        "preference_tiers": [
+          [
+            "A",
+            "B"
+          ],
+          [
+            "D",
+            "E"
+          ]
+        ],
+        "preference_basis": "A and B render the whole royal order and correctly give the requester, treasurers, four limits, salt exception and motive. D and E accurately answer the focused follow-ups, but their summaries omit the king’s explicit self-identification and issuing clause from the requested translation. This is limited coverage loss, not faulty comprehension of the limits or an adverse judgment about concise style.",
+        "source_urls": [
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Ezra.xml",
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/parsing/HebrewMorphologyCodes.html"
+        ],
+        "candidates": {
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1238,
+            "completed_final_characters": 2211,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Preserves the issuer, requester and responding treasurers.",
+              "Correctly gives all four 100-unit limits and isolates salt’s unspecified amount.",
+              "Preserves the temple purpose and the expressed concern about wrath."
+            ],
+            "notes": "Not-written is an acceptable shorthand for the no-written-prescription idiom; no modern unit conversion is required. The disaster explanation is presented as the letter’s stated motive, not a modern theological guarantee."
+          },
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 990,
+            "completed_final_characters": 1540,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Translates the royal decree with its issuer and administrative roles.",
+              "Preserves the exact ancient units and salt-only exception.",
+              "Correctly summarizes the expressed reason."
+            ],
+            "notes": "Province is a conventional contextual expansion of Beyond the River, not a changed supply role. The summary of compliance and wrath remains tied to the text’s stated rationale."
+          },
+          "D": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 134,
+            "completed_final_characters": 590,
+            "partial_final_characters": 0,
+            "assessment": "incomplete",
+            "requested_content_complete": false,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Correctly identifies Ezra and the responding treasurers.",
+              "Gives all four limits without a unit swap and correctly handles salt.",
+              "Accurately summarizes the temple purpose and wrath motive."
+            ],
+            "notes": "The focused questions are answered, but the requested translation of the supply order is abridged: the king’s self-identification as Artaxerxes and explicit issuing clause are omitted. This modest omission is separate from its completed native turn; no material false claim is identified."
+          },
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 125,
+            "completed_final_characters": 562,
+            "partial_final_characters": 0,
+            "assessment": "incomplete",
+            "requested_content_complete": false,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Preserves the requester and treasurers’ response.",
+              "Gives the four correct limits and the salt exception.",
+              "Preserves the expressed reason concerning the house and royal realm."
+            ],
+            "notes": "Like the other concise summary, this omits Artaxerxes’ self-identification and explicit issuing clause from the requested translation. Salt without limit is acceptable in this context and is not treated as unlimited supply for every item."
+          }
+        }
+      },
+      {
+        "case_id": "IG201",
+        "language": "greek",
+        "category": "translation",
+        "source_refs": [
+          {
+            "source_id": "sblgnt",
+            "passage": "Matt.8.8",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Matt.txt"
+          },
+          {
+            "source_id": "sblgnt",
+            "passage": "Matt.8.9",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Matt.txt"
+          }
+        ],
+        "preference_tiers": [
+          [
+            "B",
+            "E"
+          ],
+          [
+            "D"
+          ],
+          [
+            "A"
+          ]
+        ],
+        "preference_basis": "B and E give accurate translations and explicitly explain the two authority relations and command/compliance contrast. D covers the same substance more briefly. A covers the requested text but adds unrequested reception history and personal reflection.",
+        "source_urls": [
+          "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Matt.txt",
+          "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/61-Mt-morphgnt.txt"
+        ],
+        "candidates": {
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 744,
+            "completed_final_characters": 1271,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Accurate translation and authority relations.",
+              "Correct future passive and imperative/indicative contrast."
+            ],
+            "notes": "Native completion is confirmed. The inferred illness and confidence in remote healing are supported by the immediate context."
+          },
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 633,
+            "completed_final_characters": 1272,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Accurate translation and explicit command/compliance distinction.",
+              "Correctly treats the centurion as requesting healing and the servant as its recipient."
+            ],
+            "notes": "Native completion is confirmed; the requested textual task is fully addressed."
+          },
+          "D": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 101,
+            "completed_final_characters": 393,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Correct authority relations, obedience pattern, and future passive healing."
+            ],
+            "notes": "A compact English rendering conveys each command and resulting compliance. It is less explicit about the verbal contrast than B/E, but no unrequested technical label is required."
+          },
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1642,
+            "completed_final_characters": 2979,
+            "partial_final_characters": 0,
+            "assessment": "mixed",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Accurate main translation, hierarchy, and passive-recipient analysis."
+            ],
+            "notes": "Native completion and requested coverage are complete. Unrequested reception history and personal reflection dilute the focused textual answer. Describing present indicatives as completed/resulting action is loose wording, not treated here as a proven tense-parsing error."
+          }
+        }
+      },
+      {
+        "case_id": "IG202",
+        "language": "greek",
+        "category": "grammar",
+        "source_refs": [
+          {
+            "source_id": "sblgnt",
+            "passage": "Mark.6.37",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Mark.txt"
+          },
+          {
+            "source_id": "sblgnt",
+            "passage": "Mark.6.38",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Mark.txt"
+          }
+        ],
+        "preference_tiers": [
+          [
+            "E",
+            "B"
+          ],
+          [
+            "D"
+          ],
+          [
+            "A"
+          ]
+        ],
+        "preference_basis": "E and B accurately render both exchanges and parse all requested forms. D preserves the content and forms in a compressed narrative rendering. A wrongly reclassifies the edition's unambiguous future form as aorist/ambiguous.",
+        "source_urls": [
+          "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Mark.txt",
+          "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/62-Mk-morphgnt.txt"
+        ],
+        "candidates": {
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 518,
+            "completed_final_characters": 594,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Complete speaker-separated translation.",
+              "Correct imperative, infinitive, future indicative, and food inventory."
+            ],
+            "notes": "The deliberative English question is compatible with the correctly identified future Greek form."
+          },
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1328,
+            "completed_final_characters": 1613,
+            "partial_final_characters": 0,
+            "assessment": "mixed",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [
+              {
+                "claim": "Classifies δώσομεν as aorist active and morphologically ambiguous with an aorist subjunctive, and describes its ending as -ωμεν.",
+                "correction": "The supplied δώσομεν is future active indicative first plural; the relevant aorist subjunctive alternative is δῶμεν. The deliberative question does not change the written form.",
+                "source_url": "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/62-Mk-morphgnt.txt"
+              }
+            ],
+            "strengths": [
+              "Preserves speakers, translation content, and the final inventory.",
+              "Correctly parses Δότε and φαγεῖν."
+            ],
+            "notes": "All requested topics are attempted, but the central written-form explanation is materially wrong. A further minor location slip says the infinitive occurs in both verses; both occurrences are in verse 37."
+          },
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 838,
+            "completed_final_characters": 836,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Accurate full translation and all requested morphological analyses.",
+              "Correct provisions and distinction between command and question."
+            ],
+            "notes": "No material source issue; future indicative is preserved despite the natural deliberative English question."
+          },
+          "D": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 138,
+            "completed_final_characters": 497,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Accurately conveys each exchange and all three requested forms.",
+              "Correctly reports five loaves and two fish."
+            ],
+            "notes": "The translation is compressed into reported speech rather than a full direct-speech presentation. All requested questions/instructions remain identifiable."
+          }
+        }
+      },
+      {
+        "case_id": "IG203",
+        "language": "greek",
+        "category": "translation",
+        "source_refs": [
+          {
+            "source_id": "sblgnt",
+            "passage": "Luke.17.14",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Luke.txt"
+          },
+          {
+            "source_id": "sblgnt",
+            "passage": "Luke.17.15",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Luke.txt"
+          },
+          {
+            "source_id": "sblgnt",
+            "passage": "Luke.17.16",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Luke.txt"
+          },
+          {
+            "source_id": "sblgnt",
+            "passage": "Luke.17.17",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Luke.txt"
+          },
+          {
+            "source_id": "sblgnt",
+            "passage": "Luke.17.18",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Luke.txt"
+          },
+          {
+            "source_id": "sblgnt",
+            "passage": "Luke.17.19",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Luke.txt"
+          }
+        ],
+        "preference_tiers": [
+          [
+            "E"
+          ],
+          [
+            "D"
+          ],
+          [
+            "B"
+          ],
+          [
+            "A"
+          ]
+        ],
+        "preference_basis": "E most clearly preserves the lexical and group/individual distinction without extended theological claims. D covers the requested main events and minimal wording distinction. B and especially A add unrequested reflection and frame additional saving significance more strongly than the wording alone establishes.",
+        "source_urls": [
+          "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Luke.txt",
+          "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/63-Lk-morphgnt.txt"
+        ],
+        "candidates": {
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 179,
+            "completed_final_characters": 809,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Accurate main events and identification of all ten versus the returning Samaritan.",
+              "Preserves cleansing versus salvation/healing wording without excluding the others from cleansing."
+            ],
+            "notes": "Native completion is confirmed. No mechanical full morphological parse is required by this prompt; the main lexical and recipient distinction is explained."
+          },
+          "D": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 114,
+            "completed_final_characters": 490,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Accurate condensed translation of the main events and final addressee.",
+              "Preserves cleansed versus saved language and plural-group versus returning-individual contrast."
+            ],
+            "notes": "The wording explanation is minimal, but it retains both the lexical contrast in the rendering and the recipient contrast. It does not assert a fate for the nine."
+          },
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 2119,
+            "completed_final_characters": 4540,
+            "partial_final_characters": 0,
+            "assessment": "mixed",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Complete main-event translation and correct relevant morphology.",
+              "Correctly preserves all ten being cleansed and the final saying addressed to one.",
+              "Eventually acknowledges physical, spiritual, or combined interpretations of salvation."
+            ],
+            "notes": "The body presents an additional saving benefit too categorically before its final uncertainty qualification. Because that qualification explicitly preserves the lexical range, no unambiguous false grammatical or doctrinal claim is scored as a material error. Long reception-history and personal-reflection sections are unrequested."
+          },
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1060,
+            "completed_final_characters": 1811,
+            "partial_final_characters": 0,
+            "assessment": "mixed",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Accurate main events, recipients, and perfect-form identification.",
+              "Does not deny the nine their cleansing."
+            ],
+            "notes": "The faith-linked interpretation is plausible but could mark inference more clearly. An unsolicited personal-reflection section reduces focus on the requested textual task; no explicit claim condemning the nine is made."
+          }
+        }
+      },
+      {
+        "case_id": "IG204",
+        "language": "greek",
+        "category": "translation",
+        "source_refs": [
+          {
+            "source_id": "sblgnt",
+            "passage": "John.11.21",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/John.txt"
+          },
+          {
+            "source_id": "sblgnt",
+            "passage": "John.11.22",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/John.txt"
+          },
+          {
+            "source_id": "sblgnt",
+            "passage": "John.11.23",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/John.txt"
+          },
+          {
+            "source_id": "sblgnt",
+            "passage": "John.11.24",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/John.txt"
+          },
+          {
+            "source_id": "sblgnt",
+            "passage": "John.11.25",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/John.txt"
+          },
+          {
+            "source_id": "sblgnt",
+            "passage": "John.11.26",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/John.txt"
+          },
+          {
+            "source_id": "sblgnt",
+            "passage": "John.11.27",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/John.txt"
+          }
+        ],
+        "preference_tiers": [
+          [
+            "D",
+            "E",
+            "B"
+          ],
+          [
+            "A"
+          ]
+        ],
+        "preference_basis": "D, E, and B accurately preserve all speakers, both resurrection/death sayings, and the present/perfect contrast. A also covers those elements but adds unnecessary reception-history and reflection. Small stylistic differences among D/E/B do not warrant a stronger ordering.",
+        "source_urls": [
+          "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/John.txt",
+          "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/64-Jn-morphgnt.txt"
+        ],
+        "candidates": {
+          "D": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 184,
+            "completed_final_characters": 755,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Complete dialogue with correct speaker assignments.",
+              "Correct present second-singular and perfect first-singular forms."
+            ],
+            "notes": "The negative expression with forever is awkward English, but it retains the emphatic negation and does not explicitly assert a false physical-immortality doctrine."
+          },
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1166,
+            "completed_final_characters": 2249,
+            "partial_final_characters": 0,
+            "assessment": "mixed",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Complete accurate dialogue and grammatical contrast.",
+              "Retains Martha’s counterfactual and last-day expectation."
+            ],
+            "notes": "Adds unrequested historical/reception and reflection sections. The aspect discussion should not be read as proving permanent or irreversible belief; the answer does not explicitly make that stronger claim."
+          },
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 188,
+            "completed_final_characters": 770,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Clear complete dialogue, including both death/life statements.",
+              "Legitimate perfect rendering as having come to believe, with current conviction."
+            ],
+            "notes": "The direct speech makes the first-/second-person contrast clear even without exhaustive person/voice terminology. No full doctrinal resolution is demanded."
+          },
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 755,
+            "completed_final_characters": 1286,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Complete speaker-separated translation.",
+              "Correct full parsing and present-result explanation."
+            ],
+            "notes": "The eternity wording is somewhat awkward; no definitive semantic error is inferred from that phrasing alone. Settled-conviction language is acceptable without implying immutable faith."
+          }
+        }
+      },
+      {
+        "case_id": "IG205",
+        "language": "greek",
+        "category": "grammar",
+        "source_refs": [
+          {
+            "source_id": "sblgnt",
+            "passage": "Acts.27.30",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Acts.txt"
+          },
+          {
+            "source_id": "sblgnt",
+            "passage": "Acts.27.31",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Acts.txt"
+          },
+          {
+            "source_id": "sblgnt",
+            "passage": "Acts.27.32",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Acts.txt"
+          }
+        ],
+        "preference_tiers": [
+          [
+            "D",
+            "E"
+          ],
+          [
+            "B",
+            "A"
+          ]
+        ],
+        "preference_basis": "All four preserve the condition and nautical events. D and E keep the answer focused; E makes the two pronoun referents more explicit, while D is more concise. B and A add unsolicited application and broader reception claims after covering the requested substance.",
+        "source_urls": [
+          "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Acts.txt",
+          "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/65-Ac-morphgnt.txt"
+        ],
+        "candidates": {
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1246,
+            "completed_final_characters": 2399,
+            "partial_final_characters": 0,
+            "assessment": "mixed",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Accurate translation, pronoun referents, skiff ropes, and physical-rescue sense.",
+              "Explicitly explains that abandoning the ship would prevent the remaining group from surviving."
+            ],
+            "notes": "The heading about Paul's condition treats it as his personal status, but the logical condition is correctly explained later. Supporting Acts 27 references sustain the prisoner's status and narrative assurance. Unrequested reflection extends beyond the textual task."
+          },
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1850,
+            "completed_final_characters": 3248,
+            "partial_final_characters": 0,
+            "assessment": "mixed",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Accurate translation and direct versus broader addressee distinction.",
+              "Correctly explains the dependence on the sailors remaining and the skiff's release."
+            ],
+            "notes": "The condition heading first discusses personal status, but the warning's logical dependence is explicit elsewhere. Extra reception and contemporary reflection reduce focus. The context supports the additional imprisonment and survival claims."
+          },
+          "D": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 136,
+            "completed_final_characters": 585,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Accurate concise rendering of all three verses.",
+              "Correctly distinguishes sailors, soldiers, skiff ropes, and physical rescue."
+            ],
+            "notes": "The explanation is terse: the unless condition is retained in the translation, and the centurion appears there even though the following addressee summary names only soldiers. No full morphological parsing was explicitly requested; these compressions do not reverse or omit the core condition."
+          },
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1081,
+            "completed_final_characters": 1893,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Accurate complete translation and explicit pronoun referents.",
+              "Correct object of cutting and contextual physical-rescue meaning."
+            ],
+            "notes": "The heading interprets the ambiguous phrase Paul's condition as his prisoner status. The required logical condition is nevertheless correctly stated in the translation. Immediate-context references were checked; no unsolicited life advice is added."
+          }
+        }
+      },
+      {
+        "case_id": "IG206",
+        "language": "greek",
+        "category": "grammar",
+        "source_refs": [
+          {
+            "source_id": "sblgnt",
+            "passage": "Rom.15.4",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Rom.txt"
+          },
+          {
+            "source_id": "sblgnt",
+            "passage": "Rom.15.5",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Rom.txt"
+          },
+          {
+            "source_id": "sblgnt",
+            "passage": "Rom.15.6",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Rom.txt"
+          },
+          {
+            "source_id": "sblgnt",
+            "passage": "Rom.15.7",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Rom.txt"
+          }
+        ],
+        "preference_tiers": [
+          [
+            "E"
+          ],
+          [
+            "A",
+            "B"
+          ],
+          [
+            "D"
+          ]
+        ],
+        "preference_basis": "E accurately and efficiently distinguishes the prayer, both purpose clauses, and the welcome command. A and B also do so but add unrequested reception and reflection. D makes a material clause-identification error despite translating the passage correctly.",
+        "source_urls": [
+          "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Rom.txt",
+          "https://raw.githubusercontent.com/morphgnt/sblgnt/aaed91e57c8e4a8dc9a2383e129ca5e75fe6393d/66-Ro-morphgnt.txt"
+        ],
+        "candidates": {
+          "D": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 578,
+            "completed_final_characters": 1634,
+            "partial_final_characters": 0,
+            "assessment": "mixed",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [
+              {
+                "claim": "Identifies the first hina clause as the shared-thinking request in verse 5, rather than the hope clause in verse 4.",
+                "correction": "The first hina clause in verse 4 gives having hope as the aim of the writings' instruction. Verse5 uses an infinitival complement for shared thinking; the second hina clause in verse 6 concerns glorifying God.",
+                "source_url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Rom.txt"
+              }
+            ],
+            "strengths": [
+              "Accurate complete translation and optative prayer.",
+              "Correct welcome imperative versus prior indicative action."
+            ],
+            "notes": "All requested topics are attempted, but the explanation misidentifies the first purpose clause."
+          },
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 2496,
+            "completed_final_characters": 4650,
+            "partial_final_characters": 0,
+            "assessment": "mixed",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Accurate full translation and both purpose clauses.",
+              "Correct optative and imperative/indicative analyses with the pinned you reading."
+            ],
+            "notes": "The core textual explanation is complete. It overattributes the welcoming nuance to middle voice alone; lexical and contextual sense support the translation. Unrequested reception and personal reflection reduce focus. No stronger material grammatical error is assigned."
+          },
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 307,
+            "completed_final_characters": 1240,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Accurate full translation and separate identification of both hina clauses.",
+              "Correct prayer, instruction, and Christ's prior welcoming action."
+            ],
+            "notes": "Fully addresses the requested distinctions without extra application or a mandatory interpretive framework."
+          },
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1706,
+            "completed_final_characters": 3334,
+            "partial_final_characters": 0,
+            "assessment": "mixed",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Accurate full translation and prayer/purpose/instruction distinctions.",
+              "Correctly grounds mutual welcome in Christ's prior action."
+            ],
+            "notes": "Middle/passive describes the shared present-form morphology and is acceptable here with the correct active-English middle use. Extra reception and reflection are unrequested. The final discussion loosely describes apparatus markers as surrounding phrases; no substantive variant claim or changed reading is scored."
+          }
+        }
+      },
+      {
+        "case_id": "IM201",
+        "language": "mixed",
+        "category": "application",
+        "source_refs": [
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Eccl.4.9",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Eccl.xml"
+          },
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Eccl.4.10",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Eccl.xml"
+          },
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Eccl.4.11",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Eccl.xml"
+          },
+          {
+            "source_id": "oshb-wlc",
+            "passage": "Eccl.4.12",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Eccl.xml"
+          }
+        ],
+        "preference_tiers": [
+          [
+            "E"
+          ],
+          [
+            "B"
+          ],
+          [
+            "D"
+          ],
+          [
+            "A"
+          ]
+        ],
+        "preference_basis": "E combines accurate source grounding with a concrete and optional support-seeking step. B gives a useful reframe but has a longer preface. D is accurate and relevant but remains abstract. A offers useful practices while presenting some interpretive and historical claims too categorically.",
+        "source_urls": [
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/Eccl.xml"
+        ],
+        "candidates": {
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 751,
+            "completed_final_characters": 1895,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Correct shared-work, rescue, warmth, defense, and cord imagery.",
+              "Offers a specific trusted-person step without marriage, doctrinal requirements, or guaranteed safety."
+            ],
+            "notes": "The application is explicitly reflective and preserves agency. No identity is imposed on the third strand."
+          },
+          "D": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 101,
+            "completed_final_characters": 451,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Correctly identifies companionship and vulnerability as the passage's concern.",
+              "Avoids making support a moral test or a guarantee."
+            ],
+            "notes": "A brief conceptual reframe addresses the user's premise, so it is not scored incomplete. It offers little help translating that reframe into a concrete request for support."
+          },
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1150,
+            "completed_final_characters": 2351,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Accurate source images and a relevant reframe for accepting help.",
+              "Distinguishes later symbolism from the unspecified third strand."
+            ],
+            "notes": "The requested reflection is complete; the historical and full-quotation preface is longer than necessary. Exact modern-version quotation certification is outside this pinned-original-source check."
+          },
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1453,
+            "completed_final_characters": 2930,
+            "partial_final_characters": 0,
+            "assessment": "mixed",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Accurate core imagery and relevant optional support-seeking practice.",
+              "Does not identify the third strand as the Trinity in the ancient wording or guarantee outcomes."
+            ],
+            "notes": "The claim that falling is not conditional but inevitable overstates the wording, although its parenthetical explanation shows a rhetorical observation about ordinary vulnerability rather than a sustained grammatical argument. The sweeping counter-cultural historical framing is not demonstrated by the cited passage. These qualifications affect confidence and focus, without a separately scored clear material source reversal."
+          }
+        }
+      },
+      {
+        "case_id": "IM202",
+        "language": "mixed",
+        "category": "application",
+        "source_refs": [
+          {
+            "source_id": "oshb-wlc",
+            "passage": "1Sam.12.20",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/1Sam.xml"
+          },
+          {
+            "source_id": "oshb-wlc",
+            "passage": "1Sam.12.21",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/1Sam.xml"
+          },
+          {
+            "source_id": "oshb-wlc",
+            "passage": "1Sam.12.22",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/1Sam.xml"
+          },
+          {
+            "source_id": "oshb-wlc",
+            "passage": "1Sam.12.23",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/1Sam.xml"
+          },
+          {
+            "source_id": "oshb-wlc",
+            "passage": "1Sam.12.24",
+            "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+            "url": "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/1Sam.xml"
+          }
+        ],
+        "preference_tiers": [
+          [
+            "D",
+            "B"
+          ],
+          [
+            "E"
+          ],
+          [
+            "A"
+          ]
+        ],
+        "preference_basis": "D and B clearly preserve accountability and continuing faithful action, with B also using Samuel's prayer and instruction. E gives a sound relevant reflection. A has substantial correct context but too closely identifies the user's discouraging feeling with the ancient act of turning away.",
+        "source_urls": [
+          "https://raw.githubusercontent.com/openscriptures/morphhb/3d15126fb1ef74867fc1434be1942e837932691f/wlc/1Sam.xml"
+        ],
+        "candidates": {
+          "D": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 210,
+            "completed_final_characters": 983,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Accurate acknowledgment of wrongdoing alongside encouragement to continue.",
+              "Grounds an optional next step in renewed service and God's commitment."
+            ],
+            "notes": "Not every verse needs separate exposition in this reflection. The proposed forgiveness request is application, not a fabricated quotation or a claim that all consequences are removed."
+          },
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1393,
+            "completed_final_characters": 3161,
+            "partial_final_characters": 0,
+            "assessment": "mixed",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Correct immediate narrative context and warning about continuing evil.",
+              "Preserves accountability, renewed service, memory, and the distinction from erased consequences."
+            ],
+            "notes": "The reflection overidentifies feeling that improvement is pointless with precisely the turning away Samuel condemns. Its language remains qualified, so no definitive personal spiritual diagnosis is scored as a material error. The additional verses 19 and25 were checked against the pinned Hebrew."
+          },
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 996,
+            "completed_final_characters": 2333,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Faithful account of wrongdoing, renewed service, God's commitment, and Samuel's prayer/instruction.",
+              "Uses community and guidance as an accountable way forward."
+            ],
+            "notes": "The modern practical analogy to useless substitutes is identified as application. Ordinary devotional hope is not scored as an illicit guarantee; no specific outcome or private revelation is claimed."
+          },
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 755,
+            "completed_final_characters": 1851,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Accurate main exhortation and memory of God's actions.",
+              "Offers a relevant path of responsibility without paralysis or erased consequences."
+            ],
+            "notes": "The reflection omits some supporting features of the passage but covers the requested accountability and next-step task. Its contemporary examples are applications rather than proposed Hebrew lexical definitions."
+          }
+        }
+      },
+      {
+        "case_id": "IM203",
+        "language": "mixed",
+        "category": "application",
+        "source_refs": [
+          {
+            "source_id": "sblgnt",
+            "passage": "Luke.14.7",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Luke.txt"
+          },
+          {
+            "source_id": "sblgnt",
+            "passage": "Luke.14.8",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Luke.txt"
+          },
+          {
+            "source_id": "sblgnt",
+            "passage": "Luke.14.9",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Luke.txt"
+          },
+          {
+            "source_id": "sblgnt",
+            "passage": "Luke.14.10",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Luke.txt"
+          },
+          {
+            "source_id": "sblgnt",
+            "passage": "Luke.14.11",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Luke.txt"
+          }
+        ],
+        "preference_tiers": [
+          [
+            "D",
+            "E"
+          ],
+          [
+            "B",
+            "A"
+          ]
+        ],
+        "preference_basis": "D and E explicitly retain the host's public honoring while applying the passage against status management. B and A are useful but more strongly present a specific psychological critique of calculated humility as what the passage directly says. No candidate promises promotion or erases personal worth.",
+        "source_urls": [
+          "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/Luke.txt"
+        ],
+        "candidates": {
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 969,
+            "completed_final_characters": 2352,
+            "partial_final_characters": 0,
+            "assessment": "mixed",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Connects the reflection to seating, status, and self-exaltation.",
+              "Offers optional practices without a guarantee of recognition or denial of worth."
+            ],
+            "notes": "Its assertion that the passage directly warns against calculated lowering for reward needs interpretive qualification: verse 10 expressly anticipates honor from the host. The host remains in the answer, so this is scored as overconfident framing rather than a wholly erased narrative or a false promised outcome."
+          },
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1635,
+            "completed_final_characters": 3430,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Preserves the low-seat invitation, host's role, public honor, and closing reversal.",
+              "Distinguishes practical reflection from a technique to force promotion."
+            ],
+            "notes": "A long contextual preface is unnecessary, but the full narrative and later-reception framing provide a useful counterweight to its psychological application. Luke 1:52 supports the cited broader reversal theme. Broad honor-culture and reception generalizations are not independently certified here."
+          },
+          "D": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 279,
+            "completed_final_characters": 1342,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Explicitly acknowledges the host's public honor while rejecting a modern attention strategy.",
+              "Offers concrete reflection without self-worth denial or spiritual-performance requirements."
+            ],
+            "notes": "Its claim about secretly seeking advancement concerns motive in the modern application; the opening sentence preserves the reward element of verse 10. This is not scored as denying that honor appears in the passage."
+          },
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1228,
+            "completed_final_characters": 2830,
+            "partial_final_characters": 0,
+            "assessment": "mixed",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Preserves the host's possible invitation upward and rejects guaranteed promotion.",
+              "Offers practical ways to reduce comparison while preserving personal worth."
+            ],
+            "notes": "The claim that the text precisely diagnoses enslavement to others' attention overstates the direct wording. Its account remains a plausible reflection, with the host and reversal retained. Treating exaltation as God's concern is an interpretation, not an explicit agent named in verse 11."
+          }
+        }
+      },
+      {
+        "case_id": "IM204",
+        "language": "mixed",
+        "category": "application",
+        "source_refs": [
+          {
+            "source_id": "sblgnt",
+            "passage": "2Cor.1.3",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/2Cor.txt"
+          },
+          {
+            "source_id": "sblgnt",
+            "passage": "2Cor.1.4",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/2Cor.txt"
+          },
+          {
+            "source_id": "sblgnt",
+            "passage": "2Cor.1.5",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/2Cor.txt"
+          },
+          {
+            "source_id": "sblgnt",
+            "passage": "2Cor.1.6",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/2Cor.txt"
+          },
+          {
+            "source_id": "sblgnt",
+            "passage": "2Cor.1.7",
+            "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+            "url": "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/2Cor.txt"
+          }
+        ],
+        "preference_tiers": [
+          [
+            "B",
+            "E"
+          ],
+          [
+            "A"
+          ],
+          [
+            "D"
+          ]
+        ],
+        "preference_basis": "B and E directly connect receiving and sharing comfort to the user's simultaneous needs. A also covers this well but adds a substantial prefatory framework. D is accurate and complete as a brief reflection, but offers less specific help with the user's situation.",
+        "source_urls": [
+          "https://raw.githubusercontent.com/Faithlife/SBLGNT/c4d241a9c1c479a55b989ba35a4976c1d0b8052c/data/sblgnt/text/2Cor.txt"
+        ],
+        "candidates": {
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1695,
+            "completed_final_characters": 3486,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Correct God-to-apostles-to-others connection and shared affliction/comfort.",
+              "Supports receiving help and modest giving within limits without immediate-relief promises."
+            ],
+            "notes": "The comfort/encouragement sense is accurate here; the additional lexical range word advocacy is unnecessary and not certified as this passage's sense. Broad claims about early reception are not independently certified. The referenced severe distress in verses 8–9 is supported by the pinned text."
+          },
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 910,
+            "completed_final_characters": 1672,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Accurately ties receiving comfort in trouble to comforting others.",
+              "Preserves simultaneous need and care rather than requiring complete recovery."
+            ],
+            "notes": "Suggestions about practical help and rest are contemporary applications. They are not attributed to explicit ancient instructions. No outcome, faith failure, or reason for every hardship is asserted."
+          },
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 1228,
+            "completed_final_characters": 2346,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Correct enabling-purpose relation and shared comfort.",
+              "Makes room for personal limits and receiving support."
+            ],
+            "notes": "Preparation refers to being comforted as enabling care, not to every hardship being deliberately sent as training. This follows the pre-answer source caveat and is not penalized as a harmful universal causal claim."
+          },
+          "D": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 165,
+            "completed_final_characters": 770,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": null,
+            "material_errors": [],
+            "strengths": [
+              "Accurate concise account of receiving and sharing comfort.",
+              "Rejects a faith test or replacement for practical help."
+            ],
+            "notes": "The cautious community-benefit wording is not treated as a requirement to earn comfort by helping others. It remains general and less personally useful, but addresses both requested themes."
+          }
+        }
+      }
+    ]
+  },
+  "general_english": {
+    "cases": 6,
+    "candidates": 24,
+    "by_arm": {
+      "A": {
+        "reviewed": 6,
+        "sound": 6,
+        "native_completion_failures": 0,
+        "natively_completed_with_missing_requested_content": 0,
+        "natively_completed_but_assessed_incomplete": 0,
+        "native_complete_and_literal_pass": 6,
+        "retained_content_semantic_pass": 6,
+        "native_complete_and_semantic_pass": 6
+      },
+      "B": {
+        "reviewed": 6,
+        "sound": 6,
+        "native_completion_failures": 0,
+        "natively_completed_with_missing_requested_content": 0,
+        "natively_completed_but_assessed_incomplete": 0,
+        "native_complete_and_literal_pass": 5,
+        "retained_content_semantic_pass": 6,
+        "native_complete_and_semantic_pass": 6
+      },
+      "D": {
+        "reviewed": 6,
+        "sound": 6,
+        "native_completion_failures": 0,
+        "natively_completed_with_missing_requested_content": 0,
+        "natively_completed_but_assessed_incomplete": 0,
+        "native_complete_and_literal_pass": 6,
+        "retained_content_semantic_pass": 6,
+        "native_complete_and_semantic_pass": 6
+      },
+      "E": {
+        "reviewed": 6,
+        "sound": 6,
+        "native_completion_failures": 0,
+        "natively_completed_with_missing_requested_content": 0,
+        "natively_completed_but_assessed_incomplete": 0,
+        "native_complete_and_literal_pass": 5,
+        "retained_content_semantic_pass": 6,
+        "native_complete_and_semantic_pass": 6
+      }
+    },
+    "case_reviews": [
+      {
+        "case_id": "G201",
+        "language": "english",
+        "category": "general_retention",
+        "source_refs": [],
+        "preference_tiers": [
+          [
+            "E",
+            "A",
+            "D",
+            "B"
+          ]
+        ],
+        "preference_basis": "All four give semantically correct results in the requested JSON structure. Formatting whitespace and equivalent location wording do not justify a preference.",
+        "source_urls": [],
+        "candidates": {
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 116,
+            "completed_final_characters": 19,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": true,
+            "material_errors": [],
+            "strengths": [
+              "Correct constructed-fixture result and requested JSON structure."
+            ],
+            "notes": "",
+            "literal_expected_fields_match": true,
+            "literal_checks_scope": "Completed-message text only; exact requested fields, not semantic equivalence or partial text."
+          },
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 116,
+            "completed_final_characters": 19,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": true,
+            "material_errors": [],
+            "strengths": [
+              "Correct constructed-fixture result and requested JSON structure."
+            ],
+            "notes": "",
+            "literal_expected_fields_match": true,
+            "literal_checks_scope": "Completed-message text only; exact requested fields, not semantic equivalence or partial text."
+          },
+          "D": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 14,
+            "completed_final_characters": 19,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": true,
+            "material_errors": [],
+            "strengths": [
+              "Correct constructed-fixture result and requested JSON structure."
+            ],
+            "notes": "",
+            "literal_expected_fields_match": true,
+            "literal_checks_scope": "Completed-message text only; exact requested fields, not semantic equivalence or partial text."
+          },
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 102,
+            "completed_final_characters": 19,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": true,
+            "material_errors": [],
+            "strengths": [
+              "Correct constructed-fixture result and requested JSON structure."
+            ],
+            "notes": "",
+            "literal_expected_fields_match": true,
+            "literal_checks_scope": "Completed-message text only; exact requested fields, not semantic equivalence or partial text."
+          }
+        }
+      },
+      {
+        "case_id": "G202",
+        "language": "english",
+        "category": "general_retention",
+        "source_refs": [],
+        "preference_tiers": [
+          [
+            "D",
+            "B",
+            "E",
+            "A"
+          ]
+        ],
+        "preference_basis": "All four give semantically correct results in the requested JSON structure. Formatting whitespace and equivalent location wording do not justify a preference.",
+        "source_urls": [],
+        "candidates": {
+          "D": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 13,
+            "completed_final_characters": 27,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": true,
+            "material_errors": [],
+            "strengths": [
+              "Correct constructed-fixture result and requested JSON structure."
+            ],
+            "notes": "",
+            "literal_expected_fields_match": true,
+            "literal_checks_scope": "Completed-message text only; exact requested fields, not semantic equivalence or partial text."
+          },
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 116,
+            "completed_final_characters": 27,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": true,
+            "material_errors": [],
+            "strengths": [
+              "Correct constructed-fixture result and requested JSON structure."
+            ],
+            "notes": "",
+            "literal_expected_fields_match": true,
+            "literal_checks_scope": "Completed-message text only; exact requested fields, not semantic equivalence or partial text."
+          },
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 120,
+            "completed_final_characters": 27,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": true,
+            "material_errors": [],
+            "strengths": [
+              "Correct constructed-fixture result and requested JSON structure."
+            ],
+            "notes": "",
+            "literal_expected_fields_match": true,
+            "literal_checks_scope": "Completed-message text only; exact requested fields, not semantic equivalence or partial text."
+          },
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 112,
+            "completed_final_characters": 27,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": true,
+            "material_errors": [],
+            "strengths": [
+              "Correct constructed-fixture result and requested JSON structure."
+            ],
+            "notes": "",
+            "literal_expected_fields_match": true,
+            "literal_checks_scope": "Completed-message text only; exact requested fields, not semantic equivalence or partial text."
+          }
+        }
+      },
+      {
+        "case_id": "G203",
+        "language": "english",
+        "category": "general_retention",
+        "source_refs": [],
+        "preference_tiers": [
+          [
+            "B",
+            "E",
+            "A",
+            "D"
+          ]
+        ],
+        "preference_basis": "All four give semantically correct results in the requested JSON structure. Formatting whitespace and equivalent location wording do not justify a preference.",
+        "source_urls": [],
+        "candidates": {
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 108,
+            "completed_final_characters": 35,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": true,
+            "material_errors": [],
+            "strengths": [
+              "Correct constructed-fixture result and requested JSON structure."
+            ],
+            "notes": "",
+            "literal_expected_fields_match": true,
+            "literal_checks_scope": "Completed-message text only; exact requested fields, not semantic equivalence or partial text."
+          },
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 105,
+            "completed_final_characters": 32,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": true,
+            "material_errors": [],
+            "strengths": [
+              "Correct constructed-fixture result and requested JSON structure."
+            ],
+            "notes": "",
+            "literal_expected_fields_match": true,
+            "literal_checks_scope": "Completed-message text only; exact requested fields, not semantic equivalence or partial text."
+          },
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 108,
+            "completed_final_characters": 35,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": true,
+            "material_errors": [],
+            "strengths": [
+              "Correct constructed-fixture result and requested JSON structure."
+            ],
+            "notes": "",
+            "literal_expected_fields_match": true,
+            "literal_checks_scope": "Completed-message text only; exact requested fields, not semantic equivalence or partial text."
+          },
+          "D": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 20,
+            "completed_final_characters": 31,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": true,
+            "material_errors": [],
+            "strengths": [
+              "Correct constructed-fixture result and requested JSON structure."
+            ],
+            "notes": "",
+            "literal_expected_fields_match": true,
+            "literal_checks_scope": "Completed-message text only; exact requested fields, not semantic equivalence or partial text."
+          }
+        }
+      },
+      {
+        "case_id": "G204",
+        "language": "english",
+        "category": "general_retention",
+        "source_refs": [],
+        "preference_tiers": [
+          [
+            "B",
+            "E",
+            "A",
+            "D"
+          ]
+        ],
+        "preference_basis": "All four give semantically correct results in the requested JSON structure. Formatting whitespace and equivalent location wording do not justify a preference.",
+        "source_urls": [],
+        "candidates": {
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 149,
+            "completed_final_characters": 89,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": true,
+            "material_errors": [],
+            "strengths": [
+              "Correct constructed-fixture result and requested JSON structure."
+            ],
+            "notes": "The literal fixture rejects the prepositional location wording, but it is semantically equivalent to the expected location. Ownership remains correctly unstated; no comprehension failure is assigned.",
+            "literal_expected_fields_match": false,
+            "literal_checks_scope": "Completed-message text only; exact requested fields, not semantic equivalence or partial text."
+          },
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 158,
+            "completed_final_characters": 89,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": true,
+            "material_errors": [],
+            "strengths": [
+              "Correct constructed-fixture result and requested JSON structure."
+            ],
+            "notes": "The literal fixture rejects the prepositional location wording, but it is semantically equivalent to the expected location. Ownership remains correctly unstated; no comprehension failure is assigned.",
+            "literal_expected_fields_match": false,
+            "literal_checks_scope": "Completed-message text only; exact requested fields, not semantic equivalence or partial text."
+          },
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 156,
+            "completed_final_characters": 75,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": true,
+            "material_errors": [],
+            "strengths": [
+              "Correct constructed-fixture result and requested JSON structure."
+            ],
+            "notes": "",
+            "literal_expected_fields_match": true,
+            "literal_checks_scope": "Completed-message text only; exact requested fields, not semantic equivalence or partial text."
+          },
+          "D": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 22,
+            "completed_final_characters": 75,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": true,
+            "material_errors": [],
+            "strengths": [
+              "Correct constructed-fixture result and requested JSON structure."
+            ],
+            "notes": "",
+            "literal_expected_fields_match": true,
+            "literal_checks_scope": "Completed-message text only; exact requested fields, not semantic equivalence or partial text."
+          }
+        }
+      },
+      {
+        "case_id": "G205",
+        "language": "english",
+        "category": "general_retention",
+        "source_refs": [],
+        "preference_tiers": [
+          [
+            "B",
+            "E",
+            "A",
+            "D"
+          ]
+        ],
+        "preference_basis": "All four give semantically correct results in the requested JSON structure. Formatting whitespace and equivalent location wording do not justify a preference.",
+        "source_urls": [],
+        "candidates": {
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 150,
+            "completed_final_characters": 38,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": true,
+            "material_errors": [],
+            "strengths": [
+              "Correct constructed-fixture result and requested JSON structure."
+            ],
+            "notes": "",
+            "literal_expected_fields_match": true,
+            "literal_checks_scope": "Completed-message text only; exact requested fields, not semantic equivalence or partial text."
+          },
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 150,
+            "completed_final_characters": 38,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": true,
+            "material_errors": [],
+            "strengths": [
+              "Correct constructed-fixture result and requested JSON structure."
+            ],
+            "notes": "",
+            "literal_expected_fields_match": true,
+            "literal_checks_scope": "Completed-message text only; exact requested fields, not semantic equivalence or partial text."
+          },
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 135,
+            "completed_final_characters": 38,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": true,
+            "material_errors": [],
+            "strengths": [
+              "Correct constructed-fixture result and requested JSON structure."
+            ],
+            "notes": "",
+            "literal_expected_fields_match": true,
+            "literal_checks_scope": "Completed-message text only; exact requested fields, not semantic equivalence or partial text."
+          },
+          "D": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 14,
+            "completed_final_characters": 35,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": true,
+            "material_errors": [],
+            "strengths": [
+              "Correct constructed-fixture result and requested JSON structure."
+            ],
+            "notes": "",
+            "literal_expected_fields_match": true,
+            "literal_checks_scope": "Completed-message text only; exact requested fields, not semantic equivalence or partial text."
+          }
+        }
+      },
+      {
+        "case_id": "G206",
+        "language": "english",
+        "category": "general_retention",
+        "source_refs": [],
+        "preference_tiers": [
+          [
+            "A",
+            "D",
+            "B",
+            "E"
+          ]
+        ],
+        "preference_basis": "All four give semantically correct results in the requested JSON structure. Formatting whitespace and equivalent location wording do not justify a preference.",
+        "source_urls": [],
+        "candidates": {
+          "A": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 157,
+            "completed_final_characters": 57,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": true,
+            "material_errors": [],
+            "strengths": [
+              "Correct constructed-fixture result and requested JSON structure."
+            ],
+            "notes": "",
+            "literal_expected_fields_match": true,
+            "literal_checks_scope": "Completed-message text only; exact requested fields, not semantic equivalence or partial text."
+          },
+          "D": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 20,
+            "completed_final_characters": 57,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": true,
+            "material_errors": [],
+            "strengths": [
+              "Correct constructed-fixture result and requested JSON structure."
+            ],
+            "notes": "",
+            "literal_expected_fields_match": true,
+            "literal_checks_scope": "Completed-message text only; exact requested fields, not semantic equivalence or partial text."
+          },
+          "B": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 120,
+            "completed_final_characters": 57,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": true,
+            "material_errors": [],
+            "strengths": [
+              "Correct constructed-fixture result and requested JSON structure."
+            ],
+            "notes": "",
+            "literal_expected_fields_match": true,
+            "literal_checks_scope": "Completed-message text only; exact requested fields, not semantic equivalence or partial text."
+          },
+          "E": {
+            "answer_complete": true,
+            "finish_reason": "stop",
+            "native_turn_complete": true,
+            "partial_final_status": "absent",
+            "final_text_withheld_due_to_malformed_structure": false,
+            "parse_issues": [],
+            "output_tokens": 155,
+            "completed_final_characters": 57,
+            "partial_final_characters": 0,
+            "assessment": "sound",
+            "requested_content_complete": true,
+            "general_semantic_pass": true,
+            "material_errors": [],
+            "strengths": [
+              "Correct constructed-fixture result and requested JSON structure."
+            ],
+            "notes": "",
+            "literal_expected_fields_match": true,
+            "literal_checks_scope": "Completed-message text only; exact requested fields, not semantic equivalence or partial text."
+          }
+        }
+      }
+    ],
+    "included_in_bible_pairwise_counts": false
+  },
+  "provenance": {
+    "evaluation_sha256": "9e0e1ff8aab7eb4a553b070b4b7bcdebf0239037c43f2da51caa1116714b2b20",
+    "evaluation_manifest_sha256": "efd632af9418240a9cb039f124415fc6bb04fe60c6c575ae771310f15e167d39",
+    "aggregate_sha256": "307c6cf9c8ebd61bf749ea7c23daacce50cadcd107ab9bef39a819308b3c7d48",
+    "full_packet_sha256": "5df5e58fa3fcf3fa7e41e4522b1a88d34366bc33fc50a3a70ba0b8faf7221954",
+    "packet_sha256": {
+      "hebrew.jsonl": "95961685614902268afbc225f419debbae65b12e0cde4c522dbd3091668fed7d",
+      "english.jsonl": "fd1250aa220e17e27b5358819b83cedf763dcfab2473d1079971a4e7c03433de",
+      "aramaic.jsonl": "5d626f57cf61857959c1542d893558f9fe20ecb5175aadc501f4320aa8829e30",
+      "mixed.jsonl": "402ccab7cb25aec95db10c8e19df220c7070097b7a18eb082f1f860e870d4006",
+      "greek.jsonl": "dd94c3269e5f3033303c7d02db165c0b8efb9c680f90a5b7668aece4b3f49bc3"
+    },
+    "review_receipt_sha256": {
+      "review-hebrew-general.json": "9a244a6404dc5f5199b2037f3d29a07dfe51c654b2adc60a3b49e85e919ee188",
+      "review-aramaic.json": "b2a879cc54692a7fc14511db7218c6cc2504dcdb64fc95e5db52afc2b70e62d8",
+      "review-greek-application.json": "b3ece90ab2cef449eeb8cce421b1746d74e61ec30125185923d2b9939b182343"
+    },
+    "integration_script_sha256": "91dc750bdccb129177dcc2387ab8c0d23ccfde33785a91f25b5e4b287c76511d",
+    "review_schema_sha256": "eef1de19fe54bc92a1f28a863b8ecd15a44f00ec4f365b09bc69a28ba33b4438",
+    "review_freeze_sha256": "c286e16982f39f692c63ace51e2f12dc9fbc6257ced79cc434f8c439170912c6",
+    "label_key_sha256": "5a1e293650721e5bfa58476179920f56f48d0bc6da62e8a07bf37f0169cb1e55",
+    "exact_native_to_packet_matches_verified": 120
+  },
+  "reviewer_limitations": [
+    {
+      "reviewer": "hebrew_general_root_reviewer",
+      "case_count": 13,
+      "limitations": [
+        "AI source review, not specialist certification; the reviewer had project execution and Hebrew-criteria review roles.",
+        "The reviewer knew aggregate arm completion counts before review, so an unusual unfinished candidate could be indirectly identifiable; no identity key or arm-level answers were inspected. This is not a formal blinded study.",
+        "One reviewer covers these13 cases without independent duplicate scoring; modest quality distinctions and scope judgments remain subjective.",
+        "Hebrew morphology was checked against the pinned OSHB occurrence annotations, which are an aid rather than infallible ground truth.",
+        "No technical stem name, output heading or extra historical preface was required unless needed to satisfy the actual question. Constructed-fixture semantics are separate from literal field checks."
+      ]
+    },
+    {
+      "reviewer": "instruction_format_aramaic_source_reviewer_v2",
+      "case_count": 7,
+      "limitations": [
+        "AI source check with concealed labels, not expert certification or a formal blinded study. This reviewer authored separate Greek instruction drafts, reviewed separate Aramaic/application drafts, implemented native diagnostics and prepared the Aramaic pre-output criteria check. Those project roles may share context.",
+        "The pre-output caveats were fixed in the Aramaic criteria receipt with SHA256 4302a2b198b40a31e53b0dca0cae9727c939535740ff365e0eef0a73959412a7 and applied to all candidates. The Daniel 5:18 annotation exception, stem-name flexibility, administrative-rank uncertainty and reported-speech boundaries were preserved.",
+        "Only the assigned concealed packet was used for candidate answers. No identity key, operational arm answers, hidden thinking text or inferred condition identities were used. Previous v1 review context does not make this an independent human panel.",
+        "Pinned OSHB/WLC words, occurrence annotations and the official morphology code key were checked. The BDB reproduction was consulted for the Daniel 5:13 root only; the hosting site’s automated lexical summaries and devotional material were not used as authority. Added biblical allusions were checked against the pinned Daniel text.",
+        "Requested-content coverage is distinct from native completion and factual accuracy. An unfinished final field can already contain the requested content; a completed turn can omit part of a translation or explanation. A coverage omission is not counted again as a material false claim.",
+        "Preference ties reflect real tradeoffs or materially equivalent content. Source fidelity and requested coverage precede clarity; verbosity, unrequested reflection and repeated disclaimers receive no credit. Extreme observed repetition is separately relevant to usability.",
+        "This seven-case Aramaic sample uses only Daniel 5 and Ezra 7. It cannot establish broad Aramaic competence, translation accuracy for the corpus, production readiness or absence of prior source exposure. No paid calls or frozen source, evaluation or training edits were made during review."
+      ]
+    },
+    {
+      "reviewer": "train_instruction_v2_greek_application_source_reviewer",
+      "case_count": 10,
+      "limitations": [
+        "Concealed-label AI source review, not specialist certification or a formal independent blind study. The reviewer previously worked on project training code and reviewed Greek training examples.",
+        "The pre-answer Greek/application criteria source review and its caveats were applied. This review used only the assigned concealed packets, pinned original-language sources, and morphology aids; it did not inspect the label key, operational arm answers, or hidden reasoning.",
+        "All forty assigned candidates have native-complete final answers, stop finish status, no parse issues, and no partial final text. Native completion does not establish semantic accuracy; coverage and material errors are separately recorded.",
+        "All forty candidates cover the requested subject matter at least minimally. This coverage flag does not make a wrong grammatical explanation correct or establish specialist translation accuracy.",
+        "Two candidates contain clear material Greek errors. Other mixed assessments chiefly reflect unrequested reflection in textual tasks or overconfident interpretive framing, not proven source falsity.",
+        "Ranks prioritize source fidelity and requested coverage, then focus and usefulness. Concision, conventional equivalent wording, and absence of unrequested technical labels are not themselves failures; preference ties are allowed.",
+        "The Acts prompt's phrase Paul's condition permits a personal-status reading in ordinary English. All candidates preserve the actual unless condition; no extra morphological labels are required beyond the requested explanation.",
+        "Application evaluation preserves the pre-answer caveats: Luke14 includes a host's public honor, and 2Cor1 explicitly links received comfort with the ability to comfort others. Neither feature is automatically treated as an illicit promise or harmful causal assertion.",
+        "Broad unnamed historical-reception generalizations and exact modern-English edition quotation fidelity were not comprehensively certified. Pinned original-source correspondence, specific biblical supporting references, and the requested substance received priority.",
+        "The sample is small and judgments are qualitative. No aggregate translation-accuracy claim, denomination-specific doctrinal judgment, or causal claim about training follows from this receipt."
+      ]
+    }
+  ],
+  "limitations": [
+    "Bible rank preferences are primary on 24 constructed cases; general fixtures are kept separate and are not a broad reasoning benchmark.",
+    "Native completion is copied from verified receipts. Semantic assessment and requested coverage come from judges and are never coerced by a native flag.",
+    "Literal fixture equality and semantic correctness are separate; equivalent wording can pass semantic review while failing exact-field comparison.",
+    "Completed and unfinished final text were reviewed separately where structurally available; partial text is not promoted to native completion and withheld text is not proven absent.",
+    "Three reviewers cover separate partitions without independently duplicating each judgment; thresholds and project-role overlap limit comparability. This is not specialist certification or a formal blinded study.",
+    "At least one reviewer knew aggregate completion counts before reviewing; a rare unfinished candidate could therefore indirectly reveal its condition despite concealed labels.",
+    "The freeze command did not read the key, but a file receipt cannot prove a reviewer’s prior knowledge. All three unchanged receipts were required before this integration opened the key.",
+    "Small sample, prior evaluation chapter overlap, prior raw-text exposure and unpinned provider weights limit generalization and causal conclusions.",
+    "Reviewer comments are public-source-supported paraphrases rather than full model outputs. The full source-review receipts and diagnostics remain private."
+  ]
+}

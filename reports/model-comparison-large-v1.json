@@ -1,0 +1,497 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-06T05:08:26.935769+00:00",
+  "scope": "aggregate observations across specified development runs; repeated questions count once per run",
+  "contains_answer_text": false,
+  "provider_invoice_verified": false,
+  "partial": false,
+  "totals": {
+    "runs": 3,
+    "selected_cases": 72,
+    "started_requests": 72,
+    "received_results": 72,
+    "completed_responses": 72,
+    "successful_answers": 70,
+    "incomplete_answers": 2,
+    "errors": 0,
+    "unresolved_requests": 0,
+    "not_started": 0,
+    "pending_results": 0,
+    "scholarly_reviews_pending": 72,
+    "input_tokens": 25965,
+    "output_tokens": 164413,
+    "known_token_estimate_usd": 0.95867225,
+    "uncertain_accounted_or_reserved_usd": 0,
+    "journal_accounted_or_reserved_usd": 0.9586722500000001
+  },
+  "runs": [
+    {
+      "run": "comparison-large-inkling-v1",
+      "source_hashes": {
+        "manifest_sha256": "09cfcbf711294b5c0eae099fddcfe15d6c6119ee687293b1f3da0cd3514c8a7b",
+        "events_sha256": "17c2367d78aa5105cb84a6111605565fe08a3dd30cd76bb40de9cd4da6bc87d3",
+        "dataset_sha256": "a8039aae01f8a65e7d1daa4b3ed243c8fc868c7a3cfc672a97f2a8ffe0e75ade",
+        "subset_dataset_sha256": null
+      },
+      "observation_scope": "entire_run",
+      "original_selected_cases": 24,
+      "status": "complete",
+      "partial": false,
+      "journal_has_incomplete_tail": false,
+      "settings": {
+        "model": "thinkingmachines/Inkling",
+        "model_revision": "provider_revision_unpinned",
+        "evidence_mode": "provided",
+        "reasoning_effort": "medium",
+        "max_input_tokens": 6000,
+        "max_output_tokens": 8192,
+        "temperature": 0.0,
+        "seed": 20260905,
+        "chat_template_sha256": "0aa1aa0c729d90176dcaa00c440c8faffca2957ffb2cc4b79456ee6d02bcf43b",
+        "tokenizer_sha256": "9fb6333a7db8fe5da90728e741e4a3ee4ac2ae12c5dd4958cc6f31688787d3c2"
+      },
+      "counts": {
+        "selected_cases": 24,
+        "started_requests": 24,
+        "received_results": 24,
+        "completed_responses": 24,
+        "successful_answers": 24,
+        "incomplete_answers": 0,
+        "errors": 0,
+        "unresolved_requests": 0,
+        "not_started": 0,
+        "pending_results": 0,
+        "scholarly_reviews_pending": 24
+      },
+      "tokens": {
+        "input": 8252,
+        "output": 35095,
+        "successful_answer_input": 8252,
+        "successful_answer_output": 35095,
+        "results_with_usage": 24,
+        "results_missing_usage": 0
+      },
+      "cost": {
+        "known_token_estimate_usd": 0.17967583999999998,
+        "successful_answer_token_estimate_usd": 0.17967583999999998,
+        "input_price_per_million": 1.87,
+        "output_price_per_million": 4.68,
+        "journal_accounted_or_reserved_usd": 0.17967584,
+        "uncertain_accounted_or_reserved_usd": 0,
+        "uncertain_requests": 0,
+        "provider_invoice_verified": false,
+        "token_estimate_covers_all_started_requests": true
+      },
+      "format_checks": {},
+      "format_checks_are_scholarly_scores": false,
+      "category_metadata_matches_dataset": true,
+      "by_category": {
+        "comparison": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "grammar": {
+          "selected": 10,
+          "started": 10,
+          "successful_answers": 10,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "historical_context": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "instruction_retention": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "life_reflection": {
+          "selected": 4,
+          "started": 4,
+          "successful_answers": 4,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "source_boundary": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "translation": {
+          "selected": 6,
+          "started": 6,
+          "successful_answers": 6,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        }
+      },
+      "by_language": {
+        "aramaic": {
+          "selected": 7,
+          "started": 7,
+          "successful_answers": 7,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "greek": {
+          "selected": 6,
+          "started": 6,
+          "successful_answers": 6,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "hebrew": {
+          "selected": 7,
+          "started": 7,
+          "successful_answers": 7,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "mixed": {
+          "selected": 4,
+          "started": 4,
+          "successful_answers": 4,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        }
+      },
+      "scholarly_review": "pending; no biblical accuracy or training improvement score assigned"
+    },
+    {
+      "run": "comparison-large-nemotron-ultra-v1",
+      "source_hashes": {
+        "manifest_sha256": "bb6b6c840e64bd6605964e78f6f0a490a11ed7eafe6d1b625a753fe9b3938af7",
+        "events_sha256": "4717f5646765e8fc332146424945a9464baa145857d27d3c5cae0941b4092f44",
+        "dataset_sha256": "a8039aae01f8a65e7d1daa4b3ed243c8fc868c7a3cfc672a97f2a8ffe0e75ade",
+        "subset_dataset_sha256": null
+      },
+      "observation_scope": "entire_run",
+      "original_selected_cases": 24,
+      "status": "complete",
+      "partial": false,
+      "journal_has_incomplete_tail": false,
+      "settings": {
+        "model": "nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16",
+        "model_revision": "provider_revision_unpinned",
+        "evidence_mode": "provided",
+        "reasoning_effort": "on",
+        "max_input_tokens": 6000,
+        "max_output_tokens": 8192,
+        "temperature": 0.0,
+        "seed": 20260905,
+        "chat_template_sha256": "82753bef5cedc4932c1ed509b5c9a12be680fd86d1adb65bc3f7398d11c8eebc",
+        "tokenizer_sha256": "623c34567aebb18582765289fbe23d901c62704d6518d71866e0e58db892b5b7"
+      },
+      "counts": {
+        "selected_cases": 24,
+        "started_requests": 24,
+        "received_results": 24,
+        "completed_responses": 24,
+        "successful_answers": 24,
+        "incomplete_answers": 0,
+        "errors": 0,
+        "unresolved_requests": 0,
+        "not_started": 0,
+        "pending_results": 0,
+        "scholarly_reviews_pending": 24
+      },
+      "tokens": {
+        "input": 9165,
+        "output": 37240,
+        "successful_answer_input": 9165,
+        "successful_answer_output": 37240,
+        "results_with_usage": 24,
+        "results_missing_usage": 0
+      },
+      "cost": {
+        "known_token_estimate_usd": 0.25463985,
+        "successful_answer_token_estimate_usd": 0.25463985,
+        "input_price_per_million": 2.49,
+        "output_price_per_million": 6.225,
+        "journal_accounted_or_reserved_usd": 0.25463985,
+        "uncertain_accounted_or_reserved_usd": 0,
+        "uncertain_requests": 0,
+        "provider_invoice_verified": false,
+        "token_estimate_covers_all_started_requests": true
+      },
+      "format_checks": {},
+      "format_checks_are_scholarly_scores": false,
+      "category_metadata_matches_dataset": true,
+      "by_category": {
+        "comparison": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "grammar": {
+          "selected": 10,
+          "started": 10,
+          "successful_answers": 10,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "historical_context": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "instruction_retention": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "life_reflection": {
+          "selected": 4,
+          "started": 4,
+          "successful_answers": 4,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "source_boundary": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "translation": {
+          "selected": 6,
+          "started": 6,
+          "successful_answers": 6,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        }
+      },
+      "by_language": {
+        "aramaic": {
+          "selected": 7,
+          "started": 7,
+          "successful_answers": 7,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "greek": {
+          "selected": 6,
+          "started": 6,
+          "successful_answers": 6,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "hebrew": {
+          "selected": 7,
+          "started": 7,
+          "successful_answers": 7,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "mixed": {
+          "selected": 4,
+          "started": 4,
+          "successful_answers": 4,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        }
+      },
+      "scholarly_review": "pending; no biblical accuracy or training improvement score assigned"
+    },
+    {
+      "run": "comparison-large-kimi-k26-v1",
+      "source_hashes": {
+        "manifest_sha256": "f1be94fda29985d6949bbe09ed08e8e44f770a8e8facdefd45360f3597fcc788",
+        "events_sha256": "620f7290b7c31cb2bae5134585db1fd33b5fdf54a21ddc068c50adc16b492cc1",
+        "dataset_sha256": "a8039aae01f8a65e7d1daa4b3ed243c8fc868c7a3cfc672a97f2a8ffe0e75ade",
+        "subset_dataset_sha256": null
+      },
+      "observation_scope": "entire_run",
+      "original_selected_cases": 24,
+      "status": "complete",
+      "partial": false,
+      "journal_has_incomplete_tail": false,
+      "settings": {
+        "model": "moonshotai/Kimi-K2.6",
+        "model_revision": "provider_revision_unpinned",
+        "evidence_mode": "provided",
+        "reasoning_effort": "on",
+        "max_input_tokens": 6000,
+        "max_output_tokens": 8192,
+        "temperature": 0.0,
+        "seed": 20260905,
+        "chat_template_sha256": "8bf859698fd4781c0e1e1c63ce74422aab27e53ccc5f47116317c64cda06132f",
+        "tokenizer_sha256": "b6c497a7469b33ced9c38afb1ad6e47f03f5e5dc05f15930799210ec050c5103"
+      },
+      "counts": {
+        "selected_cases": 24,
+        "started_requests": 24,
+        "received_results": 24,
+        "completed_responses": 24,
+        "successful_answers": 22,
+        "incomplete_answers": 2,
+        "errors": 0,
+        "unresolved_requests": 0,
+        "not_started": 0,
+        "pending_results": 0,
+        "scholarly_reviews_pending": 24
+      },
+      "tokens": {
+        "input": 8548,
+        "output": 92078,
+        "successful_answer_input": 7622,
+        "successful_answer_output": 75694,
+        "results_with_usage": 24,
+        "results_missing_usage": 0
+      },
+      "cost": {
+        "known_token_estimate_usd": 0.5243565600000001,
+        "successful_answer_token_estimate_usd": 0.43236657,
+        "input_price_per_million": 2.205,
+        "output_price_per_million": 5.49,
+        "journal_accounted_or_reserved_usd": 0.5243565600000001,
+        "uncertain_accounted_or_reserved_usd": 0,
+        "uncertain_requests": 0,
+        "provider_invoice_verified": false,
+        "token_estimate_covers_all_started_requests": true
+      },
+      "format_checks": {},
+      "format_checks_are_scholarly_scores": false,
+      "category_metadata_matches_dataset": true,
+      "by_category": {
+        "comparison": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "grammar": {
+          "selected": 10,
+          "started": 10,
+          "successful_answers": 8,
+          "incomplete_answers": 2,
+          "errors": 0,
+          "pending": 0
+        },
+        "historical_context": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "instruction_retention": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "life_reflection": {
+          "selected": 4,
+          "started": 4,
+          "successful_answers": 4,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "source_boundary": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "translation": {
+          "selected": 6,
+          "started": 6,
+          "successful_answers": 6,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        }
+      },
+      "by_language": {
+        "aramaic": {
+          "selected": 7,
+          "started": 7,
+          "successful_answers": 5,
+          "incomplete_answers": 2,
+          "errors": 0,
+          "pending": 0
+        },
+        "greek": {
+          "selected": 6,
+          "started": 6,
+          "successful_answers": 6,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "hebrew": {
+          "selected": 7,
+          "started": 7,
+          "successful_answers": 7,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "mixed": {
+          "selected": 4,
+          "started": 4,
+          "successful_answers": 4,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        }
+      },
+      "scholarly_review": "pending; no biblical accuracy or training improvement score assigned"
+    }
+  ],
+  "limitations": [
+    "Completion and format counts do not establish historical correctness.",
+    "Scholarly review remains pending for all received answers.",
+    "Token-price estimates and journal reservations are not reconciled provider invoices.",
+    "Partial journals describe only the snapshot read; rerun after completion for final totals."
+  ]
+}

@@ -1,0 +1,327 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-06T04:37:14.680626+00:00",
+  "scope": "aggregate observations across specified development runs; repeated questions count once per run",
+  "contains_answer_text": false,
+  "provider_invoice_verified": false,
+  "partial": false,
+  "totals": {
+    "runs": 2,
+    "selected_cases": 32,
+    "started_requests": 32,
+    "received_results": 32,
+    "completed_responses": 32,
+    "successful_answers": 32,
+    "incomplete_answers": 0,
+    "errors": 0,
+    "unresolved_requests": 0,
+    "not_started": 0,
+    "pending_results": 0,
+    "scholarly_reviews_pending": 32,
+    "input_tokens": 7358,
+    "output_tokens": 27381,
+    "known_token_estimate_usd": 0.14190254,
+    "uncertain_accounted_or_reserved_usd": 0,
+    "journal_accounted_or_reserved_usd": 0.14190254
+  },
+  "runs": [
+    {
+      "run": "comparison-inkling-v1",
+      "source_hashes": {
+        "manifest_sha256": "5657f84cd216f484d7384e89e9ec706260440a689c82c36ee10b804149951de3",
+        "events_sha256": "0463836658256f67eeb7ce32e1633ccc31926aeb3842740b0ccf9bd9437cc9c0",
+        "dataset_sha256": "b0b89db022cbac79a2d0297c971a2ca6cc58e358f4a585587673a3e0678ef26c",
+        "subset_dataset_sha256": "b0b89db022cbac79a2d0297c971a2ca6cc58e358f4a585587673a3e0678ef26c"
+      },
+      "observation_scope": "verified_subset",
+      "original_selected_cases": 16,
+      "status": "complete",
+      "partial": false,
+      "journal_has_incomplete_tail": false,
+      "settings": {
+        "model": "thinkingmachines/Inkling",
+        "model_revision": "provider_revision_unpinned",
+        "evidence_mode": "provided",
+        "reasoning_effort": "low",
+        "max_input_tokens": 6000,
+        "max_output_tokens": 4096,
+        "temperature": 0.0,
+        "seed": 20260905,
+        "chat_template_sha256": "0aa1aa0c729d90176dcaa00c440c8faffca2957ffb2cc4b79456ee6d02bcf43b",
+        "tokenizer_sha256": "9fb6333a7db8fe5da90728e741e4a3ee4ac2ae12c5dd4958cc6f31688787d3c2"
+      },
+      "counts": {
+        "selected_cases": 16,
+        "started_requests": 16,
+        "received_results": 16,
+        "completed_responses": 16,
+        "successful_answers": 16,
+        "incomplete_answers": 0,
+        "errors": 0,
+        "unresolved_requests": 0,
+        "not_started": 0,
+        "pending_results": 0,
+        "scholarly_reviews_pending": 16
+      },
+      "tokens": {
+        "input": 3679,
+        "output": 6405,
+        "successful_answer_input": 3679,
+        "successful_answer_output": 6405,
+        "results_with_usage": 16,
+        "results_missing_usage": 0
+      },
+      "cost": {
+        "known_token_estimate_usd": 0.03685513,
+        "successful_answer_token_estimate_usd": 0.03685513,
+        "input_price_per_million": 1.87,
+        "output_price_per_million": 4.68,
+        "journal_accounted_or_reserved_usd": 0.03685513,
+        "uncertain_accounted_or_reserved_usd": 0,
+        "uncertain_requests": 0,
+        "provider_invoice_verified": false,
+        "token_estimate_covers_all_started_requests": true
+      },
+      "format_checks": {},
+      "format_checks_are_scholarly_scores": false,
+      "category_metadata_matches_dataset": true,
+      "by_category": {
+        "comparison": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "grammar": {
+          "selected": 6,
+          "started": 6,
+          "successful_answers": 6,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "instruction_retention": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "life_reflection": {
+          "selected": 4,
+          "started": 4,
+          "successful_answers": 4,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "source_boundary": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "translation": {
+          "selected": 3,
+          "started": 3,
+          "successful_answers": 3,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        }
+      },
+      "by_language": {
+        "aramaic": {
+          "selected": 4,
+          "started": 4,
+          "successful_answers": 4,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "greek": {
+          "selected": 4,
+          "started": 4,
+          "successful_answers": 4,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "hebrew": {
+          "selected": 4,
+          "started": 4,
+          "successful_answers": 4,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "mixed": {
+          "selected": 4,
+          "started": 4,
+          "successful_answers": 4,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        }
+      },
+      "scholarly_review": "pending; no biblical accuracy or training improvement score assigned"
+    },
+    {
+      "run": "comparison-large-inkling-v1",
+      "source_hashes": {
+        "manifest_sha256": "09cfcbf711294b5c0eae099fddcfe15d6c6119ee687293b1f3da0cd3514c8a7b",
+        "events_sha256": "17c2367d78aa5105cb84a6111605565fe08a3dd30cd76bb40de9cd4da6bc87d3",
+        "dataset_sha256": "a8039aae01f8a65e7d1daa4b3ed243c8fc868c7a3cfc672a97f2a8ffe0e75ade",
+        "subset_dataset_sha256": "b0b89db022cbac79a2d0297c971a2ca6cc58e358f4a585587673a3e0678ef26c"
+      },
+      "observation_scope": "verified_subset",
+      "original_selected_cases": 24,
+      "status": "complete",
+      "partial": false,
+      "journal_has_incomplete_tail": false,
+      "settings": {
+        "model": "thinkingmachines/Inkling",
+        "model_revision": "provider_revision_unpinned",
+        "evidence_mode": "provided",
+        "reasoning_effort": "medium",
+        "max_input_tokens": 6000,
+        "max_output_tokens": 8192,
+        "temperature": 0.0,
+        "seed": 20260905,
+        "chat_template_sha256": "0aa1aa0c729d90176dcaa00c440c8faffca2957ffb2cc4b79456ee6d02bcf43b",
+        "tokenizer_sha256": "9fb6333a7db8fe5da90728e741e4a3ee4ac2ae12c5dd4958cc6f31688787d3c2"
+      },
+      "counts": {
+        "selected_cases": 16,
+        "started_requests": 16,
+        "received_results": 16,
+        "completed_responses": 16,
+        "successful_answers": 16,
+        "incomplete_answers": 0,
+        "errors": 0,
+        "unresolved_requests": 0,
+        "not_started": 0,
+        "pending_results": 0,
+        "scholarly_reviews_pending": 16
+      },
+      "tokens": {
+        "input": 3679,
+        "output": 20976,
+        "successful_answer_input": 3679,
+        "successful_answer_output": 20976,
+        "results_with_usage": 16,
+        "results_missing_usage": 0
+      },
+      "cost": {
+        "known_token_estimate_usd": 0.10504741,
+        "successful_answer_token_estimate_usd": 0.10504741,
+        "input_price_per_million": 1.87,
+        "output_price_per_million": 4.68,
+        "journal_accounted_or_reserved_usd": 0.10504741,
+        "uncertain_accounted_or_reserved_usd": 0,
+        "uncertain_requests": 0,
+        "provider_invoice_verified": false,
+        "token_estimate_covers_all_started_requests": true
+      },
+      "format_checks": {},
+      "format_checks_are_scholarly_scores": false,
+      "category_metadata_matches_dataset": true,
+      "by_category": {
+        "comparison": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "grammar": {
+          "selected": 6,
+          "started": 6,
+          "successful_answers": 6,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "instruction_retention": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "life_reflection": {
+          "selected": 4,
+          "started": 4,
+          "successful_answers": 4,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "source_boundary": {
+          "selected": 1,
+          "started": 1,
+          "successful_answers": 1,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "translation": {
+          "selected": 3,
+          "started": 3,
+          "successful_answers": 3,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        }
+      },
+      "by_language": {
+        "aramaic": {
+          "selected": 4,
+          "started": 4,
+          "successful_answers": 4,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "greek": {
+          "selected": 4,
+          "started": 4,
+          "successful_answers": 4,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "hebrew": {
+          "selected": 4,
+          "started": 4,
+          "successful_answers": 4,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        },
+        "mixed": {
+          "selected": 4,
+          "started": 4,
+          "successful_answers": 4,
+          "incomplete_answers": 0,
+          "errors": 0,
+          "pending": 0
+        }
+      },
+      "scholarly_review": "pending; no biblical accuracy or training improvement score assigned"
+    }
+  ],
+  "limitations": [
+    "Completion and format counts do not establish historical correctness.",
+    "Scholarly review remains pending for all received answers.",
+    "Token-price estimates and journal reservations are not reconciled provider invoices.",
+    "Partial journals describe only the snapshot read; rerun after completion for final totals."
+  ]
+}

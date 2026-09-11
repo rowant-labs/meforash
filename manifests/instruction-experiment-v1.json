@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "status": "frozen_before_sampling",
+  "frozen_at_utc": "2026-09-06T17:23:59.106046+00:00",
+  "experiment_id": "instruction-comparison-v1",
+  "arms": {
+    "A": "unchanged",
+    "B": "original_text_only",
+    "C": "instruction_only",
+    "D": "original_text_then_instruction"
+  },
+  "evaluation": {
+    "path": "evals/instruction-comparison-v1.jsonl",
+    "sha256": "0d60c1740dcbe000a33fed8d5161af2fb2c9e97cee4d6368cd8865c69f947355",
+    "cases": 24,
+    "case_ids": [
+      "IH01",
+      "IH02",
+      "IH03",
+      "IH04",
+      "IH05",
+      "IH06",
+      "IH07",
+      "IA01",
+      "IA02",
+      "IA03",
+      "IA04",
+      "IA05",
+      "IA06",
+      "IA07",
+      "IG01",
+      "IG02",
+      "IG03",
+      "IG04",
+      "IG05",
+      "IG06",
+      "IM01",
+      "IM02",
+      "IM03",
+      "IM04"
+    ]
+  },
+  "allowed_datasets": [
+    {
+      "path": "evals/instruction-comparison-v1.jsonl",
+      "sha256": "0d60c1740dcbe000a33fed8d5161af2fb2c9e97cee4d6368cd8865c69f947355",
+      "cases": 24,
+      "case_ids": [
+        "IH01",
+        "IH02",
+        "IH03",
+        "IH04",
+        "IH05",
+        "IH06",
+        "IH07",
+        "IA01",
+        "IA02",
+        "IA03",
+        "IA04",
+        "IA05",
+        "IA06",
+        "IA07",
+        "IG01",
+        "IG02",
+        "IG03",
+        "IG04",
+        "IG05",
+        "IG06",
+        "IM01",
+        "IM02",
+        "IM03",
+        "IM04"
+      ]
+    }
+  ],
+  "evaluation_manifest": {
+    "path": "manifests/instruction-evaluation-v1.json",
+    "sha256": "fe8d859754f598ed5755bd41f252ddf9baab444d58514112f9b671104450ea65"
+  },
+  "evaluation_exclusions": {
+    "path": "manifests/instruction-evaluation-exclusions-v1.json",
+    "sha256": "e218628806018aec84d22956d518c1a05189fa546ead6cf47c8871c34ce9098c"
+  },
+  "matched_settings": {
+    "model": "thinkingmachines/Inkling",
+    "reasoning_effort": "medium",
+    "thinking_effort_numeric": 0.7,
+    "temperature": 0.0,
+    "seed": 20260905,
+    "max_output_tokens": 8192,
+    "max_input_tokens": 6000,
+    "timeout_seconds": 300,
+    "evidence_mode": "provided",
+    "api_key_env": "TINKER_API_KEY",
+    "base_url": "https://tinker.thinkingmachines.dev/services/tinker-prod",
+    "comparison_manifest": "manifests/comparison-large-models-v1.json",
+    "output_limit_field": "max_completion_tokens"
+  },
+  "original_text_receipt": {
+    "checkpoint_file": "runs/inkling-original-text-v1/checkpoints.json",
+    "public_report": {
+      "path": "reports/inkling-adaptation-v1.json",
+      "sha256": "fdcd4b87be77f4bb033a250733e83d1ebb1505f356ddb457fdaec8bcf83d99ad"
+    },
+    "events_sha256": "54678c3e10fe5ee4f246ce15f332729946f010e16493066a62f491bc177800c3",
+    "completed_adapter_evaluation_manifests": [
+      {
+        "path": "runs/inkling-adapted-eval-a-v1/manifest.json",
+        "sha256": "0826b1e0f5ff732baf5879ce0d509757cac4b2991591575e8043cbc9cf38436b"
+      },
+      {
+        "path": "runs/inkling-adapted-eval-b-v1/manifest.json",
+        "sha256": "a14d54b09ec7affcdaaf655939c0d2938ee9631370df05da7fb253c38b2bef3b"
+      },
+      {
+        "path": "runs/inkling-adapted-eval-c-v1/manifest.json",
+        "sha256": "096d9511a9a6fe5b567ee5a38713a75fb0446a4937daba28c9b1c8de7a902956"
+      }
+    ],
+    "legacy_terminal_receipt": "The original run_complete event lacks a run_id; its complete journal is bound by the frozen SHA and its plan/summary by the published provenance hashes."
+  },
+  "instruction_training_design": {
+    "matched_dataset": "The identical separately reviewed examples and split must be used by C and D. Their preparation manifest and recipe hashes will be retained in completed training receipts.",
+    "C": "Fresh rank-8 adapter on unchanged Inkling, fresh optimizer.",
+    "D": "Load the verified B adapter weights into a fresh compatible client, reset optimizer, then train the same instruction recipe as C.",
+    "comparison": "A and B establish contemporary pre-instruction controls. C versus D tests whether previous original-text exposure adds value after identical English instruction training.",
+    "no_harness": true
+  },
+  "evaluation_interpretation": {
+    "model_revision": "Provider base weights remain unpinned; prior controls showed different outputs despite matching requested settings.",
+    "held_out_scope": "These evaluation questions, criteria, and chapter families are excluded from new instruction training and instruction validation. Raw-text adaptation or base pretraining may have seen their ancient wording.",
+    "review": "Separate source checking after sampling; no automatic accuracy percentage. Fresh eval author does not author instruction targets.",
+    "reasoning": "Medium effort is matched. Final-answer supervision includes no generated reasoning traces; general reasoning retention remains unestablished.",
+    "incomplete_answers": "Report errors, uncertainty, timeouts and output limits separately; do not silently drop them or rerun selectively.",
+    "protocol_changes": "The full24 dataset only is allowed. Any prespecified shards or corrections require a versioned protocol before new model calls and an exact source-content check."
+  },
+  "publication": "Local preparation only. This manifest contains hashes and portable artifact paths, never provider checkpoint identifiers, credentials, or private conversations."
+}

@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "id": "evidence-first-pack-v1",
+  "prepared_on": "2026-09-07",
+  "status": "eight_private_research_drafts",
+  "plan_sha256": "036faeeca9d089822f61d2f6771bb5aa0abe2d523d5b0a7839ad7b0b06568021",
+  "record_count": 8,
+  "allocation": {
+    "textual_dossier": {
+      "hebrew": 2,
+      "aramaic": 1,
+      "greek": 1
+    },
+    "historical_note": {
+      "hebrew": 2,
+      "aramaic": 1,
+      "greek": 1
+    }
+  },
+  "records": [
+    {
+      "id": "HT01",
+      "anchor_or_topic": "Genesis 4:8",
+      "kind": "textual_dossier",
+      "biblical_anchor_languages": [
+        "hebrew"
+      ],
+      "status": "draft",
+      "draft_json_sha256": "e761e0a76916e117cd75a0a028c1daed21ccebaeaaa15b7c883e5e8093b01e26",
+      "readable_markdown_sha256": "23111462241bdbf04e043a79c7a75962ebc0488959b5231c6941adfbd949ba65",
+      "authored_summary_words": 493,
+      "citations": 4,
+      "citations_with_local_hash_match": 2,
+      "citations_without_content_hash": 2,
+      "claimed_hashes_without_local_bytes": [],
+      "release_ready": false
+    },
+    {
+      "id": "HT07",
+      "anchor_or_topic": "Isaiah 53:11",
+      "kind": "textual_dossier",
+      "biblical_anchor_languages": [
+        "hebrew"
+      ],
+      "status": "draft",
+      "draft_json_sha256": "82f1b4054eed13d542886a71299f0f14f73c0a51b2d446fe366160835988b231",
+      "readable_markdown_sha256": "6dfe4cf3e142795a4bdcfacc37fb18cc30ec51c32c36f0f30a786be707dd246a",
+      "authored_summary_words": 526,
+      "citations": 5,
+      "citations_with_local_hash_match": 2,
+      "citations_without_content_hash": 3,
+      "claimed_hashes_without_local_bytes": [],
+      "release_ready": false
+    },
+    {
+      "id": "AT03",
+      "anchor_or_topic": "Daniel 2:4b–9",
+      "kind": "textual_dossier",
+      "biblical_anchor_languages": [
+        "aramaic"
+      ],
+      "status": "draft",
+      "draft_json_sha256": "a3ac84d6c32fb9429921e7aabbefa97539e5745e4de839e7ab1d1fae92d190f9",
+      "readable_markdown_sha256": "ef5397c30cb4a55f8f377afe97fab461febe11732420c47a4894533a942ac17e",
+      "authored_summary_words": 604,
+      "citations": 6,
+      "citations_with_local_hash_match": 4,
+      "citations_without_content_hash": 2,
+      "claimed_hashes_without_local_bytes": [],
+      "release_ready": false
+    },
+    {
+      "id": "GT01",
+      "anchor_or_topic": "Mark 1:1",
+      "kind": "textual_dossier",
+      "biblical_anchor_languages": [
+        "greek"
+      ],
+      "status": "draft",
+      "draft_json_sha256": "8ba33bc61005d54bbe62f34d62f29e9e3aef165788c34fc876820a0c750c4ebe",
+      "readable_markdown_sha256": "387d7afe5efbadbab0d7560fa53af7c2f82065be861884b67ac1e82af35f3627",
+      "authored_summary_words": 587,
+      "citations": 9,
+      "citations_with_local_hash_match": 9,
+      "citations_without_content_hash": 0,
+      "claimed_hashes_without_local_bytes": [],
+      "release_ready": false
+    },
+    {
+      "id": "HC01",
+      "anchor_or_topic": "Assyrian royal accounts and Judah",
+      "kind": "historical_note",
+      "biblical_anchor_languages": [
+        "hebrew"
+      ],
+      "status": "draft",
+      "draft_json_sha256": "43b7f6b5bfd9750658758580d90ba4a29c002e78a09e0f37ca3806f290b2e975",
+      "readable_markdown_sha256": "8df7434a3994a1b2109393c62b37d2ae9a2e08537058f57993d1c8978df74ea3",
+      "authored_summary_words": 396,
+      "citations": 5,
+      "citations_with_local_hash_match": 2,
+      "citations_without_content_hash": 3,
+      "claimed_hashes_without_local_bytes": [],
+      "release_ready": false
+    },
+    {
+      "id": "HC03",
+      "anchor_or_topic": "Persian restoration and evidence limits",
+      "kind": "historical_note",
+      "biblical_anchor_languages": [
+        "hebrew"
+      ],
+      "status": "draft",
+      "draft_json_sha256": "77b5c9e14abae6323d8cb505d1c24a555867dba044c3f357a188fbdc169a5a19",
+      "readable_markdown_sha256": "74c6d0d8306455c585e433f1d14a9ce887ea418ab4c3b4a5fa97528e0bd24b76",
+      "authored_summary_words": 394,
+      "citations": 5,
+      "citations_with_local_hash_match": 2,
+      "citations_without_content_hash": 3,
+      "claimed_hashes_without_local_bytes": [],
+      "release_ready": false
+    },
+    {
+      "id": "AC01",
+      "anchor_or_topic": "Administrative Aramaic and documentary comparanda",
+      "kind": "historical_note",
+      "biblical_anchor_languages": [
+        "aramaic"
+      ],
+      "status": "draft",
+      "draft_json_sha256": "bf53e6b2f67b5f35ea6b307302d29923d4dad70c43b88bd22629c23f2398b8b5",
+      "readable_markdown_sha256": "fad437e61e59cd5ff12ed3e87495c53994048ad2a15b2bfbf95556e101ab624c",
+      "authored_summary_words": 495,
+      "citations": 6,
+      "citations_with_local_hash_match": 5,
+      "citations_without_content_hash": 1,
+      "claimed_hashes_without_local_bytes": [],
+      "release_ready": false
+    },
+    {
+      "id": "GC01",
+      "anchor_or_topic": "Roman Judean administration",
+      "kind": "historical_note",
+      "biblical_anchor_languages": [
+        "greek"
+      ],
+      "status": "draft",
+      "draft_json_sha256": "f063fc2ab3c06a9e2a3cf6cd33bf64236ed566074480d40c1fa21431429ffe51",
+      "readable_markdown_sha256": "5272abb5838758c45c3de3f56bb6d6cfabec6cb9c6cbc31023fc7e67a74b04f9",
+      "authored_summary_words": 442,
+      "citations": 5,
+      "citations_with_local_hash_match": 5,
+      "citations_without_content_hash": 0,
+      "claimed_hashes_without_local_bytes": [],
+      "release_ready": false
+    }
+  ],
+  "starter_substitutions": [
+    {
+      "provisional": "HT02",
+      "selected": "HT07",
+      "reason": "Available scholarly reporting supports a bounded Isaiah dossier; exact witness transcriptions and the missing PDF snapshot remain explicit gaps."
+    },
+    {
+      "provisional": "AT01",
+      "selected": "AT03",
+      "reason": "Checked base/Greek edition files support a bounded language-boundary dossier without presuming DSS verse preservation."
+    }
+  ],
+  "mechanical_validation": "Draft 2020-12 schema plus cross-references, dates, rights-component coverage and draft-stage constraints passed. This is not scholarly certification.",
+  "data_distribution": "Draft JSON, Markdown review files and raw sources remain excluded from publication candidates. Hashes identify the private prepared snapshot.",
+  "app_approved": 0,
+  "training_approved": 0,
+  "expert_certified": false,
+  "new_training_calls": 0,
+  "new_model_generations": 0,
+  "chat_context_changed": false,
+  "lexical_preview": {
+    "greek_metadata_rows": 10,
+    "greek_strong_ids": 6,
+    "greek_long_definitions": 0,
+    "hebrew_definitions": 0,
+    "status": "private_research_only",
+    "hebrew_definition_exclusion": "Selected TBESH header requests separate Online Bible permission."
+  },
+  "limitations": [
+    "Valid structure and cross-references do not establish factual correctness, legal clearance or expert review.",
+    "A matching source hash binds bytes, not the truth of a claim or the accuracy of its locator.",
+    "This draft-only pipeline does not export, train, or change chat context."
+  ]
+}

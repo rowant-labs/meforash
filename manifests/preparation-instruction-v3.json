@@ -1,0 +1,326 @@
+{
+  "schema_version": 3,
+  "status": "prepared_not_trained",
+  "objective": "reviewed_english_instruction_sft",
+  "revision_id": "instruction-revision-v3",
+  "review_status": "ai_source_checked",
+  "expert_certified": false,
+  "model": "thinkingmachines/Inkling",
+  "thinking_effort_numeric": 0.7,
+  "maximum_input_tokens": 8192,
+  "native_start_token_id": 200002,
+  "native_end_token_id": 200006,
+  "revision_plan": {
+    "path": "manifests/instruction-revision-plan-v3.json",
+    "sha256": "3b623306e1715bb27b9cb4663745a38b97bd3bee8c3bf355e7c186694806b70c"
+  },
+  "original_preparation": {
+    "path": "manifests/preparation-instruction-v1.json",
+    "sha256": "b851caf978f50c63ef5f2cba856e74f46ab751090ee47401100fcf9cff8b34cc"
+  },
+  "original_dataset": {
+    "path": "runs/instruction-v1-prep/reviewed/all.jsonl",
+    "sha256": "2bb0e9d842564267173bf8de1c8481fa03996a960a3719eabb633281c963a567"
+  },
+  "review_groups": [
+    {
+      "name": "hebrew",
+      "ids": [
+        "IH004",
+        "IH006",
+        "IH013",
+        "IH021",
+        "IH028",
+        "IH031",
+        "IH037",
+        "IH040"
+      ],
+      "revision_drafts": {
+        "path": "runs/instruction-v3-prep/hebrew/revisions.jsonl",
+        "sha256": "b95b419cf17ccc66f066a5cba1a685b8c0e630b8692484238ea51ae49254bb7d"
+      },
+      "receipt": {
+        "path": "runs/instruction-v3-prep/reviews/hebrew.json",
+        "sha256": "99ae0db179c640dff9e371bbb953bfd28263fbcb0e7743b831b3814e68019be8"
+      }
+    },
+    {
+      "name": "aramaic",
+      "ids": [
+        "IA004",
+        "IA006",
+        "IA010",
+        "IA020"
+      ],
+      "revision_drafts": {
+        "path": "runs/instruction-v3-prep/aramaic/revisions.jsonl",
+        "sha256": "64efdf4c1ebf1843bdffc97e08593af66e795fbdb62123ffb6985b8b568144c6"
+      },
+      "receipt": {
+        "path": "runs/instruction-v3-prep/reviews/aramaic.json",
+        "sha256": "b5c7c90fbdea74e12c04393221ee7810ae999bbb87cfdc21e0c367947791ebba"
+      }
+    },
+    {
+      "name": "greek",
+      "ids": [
+        "IG002",
+        "IG035"
+      ],
+      "revision_drafts": {
+        "path": "runs/instruction-v3-prep/greek-application/revisions.jsonl",
+        "sha256": "73127b251f1ac596056d73938d2d16ebed83e4484d96cb608ea4cf0da6cd4db1"
+      },
+      "receipt": {
+        "path": "runs/instruction-v3-prep/reviews/greek.json",
+        "sha256": "3f7d3536da26907474990396db3be91939dab7bbb4518beb541069c9db08e23d"
+      }
+    }
+  ],
+  "reviewed_dataset": {
+    "path": "runs/instruction-v3-prep/reviewed/all.jsonl",
+    "sha256": "5603342caed02a6b3210d554e131d6b8955fdb17601dff6e7e1a388880de5be2",
+    "examples": 120
+  },
+  "changed_training_ids": [
+    "IA004",
+    "IA006",
+    "IA010",
+    "IA020",
+    "IG002",
+    "IG035",
+    "IH004",
+    "IH006",
+    "IH013",
+    "IH021",
+    "IH028",
+    "IH031",
+    "IH037",
+    "IH040"
+  ],
+  "unchanged_full_rows": 106,
+  "unchanged_training_rows": 90,
+  "validation_bytes_unchanged": true,
+  "tokenizer": {
+    "repository": "thinkingmachines/Inkling",
+    "revision": "828496eeae4c243ff1a22f7f28ff83694f2f7bc9",
+    "tokenizer_sha256": "9fb6333a7db8fe5da90728e741e4a3ee4ac2ae12c5dd4958cc6f31688787d3c2",
+    "asset_manifest": "manifests/comparison-large-models-v1.json",
+    "asset_manifest_sha256": "87de6c1bf7d7e2e6d6e8bccc90a229a7744fa5091684ae51c3fa98023af853a4",
+    "runtime_packages": {
+      "tml-renderers": "0.1.0",
+      "torch": "2.14.0",
+      "transformers": "5.16.1",
+      "tokenizers": "0.23.2"
+    },
+    "native_package_identity": {
+      "version": "0.1.0",
+      "files_sha256": "06f5390de806baf7fa756b050a051d165532711cf48513099b669b9e0dd3c667"
+    },
+    "parity": {
+      "vocabulary_sha256": "555ecdb09dcb7d593ce71795cadbae2ef35d68ce4109a4630c9cfaa234c80a89",
+      "vocabulary_entries": 200058,
+      "unicode_probes_passed": 5,
+      "comparison": "official_native_tml_package_vs_pinned_hf_assets",
+      "live_sdk_tokenizer_compared": false,
+      "sdk_tokenizer_accessor": "not_used; version_0.27.1_requires_unpublished_package",
+      "all_encoded_header_and_body_token_ids_compared": true,
+      "all_encoded_header_and_body_unicode_roundtrips_checked": true
+    }
+  },
+  "runtime_versions": {
+    "tml-renderers": "0.1.0",
+    "torch": "2.14.0",
+    "transformers": "5.16.1",
+    "tokenizers": "0.23.2"
+  },
+  "sources": {
+    "oshb": {
+      "revision": "3d15126fb1ef74867fc1434be1942e837932691f",
+      "records_sha256": "221a1687c616138470e47e4e12c926e30078b5449abc585f774ff946ef25c63a",
+      "manifest_sha256": "734a189a35da43e88a3240248aa450612183a30ff3d16b245d95062f1fbc58a7"
+    },
+    "sblgnt": {
+      "revision": "c4d241a9c1c479a55b989ba35a4976c1d0b8052c",
+      "records_sha256": "fac6138a792ee1d099889d352015c10ff9748250ef034dba174e5e76d740af4f",
+      "manifest_sha256": "901aa2084c29f3ac138f465114aa6888e17745629efc48c5f269d15f1f76e337"
+    }
+  },
+  "system_prompt_sha256": "405c027ca4ca122501eaee2fb4d01605e86a35501ba8a084eada5b3417bec7e3",
+  "preparation_code_sha256": {
+    "bibleprep/prepare_instruction_revision.py": "30e0e3b361fe2b536d1dca43dc79f90a617d5d587b2b8c9056bded97be0756e1",
+    "bibleprep/prepare_instruction.py": "9d49f146ee86aa8a29bebf81fe576b6e1ed718f5890cb9d978fcb6c1d36f8cb4",
+    "bibleprep/prepare_inkling.py": "59c458d5dd6232b61d91cf2be5f79c76940331e8ace0d469173fc76e09c09271",
+    "bibleprep/tinker_compare.py": "b050a9ad9e246599138b62fa366d4e558619151d97a30d805c6abaca553856ff",
+    "bibleprep/tinker_evaluate.py": "e8bbb9e58a44f7cdd63bb81a1fdf9ff84b9fc0f514a5e4a6318327d49500e4d8",
+    "bibleprep/evaluate.py": "b803a1bf63244ba1f051fc6781a455bbd463ec4ce9f5584c95bb35881cfb02fd"
+  },
+  "evaluation_exclusion": {
+    "path": "manifests/instruction-target-revision-exclusions-v3-compatible.json",
+    "sha256": "2ab35cf2c849d0c8b7da432bfbbbfc657868f51d636f8e61d3975f705c3c4bc4",
+    "evaluation_sha256": "7a92dd0ab693eb2e79699d6fccbfe8ece8576fcc34ba443ab05dd39fe81c89d9",
+    "chapter_keys_count": 19,
+    "overlap_count": 0
+  },
+  "artifacts": {
+    "train": {
+      "path": "data/prepared/instruction-v3/train.jsonl",
+      "sha256": "13a00a519c8a523ebce5930f5e36394d765b827ac5bf6cf84ff82d65f0026b20",
+      "sequences": 104,
+      "processed_tokens": 65573,
+      "loss_tokens": 16598
+    },
+    "validation": {
+      "path": "data/prepared/instruction-v3/validation.jsonl",
+      "sha256": "695f578c1bd8e068d7b5ad1903f9860c8d1c030c176335e0902d18ef3ec33f00",
+      "sequences": 16,
+      "processed_tokens": 10837,
+      "loss_tokens": 2344
+    }
+  },
+  "split": {
+    "method": "connected_chapter_groups",
+    "selection": "explicit",
+    "seed": "instruction-v1",
+    "chapter_disjoint": true,
+    "train_chapters": [
+      "oshb:1Kgs.8",
+      "oshb:1Sam.16",
+      "oshb:2Kgs.5",
+      "oshb:Amos.5",
+      "oshb:Dan.2",
+      "oshb:Dan.3",
+      "oshb:Dan.6",
+      "oshb:Dan.7",
+      "oshb:Deut.6",
+      "oshb:Deut.8",
+      "oshb:Eccl.1",
+      "oshb:Exod.12",
+      "oshb:Exod.16",
+      "oshb:Exod.2",
+      "oshb:Exod.3",
+      "oshb:Ezek.36",
+      "oshb:Ezra.4",
+      "oshb:Ezra.5",
+      "oshb:Gen.2",
+      "oshb:Gen.22",
+      "oshb:Gen.32",
+      "oshb:Gen.4",
+      "oshb:Gen.45",
+      "oshb:Gen.8",
+      "oshb:Hos.6",
+      "oshb:Isa.40",
+      "oshb:Isa.55",
+      "oshb:Jer.10",
+      "oshb:Jer.31",
+      "oshb:Job.1",
+      "oshb:Josh.1",
+      "oshb:Judg.6",
+      "oshb:Lev.25",
+      "oshb:Mal.3",
+      "oshb:Num.11",
+      "oshb:Num.14",
+      "oshb:Prov.1",
+      "oshb:Prov.10",
+      "oshb:Prov.15",
+      "oshb:Prov.16",
+      "oshb:Prov.17",
+      "oshb:Prov.19",
+      "oshb:Prov.21",
+      "oshb:Ps.23",
+      "oshb:Ps.51",
+      "oshb:Ps.8",
+      "oshb:Ruth.1",
+      "sblgnt:1Cor.10",
+      "sblgnt:1Cor.12",
+      "sblgnt:1Cor.3",
+      "sblgnt:1Pet.5",
+      "sblgnt:2Cor.4",
+      "sblgnt:2Cor.5",
+      "sblgnt:2Tim.2",
+      "sblgnt:Acts.10",
+      "sblgnt:Acts.16",
+      "sblgnt:Acts.2",
+      "sblgnt:Acts.20",
+      "sblgnt:Acts.4",
+      "sblgnt:Col.3",
+      "sblgnt:Eph.2",
+      "sblgnt:Eph.4",
+      "sblgnt:Gal.5",
+      "sblgnt:Gal.6",
+      "sblgnt:Jas.1",
+      "sblgnt:John.13",
+      "sblgnt:John.15",
+      "sblgnt:John.2",
+      "sblgnt:John.4",
+      "sblgnt:John.6",
+      "sblgnt:John.9",
+      "sblgnt:Luke.15",
+      "sblgnt:Luke.18",
+      "sblgnt:Luke.5",
+      "sblgnt:Luke.6",
+      "sblgnt:Mark.12",
+      "sblgnt:Mark.2",
+      "sblgnt:Mark.4",
+      "sblgnt:Mark.8",
+      "sblgnt:Mark.9",
+      "sblgnt:Matt.4",
+      "sblgnt:Matt.6",
+      "sblgnt:Matt.7",
+      "sblgnt:Matt.9",
+      "sblgnt:Phil.2",
+      "sblgnt:Rev.3",
+      "sblgnt:Rom.14",
+      "sblgnt:Rom.5",
+      "sblgnt:Titus.3"
+    ],
+    "validation_chapters": [
+      "oshb:2Sam.7",
+      "oshb:Dan.4",
+      "oshb:Deut.30",
+      "oshb:Ezra.6",
+      "oshb:Gen.16",
+      "oshb:Job.42",
+      "oshb:Prov.18",
+      "sblgnt:1Thess.5",
+      "sblgnt:Acts.8",
+      "sblgnt:Heb.10",
+      "sblgnt:John.20",
+      "sblgnt:Luke.19",
+      "sblgnt:Rom.8"
+    ]
+  },
+  "by_language": {
+    "train": {
+      "arc": 19,
+      "grc": 43,
+      "hbo": 42
+    },
+    "validation": {
+      "arc": 5,
+      "grc": 6,
+      "hbo": 5
+    }
+  },
+  "framing": {
+    "format": "official_native_tml_render_for_sft",
+    "assistant_channel": "Final canonicalized to Main by native renderer",
+    "loss": "native assistant response framing, answer, end_message and ModelEndSampling; all prompt tokens masked",
+    "shift": "exactly_once",
+    "reasoning_traces": false,
+    "unicode_normalization": "none",
+    "generation_prefix_token_equality_checked": true,
+    "support_notes_rendered": false
+  },
+  "provider_references": [
+    "https://tinker-docs.thinkingmachines.ai/cookbook/inkling/tml-renderers/",
+    "https://tinker-docs.thinkingmachines.ai/cookbook/inkling/thinking-effort/",
+    "https://raw.githubusercontent.com/thinking-machines-lab/tinker-cookbook/1f962eda3a2cec8de284725f2adc9978e93dfcd3/tinker_cookbook/renderers/tml_v0.py"
+  ],
+  "limitations": [
+    "AI source review is not expert certification. No model API was called.",
+    "This composition revision does not establish the cause of earlier omissions.",
+    "All validation bytes and unchanged training rows are preserved; no new evaluation cases were read.",
+    "Final-only native targets and medium effort are unchanged; base prior exposure remains unknown."
+  ]
+}
