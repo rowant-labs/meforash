@@ -41,6 +41,7 @@ let publicAccess = false;
 let emailLoginAvailable = false;
 let currentAccess = { kind: "invite", questions_remaining: null, daily_limit: 20, reset_at: null };
 let authReturnState = "Ready";
+let authReturnWorking = false;
 
 const HANDOFF_KEY = "meforash.auth-handoff.v1";
 const HANDOFF_TTL_MS = 10 * 60 * 1000;
@@ -304,14 +305,14 @@ function renderStatus(status) {
   renderAccess(status.access);
 }
 
-function restoreAuthHandoff(handoff) {
+function restoreAuthHandoff(handoff, clear = true) {
   if (!handoff) return;
   messages = handoff.messages;
   removeChildren(conversation);
   for (const message of messages) messageNode(message.role, message.content);
   question.value = handoff.draft;
   renderSources(handoff.sources, handoff.source_notes);
-  clearAuthHandoff();
+  if (clear) clearAuthHandoff();
 }
 
 function resetAuthDialog() {
@@ -329,6 +330,7 @@ function openAuthDialog(message = "") {
   if (!emailLoginAvailable) return;
   if (!authDialog.open) {
     authReturnState = requestState.textContent;
+    authReturnWorking = sendButton.disabled || question.disabled;
     stateEpoch += 1;
     setWorking(false, authReturnState);
     resetAuthDialog();
@@ -343,8 +345,23 @@ function cancelAuthDialog() {
   if (authDialog.open) authDialog.close();
   resetAuthDialog();
   clearAuthHandoff();
-  setWorking(false, authReturnState);
+  setWorking(authReturnWorking, authReturnState);
   question.focus();
+}
+
+function showPublicGuestUnavailable(message, handoff) {
+  loginView.hidden = true;
+  chatView.hidden = false;
+  newChatButton.hidden = true;
+  logoutButton.hidden = true;
+  signInButton.hidden = !emailLoginAvailable;
+  loginMessage.textContent = "";
+  quotaHint.hidden = false;
+  quotaHint.textContent = emailLoginAvailable
+    ? "Guest access is temporarily unavailable. Sign in with email to continue."
+    : "Guest access is temporarily unavailable. Please try again shortly.";
+  setWorking(true, message || "Guest access is temporarily unavailable.");
+  restoreAuthHandoff(handoff, false);
 }
 
 function appendPlainText(parent, text) {
@@ -546,7 +563,7 @@ async function refreshStatus(generation) {
 }
 
 async function recoverGuest(message) {
-  const epoch = resetConversation();
+  const epoch = ++stateEpoch;
   setWorking(true, "Restoring guest access…");
   try {
     const status = await api("/api/guest", { method: "POST", body: "{}" }, false);
@@ -555,7 +572,10 @@ async function recoverGuest(message) {
     setWorking(false, message);
   } catch (error) {
     if (epoch !== stateEpoch) return;
-    showLogin(error.userMessage || "Meforash is temporarily unavailable.");
+    showPublicGuestUnavailable(
+      error.userMessage || "Guest access is temporarily unavailable.",
+      null,
+    );
   }
 }
 
@@ -827,7 +847,10 @@ async function initialize() {
       return;
     } catch (error) {
       if (initialEpoch !== stateEpoch) return;
-      showLogin(error.userMessage || "Meforash is temporarily unavailable.");
+      showPublicGuestUnavailable(
+        error.userMessage || "Guest access is temporarily unavailable.",
+        pendingHandoff,
+      );
       return;
     }
   }

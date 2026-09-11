@@ -409,6 +409,102 @@ async function testCancelSignInKeepsDraftAndClearsHandoff() {
   assert.equal(document.sessionStorage.getItem("meforash.auth-handoff.v1"), null);
 }
 
+async function testGuestBootstrapFailureKeepsPublicEmailSignInAvailable() {
+  const calls = [];
+  const handoff = JSON.stringify({
+    version: 1,
+    expires_at: Date.now() + 60000,
+    messages: [
+      { role: "user", content: "Question before sign-in" },
+      { role: "assistant", content: "Answer before sign-in" },
+    ],
+    draft: "Saved draft must not submit itself",
+    sources: [],
+    source_notes: [],
+  });
+  const document = await boot((url, options = {}) => {
+    calls.push([url, options.method || "GET"]);
+    if (url === "/api/access") return response(200, publicAccess());
+    if (url === "/api/status") {
+      return response(401, { error: { code: "unauthorized" } });
+    }
+    if (url === "/api/guest") {
+      return response(429, {
+        error: { code: "rate_limited", message: "Please wait before trying again." },
+      });
+    }
+    if (url === "/api/auth/start") return response(200, { status: "code_sent" });
+    if (url === "/api/auth/verify") return response(200, publicStatus("account", 20));
+    throw new Error(`Unexpected fetch: ${url}`);
+  }, { "meforash.auth-handoff.v1": handoff });
+
+  assert.equal(document.querySelector("#login-view").hidden, true);
+  assert.equal(document.querySelector("#chat-view").hidden, false);
+  assert.equal(document.querySelector("#sign-in-button").hidden, false);
+  assert.equal(document.querySelector("#new-chat-button").hidden, true);
+  assert.equal(document.querySelector("#question").disabled, true);
+  assert.equal(document.querySelector("#send-button").disabled, true);
+  assert.equal(document.querySelector("#request-state").textContent,
+    "Please wait before trying again.");
+  assert.match(document.querySelector("#quota-hint").textContent,
+    /Guest access is temporarily unavailable.*Sign in with email/);
+  assert.equal(document.querySelector("#conversation").children.length, 2);
+  assert.equal(document.querySelector("#question").value,
+    "Saved draft must not submit itself");
+  assert.ok(document.sessionStorage.getItem("meforash.auth-handoff.v1"));
+  assert.equal(calls.some(([url]) => url === "/api/chat"), false);
+
+  await document.querySelector("#sign-in-button").dispatch("click");
+  assert.equal(document.querySelector("#auth-dialog").open, true);
+  await document.querySelector("#auth-cancel-button").dispatch("click");
+  assert.equal(document.querySelector("#auth-dialog").open, false);
+  assert.equal(document.querySelector("#question").disabled, true);
+  assert.equal(document.querySelector("#question").value,
+    "Saved draft must not submit itself");
+
+  await document.querySelector("#sign-in-button").dispatch("click");
+  document.querySelector("#auth-email").value = "reader@example.test";
+  await document.querySelector("#email-form").dispatch("submit");
+  document.querySelector("#auth-token").value = "12345678";
+  await document.querySelector("#code-form").dispatch("submit");
+  assert.equal(document.querySelector("#auth-dialog").open, false);
+  assert.equal(document.querySelector("#question").disabled, false);
+  assert.equal(document.querySelector("#conversation").children.length, 2);
+  assert.equal(document.querySelector("#question").value,
+    "Saved draft must not submit itself");
+  assert.equal(document.querySelector("#sign-in-button").hidden, true);
+  assert.equal(document.querySelector("#logout-button").hidden, false);
+  assert.equal(calls.some(([url]) => url === "/api/chat"), false);
+}
+
+async function testGuestRecoveryFailureNeverFallsBackToInvitationLogin() {
+  let chatCalls = 0;
+  const document = await boot((url) => {
+    if (url === "/api/access") return response(200, publicAccess());
+    if (url === "/api/status") return response(200, publicStatus("guest", 2));
+    if (url === "/api/chat") {
+      chatCalls += 1;
+      return response(401, { error: { code: "unauthorized" } });
+    }
+    if (url === "/api/guest") {
+      return response(429, {
+        error: { code: "rate_limited", message: "Please wait before trying again." },
+      });
+    }
+    throw new Error(`Unexpected fetch: ${url}`);
+  });
+
+  document.querySelector("#question").value = "Keep this draft after expiry";
+  await document.querySelector("#chat-form").dispatch("submit");
+  assert.equal(document.querySelector("#login-view").hidden, true);
+  assert.equal(document.querySelector("#chat-view").hidden, false);
+  assert.equal(document.querySelector("#sign-in-button").hidden, false);
+  assert.equal(document.querySelector("#question").disabled, true);
+  assert.equal(document.querySelector("#question").value,
+    "Keep this draft after expiry");
+  assert.equal(chatCalls, 1);
+}
+
 async function testAccountSignOutInvalidatesLatePollAndReturnsToGuest() {
   const latePoll = deferred();
   const document = await boot((url, options = {}) => {
@@ -530,11 +626,13 @@ async function testAuthReloadRestoresGuestOnceButNeverIntoAccount() {
   await testAnswerFormattingUsesOnlySafeDomNodes();
   await testGuestLimitAndCodeSignInPreservePageState();
   await testCancelSignInKeepsDraftAndClearsHandoff();
+  await testGuestBootstrapFailureKeepsPublicEmailSignInAvailable();
+  await testGuestRecoveryFailureNeverFallsBackToInvitationLogin();
   await testAccountSignOutInvalidatesLatePollAndReturnsToGuest();
   await testDailyLimitShowsResetWithoutClearingDraft();
   await testMaliciousSessionHandoffIsDiscarded();
   await testAuthReloadRestoresGuestOnceButNeverIntoAccount();
-  process.stdout.write("3 beta browser regression scenarios passed; 6 public access scenarios passed; 3 presentation safety scenarios passed\n");
+  process.stdout.write("3 beta browser regression scenarios passed; 8 public access scenarios passed; 3 presentation safety scenarios passed\n");
 })().catch((error) => {
   console.error(error);
   process.exitCode = 1;

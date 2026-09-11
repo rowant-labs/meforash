@@ -548,7 +548,6 @@
     "evaluation_severity_audit_blocks_initial_beta": false,
     "next_steps": [
       "Complete one explicitly authorized real-inbox sign-in delivery test.",
-      "Connect meforash.com DNS and switch canonical origin only after HTTPS verification.",
       "Add a fair request queue; the bounded beta currently rejects busy requests without consuming allowance.",
       "Implement optional saved history and deletion controls, then apply and test its prepared row-level policies before enabling saves.",
       "Verify exact retained B streaming transport and latency before changing live sampling."
@@ -585,7 +584,7 @@
       "reset_timezone": "UTC"
     },
     "constructed_conversation_checks": "Four unchanged-B product checks, reserved $0.33287424 under $0.40 cap; private runs/launch-v1; not a comparative benchmark",
-    "hosting_url": "https://meforash-production.up.railway.app",
+    "hosting_url": "https://meforash.com",
     "repository_url": "https://github.com/rowant-labs/meforash",
     "source_only_tests_passed": 552,
     "source_only_asset_tests_excluded": 94,
@@ -597,6 +596,8 @@
     "b_retention": "Both existing checkpoint expiries removed and verified; private; estimated combined storage $2.016734/month.",
     "restart_accounting_verified": true,
     "owner_access_file_private": "runs/launch-v1/hosted-access/owner-access.txt",
-    "public_model_version": "Meforash 0.1"
+    "public_model_version": "Meforash 0.1",
+    "canonical_domain_verified": true,
+    "legacy_host_redirect_verified": true
   }
 }

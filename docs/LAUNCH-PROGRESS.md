@@ -61,6 +61,12 @@ The current small beta retains single-generation concurrency: busy requests cons
 
 ## Canonical domain preparation — September 11, 2026
 
-The owner authorized connecting meforash.com and changing the visible label to Beta. Cloudflare now has Railway's apex traffic record and ownership TXT record, with DNS-only routing. Certificate verification and the canonical-origin cutover remain pending. Support email forwarding is configured separately; mail DNS remains intact.
+The owner authorized connecting meforash.com and changing the visible label to Beta. Cloudflare now has Railway's apex traffic record and ownership TXT record, with DNS-only routing. Railway ownership and its HTTPS certificate are verified. The canonical app and Supabase auth origin are now https://meforash.com. Support email forwarding is configured separately; mail DNS remains intact.
 
 The UI patch replaces the Private beta badge and adds fixed-route GET/HEAD redirects from the old Railway hostname only when the configured origin is https://meforash.com. API POST origin checks remain strict. The legacy invitation form remains an operator fallback; normal public access uses guests and email accounts. A domain change does not transfer browser cookies or temporary conversation storage across origins. Existing users may need to sign in again; this change does not enable persistent history.
+
+
+Canonical-domain checks verified HTTPS, the Beta label, public/email access discovery, operator login and the 31,152-source inventory, old-host redirect, and foreign-origin rejection. The test connection received the expected guest-issuance rate limit from earlier engineering checks; no limits or spending records were reset. No model generation or email delivery test was performed by this cutover.
+
+
+A public guest-issuance failure now keeps the public interface visible and offers email sign-in when available, rather than exposing invitation credentials. The composer stays disabled until a valid session exists; temporary conversation/draft recovery and cancellation are tested. The legacy invitation form remains reserved for invitation-mode operation. Fourteen browser scenarios and ten preview tests passed for this follow-up.
