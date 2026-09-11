@@ -1,0 +1,9 @@
+# Meforash model versioning
+
+September 11, 2026. The public model name **Meforash 0.1** maps to the retained original-text-only B adapter described in the [Inkling B model card](MODEL-CARD-INKLING-B.md). Its base is full `thinkingmachines/Inkling`; B is the rank-8 LoRA trained for 136 updates on the project's selected Hebrew, Aramaic, and Greek biblical editions. The public name does not imply a new checkpoint, a new training run, or a change from retained B. It does not refer to unchanged Inkling or to candidates C through G.
+
+The model version and application release version are independent. Interface, authentication, source-card, hosting, and other application changes may ship without changing Meforash 0.1 when the answering checkpoint and model-facing behavior remain the same. Conversely, a different base model or adapted checkpoint must receive a new public model version even if the interface does not change.
+
+For each future public model version, record its effective date, exact base identifier and available revision evidence, adapter/checkpoint identity without publishing private locators, dataset and recipe records, inference prompt and source-delivery behavior, evaluation evidence, limitations, and the owner decision that selected it. Provider base revisions for B were not pinned, so the Meforash 0.1 record must retain that reproducibility limit rather than suggesting an exact recoverable base snapshot.
+
+The beta status response therefore keeps two distinct fields: `public_model` is `Meforash 0.1` for reader display, while `model` preserves the internal retained-B provenance used by operational checks. The interface falls back to `Meforash 0.1` if the public field is absent. A future model change must update both the serving configuration and this mapping together; a branding-only application release must not silently remap the version.

@@ -102,7 +102,7 @@ function detail(term, value) {
 
 function renderStatus(status) {
   removeChildren(serviceDetails);
-  detail("Study model", status.model || "Inkling B");
+  detail("Model", status.public_model || "Meforash 0.1");
   detail("Source collection", `${Number(status.source_count || 0).toLocaleString()} passage records available`);
   detail("Conversation text", status.conversation_storage === "not_stored" ? "Kept in memory for this session" : "Storage status unavailable");
   if (status.usage?.uncertain_requests) {
@@ -306,7 +306,7 @@ async function poll(requestId, generation) {
       const result = await api(`/api/chat/${encodeURIComponent(requestId)}`);
       if (generation !== stateEpoch) return;
       if (result.status === "running") {
-        requestState.textContent = "Inkling B is preparing an answer…";
+        requestState.textContent = "Meforash is preparing an answer…";
         continue;
       }
       if (result.status === "complete") {
@@ -379,7 +379,7 @@ chatForm.addEventListener("submit", async (event) => {
     messages = pendingMessages;
     question.value = "";
     messageNode("user", text);
-    requestState.textContent = "Inkling B is preparing an answer…";
+    requestState.textContent = "Meforash is preparing an answer…";
     await poll(accepted.request_id, epoch);
   } catch (error) {
     if (epoch !== stateEpoch) return;

@@ -547,17 +547,17 @@
     "further_training_required": false,
     "evaluation_severity_audit_blocks_initial_beta": false,
     "next_steps": [
-      "Re-authenticate GitHub and push the reviewed local source commit to rowant-labs/meforash main.",
+      "Verify exact retained B streaming transport and latency before changing live sampling.",
       "Connect meforash.com DNS and switch canonical origin only after HTTPS verification.",
-      "Choose Supabase project and execute RLS tests before optional account/history integration.",
+      "Discuss guest allowance and optional accounts with the owner before implementing login/history changes.",
       "Implement bounded guest access and a fair request queue before opening guest traffic."
     ],
-    "hosting_access_observation": "Railway CLI is installed but not authenticated in this environment.",
-    "publication_status": "Public rowant-labs/meforash repository created; exact reviewed source commit prepared locally, first push blocked by expired GitHub CLI authentication.",
+    "hosting_access_observation": "Railway authenticated; owner beta hosted and verified.",
+    "publication_status": "Reviewed source published to public rowant-labs/meforash main on September 11, 2026; private runtime assets excluded.",
     "brand": "Meforash",
     "repository_target": "rowant-labs/meforash",
     "implementation_status": "owner_beta_hosted_HTTPS_B_answer_verified",
-    "optional_accounts": "Supabase project selection pending; guest access and saved history not yet implemented",
+    "optional_accounts": "Discussion requested before implementation; invitation access unchanged",
     "constructed_conversation_checks": "Four unchanged-B product checks, reserved $0.33287424 under $0.40 cap; private runs/launch-v1; not a comparative benchmark",
     "hosting_url": "https://meforash-production.up.railway.app",
     "repository_url": "https://github.com/rowant-labs/meforash",
@@ -570,6 +570,7 @@
     "saved_conversations_enabled": false,
     "b_retention": "Both existing checkpoint expiries removed and verified; private; estimated combined storage $2.016734/month.",
     "restart_accounting_verified": true,
-    "owner_access_file_private": "runs/launch-v1/hosted-access/owner-access.txt"
+    "owner_access_file_private": "runs/launch-v1/hosted-access/owner-access.txt",
+    "public_model_version": "Meforash 0.1"
   }
 }

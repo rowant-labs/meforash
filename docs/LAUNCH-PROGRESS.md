@@ -29,8 +29,17 @@ The Linux container built successfully with the pinned CPU runtime. The uploaded
 
 The source-only suite passed 552 tests; 94 asset-dependent tests were explicitly excluded. A legacy privacy assertion was corrected to match the complete synthetic question ID rather than the same two characters inside a UTC timestamp; its prior bytes were preserved privately and no experimental result changed. Supabase migrations and 31 SQL assertions are prepared but have not run against PostgreSQL.
 
-A subsequent deployment preserved the exact $0.00464031 accounting balance; no extra model request was made for the restart check. The public GitHub repository was created, but the CLI credential became invalid before the first push. The reviewed initial source commit is being prepared locally. Supabase project selection and custom-domain DNS remain pending.
+A subsequent deployment preserved the exact $0.00464031 accounting balance; no extra model request was made for the restart check. The reviewed initial source commit was published to the public GitHub repository on September 11, 2026. Supabase project selection and custom-domain DNS remain pending.
 
 Both retained B checkpoint expiries were removed and verified after a storage-cost notice. Estimated ongoing storage for the sampler and training state together is $2.016734/month at $0.10/GB-month. Model weights remain private; no export or training took place.
 
 Integration review also fixed an empty-Markdown-marker progress bug in the answer renderer. The hostile-formatting regression now includes empty heading and list markers, and passes without allowing model HTML or links to execute.
+
+
+## September 11 product follow-up
+
+The public model name is Meforash 0.1, mapped to unchanged original-text-only B in [model versioning](MODEL-VERSIONING.md). The hero says “Fine-tuned on original languages.” No new training or prompt change accompanies this naming.
+
+Streaming is a prospective transport change. Tinker documents streaming text and separate thinking events for fine-tuned checkpoints through its [Anthropic-compatible endpoint](https://tinker-docs.thinkingmachines.ai/tinker/compatible-apis/anthropic/). Our deployed native sampling route returns completed answers. Before switching, verify exact B access, input rendering and effort equivalence, first-answer-token latency, final completeness, disconnect accounting and exclusion of thinking events from browser output. Retain the current route until that check succeeds. The compatible endpoint remains beta with variable latency; no speed improvement has been measured.
+
+The owner requested discussion before account changes. Proposed starting point: three guest questions, then a free verified account with a daily allowance and optional saved history. Quotas are undecided; invitation access and session-only conversation memory remain unchanged. Global and per-user limits must survive restarts, and guest limits need abuse controls independently of model topic.

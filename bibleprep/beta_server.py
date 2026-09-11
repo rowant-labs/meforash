@@ -407,6 +407,7 @@ class BetaApplication:
 
     def status(self, invite_id):
         return {"ready": not self.closed, "busy": self.running,
+                "public_model": "Meforash 0.1",
                 "model": "Inkling · retained B original-text adapter",
                 "provider": "Thinking Machines / Tinker",
                 "source_count": self.library.count,

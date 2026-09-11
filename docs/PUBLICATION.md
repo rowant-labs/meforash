@@ -1,6 +1,6 @@
 # Publication and privacy practices
 
-The owner intends an open-source public project and wants personal data excluded. Prepare a shareable repository from the outset even while development is private. The public [Meforash repository](https://github.com/rowant-labs/meforash) has been created. Its first reviewed source push is pending renewed GitHub authentication; private runtime assets remain excluded.
+The owner intends an open-source public project and wants personal data excluded. Prepare a shareable repository from the outset even while development is private. The public [Meforash repository](https://github.com/rowant-labs/meforash) has been created. The first reviewed source commit was published on September 11, 2026; private runtime assets remain excluded.
 
 ## Public project material
 
