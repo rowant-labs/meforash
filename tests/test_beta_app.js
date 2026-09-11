@@ -319,7 +319,7 @@ function testReaderFacingCopyKeepsLimitsVisibleAndOperationsQuiet() {
   assert.match(MARKUP, /not the original manuscripts/);
   assert.doesNotMatch(MARKUP, /Thinking Machines|starter prompt|provider/i);
   assert.match(MARKUP, /<details class="about-panel/);
-  assert.match(MARKUP, /pattern="\[0-9\]\{6,10\}"/);
+  assert.match(MARKUP, /pattern="\[0-9\]\{6\}"/);
   assert.match(MARKUP, /Saved history is not available yet/);
   assert.match(MARKUP, /temporary session storage for up to ten minutes/);
   assert.doesNotMatch(MARKUP, /not written to disk/);

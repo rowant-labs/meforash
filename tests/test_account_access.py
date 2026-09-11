@@ -152,15 +152,15 @@ class AccessStoreTests(unittest.TestCase):
     def test_otp_persists_only_hashes_and_local_session_hides_provider_material(self):
         challenge = self.access.start(" Reader@Example.COM ", "192.0.2.15", now=1000)
         identity, session = self.access.verify(
-            "Reader@example.com", "87654321", challenge, "192.0.2.15", now=1001)
+            "Reader@example.com", "876543", challenge, "192.0.2.15", now=1001)
         self.assertEqual(identity, access_subject.AccessIdentity("account", USER_UUID))
         self.assertEqual(self.access.account_identity(session, now=1002), identity)
         raw = self.path.read_bytes()
-        for private in (b"Reader@example.com", b"reader@example.com", b"87654321",
+        for private in (b"Reader@example.com", b"reader@example.com", b"876543",
                         challenge.encode(), session.encode()):
             self.assertNotIn(private, raw)
         self.assertEqual(self.auth.started, ["reader@example.com"])
-        self.assertEqual(self.auth.verified, [("reader@example.com", "87654321")])
+        self.assertEqual(self.auth.verified, [("reader@example.com", "876543")])
 
     def test_provider_start_failure_leaves_rate_event_but_no_orphan_challenge(self):
         self.auth.error = access_subject.AccessError("auth_unavailable")
@@ -175,13 +175,13 @@ class AccessStoreTests(unittest.TestCase):
         challenge = self.access.start("reader@example.com", "192.0.2.16", now=2000)
         self.auth.error = access_subject.AccessError("invalid_code")
         with self.assertRaisesRegex(access_subject.AccessError, "invalid_code"):
-            self.access.verify("reader@example.com", "00000000", challenge,
+            self.access.verify("reader@example.com", "000000", challenge,
                                "192.0.2.16", now=2001)
         self.auth.error = None
-        self.access.verify("reader@example.com", "12345678", challenge,
+        self.access.verify("reader@example.com", "123456", challenge,
                            "192.0.2.16", now=2002)
         with self.assertRaisesRegex(access_subject.AccessError, "invalid_code"):
-            self.access.verify("reader@example.com", "12345678", challenge,
+            self.access.verify("reader@example.com", "123456", challenge,
                                "192.0.2.16", now=2003)
 
     def test_invalid_verification_attempts_are_durably_rate_limited(self):
@@ -190,15 +190,15 @@ class AccessStoreTests(unittest.TestCase):
         self.auth.error = access_subject.AccessError("invalid_code")
         for offset in range(10):
             with self.assertRaisesRegex(access_subject.AccessError, "invalid_code"):
-                self.access.verify("reader@example.com", "00000000", challenge,
+                self.access.verify("reader@example.com", "000000", challenge,
                                    "192.0.2.17", now=base + 1 + offset)
         with self.assertRaisesRegex(access_subject.AccessError, "rate_limited"):
-            self.access.verify("reader@example.com", "00000000", challenge,
+            self.access.verify("reader@example.com", "000000", challenge,
                                "192.0.2.17", now=base + 11)
         reopened = access_subject.AccountAccess(
             self.path, enabled=True, secret=ACCESS_SECRET, auth_client=self.auth)
         with self.assertRaisesRegex(access_subject.AccessError, "rate_limited"):
-            reopened.verify("reader@example.com", "00000000", challenge,
+            reopened.verify("reader@example.com", "000000", challenge,
                             "192.0.2.17", now=base + 12)
 
     def test_guest_lifetime_and_account_utc_daily_quotas_survive_restart(self):
@@ -302,6 +302,21 @@ class AccessStoreTests(unittest.TestCase):
 
 
 class SupabaseClientTests(unittest.TestCase):
+    def test_code_must_be_exactly_six_ascii_digits_before_provider_call(self):
+        calls = []
+
+        def opener(request, timeout):
+            calls.append(request)
+            return FakeResponse({})
+
+        client = access_subject.SupabaseAuthClient(
+            "https://project.supabase.co", "publishable-key-long-enough", opener=opener)
+        for token in (None, "", "12345", "1234567", "12a456", "123 56", "１２３４５６"):
+            with self.subTest(token=token):
+                with self.assertRaisesRegex(access_subject.AccessError, "invalid_code"):
+                    client.verify("reader@example.com", token)
+        self.assertEqual(calls, [])
+
     def test_exact_server_side_otp_verify_and_user_lookup(self):
         calls = []
 
@@ -318,7 +333,7 @@ class SupabaseClientTests(unittest.TestCase):
         client = access_subject.SupabaseAuthClient(
             "https://project.supabase.co", "publishable-key-long-enough", opener=opener)
         client.start("reader@example.com")
-        self.assertEqual(client.verify("reader@example.com", "12345678"), USER_UUID)
+        self.assertEqual(client.verify("reader@example.com", "123456"), USER_UUID)
         self.assertEqual([call[0].rsplit("/", 1)[-1] for call in calls], ["otp", "verify", "user"])
         self.assertEqual(calls[0][3], {"email": "reader@example.com", "create_user": True})
         self.assertEqual(calls[1][3]["type"], "email")
@@ -333,7 +348,7 @@ class SupabaseClientTests(unittest.TestCase):
         client = access_subject.SupabaseAuthClient(
             "https://project.supabase.co", "publishable-key-long-enough", opener=opener)
         with self.assertRaisesRegex(access_subject.AccessError, "invalid_code"):
-            client.verify("reader@example.com", "12345678")
+            client.verify("reader@example.com", "123456")
 
     def test_provider_rejection_maps_to_public_error(self):
         def opener(request, timeout):
@@ -342,7 +357,7 @@ class SupabaseClientTests(unittest.TestCase):
         client = access_subject.SupabaseAuthClient(
             "https://project.supabase.co", "publishable-key-long-enough", opener=opener)
         with self.assertRaisesRegex(access_subject.AccessError, "invalid_code"):
-            client.verify("reader@example.com", "12345678")
+            client.verify("reader@example.com", "123456")
 
 
 def unused_port():
@@ -441,7 +456,7 @@ class HTTPAccessTests(unittest.TestCase):
         challenge_cookie = self.cookies(headers)[0].split(";", 1)[0]
         status, value, headers = self.request(
             "POST", "/api/auth/verify",
-            {"email": "reader@example.com", "token": "12345678"},
+            {"email": "reader@example.com", "token": "123456"},
             f"{guest_cookie}; {challenge_cookie}")
         self.assertEqual(status, 200)
         self.assertEqual(value["access"]["kind"], "account")

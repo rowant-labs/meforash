@@ -123,7 +123,7 @@ class SupabaseAuthClient:
         self._request("/auth/v1/otp", body={"email": email, "create_user": True})
 
     def verify(self, email, token):
-        if not isinstance(token, str) or len(token) != 8 or not token.isascii() or not token.isdigit():
+        if not isinstance(token, str) or len(token) != 6 or not token.isascii() or not token.isdigit():
             raise AccessError("invalid_code")
         verified = self._request(
             "/auth/v1/verify", body={"email": email, "token": token, "type": "email"})

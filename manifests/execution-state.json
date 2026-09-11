@@ -598,6 +598,9 @@
     "owner_access_file_private": "runs/launch-v1/hosted-access/owner-access.txt",
     "public_model_version": "Meforash 0.1",
     "canonical_domain_verified": true,
-    "legacy_host_redirect_verified": true
+    "legacy_host_redirect_verified": true,
+    "legal_operator": "Rowant Labs LLC",
+    "initial_audience": "18+ owner accepted September 11, 2026; acceptance UI pending",
+    "sign_in_code_digits": 6
   }
 }

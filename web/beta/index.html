@@ -121,7 +121,7 @@
     <form id="code-form" class="auth-form" hidden>
       <p class="code-instruction">Enter the code sent to <strong id="code-email"></strong>.</p>
       <label for="auth-token">Sign-in code</label>
-      <input id="auth-token" name="token" type="text" inputmode="numeric" pattern="[0-9]{6,10}" minlength="6" maxlength="10" autocomplete="one-time-code" required>
+      <input id="auth-token" name="token" type="text" inputmode="numeric" pattern="[0-9]{6}" minlength="6" maxlength="6" autocomplete="one-time-code" required>
       <button id="code-button" class="primary-button" type="submit">Verify code</button>
     </form>
     <p id="auth-message" class="form-message" role="status" aria-live="polite"></p>
