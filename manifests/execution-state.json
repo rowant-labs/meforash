@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "document_type": "living_execution_state_not_frozen_experiment",
-  "updated_on": "2026-09-10",
+  "updated_on": "2026-09-11",
   "plan": "docs/EXECUTION-PLAN.md",
   "evaluation_runbook": "docs/EVALUATION-RUNBOOK.md",
   "handoff": "docs/AGENT-HANDOFF.md",
@@ -549,15 +549,39 @@
     "next_steps": [
       "Verify exact retained B streaming transport and latency before changing live sampling.",
       "Connect meforash.com DNS and switch canonical origin only after HTTPS verification.",
-      "Discuss guest allowance and optional accounts with the owner before implementing login/history changes.",
-      "Implement bounded guest access and a fair request queue before opening guest traffic."
+      "Apply and verify the prepared history migration and row-level policies against the dedicated Meforash Supabase project before enabling application access.",
+      "Implement three-question guest access, authentication, restart-safe adjustable 20-question daily account limits and a fair request queue before opening guest traffic.",
+      "Preserve the active conversation through sign-in with temporary same-tab storage; restore it only to memory and require a separate explicit action for persistent saving.",
+      "Configure reviewed transactional email and domain settings for authentication."
     ],
     "hosting_access_observation": "Railway authenticated; owner beta hosted and verified.",
     "publication_status": "Reviewed source published to public rowant-labs/meforash main on September 11, 2026; private runtime assets excluded.",
     "brand": "Meforash",
     "repository_target": "rowant-labs/meforash",
     "implementation_status": "owner_beta_hosted_HTTPS_B_answer_verified",
-    "optional_accounts": "Discussion requested before implementation; invitation access unchanged",
+    "optional_accounts": "Owner policy approved; implementation pending; invitation access unchanged",
+    "account_access_policy": {
+      "status": "owner_policy_approved_implementation_pending",
+      "supabase_project": {
+        "dedicated_to_meforash": true,
+        "organization": "Rowant Labs",
+        "region": "US East (Ohio)",
+        "compute_size": "Micro",
+        "created_on": "2026-09-11",
+        "provider_status": "ACTIVE_HEALTHY_independently_verified",
+        "local_cli_linked": true,
+        "migration_applied": false,
+        "authentication_integrated": false
+      },
+      "guest_questions_before_sign_in": 3,
+      "account_questions_per_day_initial": 20,
+      "account_daily_allowance_operator_adjustable": true,
+      "quota_enforcement_implemented": false,
+      "sign_in_conversation_continuity": "temporary_same_tab_storage_then_restore_to_memory",
+      "automatic_persistent_save_on_sign_in": false,
+      "saved_history_requires_explicit_action": true,
+      "current_invitation_flow_changed": false
+    },
     "constructed_conversation_checks": "Four unchanged-B product checks, reserved $0.33287424 under $0.40 cap; private runs/launch-v1; not a comparative benchmark",
     "hosting_url": "https://meforash-production.up.railway.app",
     "repository_url": "https://github.com/rowant-labs/meforash",
