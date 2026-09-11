@@ -549,8 +549,7 @@
     "next_steps": [
       "Finish live guest-to-account continuity and re-login allowance verification; real-inbox delivery and code acceptance confirmed.",
       "Add a fair request queue; the bounded beta currently rejects busy requests without consuming allowance.",
-      "Implement optional saved history and deletion controls, then apply and test its prepared row-level policies before enabling saves.",
-      "Run controlled native versus compatible-chat transport comparison; raw completion probe failed prompt/accounting parity. See docs/STREAMING-PROBE-V1.md."
+      "Implement optional saved history and deletion controls, then apply and test its prepared row-level policies before enabling saves."
     ],
     "hosting_access_observation": "Railway authenticated; owner beta hosted and verified.",
     "publication_status": "Reviewed source published to public rowant-labs/meforash main on September 11, 2026; private runtime assets excluded.",
@@ -602,7 +601,16 @@
     "legal_operator": "Rowant Labs LLC",
     "initial_audience": "18+ owner accepted September 11, 2026; acceptance UI pending",
     "sign_in_code_digits": 6,
-    "streaming_status": "compatible_chat_probe_passed_raw_completion_parity_failed_live_transport_unchanged",
-    "streaming_report": "docs/STREAMING-PROBE-V1.md"
+    "streaming_status": "compatible_chat_streaming_enabled_hosted_progress_and_accounting_verified",
+    "streaming_report": "docs/STREAMING-COMPARISON-V1.md",
+    "streaming_validation": {
+      "stream_answers_complete": 6,
+      "usable_pairs_independent_ai_review": 5,
+      "native_baseline_unavailable_preserved": 1,
+      "hosted_progress_snapshots": 8,
+      "root_python_tests": 80,
+      "browser_scenarios": 19,
+      "training_changed": false
+    }
   }
 }
