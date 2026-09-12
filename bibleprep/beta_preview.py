@@ -19,6 +19,11 @@ ASSET_ROOT = ROOT / "web" / "beta"
 MAX_ASSET_BYTES = 512_000
 CANONICAL_ORIGIN = "https://meforash.com"
 LEGACY_RAILWAY_HOST = "meforash-production.up.railway.app"
+# Public beacon site identifier, not a credential. Only served on the live origin.
+ANALYTICS_BEACON = (
+    b'<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" '
+    b'data-cf-beacon=\'{"token":"40b77bec48234dce8bed00eb241a18de"}\'></script>'
+)
 ASSETS = {
     "/": ("index.html", "text/html; charset=utf-8"),
     "/index.html": ("index.html", "text/html; charset=utf-8"),
@@ -101,6 +106,9 @@ def handler_for(app, *, origin, secure_cookie, asset_root=ASSET_ROOT, trust_real
             return True
 
         def _send_asset(self, data, content_type):
+            analytics = origin == CANONICAL_ORIGIN and secure_cookie
+            if analytics and content_type.startswith("text/html"):
+                data = data.replace(b"</body>", ANALYTICS_BEACON + b"\n</body>")
             self.send_response(200)
             self.send_header("Content-Type", content_type)
             self.send_header("Content-Length", str(len(data)))
@@ -112,8 +120,11 @@ def handler_for(app, *, origin, secure_cookie, asset_root=ASSET_ROOT, trust_real
             self.send_header("Cross-Origin-Opener-Policy", "same-origin")
             self.send_header(
                 "Content-Security-Policy",
-                "default-src 'self'; script-src 'self'; style-src 'self'; "
-                "connect-src 'self'; img-src 'self'; font-src 'none'; "
+                "default-src 'self'; script-src 'self'"
+                + (" https://static.cloudflareinsights.com" if analytics else "")
+                + "; style-src 'self'; connect-src 'self'"
+                + (" https://cloudflareinsights.com" if analytics else "")
+                + "; img-src 'self'; font-src 'none'; "
                 "object-src 'none'; base-uri 'none'; form-action 'self'; "
                 "frame-ancestors 'none'",
             )

@@ -123,6 +123,8 @@ class PreviewHTTPTests(unittest.TestCase):
         self.assertEqual(body, (subject.ASSET_ROOT / "index.html").read_bytes())
         self.assertEqual(headers["Cache-Control"], "no-store")
         self.assertIn("script-src 'self'", headers["Content-Security-Policy"])
+        self.assertNotIn(b"cloudflareinsights", body)
+        self.assertNotIn("cloudflareinsights", headers["Content-Security-Policy"])
         self.assertEqual(headers["X-Frame-Options"], "DENY")
         for path in ("/beta/app.js", "/beta/styles.css", "/index.html", "/privacy", "/terms", "/brand", "/favicon.svg", "/favicon-v2.svg", "/favicon-v3.svg", "/favicon-v5.svg", "/favicon-dark-v5.svg", "/favicon.ico", "/favicon-v5.ico", "/apple-touch-icon.png", "/apple-touch-v4.png", "/beta/logo.svg", "/beta/logo-v4.svg", "/beta/consent.js", "/beta/legal.css"):
             self.assertEqual(self.request("GET", path)[0], 200)
@@ -144,6 +146,15 @@ class PreviewHTTPTests(unittest.TestCase):
         thread = threading.Thread(target=server.serve_forever, daemon=True)
         thread.start()
         try:
+            for path in ("/", "/privacy", "/terms", "/brand"):
+                status, headers, body = self.request(
+                    "GET", path, host="meforash.com", port=hosted_port)
+                self.assertEqual(status, 200)
+                self.assertEqual(body.count(subject.ANALYTICS_BEACON), 1)
+                self.assertEqual(int(headers["Content-Length"]), len(body))
+                self.assertIn("https://static.cloudflareinsights.com", headers["Content-Security-Policy"])
+                self.assertIn("https://cloudflareinsights.com", headers["Content-Security-Policy"])
+                self.assertNotIn("unsafe-inline", headers["Content-Security-Policy"])
             status, headers, body = self.request(
                 "GET", "/", host=subject.LEGACY_RAILWAY_HOST, port=hosted_port)
             self.assertEqual(status, 308)

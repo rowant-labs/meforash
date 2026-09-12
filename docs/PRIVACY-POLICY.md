@@ -1,6 +1,6 @@
 # Meforash Privacy Policy
 
-**Effective date and version:** September 11, 2026 (`2026-09-11`)
+**Effective date and version:** September 12, 2026 (`2026-09-12`)
 
 Meforash is operated by **Rowant Labs LLC**, a Nebraska limited liability company ("Rowant Labs," "we," "us," or "our"). This Privacy Policy explains how we handle information when you use Meforash at `meforash.com`, contact us, or use a related Meforash service that links to this policy.
 
@@ -30,11 +30,11 @@ When you accept the Terms of Service, we record the applicable Terms version, th
 
 Meforash uses necessary, host-only cookies for guest, account, authentication-challenge, and invitation sessions. On the hosted service, these cookies are `Secure`, `HttpOnly`, and `SameSite=Strict`. Guest cookies may last up to 400 days, account sessions up to 30 days, and authentication challenges up to ten minutes. Expired local records are removed during later application cleanup rather than by a guaranteed real-time deletion job.
 
-Meforash does not currently use advertising cookies or application analytics.
+Meforash does not use advertising cookies. We use Cloudflare Web Analytics for aggregate page visits and website performance. It does not use analytics cookies or session replay. Cloudflare receives technical connection information and collects page, referral, browser/device, approximate country, and performance information. We do not send conversation text, drafts, email addresses, or account identifiers to this analytics service. Browser privacy tools may block it.
 
 ### Usage, security, and connection information
 
-Our local ledger stores request identifiers, an account, guest, or invitation identifier, timestamps, quota day and request status, and reserved or estimated inference cost. It also stores keyed digests derived from email addresses and network addresses, with timestamps, to enforce limits and prevent abuse. Raw network addresses are not stored in that ledger. Hosting and network providers may process IP addresses, connection information, and operational logs under their own settings and terms.
+Our local ledger stores request identifiers, an account, guest, or invitation identifier, timestamps, quota day and request status, and reserved or estimated inference cost. It also stores keyed digests derived from email addresses and network addresses, with timestamps, to enforce limits and prevent abuse. We use aggregate reports from these existing records to understand active account and guest identifiers, question counts, outcomes, and estimated costs; the reports contain no individual identifiers or conversation text. Raw network addresses are not stored in that ledger. Hosting and network providers may process IP addresses, connection information, and operational logs under their own settings and terms.
 
 ### Support communications
 
@@ -63,7 +63,7 @@ We use these providers to operate Meforash:
 - **[Railway](https://railway.com/legal/privacy)** hosts the application and may process network, device, and operational information.
 - **[Supabase](https://supabase.com/privacy)** provides email authentication and stores authentication-account information. Supabase generally acts as a processor for customer data used in its services.
 - **[Resend](https://resend.com/legal/privacy-policy)** delivers sign-in emails and processes destination addresses, message content, and delivery metadata for that purpose.
-- **[Cloudflare](https://www.cloudflare.com/policies/privacy/)** provides domain and network services and routes messages sent to the support address.
+- **[Cloudflare](https://www.cloudflare.com/policies/privacy/)** provides domain and network services, aggregate website analytics, and routes messages sent to the support address.
 - **[Google](https://policies.google.com/privacy)** provides the Gmail mailbox that receives support messages.
 
 These providers may use subprocessors and process information in multiple countries. Their retention, security, and independent handling of service and account data are governed by their contracts, settings, and applicable policies.

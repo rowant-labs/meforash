@@ -120,3 +120,11 @@ The lowercase-m revision is live: seven image routes match the reviewed files an
 Added a reusable dark-background version with a white lowercase m and lighter sage mem. Browser icons now have light/dark variants with contrasting backplates, plus a white-on-sage ICO fallback. Backplates retain legibility when browser chrome and the system color preference differ or a browser ignores icon media selection. Page content, the light-background header logo, model and Terms remain unchanged. The reusable logo kit includes the new dark variant.
 
 The contrast fix is deployed: all three new icon routes match reviewed bytes, and all four pages link the light/dark variants. Actual-size 16px/32px previews passed on both backgrounds, along with 11 preview tests and publication checks. The refreshed local logo ZIP includes the white-m dark variant and both favicon designs.
+
+## Basic traffic analytics and private usage reporting — September 12, 2026
+
+The owner approved simplified About copy, basic traffic analytics, and a private aggregate report while deferring saved history. Cloudflare Web Analytics is configured for manual installation because the site connects directly to Railway; the automatic EU-exclusion mode is not applicable to that installation. The server adds the public beacon only to HTML served with the canonical production origin and secure cookies. Local previews remain free of the beacon. CSP permits only the required Cloudflare script and collector origins in addition to existing first-party resources.
+
+The Privacy Policy is updated to version 2026-09-12 to disclose aggregate traffic/performance analytics and aggregate use of existing ledger records. Terms, model, training, and conversation storage are unchanged. No session replay, PostHog, custom analytics events, or conversation collection is added. The operator report is documented in [USAGE-REPORT.md](USAGE-REPORT.md); reports and production identifiers remain private. Browser blockers and manual beacon coverage limit traffic counts, and guest identifiers do not establish unique people.
+
+Cloudflare references: [data collection](https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/) and [installation and limitations](https://developers.cloudflare.com/web-analytics/faq/).

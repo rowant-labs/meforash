@@ -591,9 +591,9 @@ function testReaderFacingCopyKeepsLimitsVisibleAndOperationsQuiet() {
   assert.match(MARKUP, /AI trained on original Bible languages/);
   assert.match(MARKUP, /Bring your questions\. Explore the Bible in English\./);
   assert.match(MARKUP, /About Meforash/);
-  assert.match(MARKUP, /trained on selected Hebrew, Aramaic, and Greek biblical editions/);
-  assert.match(MARKUP, /training does not establish a single recovered original text/);
-  assert.match(MARKUP, /Source cards show passages supplied to Meforash/);
+  assert.match(MARKUP, /trained on selected Hebrew, Aramaic, and Greek biblical texts/);
+  assert.match(MARKUP, /Ancient manuscripts sometimes differ, and AI can make mistakes/);
+  assert.match(MARKUP, /Source cards show passages provided to the model for your answer/);
   assert.doesNotMatch(MARKUP, /starter prompt/i);
   assert.match(MARKUP, /<details class="about-panel/);
   assert.match(MARKUP, /pattern="\[0-9\]\{6\}"/);
