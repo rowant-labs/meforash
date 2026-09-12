@@ -586,7 +586,8 @@ async function testNetworkFailureAfterProgressLabelsPartialAndDoesNotRetry() {
 
 function testReaderFacingCopyKeepsLimitsVisibleAndOperationsQuiet() {
   assert.match(MARKUP, /Meforash/);
-  assert.match(MARKUP, /Original-language Bible exploration/);
+  assert.match(MARKUP, /class="brand-name">meforash<\/span>/);
+  assert.match(MARKUP, /class="brand-subtitle">original-language Bible exploration<\/span>/);
   assert.match(MARKUP, /AI trained on original Bible languages/);
   assert.match(MARKUP, /Bring your questions\. Explore the Bible in English\./);
   assert.match(MARKUP, /About Meforash/);

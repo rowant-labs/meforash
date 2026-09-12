@@ -102,3 +102,7 @@ Hosted verification confirmed the restored subtitle, trimmed About panel, revise
 ## Combined mem / M mark — September 12, 2026
 
 The owner authorized replacing the simple mem mark with a combined Hebrew mem and Latin M emblem. The mark uses original SVG geometry in the existing sage, gold and ivory palette, with matching browser and mobile-home-screen icons. Earlier assets remain recoverable from Git history. This updates presentation, not trademark registration, model behavior, or policy terms. Desktop/mobile layout and image loading passed. Eleven preview/asset tests and 22 browser scenarios passed. The hosted deployment is verified: five image routes match the reviewed local bytes, and all four pages reference the new logo and icons. Binary icon metadata and publication scanning passed. No model call or payment feature was added.
+
+## Lighter mark and lowercase wordmark — September 12, 2026
+
+The next owner-authorized visual iteration removes the badge frame and uses lighter, rounded strokes for the combined mem/M mark. Headers use **meforash** with **original-language Bible exploration** below it. The favicon uses a simpler mem-only variant at small sizes, while the header retains both letterforms. Existing assets remain recoverable in Git. Legal prose, Terms acceptance version, model behavior and account limits are unchanged.

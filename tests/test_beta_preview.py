@@ -124,7 +124,7 @@ class PreviewHTTPTests(unittest.TestCase):
         self.assertEqual(headers["Cache-Control"], "no-store")
         self.assertIn("script-src 'self'", headers["Content-Security-Policy"])
         self.assertEqual(headers["X-Frame-Options"], "DENY")
-        for path in ("/beta/app.js", "/beta/styles.css", "/index.html", "/privacy", "/terms", "/brand", "/favicon.svg", "/favicon-v2.svg", "/favicon.ico", "/apple-touch-icon.png", "/beta/logo.svg", "/beta/consent.js", "/beta/legal.css"):
+        for path in ("/beta/app.js", "/beta/styles.css", "/index.html", "/privacy", "/terms", "/brand", "/favicon.svg", "/favicon-v2.svg", "/favicon-v3.svg", "/favicon.ico", "/apple-touch-icon.png", "/beta/logo.svg", "/beta/consent.js", "/beta/legal.css"):
             self.assertEqual(self.request("GET", path)[0], 200)
         for path in ("/.env.example", "/../bibleprep/beta_server.py", "/app.js",
                      "/styles.css", "/beta/app.js?changed=1"):
@@ -243,15 +243,22 @@ class PreviewBoundaryTests(unittest.TestCase):
         root = subject.ASSET_ROOT
         logo = (root / "logo.svg").read_text()
         favicon = (root / "favicon.svg").read_text()
-        self.assertEqual(logo, favicon)
         self.assertIn("Hebrew mem and Latin M monogram", logo)
-        self.assertNotIn("<text", logo)
-        self.assertNotIn("font-family", logo)
+        self.assertIn("Hebrew mem mark", favicon)
+        self.assertIn('viewBox="8 6 53 53"', favicon)
+        self.assertIn("#a6844f", logo)
+        self.assertNotIn("#a6844f", favicon)
+        for vector in (logo, favicon):
+            self.assertNotIn("<text", vector)
+            self.assertNotIn("font-family", vector)
+            self.assertNotIn("<rect", vector)
         for name in ("index.html", "privacy.html", "terms.html", "brand.html"):
             markup = (root / name).read_text()
             self.assertIn('src="/beta/logo.svg"', markup)
+            self.assertIn('<span class="brand-name">meforash</span>', markup)
+            self.assertIn('<span class="brand-subtitle">original-language Bible exploration</span>', markup)
             ico_link = 'href="/favicon.ico" sizes="16x16 32x32 48x48"'
-            svg_link = 'href="/favicon-v2.svg" type="image/svg+xml" sizes="any"'
+            svg_link = 'href="/favicon-v3.svg" type="image/svg+xml" sizes="any"'
             self.assertIn(ico_link, markup)
             self.assertIn(svg_link, markup)
             self.assertLess(markup.index(ico_link), markup.index(svg_link))

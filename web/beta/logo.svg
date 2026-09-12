@@ -1,7 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
   <title id="title">Meforash Hebrew mem and Latin M monogram</title>
-  <path fill="#f7f3e9" stroke="#879787" stroke-width="1.5" d="M32 4.75C17.7 4.75 7.75 14.9 7.75 29.2v25.55h42.5a6 6 0 0 0 6-6V29.2C56.25 14.9 46.3 4.75 32 4.75Z"/>
-  <path fill="#41624c" d="M14.5 47 21.7 17h7.8L22.3 47Z"/>
-  <path fill="#41624c" fill-rule="evenodd" d="M25.5 47 29 32c2.25-9.75 6.35-15 12-15 7.55 0 11.5 6.5 11.5 18v12Zm6.3-7.5h13.4V35c0-6.7-1.5-10-5-10-4 0-7 4.8-8.4 11Z"/>
-  <path fill="none" stroke="#a6844f" stroke-linecap="square" stroke-linejoin="miter" stroke-width="2.8" d="M33.8 41V32.8l5.3 5.6 5.3-5.6V41"/>
+  <path fill="none" stroke="#41624c" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.75" d="M14.5 46 22.5 18 29 29c2.4-7.2 7.1-11 13.1-11 8 0 12.4 6.2 12.4 16.5V46H28"/>
+  <path fill="none" stroke="#a6844f" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M32.5 40V30.5l6 6 6-6V40"/>
 </svg>

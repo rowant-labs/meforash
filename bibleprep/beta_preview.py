@@ -27,6 +27,7 @@ ASSETS = {
     "/brand": ("brand.html", "text/html; charset=utf-8"),
     "/favicon.svg": ("favicon.svg", "image/svg+xml"),
     "/favicon-v2.svg": ("favicon.svg", "image/svg+xml"),
+    "/favicon-v3.svg": ("favicon.svg", "image/svg+xml"),
     "/favicon.ico": ("favicon.ico", "image/x-icon"),
     "/apple-touch-icon.png": ("apple-touch-icon.png", "image/png"),
     "/beta/logo.svg": ("logo.svg", "image/svg+xml"),
