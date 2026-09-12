@@ -112,3 +112,5 @@ The lighter revision is deployed and verified: five live image routes match the 
 ## Lowercase black m and reusable logo files — September 12, 2026
 
 The approved lighter sage mem now contains a black lowercase Latin m. All four page headers and the mobile icon use the updated combined mark; the simplified mem-only favicon is unchanged. [Reusable brand assets](../brand/README.md) include authoritative original-path SVG, black and reverse-white SVG variants, and transparent PNG exports at 256, 512 and 1024 pixels. No fonts are required for the emblem. The earlier versions remain in Git history.
+
+The lowercase-m revision is live: seven image routes match the reviewed files and all four headers reference the new assets. Eleven preview tests and publication checks passed. PNG alpha transparency and metadata were checked, and a local ZIP kit was verified.
