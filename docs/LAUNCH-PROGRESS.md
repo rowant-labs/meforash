@@ -108,3 +108,7 @@ The owner authorized replacing the simple mem mark with a combined Hebrew mem an
 The next owner-authorized visual iteration removes the badge frame and uses lighter, rounded strokes for the combined mem/M mark. Headers use **meforash** with **original-language Bible exploration** below it. The favicon uses a simpler mem-only variant at small sizes, while the header retains both letterforms. Existing assets remain recoverable in Git. Legal prose, Terms acceptance version, model behavior and account limits are unchanged.
 
 The lighter revision is deployed and verified: five live image routes match the reviewed files, and all four headers use the lowercase wordmark and requested subtitle. Eleven preview/asset tests and 27 browser/consent scenarios passed; publication checks passed.
+
+## Lowercase black m and reusable logo files — September 12, 2026
+
+The approved lighter sage mem now contains a black lowercase Latin m. All four page headers and the mobile icon use the updated combined mark; the simplified mem-only favicon is unchanged. [Reusable brand assets](../brand/README.md) include authoritative original-path SVG, black and reverse-white SVG variants, and transparent PNG exports at 256, 512 and 1024 pixels. No fonts are required for the emblem. The earlier versions remain in Git history.
