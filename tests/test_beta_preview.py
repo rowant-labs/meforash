@@ -124,7 +124,7 @@ class PreviewHTTPTests(unittest.TestCase):
         self.assertEqual(headers["Cache-Control"], "no-store")
         self.assertIn("script-src 'self'", headers["Content-Security-Policy"])
         self.assertEqual(headers["X-Frame-Options"], "DENY")
-        for path in ("/beta/app.js", "/beta/styles.css", "/index.html", "/privacy", "/terms", "/brand", "/favicon.svg", "/beta/consent.js", "/beta/legal.css"):
+        for path in ("/beta/app.js", "/beta/styles.css", "/index.html", "/privacy", "/terms", "/brand", "/favicon.svg", "/favicon-v2.svg", "/favicon.ico", "/apple-touch-icon.png", "/beta/logo.svg", "/beta/consent.js", "/beta/legal.css"):
             self.assertEqual(self.request("GET", path)[0], 200)
         for path in ("/.env.example", "/../bibleprep/beta_server.py", "/app.js",
                      "/styles.css", "/beta/app.js?changed=1"):
@@ -239,6 +239,31 @@ class PreviewHTTPTests(unittest.TestCase):
 
 
 class PreviewBoundaryTests(unittest.TestCase):
+    def test_vector_monogram_and_favicon_fallbacks_are_wired(self):
+        root = subject.ASSET_ROOT
+        logo = (root / "logo.svg").read_text()
+        favicon = (root / "favicon.svg").read_text()
+        self.assertEqual(logo, favicon)
+        self.assertIn("Hebrew mem and Latin M monogram", logo)
+        self.assertNotIn("<text", logo)
+        self.assertNotIn("font-family", logo)
+        for name in ("index.html", "privacy.html", "terms.html", "brand.html"):
+            markup = (root / name).read_text()
+            self.assertIn('src="/beta/logo.svg"', markup)
+            ico_link = 'href="/favicon.ico" sizes="16x16 32x32 48x48"'
+            svg_link = 'href="/favicon-v2.svg" type="image/svg+xml" sizes="any"'
+            self.assertIn(ico_link, markup)
+            self.assertIn(svg_link, markup)
+            self.assertLess(markup.index(ico_link), markup.index(svg_link))
+            self.assertIn('href="/apple-touch-icon.png" sizes="180x180"', markup)
+        png = (root / "apple-touch-icon.png").read_bytes()
+        self.assertEqual(png[:8], b"\x89PNG\r\n\x1a\n")
+        self.assertEqual(int.from_bytes(png[16:20], "big"), 180)
+        self.assertEqual(int.from_bytes(png[20:24], "big"), 180)
+        ico = (root / "favicon.ico").read_bytes()
+        self.assertEqual(ico[:4], b"\x00\x00\x01\x00")
+        self.assertEqual(int.from_bytes(ico[4:6], "little"), 3)
+
     def test_beta_label_and_invitation_fallback_are_visible_without_javascript(self):
         markup = (subject.ASSET_ROOT / "index.html").read_text()
         self.assertIn('<span class="preview-badge">Beta</span>', markup)

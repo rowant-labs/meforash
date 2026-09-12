@@ -21,4 +21,4 @@ Owner-requested polish and policy completion, September 11, 2026. Status is upda
 - [ ] Check trademark availability before registration; the domain alone does not establish clearance.
 
 - [ ] Review actual model responses to crisis, self-harm, abuse and harmful spiritual-authority scenarios before broader promotion; terms are not evidence of safe behavior.
-- [ ] Explore a paired Hebrew mem / Latin M logo; keep both letterforms legible and test the mark at favicon size before changing live branding.
+- [x] Create a combined Hebrew mem / Latin M logo and matching SVG, ICO and mobile-home-screen icons; verify at header and favicon sizes.

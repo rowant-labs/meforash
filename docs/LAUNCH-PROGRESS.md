@@ -98,3 +98,7 @@ Terms revision `2026-09-11.1` explicitly states the service is not a crisis serv
 Review references: [FTC privacy-change guidance](https://www.ftc.gov/policy/advocacy-research/tech-at-ftc/2024/02/ai-other-companies-quietly-changing-your-terms-service-could-be-unfair-or-deceptive), [Nebraska unfair-practices statute](https://nebraskalegislature.gov/laws/statutes.php?statute=59-1602), and [NIST generative AI risk profile](https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf). This limited AI review is not a legal enforceability determination or a model safety evaluation.
 
 Hosted verification confirmed the restored subtitle, trimmed About panel, revised Terms and matching client acceptance version. Fifty-two backend/preview tests and 27 browser/consent scenarios passed. Publication scanning found no unresolved items. No paid model call or model-behavior change was part of this review.
+
+## Combined mem / M mark — September 12, 2026
+
+The owner authorized replacing the simple mem mark with a combined Hebrew mem and Latin M emblem. The mark uses original SVG geometry in the existing sage, gold and ivory palette, with matching browser and mobile-home-screen icons. Earlier assets remain recoverable from Git history. This updates presentation, not trademark registration, model behavior, or policy terms. Verification and deployment status are recorded after asset review.
