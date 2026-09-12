@@ -124,7 +124,7 @@ class PreviewHTTPTests(unittest.TestCase):
         self.assertEqual(headers["Cache-Control"], "no-store")
         self.assertIn("script-src 'self'", headers["Content-Security-Policy"])
         self.assertEqual(headers["X-Frame-Options"], "DENY")
-        for path in ("/beta/app.js", "/beta/styles.css", "/index.html", "/privacy", "/terms", "/brand", "/favicon.svg", "/favicon-v2.svg", "/favicon-v3.svg", "/favicon.ico", "/apple-touch-icon.png", "/beta/logo.svg", "/beta/consent.js", "/beta/legal.css"):
+        for path in ("/beta/app.js", "/beta/styles.css", "/index.html", "/privacy", "/terms", "/brand", "/favicon.svg", "/favicon-v2.svg", "/favicon-v3.svg", "/favicon-v5.svg", "/favicon-dark-v5.svg", "/favicon.ico", "/favicon-v5.ico", "/apple-touch-icon.png", "/apple-touch-v4.png", "/beta/logo.svg", "/beta/logo-v4.svg", "/beta/consent.js", "/beta/legal.css"):
             self.assertEqual(self.request("GET", path)[0], 200)
         for path in ("/.env.example", "/../bibleprep/beta_server.py", "/app.js",
                      "/styles.css", "/beta/app.js?changed=1"):
@@ -243,33 +243,62 @@ class PreviewBoundaryTests(unittest.TestCase):
         root = subject.ASSET_ROOT
         logo = (root / "logo.svg").read_text()
         favicon = (root / "favicon.svg").read_text()
-        self.assertIn("Hebrew mem and Latin M monogram", logo)
+        dark_favicon = (root / "favicon-dark.svg").read_text()
+        self.assertIn("Hebrew mem and Latin m monogram", logo)
         self.assertIn("Hebrew mem mark", favicon)
+        self.assertIn("dark browser themes", dark_favicon)
         self.assertIn('viewBox="8 6 53 53"', favicon)
-        self.assertIn("#a6844f", logo)
-        self.assertNotIn("#a6844f", favicon)
-        for vector in (logo, favicon):
+        self.assertIn("#252a25", logo)
+        self.assertNotIn("#252a25", favicon)
+        self.assertIn('fill="#faf8f1"', favicon)
+        self.assertIn('fill="#58715f"', dark_favicon)
+        self.assertIn('stroke="#fff"', dark_favicon)
+        for vector in (logo, favicon, dark_favicon):
             self.assertNotIn("<text", vector)
             self.assertNotIn("font-family", vector)
-            self.assertNotIn("<rect", vector)
+        self.assertNotIn("<rect", logo)
         for name in ("index.html", "privacy.html", "terms.html", "brand.html"):
             markup = (root / name).read_text()
-            self.assertIn('src="/beta/logo.svg"', markup)
+            self.assertIn('src="/beta/logo-v4.svg"', markup)
             self.assertIn('<span class="brand-name">meforash</span>', markup)
             self.assertIn('<span class="brand-subtitle">original-language Bible exploration</span>', markup)
-            ico_link = 'href="/favicon.ico" sizes="16x16 32x32 48x48"'
-            svg_link = 'href="/favicon-v3.svg" type="image/svg+xml" sizes="any"'
+            ico_link = 'href="/favicon-v5.ico" sizes="16x16 32x32 48x48"'
+            svg_link = 'href="/favicon-v5.svg" type="image/svg+xml" sizes="any" media="(prefers-color-scheme: light)"'
+            dark_svg_link = 'href="/favicon-dark-v5.svg" type="image/svg+xml" sizes="any" media="(prefers-color-scheme: dark)"'
             self.assertIn(ico_link, markup)
             self.assertIn(svg_link, markup)
+            self.assertIn(dark_svg_link, markup)
             self.assertLess(markup.index(ico_link), markup.index(svg_link))
-            self.assertIn('href="/apple-touch-icon.png" sizes="180x180"', markup)
+            self.assertIn('href="/apple-touch-v4.png" sizes="180x180"', markup)
         png = (root / "apple-touch-icon.png").read_bytes()
         self.assertEqual(png[:8], b"\x89PNG\r\n\x1a\n")
         self.assertEqual(int.from_bytes(png[16:20], "big"), 180)
         self.assertEqual(int.from_bytes(png[20:24], "big"), 180)
+        self.assertEqual(png[25], 6)
         ico = (root / "favicon.ico").read_bytes()
         self.assertEqual(ico[:4], b"\x00\x00\x01\x00")
         self.assertEqual(int.from_bytes(ico[4:6], "little"), 3)
+
+        brand = subject.ROOT / "brand"
+        self.assertEqual((brand / "mark-primary.svg").read_text(), logo)
+        for name in ("mark-primary.svg", "mark-black.svg", "mark-reverse.svg", "mark-dark.svg"):
+            vector = (brand / name).read_text()
+            self.assertNotIn("<text", vector)
+            self.assertNotIn("font-family", vector)
+        for size in (256, 512, 1024):
+            export = (brand / f"mark-primary-{size}.png").read_bytes()
+            self.assertEqual(export[:8], b"\x89PNG\r\n\x1a\n")
+            self.assertEqual(int.from_bytes(export[16:20], "big"), size)
+            self.assertEqual(int.from_bytes(export[20:24], "big"), size)
+            self.assertEqual(export[25], 6)
+        dark_export = (brand / "mark-dark-512.png").read_bytes()
+        self.assertEqual(dark_export[:8], b"\x89PNG\r\n\x1a\n")
+        self.assertEqual(int.from_bytes(dark_export[16:20], "big"), 512)
+        self.assertEqual(int.from_bytes(dark_export[20:24], "big"), 512)
+        self.assertEqual(dark_export[25], 6)
+        readme = (brand / "README.md").read_text()
+        self.assertIn("authoritative reusable logo asset", readme)
+        self.assertIn("../docs/BRAND-POLICY.md", readme)
 
     def test_beta_label_and_invitation_fallback_are_visible_without_javascript(self):
         markup = (subject.ASSET_ROOT / "index.html").read_text()

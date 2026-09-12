@@ -4,6 +4,7 @@
 
 - `mark-black.svg` is the one-color version for light backgrounds.
 - `mark-reverse.svg` is the one-color version for dark backgrounds.
+- `mark-dark.svg` and `mark-dark-512.png` retain the two-letter detail with a lighter sage mem and white lowercase m for dark backgrounds.
 - `mark-primary-{256,512,1024}.png` are transparent exports rendered from `mark-primary.svg` at their named pixel sizes.
 
 Keep the mark's proportions, colors, and clear space intact. See the [brand policy](../docs/BRAND-POLICY.md) for use requirements.
