@@ -106,3 +106,5 @@ The owner authorized replacing the simple mem mark with a combined Hebrew mem an
 ## Lighter mark and lowercase wordmark — September 12, 2026
 
 The next owner-authorized visual iteration removes the badge frame and uses lighter, rounded strokes for the combined mem/M mark. Headers use **meforash** with **original-language Bible exploration** below it. The favicon uses a simpler mem-only variant at small sizes, while the header retains both letterforms. Existing assets remain recoverable in Git. Legal prose, Terms acceptance version, model behavior and account limits are unchanged.
+
+The lighter revision is deployed and verified: five live image routes match the reviewed files, and all four headers use the lowercase wordmark and requested subtitle. Eleven preview/asset tests and 27 browser/consent scenarios passed; publication checks passed.
