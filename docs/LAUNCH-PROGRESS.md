@@ -118,3 +118,5 @@ The lowercase-m revision is live: seven image routes match the reviewed files an
 ## Dark-background brand and favicon contrast — September 12, 2026
 
 Added a reusable dark-background version with a white lowercase m and lighter sage mem. Browser icons now have light/dark variants with contrasting backplates, plus a white-on-sage ICO fallback. Backplates retain legibility when browser chrome and the system color preference differ or a browser ignores icon media selection. Page content, the light-background header logo, model and Terms remain unchanged. The reusable logo kit includes the new dark variant.
+
+The contrast fix is deployed: all three new icon routes match reviewed bytes, and all four pages link the light/dark variants. Actual-size 16px/32px previews passed on both backgrounds, along with 11 preview tests and publication checks. The refreshed local logo ZIP includes the white-m dark variant and both favicon designs.
