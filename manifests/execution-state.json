@@ -709,11 +709,11 @@
     "provider_message_sent": false
   },
   "affordable_model_exploration": {
-    "status": "modal_v2_snapshot_restore_verified_latency_variable",
+    "status": "modal_v3_six_reuses_confirmed_variable_latency",
     "branch": "codex/hosting-first-small-model",
     "base_commit": "4a0d6c0",
     "document": "docs/AFFORDABLE-MODEL-EXPLORATION.md",
-    "next": "Investigate remaining snapshot restore latency variability before production suitability or training; preserve measured 24s and121s reuse outcomes. Then verify adapter portability and freeze English Bible evaluation.",
+    "next": "End unchanged base-serving repetitions. Prepare bounded live adapter-loading verification; any tiny Tinker training/export probe needs owner notice and exact ceiling. No substantial training or production migration yet.",
     "live_model_changed": false,
     "training_started": false,
     "deployment_started": false,
@@ -728,6 +728,11 @@
     "modal_billing_status": "Latest meter $0.42 covered by credits; final usage/storage reconciliation pending within separate $5 ceiling.",
     "modal_v2_preflight_document": "docs/MODAL-PILOT-V2-PREFLIGHT.md",
     "modal_v2_result_document": "docs/MODAL-SERVING-RESULTS-V2.md",
-    "modal_v2_billing_status": "Account meter rose from $0.42 to $0.78 ($0.36 delta), billed $0 with credits; provisional within separate $5 ceiling."
+    "modal_v2_billing_status": "Account meter rose from $0.42 to $0.78 ($0.36 delta), billed $0 with credits; provisional within separate $5 ceiling.",
+    "modal_v3_preflight_document": "docs/MODAL-PILOT-V3-PREFLIGHT.md",
+    "modal_v3_result_document": "docs/MODAL-SERVING-RESULTS-V3.md",
+    "adapter_preflight_document": "docs/SMALL-MODEL-ADAPTER-PREFLIGHT.md",
+    "adapter_status": "Offline synthetic converter passed 20 tensor checks; exact live Tinker-to-vLLM adapter loading remains unverified.",
+    "modal_v3_billing_status": "Account meter $0.78 to $1.39: observed $0.61 campaign increase including collector resume, covered by credits; provisional within $5 ceiling."
   }
 }
