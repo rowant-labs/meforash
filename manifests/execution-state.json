@@ -713,7 +713,7 @@
     "branch": "codex/hosting-first-small-model",
     "base_commit": "4a0d6c0",
     "document": "docs/AFFORDABLE-MODEL-EXPLORATION.md",
-    "next": "End unchanged base-serving repetitions. Prepare bounded live adapter-loading verification; any tiny Tinker training/export probe needs owner notice and exact ceiling. No substantial training or production migration yet.",
+    "next": "Implement and execute a bounded Modal loader test using the project-created synthetic fixture after exact cost notice/preflight; no community weights needed. Integrate warming after live adapter verification. Training still needs exact notice and ceiling.",
     "live_model_changed": false,
     "training_started": false,
     "deployment_started": false,
@@ -732,7 +732,10 @@
     "modal_v3_preflight_document": "docs/MODAL-PILOT-V3-PREFLIGHT.md",
     "modal_v3_result_document": "docs/MODAL-SERVING-RESULTS-V3.md",
     "adapter_preflight_document": "docs/SMALL-MODEL-ADAPTER-PREFLIGHT.md",
-    "adapter_status": "Offline synthetic converter passed 20 tensor checks; exact live Tinker-to-vLLM adapter loading remains unverified.",
-    "modal_v3_billing_status": "Account meter $0.78 to $1.39: observed $0.61 campaign increase including collector resume, covered by credits; provisional within $5 ceiling."
+    "adapter_status": "Offline converter checks passed; project-created real-dimension rank8 fixture reproduced identical hashes, 66 tensors checked. GPU loading and real Tinker export remain unverified.",
+    "modal_v3_billing_status": "Account meter $0.78 to $1.39: observed $0.61 campaign increase including collector resume, covered by credits; provisional within $5 ceiling.",
+    "warming_document": "docs/SMALL-MODEL-WARMING.md",
+    "warming_status": "Offline single-process wake coordination prototype tested; no HTTP/provider integration or production change.",
+    "adapter_loader_document": "docs/MODAL-ADAPTER-LOADER-PREFLIGHT.md"
   }
 }
