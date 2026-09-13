@@ -6,7 +6,7 @@ These Terms of Service ("Terms") govern your access to Meforash at `meforash.com
 
 ## Acceptance and eligibility
 
-You must be at least 18 years old to use the Service. By selecting the acceptance control and using the Service, you agree to these Terms and represent that you are at least 18. If you do not agree, do not use the Service. If you use the Service for an organization, you represent that you have authority to bind that organization.
+You must be at least 18 years old to use the Service. By submitting a question or selecting a sign-in button beside our agreement notice, you agree to these Terms and represent that you are at least 18. If you do not agree, do not use the Service. If you use the Service for an organization, you represent that you have authority to bind that organization.
 
 We record the applicable Terms version, the date and time of acceptance, the guest or account identifier associated with the acceptance, and the 18-or-older representation. The corresponding [Privacy Policy](PRIVACY-POLICY.md) version is identified by its effective date. The Privacy Policy separately describes our information practices. Reading or acknowledging it is not blanket consent to every possible use of personal information.
 

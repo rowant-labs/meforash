@@ -290,9 +290,11 @@ class AccountAccess:
                              (digest, now)).fetchone()
         return AccessIdentity("guest", digest) if row else None
 
-    def start(self, email, peer, *, now=None):
+    def start(self, email, peer, *, terms_version, now=None):
         if not self.enabled or self.auth_client is None:
             raise AccessError("auth_unavailable")
+        if terms_version != TERMS_VERSION:
+            raise AccessError("terms_required")
         email = normalize_email(email)
         now = int(time.time() if now is None else now)
         email_hmac, peer_hmac = self.email_hash(email), self.peer_hash(peer)
@@ -326,9 +328,11 @@ class AccountAccess:
             raise AccessError("auth_unavailable") from None
         return challenge
 
-    def verify(self, email, token, challenge, peer, *, now=None):
+    def verify(self, email, token, challenge, peer, *, terms_version, now=None):
         if not self.enabled or self.auth_client is None:
             raise AccessError("auth_unavailable")
+        if terms_version != TERMS_VERSION:
+            raise AccessError("terms_required")
         email = normalize_email(email)
         if not isinstance(challenge, str) or not 32 <= len(challenge) <= 128:
             raise AccessError("invalid_code")
@@ -365,9 +369,21 @@ class AccountAccess:
             if count >= MAX_IDENTITIES:
                 db.execute("ROLLBACK")
                 raise AccessError("auth_unavailable")
+            existing_terms = db.execute(
+                "SELECT 1 FROM terms_acceptances WHERE principal_kind='account' "
+                "AND principal_id=? AND terms_version=?",
+                (user_uuid, TERMS_VERSION)).fetchone()
+            if (existing_terms is None
+                    and db.execute("SELECT COUNT(*) FROM terms_acceptances").fetchone()[0]
+                    >= MAX_IDENTITIES):
+                db.execute("ROLLBACK")
+                raise AccessError("rate_limited")
             db.execute("INSERT INTO account_sessions VALUES(?,?,?,?)", (
                 hashlib.sha256(session.encode()).hexdigest(), user_uuid, now,
                 now + ACCOUNT_SESSION_SECONDS))
+            if existing_terms is None:
+                db.execute("INSERT INTO terms_acceptances VALUES('account',?,?,?,1)",
+                           (user_uuid, TERMS_VERSION, now))
             db.execute("COMMIT")
         return AccessIdentity("account", user_uuid), session
 

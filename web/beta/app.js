@@ -47,6 +47,7 @@ let activeAnswerPresentation = null;
 const HANDOFF_KEY = "meforash.auth-handoff.v1";
 const HANDOFF_TTL_MS = 10 * 60 * 1000;
 const HANDOFF_MAX_BYTES = 500000;
+const TERMS_VERSION = "2026-09-11.1";
 
 function removeChildren(node) {
   while (node.firstChild) node.removeChild(node.firstChild);
@@ -891,7 +892,7 @@ emailForm.addEventListener("submit", async (event) => {
   try {
     await api("/api/auth/start", {
       method: "POST",
-      body: JSON.stringify({ email }),
+      body: JSON.stringify({ email, terms_version: TERMS_VERSION }),
     }, false);
     if (epoch !== stateEpoch || !authDialog.open) return;
     codeEmail.textContent = email;
@@ -921,7 +922,7 @@ codeForm.addEventListener("submit", async (event) => {
   try {
     const status = await api("/api/auth/verify", {
       method: "POST",
-      body: JSON.stringify({ email, token }),
+      body: JSON.stringify({ email, token, terms_version: TERMS_VERSION }),
     }, false);
     if (epoch !== stateEpoch || !authDialog.open) return;
     authDialog.close();

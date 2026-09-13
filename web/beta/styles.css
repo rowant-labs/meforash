@@ -103,6 +103,11 @@ textarea::placeholder { color: #858981; }
 .send-button svg { width: 19px; height: 19px; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
 .quota-hint { margin: 9px 7px 0; color: var(--muted); font-size: 10px; line-height: 1.5; }
 .quota-hint a { color: var(--accent); text-underline-offset: 2px; }
+.action-notice { color: #596359; font-size: 12px; line-height: 1.55; }
+.action-notice a { color: var(--accent-dark); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+.action-notice strong { color: #3f4d42; font-weight: 650; }
+.chat-action-notice { margin: 10px 7px 0; }
+.action-message { min-height: 0; margin: 7px 7px 0; color: #755f3f; font-size: 11px; line-height: 1.5; }
 .chat-about { margin: 11px 7px 0; }
 .chat-about .about-content { max-width: 620px; }
 .service-details { display: grid; grid-template-columns: max-content 1fr; gap: 5px 12px; margin: 16px 0 0; padding-top: 14px; border-top: 1px solid var(--line-soft); font-size: 10px; }
@@ -139,6 +144,7 @@ textarea::placeholder { color: #858981; }
 .code-instruction { margin: 0 0 17px; color: var(--muted); font-size: 11px; line-height: 1.6; overflow-wrap: anywhere; }
 .auth-token { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 23px; font-variant-numeric: tabular-nums; letter-spacing: .12em; }
 .auth-code-help { margin: 8px 0 0; color: var(--muted); font-size: 10px; line-height: 1.5; }
+.auth-action-notice { margin: 14px 0 -8px; }
 .auth-cancel { display: block; min-height: 40px; margin: 4px auto 0; padding: 8px 12px; border: 0; background: transparent; color: var(--muted); font-size: 11px; }
 .noscript-note { padding: 20px; text-align: center; color: var(--muted); }
 

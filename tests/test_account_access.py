@@ -183,11 +183,20 @@ class AccessStoreTests(unittest.TestCase):
         self.assertTrue(access_subject.AccountAccess(self.path).terms_accepted(invite))
 
     def test_otp_persists_only_hashes_and_local_session_hides_provider_material(self):
-        challenge = self.access.start(" Reader@Example.COM ", "192.0.2.15", now=1000)
-        identity, session = self.access.verify(
-            "Reader@example.com", "876543", challenge, "192.0.2.15", now=1001)
-        self.assertEqual(identity, access_subject.AccessIdentity("account", USER_UUID))
-        self.assertEqual(self.access.account_identity(session, now=1002), identity)
+        base = int(time.time())
+        challenge = self.access.start(
+            " Reader@Example.COM ", "192.0.2.15",
+            terms_version=access_subject.TERMS_VERSION, now=base)
+        account = access_subject.AccessIdentity("account", USER_UUID)
+        self.assertFalse(self.access.terms_accepted(account))
+        reopened = access_subject.AccountAccess(
+            self.path, enabled=True, secret=ACCESS_SECRET, auth_client=self.auth)
+        identity, session = reopened.verify(
+            "Reader@example.com", "876543", challenge, "192.0.2.15",
+            terms_version=access_subject.TERMS_VERSION, now=base + 1)
+        self.assertEqual(identity, account)
+        self.assertEqual(self.access.account_identity(session, now=base + 2), identity)
+        self.assertTrue(self.access.terms_accepted(identity))
         raw = self.path.read_bytes()
         for private in (b"Reader@example.com", b"reader@example.com", b"876543",
                         challenge.encode(), session.encode()):
@@ -195,44 +204,73 @@ class AccessStoreTests(unittest.TestCase):
         self.assertEqual(self.auth.started, ["reader@example.com"])
         self.assertEqual(self.auth.verified, [("reader@example.com", "876543")])
 
+    def test_stale_or_missing_notice_version_prevents_otp_provider_calls(self):
+        for version in (None, "2026-09-10"):
+            with self.subTest(operation="start", version=version), self.assertRaisesRegex(
+                    access_subject.AccessError, "terms_required"):
+                self.access.start("reader@example.com", "192.0.2.71",
+                                  terms_version=version)
+        self.assertEqual(self.auth.started, [])
+
+        challenge = self.access.start(
+            "reader@example.com", "192.0.2.71",
+            terms_version=access_subject.TERMS_VERSION)
+        for version in (None, "2026-09-10"):
+            with self.subTest(operation="verify", version=version), self.assertRaisesRegex(
+                    access_subject.AccessError, "terms_required"):
+                self.access.verify("reader@example.com", "123456", challenge,
+                                   "192.0.2.71", terms_version=version)
+        self.assertEqual(self.auth.verified, [])
+
     def test_provider_start_failure_leaves_rate_event_but_no_orphan_challenge(self):
         self.auth.error = access_subject.AccessError("auth_unavailable")
         with self.assertRaisesRegex(access_subject.AccessError, "auth_unavailable"):
-            self.access.start("reader@example.com", "192.0.2.18")
+            self.access.start("reader@example.com", "192.0.2.18",
+                              terms_version=access_subject.TERMS_VERSION)
         with closing(sqlite3.connect(self.path)) as db:
             self.assertEqual(db.execute("SELECT COUNT(*) FROM auth_challenges").fetchone()[0], 0)
             self.assertEqual(db.execute(
                 "SELECT COUNT(*) FROM access_rate_events WHERE kind='otp_start_email'").fetchone()[0], 1)
 
     def test_invalid_code_can_be_retried_but_challenge_cannot_be_replayed_after_success(self):
-        challenge = self.access.start("reader@example.com", "192.0.2.16", now=2000)
+        challenge = self.access.start(
+            "reader@example.com", "192.0.2.16",
+            terms_version=access_subject.TERMS_VERSION, now=2000)
         self.auth.error = access_subject.AccessError("invalid_code")
         with self.assertRaisesRegex(access_subject.AccessError, "invalid_code"):
             self.access.verify("reader@example.com", "000000", challenge,
-                               "192.0.2.16", now=2001)
+                               "192.0.2.16", terms_version=access_subject.TERMS_VERSION,
+                               now=2001)
         self.auth.error = None
         self.access.verify("reader@example.com", "123456", challenge,
-                           "192.0.2.16", now=2002)
+                           "192.0.2.16", terms_version=access_subject.TERMS_VERSION,
+                           now=2002)
         with self.assertRaisesRegex(access_subject.AccessError, "invalid_code"):
             self.access.verify("reader@example.com", "123456", challenge,
-                               "192.0.2.16", now=2003)
+                               "192.0.2.16", terms_version=access_subject.TERMS_VERSION,
+                               now=2003)
 
     def test_invalid_verification_attempts_are_durably_rate_limited(self):
         base = int(time.time())
-        challenge = self.access.start("reader@example.com", "192.0.2.17", now=base)
+        challenge = self.access.start(
+            "reader@example.com", "192.0.2.17",
+            terms_version=access_subject.TERMS_VERSION, now=base)
         self.auth.error = access_subject.AccessError("invalid_code")
         for offset in range(10):
             with self.assertRaisesRegex(access_subject.AccessError, "invalid_code"):
                 self.access.verify("reader@example.com", "000000", challenge,
-                                   "192.0.2.17", now=base + 1 + offset)
+                                   "192.0.2.17", terms_version=access_subject.TERMS_VERSION,
+                                   now=base + 1 + offset)
         with self.assertRaisesRegex(access_subject.AccessError, "rate_limited"):
             self.access.verify("reader@example.com", "000000", challenge,
-                               "192.0.2.17", now=base + 11)
+                               "192.0.2.17", terms_version=access_subject.TERMS_VERSION,
+                               now=base + 11)
         reopened = access_subject.AccountAccess(
             self.path, enabled=True, secret=ACCESS_SECRET, auth_client=self.auth)
         with self.assertRaisesRegex(access_subject.AccessError, "rate_limited"):
             reopened.verify("reader@example.com", "000000", challenge,
-                            "192.0.2.17", now=base + 12)
+                            "192.0.2.17", terms_version=access_subject.TERMS_VERSION,
+                            now=base + 12)
 
     def test_guest_lifetime_and_account_utc_daily_quotas_survive_restart(self):
         guest, _ = self.access.guest(None, "192.0.2.20", now=1000)
@@ -504,16 +542,20 @@ class HTTPAccessTests(unittest.TestCase):
         _, _, headers = self.request("POST", "/api/guest", {})
         guest_cookie = self.cookies(headers)[0].split(";", 1)[0]
         status, value, headers = self.request(
-            "POST", "/api/auth/start", {"email": "reader@example.com"}, guest_cookie)
+            "POST", "/api/auth/start", {
+                "email": "reader@example.com",
+                "terms_version": access_subject.TERMS_VERSION,
+            }, guest_cookie)
         self.assertEqual((status, value), (200, {"status": "code_sent"}))
         challenge_cookie = self.cookies(headers)[0].split(";", 1)[0]
         status, value, headers = self.request(
             "POST", "/api/auth/verify",
-            {"email": "reader@example.com", "token": "123456"},
+            {"email": "reader@example.com", "token": "123456",
+             "terms_version": access_subject.TERMS_VERSION},
             f"{guest_cookie}; {challenge_cookie}")
         self.assertEqual(status, 200)
         self.assertEqual(value["access"]["kind"], "account")
-        self.assertFalse(value["access"]["terms_accepted"])
+        self.assertTrue(value["access"]["terms_accepted"])
         self.assertNotIn(USER_UUID, json.dumps(value))
         self.assertNotIn("reader@example.com", json.dumps(value))
         account_cookie = next(item for item in self.cookies(headers)
@@ -521,10 +563,7 @@ class HTTPAccessTests(unittest.TestCase):
         status, value, _ = self.request(
             "POST", "/api/chat", {"messages": [{"role": "user", "content": "fixture"}]},
             f"{guest_cookie}; {account_cookie}")
-        self.assertEqual((status, value["error"]["code"]), (403, "terms_required"))
-        status, value, _ = self.accept_terms(f"{guest_cookie}; {account_cookie}")
-        self.assertEqual(status, 200)
-        self.assertTrue(value["access"]["terms_accepted"])
+        self.assertEqual(status, 202)
         status, value, headers = self.request(
             "POST", "/api/logout", {}, f"{guest_cookie}; {account_cookie}")
         self.assertEqual((status, value), (200, {"status": "signed_out"}))
@@ -538,11 +577,46 @@ class HTTPAccessTests(unittest.TestCase):
 
     def test_email_start_remains_available_without_guest_or_terms_identity(self):
         status, value, headers = self.request(
-            "POST", "/api/auth/start", {"email": "standalone@example.com"})
+            "POST", "/api/auth/start", {
+                "email": "standalone@example.com",
+                "terms_version": access_subject.TERMS_VERSION,
+            })
         self.assertEqual((status, value), (200, {"status": "code_sent"}))
         self.assertTrue(any(item.startswith(access_subject.CHALLENGE_COOKIE)
                             for item in self.cookies(headers)))
         self.assertEqual(self.auth.started, ["standalone@example.com"])
+
+    def test_email_notice_version_is_required_before_provider_calls(self):
+        for body in ({"email": "reader@example.com"},
+                     {"email": "reader@example.com", "terms_version": "old"}):
+            with self.subTest(operation="start", body=body):
+                status, value, _ = self.request("POST", "/api/auth/start", body)
+                self.assertEqual((status, value["error"]["code"]),
+                                 (403, "terms_required"))
+        self.assertEqual(self.auth.started, [])
+
+        status, _, headers = self.request("POST", "/api/auth/start", {
+            "email": "reader@example.com",
+            "terms_version": access_subject.TERMS_VERSION,
+        })
+        self.assertEqual(status, 200)
+        challenge_cookie = self.cookies(headers)[0].split(";", 1)[0]
+        for body in ({"email": "reader@example.com", "token": "123456"},
+                     {"email": "reader@example.com", "token": "123456",
+                      "terms_version": "old"}):
+            with self.subTest(operation="verify", body=body):
+                status, value, _ = self.request(
+                    "POST", "/api/auth/verify", body, challenge_cookie)
+                self.assertEqual((status, value["error"]["code"]),
+                                 (403, "terms_required"))
+        self.assertEqual(self.auth.verified, [])
+
+        status, value, _ = self.request("POST", "/api/auth/verify", {
+            "email": "reader@example.com", "token": "123456",
+            "terms_version": access_subject.TERMS_VERSION,
+        }, challenge_cookie)
+        self.assertEqual(status, 200)
+        self.assertTrue(value["access"]["terms_accepted"])
 
     def test_accept_terms_requires_identity_origin_and_exact_adult_contract(self):
         status, value, _ = self.accept_terms(None)

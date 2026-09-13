@@ -130,3 +130,12 @@ The Privacy Policy is updated to version 2026-09-12 to disclose aggregate traffi
 Cloudflare references: [data collection](https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/) and [installation and limitations](https://developers.cloudflare.com/web-analytics/faq/).
 
 Hosted verification passed on all four HTML routes: one beacon per page, the expected restricted CSP, revised About text, and the new privacy version. A fresh isolated browser received HTTP 200 for the beacon and HTTP 204 from the collector with no script errors. A synthetic unsent draft did not appear in the observed analytics payloads; application API calls were blocked during this check, so it requested no answer and issued no guest identity. The read-only aggregate report ran against the live ledger; output remains in ignored local files. Seventeen combined preview/report tests passed, including browser regressions; the worker also passed 48 report/backend/account tests. These checks do not constitute a scholarly model evaluation or a guarantee of all future third-party script behavior.
+
+
+## Sign-in polish and release review — September 12, 2026
+
+The branded six-digit email template is deployed for both new and returning Supabase users. The owner confirmed that sign-in works well on an actual iPhone. At the owner's request, the separate adult/Terms checkbox dialog is removed in favor of readable notices beside question submission and email sign-in actions. Successful email verification records current acceptance atomically with the local account session; merely opening the page or requesting a code does not. Existing conversations and code challenges are preserved. The Terms acceptance wording is clarified without changing substantive obligations or the version.
+
+The review also fixes false readiness after a terminal model failure: an existing blocked or closed model now produces HTTP 503, and new submissions reject before quota or cost reservation. Restart remains an operator action, with uncertain accounting preserved. The model and training are unchanged.
+
+The [production review](PRODUCTION-REVIEW-2026-09-12.md) records the limits of the current public beta, privacy checks, GitHub controls and future adapter publication. One global generation slot remains the principal traffic constraint; there is no queue or demonstrated multi-replica support. No weights were exported or published. See [auth email and agreement details](AUTH-EMAIL.md) and [readiness recovery](BETA-READINESS.md).

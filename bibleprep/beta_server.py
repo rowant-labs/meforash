@@ -29,6 +29,7 @@ from bibleprep.account_access import (
     CHALLENGE_SECONDS,
     GUEST_COOKIE,
     GUEST_COOKIE_SECONDS,
+    TERMS_VERSION,
     AccessError,
     AccessIdentity,
     AccountAccess,
@@ -409,6 +410,43 @@ class BetaApplication:
         self.closed = False
         self.jobs = {}
 
+    def _model_status_locked(self):
+        if self.model is None:
+            return None
+        status_method = getattr(self.model, "status", None)
+        if not callable(status_method):
+            return {}
+        try:
+            status = status_method()
+        except Exception:
+            return {"ready": False}
+        return status if isinstance(status, dict) else {"ready": False}
+
+    def _model_acceptance_error_locked(self):
+        status = self._model_status_locked()
+        if status is None:
+            return None
+        if status.get("closed") is True:
+            return "closed"
+        if status.get("blocked") is True:
+            return "blocked"
+        if status.get("ready") is False:
+            return "worker_unavailable"
+        return None
+
+    def health(self):
+        """Report readiness without constructing or contacting the model provider."""
+        with self.lock:
+            model_status = self._model_status_locked()
+            model_ready = (model_status is None
+                           or (model_status.get("ready") is not False
+                               and model_status.get("blocked") is not True
+                               and model_status.get("closed") is not True))
+            ready = not self.closed and model_ready
+            return {"status": "candidate" if ready else "unavailable",
+                    "ready": ready, "busy": self.running,
+                    "provider_initialized": self.model is not None}
+
     def _expire_locked(self):
         now = time.monotonic()
         for request_id in list(self.jobs):
@@ -434,6 +472,9 @@ class BetaApplication:
             self._expire_locked()
             if self.closed:
                 raise BetaError("closed")
+            model_error = self._model_acceptance_error_locked()
+            if model_error is not None:
+                raise BetaError(model_error)
             if self.running:
                 raise BetaError("busy")
             request_id = secrets.token_urlsafe(24)
@@ -551,7 +592,8 @@ class BetaApplication:
 
     def status(self, identity):
         identity = self.store._identity(identity)
-        return {"ready": not self.closed, "busy": self.running,
+        health = self.health()
+        return {"ready": health["ready"], "busy": health["busy"],
                 "public_model": "Meforash 0.1",
                 "model": "Inkling · retained B original-text adapter",
                 "provider": "Thinking Machines / Tinker",
@@ -679,7 +721,8 @@ def handler_for(app, *, origin, secure_cookie, trust_real_ip=False):
         def do_GET(self):
             path = urlsplit(self.path).path
             if path == "/health":
-                return self._send(200, {"status": "candidate", "provider_initialized": app.model is not None})
+                health = app.health()
+                return self._send(200 if health["ready"] else 503, health)
             if path == "/api/access":
                 return self._send(200, {"public_access": app.access.enabled,
                     "email_login_available": app.access.enabled and app.access.auth_client is not None})
@@ -718,17 +761,22 @@ def handler_for(app, *, origin, secure_cookie, trust_real_ip=False):
                         (GUEST_COOKIE, token, GUEST_COOKIE_SECONDS),)
                     return self._send(200, app.status(identity), cookies=cookies)
                 if path == "/api/auth/start":
-                    if not isinstance(body, dict) or set(body) != {"email"}:
-                        raise BetaError("invalid_json")
-                    challenge = app.access.start(body["email"], self._peer())
+                    if (not isinstance(body, dict)
+                            or set(body) != {"email", "terms_version"}
+                            or body["terms_version"] != TERMS_VERSION):
+                        raise BetaError("terms_required")
+                    challenge = app.access.start(
+                        body["email"], self._peer(), terms_version=body["terms_version"])
                     return self._send(200, {"status": "code_sent"}, cookies=(
                         (CHALLENGE_COOKIE, challenge, CHALLENGE_SECONDS),))
                 if path == "/api/auth/verify":
-                    if not isinstance(body, dict) or set(body) != {"email", "token"}:
-                        raise BetaError("invalid_json")
+                    if (not isinstance(body, dict)
+                            or set(body) != {"email", "token", "terms_version"}
+                            or body["terms_version"] != TERMS_VERSION):
+                        raise BetaError("terms_required")
                     identity, session = app.access.verify(
                         body["email"], body["token"], self._cookie(CHALLENGE_COOKIE),
-                        self._peer())
+                        self._peer(), terms_version=body["terms_version"])
                     return self._send(200, app.status(identity), cookies=(
                         (ACCOUNT_COOKIE, session, ACCOUNT_SESSION_SECONDS),
                         (CHALLENGE_COOKIE, "", 0)))
@@ -764,7 +812,8 @@ def handler_for(app, *, origin, secure_cookie, trust_real_ip=False):
                           "daily_limit_reached": 429,
                           "auth_unavailable": 503,
                           "invalid_code": 400,
-                          "closed": 503, "worker_unavailable": 503}.get(exc.code, 400)
+                          "blocked": 503, "closed": 503,
+                          "worker_unavailable": 503}.get(exc.code, 400)
                 messages = {"unauthorized": "Invitation credentials are invalid.",
                             "busy": "One answer is already being generated.",
                             "rate_limited": "Please wait before trying again.",

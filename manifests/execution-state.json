@@ -619,5 +619,26 @@
     "terms_version": "2026-09-11.1",
     "minimum_age": 18,
     "model_changed": false
+  },
+  "launch_auth_review": {
+    "date": "2026-09-12",
+    "status": "reviewed_for_deployment",
+    "review": "docs/PRODUCTION-REVIEW-2026-09-12.md",
+    "email": "docs/AUTH-EMAIL.md",
+    "readiness": "docs/BETA-READINESS.md",
+    "iphone_owner_check": "passed",
+    "agreement_presentation": "inline action-specific notices; no separate checkbox or modal",
+    "weights": "private; no export or publication authorized",
+    "remaining_broad_launch_constraints": [
+      "single global generation slot without queue",
+      "failure recovery and operational monitoring",
+      "infrastructure retention/access and deletion procedure",
+      "repository CI and branch protection"
+    ],
+    "validation": {
+      "source_only_passed": 605,
+      "asset_dependent_excluded": 94,
+      "browser_scenarios_passed": 26
+    }
   }
 }

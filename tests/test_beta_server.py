@@ -40,7 +40,10 @@ class FakeLibrary:
 class FakeModel:
     def __init__(self, *, gate=None, error=None, cost=0.01):
         self.gate, self.error, self.cost = gate, error, cost
-        self.calls, self.closed = [], False
+        self.calls, self.blocked, self.closed = [], False, False
+    def status(self):
+        return {"ready": not self.blocked and not self.closed,
+                "blocked": self.blocked, "closed": self.closed}
     def generate(self, messages, evidence_context=""):
         self.calls.append((messages, evidence_context))
         if self.gate:
@@ -209,6 +212,20 @@ class ApplicationTests(unittest.TestCase):
         gate.set()
         self.wait(first)
 
+    def test_existing_terminal_model_rejects_before_reservation(self):
+        self.app.model = self.model
+        for state in ("blocked", "closed"):
+            with self.subTest(state=state):
+                setattr(self.model, state, True)
+                self.assertFalse(self.app.health()["ready"])
+                before = self.store.usage("reader-one")
+                with self.assertRaisesRegex(subject.BetaError, state):
+                    self.app.submit("reader-one", messages(state))
+                self.assertEqual(self.store.usage("reader-one"), before)
+                with closing(sqlite3.connect(self.store.path)) as db:
+                    self.assertEqual(db.execute("SELECT COUNT(*) FROM usage").fetchone()[0], 0)
+                setattr(self.model, state, False)
+
     def test_revisioned_progress_is_owned_read_only_and_finalized_once(self):
         gate = threading.Event()
         self.model = StreamingFakeModel(gate=gate)
@@ -367,9 +384,12 @@ class HTTPTests(unittest.TestCase):
 
     def test_login_cookie_is_http_only_and_authenticated_generation_works(self):
         cookie = self.login()
-        status, _, headers = self.request("GET", "/health")
+        status, health, headers = self.request("GET", "/health")
         self.assertEqual(status, 200)
+        self.assertEqual(health, {"status": "candidate", "ready": True,
+                                 "busy": False, "provider_initialized": False})
         self.assertNotIn("Set-Cookie", headers)
+        self.assertEqual(self.factory_calls, 0)
         status, value, _ = self.request("GET", "/api/status",
             headers={"Cookie": cookie})
         self.assertEqual((status, value["access"]["kind"],
@@ -396,6 +416,25 @@ class HTTPTests(unittest.TestCase):
             {"Origin": self.origin, "Cookie": cookie})
         self.assertEqual((status, value), (200, {"status": "signed_out"}))
         self.assertIn("Max-Age=0", headers["Set-Cookie"])
+
+    def test_blocked_existing_model_is_unready_and_rejected_without_reservation(self):
+        cookie = self.login()
+        self.accept_terms(cookie)
+        model = FakeModel()
+        model.blocked = True
+        self.app.model = model
+
+        status, health, _ = self.request("GET", "/health")
+        self.assertEqual(status, 503)
+        self.assertEqual(health, {"status": "unavailable", "ready": False,
+                                 "busy": False, "provider_initialized": True})
+        status, value, _ = self.request("POST", "/api/chat", messages(),
+            {"Origin": self.origin, "Cookie": cookie})
+        self.assertEqual((status, value["error"]["code"]), (503, "blocked"))
+        self.assertEqual(self.factory_calls, 0)
+        self.assertEqual(model.calls, [])
+        with closing(sqlite3.connect(self.store.path)) as db:
+            self.assertEqual(db.execute("SELECT COUNT(*) FROM usage").fetchone()[0], 0)
 
     def test_request_bounds_duplicate_json_and_hosted_cookie_policy(self):
         cookie = self.login()

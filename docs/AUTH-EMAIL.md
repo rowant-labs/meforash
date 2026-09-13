@@ -23,3 +23,15 @@ Filling or typing all six digits does not submit the form. The reader still acti
 ## Hosted configuration check
 
 Both Magic Link and Confirm Signup templates and subjects were applied through the authenticated Supabase Management API and re-read byte-for-byte. Existing six-digit, 600-second expiry settings, custom Resend SMTP, and canonical site/redirect URLs were verified. This configuration check does not prove inbox placement or physical-device autofill. Request a fresh code in the browser where it will be entered; Meforash also requires that browser’s authentication-challenge cookie.
+
+The sending subdomain has resolving SPF and DKIM records and a scoped non-enforcing DMARC policy (`v=DMARC1; p=none; adkim=r; aspf=r`). No reporting address was added and the root-domain policy was not changed. This does not guarantee inbox placement or block spoofed messages. A 390-pixel mobile browser check of the deployed auth page passed with the then-current consent step and mocked email delivery: the six-digit field was visible, keyboard/autofill attributes were intact, no horizontal overflow occurred, and filling the code did not auto-submit. That fixture is not an actual iPhone Mail or inbox-delivery test.
+
+The owner subsequently tested the deployed sign-in on a real iPhone and reported that it worked well, including the code-entry experience. This closes the requested device check; it does not guarantee every mail client or device configuration.
+
+## Agreement presentation
+
+At the owner’s request, the separate age/Terms dialog is replaced with readable, action-specific notices beside question submission and sign-in. The user action represents age 18+ and acceptance of the linked Terms; the Privacy Policy describes data practices and is acknowledged, not treated as blanket consent. Page loading alone must not create an acceptance. Terms version `2026-09-11.1` is unchanged: the acceptance wording is clarified for the new presentation without changing substantive obligations.
+
+This design follows the notice-and-action distinction discussed in [Berman v. Freedom Financial Network](https://cdn.ca9.uscourts.gov/datastore/opinions/2022/04/05/20-16900.pdf): links need conspicuous presentation and the action must clearly signify assent. That decision is design guidance here, not a finding that these Terms are enforceable in every jurisdiction.
+
+Guest question submission records current acceptance before replaying the same question. Email start and verification requests must carry the current Terms version. Successful verification writes account acceptance in the same database transaction as its local session; a code request or page view alone does not create account acceptance. Issued challenges remain usable after deployment because the Verify code action presents its own notice. The code field and conversation handoff behavior are unchanged.

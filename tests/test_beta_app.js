@@ -601,6 +601,10 @@ function testReaderFacingCopyKeepsLimitsVisibleAndOperationsQuiet() {
   assert.match(MARKUP, /inputmode="numeric"/);
   assert.match(MARKUP, /maxlength="6"/);
   assert.match(MARKUP, /expires in 10 minutes/);
+  assert.doesNotMatch(MARKUP, /consent-dialog|consent-check|Agree and continue/);
+  assert.match(MARKUP, /By selecting <strong>Send question<\/strong>/);
+  assert.match(MARKUP, /By selecting <strong>Send a sign-in code<\/strong>/);
+  assert.match(MARKUP, /By selecting <strong>Verify code<\/strong>/);
   assert.doesNotMatch(MARKUP, /Saved history is not available yet/);
   assert.doesNotMatch(MARKUP, /temporary session storage for up to ten minutes/);
   assert.doesNotMatch(MARKUP, /not written to disk/);
@@ -646,8 +650,14 @@ async function testGuestLimitAndCodeSignInPreservePageState() {
     if (url === "/api/chat") return response(403, {
       error: { code: "guest_limit_reached", message: "Sign in to keep asking questions." },
     });
-    if (url === "/api/auth/start") return response(200, { status: "code_sent" });
+    if (url === "/api/auth/start") {
+      assert.deepEqual(JSON.parse(options.body), {
+        email: "reader@example.test", terms_version: "2026-09-11.1",
+      });
+      return response(200, { status: "code_sent" });
+    }
     if (url === "/api/auth/verify") {
+      assert.equal(JSON.parse(options.body).terms_version, "2026-09-11.1");
       verifyCalls += 1;
       return verifyCalls === 1
         ? response(401, { error: { code: "invalid_code", message: "That code was not accepted." } })

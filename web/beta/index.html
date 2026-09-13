@@ -72,11 +72,13 @@
           <textarea id="question" maxlength="12000" rows="2" placeholder="What would you like to explore?" required></textarea>
           <div class="composer-bottom">
             <span id="request-state" class="composer-hint" role="status" aria-live="polite">Ready</span>
-            <button id="send-button" class="send-button" type="submit" aria-label="Send question">
+            <button id="send-button" class="send-button" type="submit" aria-label="Send question" aria-describedby="chat-consent-notice">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none"></path></svg>
             </button>
           </div>
         </form>
+        <p id="chat-consent-notice" class="action-notice chat-action-notice">By selecting <strong>Send question</strong>, you confirm that you are 18 or older, agree to the <a href="/terms" target="_blank" rel="noopener">Terms of Service</a>, and acknowledge the <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a>.</p>
+        <p id="chat-consent-message" class="action-message" role="status" aria-live="polite"></p>
         <p id="quota-hint" class="quota-hint" hidden></p>
 
         <details class="about-panel chat-about">
@@ -116,27 +118,19 @@
     <form id="email-form" class="auth-form">
       <label for="auth-email">Email address</label>
       <input id="auth-email" name="email" type="email" maxlength="254" autocomplete="email" required>
-      <button id="email-button" class="primary-button" type="submit">Send a sign-in code</button>
+      <p id="email-consent-notice" class="action-notice auth-action-notice">By selecting <strong>Send a sign-in code</strong>, you confirm that you are 18 or older, agree to the <a href="/terms" target="_blank" rel="noopener">Terms of Service</a>, and acknowledge the <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a>.</p>
+      <button id="email-button" class="primary-button" type="submit" aria-describedby="email-consent-notice">Send a sign-in code</button>
     </form>
     <form id="code-form" class="auth-form" hidden>
       <p class="code-instruction">Enter the six-digit code sent to <strong id="code-email"></strong>. It expires in 10 minutes.</p>
       <label for="auth-token">Sign-in code</label>
       <input id="auth-token" class="auth-token" name="token" type="text" inputmode="numeric" pattern="[0-9]{6}" minlength="6" maxlength="6" autocomplete="one-time-code" autocapitalize="off" spellcheck="false" enterkeyhint="done" aria-describedby="auth-code-help" required>
       <p id="auth-code-help" class="auth-code-help">On iPhone, your code may appear above the keyboard.</p>
-      <button id="code-button" class="primary-button" type="submit">Verify code</button>
+      <p id="code-consent-notice" class="action-notice auth-action-notice">By selecting <strong>Verify code</strong>, you confirm that you are 18 or older, agree to the <a href="/terms" target="_blank" rel="noopener">Terms of Service</a>, and acknowledge the <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a>.</p>
+      <button id="code-button" class="primary-button" type="submit" aria-describedby="code-consent-notice">Verify code</button>
     </form>
     <p id="auth-message" class="form-message" role="status" aria-live="polite"></p>
     <button id="auth-cancel-button" class="auth-cancel" type="button">Cancel</button>
-  </dialog>
-
-  <dialog id="consent-dialog" class="consent-dialog" aria-labelledby="consent-title">
-    <h2 id="consent-title">Before you continue</h2>
-    <p>Meforash is for adults. Your questions are processed by Thinking Machines and the service providers described in our <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a>.</p>
-    <form id="consent-form">
-      <label class="consent-choice"><input id="consent-check" type="checkbox" required><span>I am 18 or older and agree to the <a href="/terms" target="_blank" rel="noopener">Terms of Service</a>. I have read the <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a>.</span></label>
-      <p id="consent-error" role="status"></p>
-      <div class="consent-actions"><button class="primary-button" type="submit">Agree and continue</button><button id="consent-cancel" class="quiet-button" type="button">Cancel</button></div>
-    </form>
   </dialog>
 
   <footer class="launch-footer"><span>A project by Rowant Labs</span> · <a href="https://github.com/rowant-labs/meforash" target="_blank" rel="noopener noreferrer">code &amp; methods</a> · <a href="/privacy">privacy</a> · <a href="/terms">terms</a> · <a href="/brand">brand</a> · <a href="mailto:support@meforash.com">support</a></footer>

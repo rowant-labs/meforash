@@ -1,6 +1,8 @@
 # Open-source release candidate
 
-September 10, 2026. The project has a shareable code/documentation scaffold and preserved decision history. It has **not** been pushed to a remote repository. The local Git repository has no commits, branches, tags, tracked files or configured remotes; there is no existing commit history to sanitize. New commits still need privacy-preserving author metadata and a review of the exact staged files.
+Current status, September 12, 2026: the reviewed source repository is public at [rowant-labs/meforash](https://github.com/rowant-labs/meforash), and the local branch is synchronized with its `main` branch. GitHub secret scanning and push protection are enabled. Private runtime assets, source downloads, prepared data, local ledgers and model weights remain excluded.
+
+The original September 10 release-candidate snapshot below is retained as a historical record. At that time the project had a shareable code/documentation scaffold and preserved decision history but had not been pushed, committed or connected to a remote.
 
 ## What a source release includes
 
@@ -26,8 +28,16 @@ python -m unittest <explicit tests.test_* module list>
 
 Use the pinned dependency files and the existing preparation instructions. No credentials are necessary for ordinary source-only checks. Training and inference require separately configured provider access and model checkpoints. The saved provider base revision is unpinned, and exact external adapter conversion/restoration has not been demonstrated; do not claim a fully reproducible public model release.
 
-## Before the first push
+## Historical pre-push checklist
 
-Create the final file allowlist and review its hashes, secret/personal-information scan results, local links, license notices and model/source cards. Review the exact Git index rather than adding the entire working directory. Confirm the chosen repository name and privacy-preserving commit identity before creating commits; inspect the first commit and then publish only the reviewed material. No invitation messages, release uploads or repository visibility changes have occurred.
+The initial publication used a reviewed file allowlist, privacy-preserving GitHub noreply author metadata, and staged-file checks before the first push. Those checks were point-in-time release work, not a guarantee about later commits.
+
+## Current publication posture
+
+The public `main` history contains the reviewed source, tests, documentation, manifests, source notices and aggregate evaluation records. There are no GitHub Releases and no model-weight artifact in the repository. The ignored `.env`, private run records, raw and processed source texts, prepared datasets, SQLite ledgers, and checkpoint locators are not tracked in the current tree.
+
+A September 12 current-tree scan found no actual credential assignment, private checkpoint locator, personal filesystem path, production database or conversation log in tracked files. The source-only suite passed 601 selected tests and explicitly excluded 94 tests that require private or acquired assets. GitHub secret scanning and push protection were enabled and reported no open alert at the time of review.
+
+These are bounded checks. The local pattern review of all 29 commits classified its matches as synthetic canaries, validators, blank configuration fields or documented placeholders, but it was not a comprehensive personal-information audit or an independent security assessment. GitHub's default secret scanning covers recognized secret types across history; it does not prove that ordinary personal data, an unsupported credential format, generated artifact, issue, wiki page or future commit is safe. Continue reviewing the exact diff and public repository state for every publication.
 
 The [publication policy](PUBLICATION.md) gives the continuing privacy and artifact rules. The [beta readiness record](PRIVATE-BETA-READINESS.md) separates a code release from a hosted application launch.
