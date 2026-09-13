@@ -709,11 +709,11 @@
     "provider_message_sent": false
   },
   "affordable_model_exploration": {
-    "status": "cached_base_execution_verified_startup_variable_idle_unresolved",
+    "status": "modal_baseline_serving_verified_snapshot_startup_timeout",
     "branch": "codex/hosting-first-small-model",
     "base_commit": "4a0d6c0",
     "document": "docs/AFFORDABLE-MODEL-EXPLORATION.md",
-    "next": "Resolve Modal image/package pins and prepare executable bounded baseline before snapshot comparison; reconcile budget before paid execution. No training yet.",
+    "next": "Investigate snapshot creation timeout before another bounded serving attempt; then verify adapter portability and freeze smaller-model English evaluation before proposing training. No training or production migration authorized.",
     "live_model_changed": false,
     "training_started": false,
     "deployment_started": false,
@@ -723,6 +723,8 @@
     "billing_status": "Provider billing records unavailable; $4 combined v1-v5 conservative reservation within original $10 ceiling",
     "startup_alternatives_document": "docs/SMALL-MODEL-STARTUP-ALTERNATIVES.md",
     "modal_preflight_document": "docs/MODAL-PILOT-PREFLIGHT.md",
-    "modal_access_status": "Read-only authentication, empty app list, zero usage and account rates verified; no Modal paid resource created"
+    "modal_access_status": "Authenticated private L4 serving tested; all pilot apps stopped, zero containers, temporary volume deleted.",
+    "modal_result_document": "docs/MODAL-SERVING-RESULTS-V1.md",
+    "modal_billing_status": "Latest meter $0.42 covered by credits; final usage/storage reconciliation pending within separate $5 ceiling."
   }
 }

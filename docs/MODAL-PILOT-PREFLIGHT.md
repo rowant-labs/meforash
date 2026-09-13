@@ -1,6 +1,16 @@
 # Modal gpt-oss-20b serving pilot preflight
 
-Prepared September 13, 2026 on `codex/hosting-first-small-model`. **Proposal only:** this preparation created no Modal resource, sent no inference request and authorizes no deployment or training. The root operator used the existing saved credential only for the read-only account checks recorded below; no credential value is recorded. Retained Inkling B remains the Bible model. No paid test has started. The root operator must reconcile the campaign budget and announce the bounded test before provisioning; internal phase allocations are planning guards, not additional approval gates.
+Prepared September 13, 2026 on `codex/hosting-first-small-model`. This document began as a proposal and preserves that preflight design below. The owner has since authorized one separate, bounded Modal serving test under a **$5 total ceiling**. The bounded execution is complete; its measured outcome is linked below. This authorization changes neither the retained Inkling B decision nor the holds on training, production deployment and publication. The root operator alone handles credentials, provider operations, receipts, budget enforcement and teardown; no credential value is recorded here.
+
+## Implemented test configuration
+
+The tested baseline uses [`tools/modal_serving_pilot.py`](../tools/modal_serving_pilot.py). It pins the Linux AMD64 image `vllm/vllm-openai@sha256:082ca6f035279109041ffd3fe0695cb568b29bc580b35c4f297a66a08b216c1b`, which is expected to provide vLLM 0.29.0 and is checked again at container startup. A small CPU preparation function downloads the allowlisted public root files directly with Python's standard-library HTTP client, verifies the selected shard sizes and SHA-256 values, validates the weight index, and writes a revision-bound manifest to the named Volume. It does not require `huggingface_hub` or a Hugging Face credential.
+
+Serving remains private through authenticated Modal SDK methods. `Model.probe` returns a durable final-only result for asynchronous submission and reconciliation, `Model.remote_gen` optionally streams only final-answer text plus a terminal status/usage event, and `Model.metadata` reports the bounded runtime identity. The implementation creates no public web endpoint. Image build, weight preparation, model startup, inference, scale-to-zero, teardown and billing were recorded separately; a successful build alone was not treated as a serving result.
+
+## Execution outcome
+
+The bounded pilot is complete: plain L4 serving and one observed idle scale-to-zero passed; snapshot preparation hit a provider startup deadline before an external answer. All pilot Apps are stopped and the temporary Volume is deleted. See [measured results](MODAL-SERVING-RESULTS-V1.md). No training or production change occurred.
 
 ## Question and order of operations
 
@@ -11,21 +21,21 @@ The pilot would answer two questions in order:
 
 Do not mix the provider comparison with a model, precision, context, engine or adapter change. This pilot has no adapter. A snapshot pass would not establish future Tinker/PEFT LoRA compatibility.
 
-## Candidate configuration (image/package lock still to resolve)
+## Candidate configuration and resolved execution pins
 
 | Component | Proposed pin or limit |
 |---|---|
 | Modal Python SDK | `modal==1.5.5` |
-| Container base | Resolve a compatible vLLM 0.29.0 Linux image to an immutable digest before build; record the resulting Modal Image ID |
+| Container base | `vllm/vllm-openai@sha256:082ca6f035279109041ffd3fe0695cb568b29bc580b35c4f297a66a08b216c1b` (Linux AMD64); record the resulting Modal Image ID |
 | Engine | `vllm==0.29.0` |
-| Hugging Face client | Resolve and lock the version compatible with the chosen engine image; not yet frozen |
+| Hugging Face client | none in the CPU preparation function; standard-library HTTP downloads only |
 | Model and tokenizer | `openai/gpt-oss-20b` at `6cee5e81ee83917806bbde320786a8fb61efebee` |
 | GPU | exactly `gpu="L4"`; no fallback list and no silent larger-GPU substitution |
 | Host allowance | 2 physical CPU cores and 32 GiB RAM; measure actual peak before reducing it |
 | Autoscaling | `min_containers=0`, `max_containers=1`, 60-second `scaledown_window`; explicitly price any region restriction |
 | Engine limits | `--max-model-len 8192`, `--max-num-seqs 1`, `--gpu-memory-utilization 0.85`, `--enforce-eager` |
 | Adapter | none; LoRA stays disabled |
-| Access | authenticated private Modal Server or web server; never `unauthenticated=True` |
+| Access | authenticated private Modal SDK class methods; no web endpoint |
 
 Modal documents `L4` as a valid GPU resource string, but its snapshot examples use other GPU types. The exact L4, gpt-oss, vLLM 0.29.0 and GPU-snapshot combination is therefore an empirical gate, not documented compatibility. The current official Modal gpt-oss example uses B200 and vLLM 0.18.1 and cannot stand in for this test. [Modal GPU selection](https://modal.com/docs/guide/gpu), [Modal gpt-oss example](https://modal.com/docs/examples/gpt_oss_inference), [Modal SDK releases](https://modal.com/docs/sdk/py/releases)
 
@@ -70,9 +80,9 @@ The root operator completed the account-access portion without creating compute:
 | Account RAM rate | $0.00800/GiB-hour |
 | Account Volume rate | $0.09/GiB-month |
 
-These account-specific rates supersede rounded public-page arithmetic for the pilot. The proposed 2-core, 32-GiB, one-L4 container is **$1.15060 per billed container-hour**, with Volume storage separate. No GPU, App, Image or Volume was created, and the current stopping point remains completed read-only preflight.
+These account-specific rates supersede rounded public-page arithmetic for the pilot. The proposed 2-core, 32-GiB, one-L4 container is **$1.15060 per billed container-hour**, with Volume storage separate. At the time of this historical account preflight, no GPU, App, Image or Volume had been created. The later owner authorization recorded above opened the bounded execution phase.
 
-A proposed allocation for review is **$2.00 plain baseline, $2.50 snapshot preparation/restores, and $0.50 storage/build/reconciliation contingency**. Root may rebalance these internal allocations within the total ceiling; do not silently raise that ceiling. At the verified resource-inclusive rate, these are conservative time guards rather than expected costs. Credits are not assumed to reduce the ceiling.
+The preflight proposed **$2.00 plain baseline, $2.50 snapshot preparation/restores, and $0.50 storage/build/reconciliation contingency**. Root may rebalance these internal allocations within the owner-authorized $5 total ceiling; do not silently raise that ceiling. At the verified resource-inclusive rate, these are conservative time guards rather than expected costs. Credits are not assumed to reduce the ceiling.
 
 Start an external root-owned watchdog before the first resource write. It must outlive the invoking client, know the App/resource identifiers once created, stop the App at the phase deadline or tranche ceiling, and then verify zero running containers. A local watchdog is a backstop, not evidence that Modal enforces the $5 ceiling.
 
