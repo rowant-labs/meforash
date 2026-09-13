@@ -709,11 +709,11 @@
     "provider_message_sent": false
   },
   "affordable_model_exploration": {
-    "status": "modal_v3_six_reuses_confirmed_variable_latency",
+    "status": "modal_adapter_loader_v1_startup_failed",
     "branch": "codex/hosting-first-small-model",
     "base_commit": "4a0d6c0",
     "document": "docs/AFFORDABLE-MODEL-EXPLORATION.md",
-    "next": "Implement and execute a bounded Modal loader test using the project-created synthetic fixture after exact cost notice/preflight; no community weights needed. Integrate warming after live adapter verification. Training still needs exact notice and ceiling.",
+    "next": "Diagnose pinned vLLM LoRA startup contiguity failure and prevent lifecycle retries before a separately versioned bounded retry. No training or production migration; warming prototype stays disconnected.",
     "live_model_changed": false,
     "training_started": false,
     "deployment_started": false,
@@ -732,10 +732,12 @@
     "modal_v3_preflight_document": "docs/MODAL-PILOT-V3-PREFLIGHT.md",
     "modal_v3_result_document": "docs/MODAL-SERVING-RESULTS-V3.md",
     "adapter_preflight_document": "docs/SMALL-MODEL-ADAPTER-PREFLIGHT.md",
-    "adapter_status": "Offline converter checks passed; project-created real-dimension rank8 fixture reproduced identical hashes, 66 tensors checked. GPU loading and real Tinker export remain unverified.",
+    "adapter_status": "Synthetic rank8 adapter prepared and CPU identity verified; live vLLM0.29 L4 LoRA startup failed during dummy profiling at inputs.is_contiguous assertion. No responses or runtime tensor accounting collected.",
     "modal_v3_billing_status": "Account meter $0.78 to $1.39: observed $0.61 campaign increase including collector resume, covered by credits; provisional within $5 ceiling.",
     "warming_document": "docs/SMALL-MODEL-WARMING.md",
     "warming_status": "Offline single-process wake coordination prototype tested; no HTTP/provider integration or production change.",
-    "adapter_loader_document": "docs/MODAL-ADAPTER-LOADER-PREFLIGHT.md"
+    "adapter_loader_document": "docs/MODAL-ADAPTER-LOADER-PREFLIGHT.md",
+    "adapter_loader_run_document": "docs/MODAL-ADAPTER-LOADER-RUN-V1.md",
+    "adapter_loader_billing_status": "Meter $1.40 to $1.53: observed $0.13 covered by credits; provisional within new $5 ceiling. App stopped, zero tasks/containers, volume deleted."
   }
 }
