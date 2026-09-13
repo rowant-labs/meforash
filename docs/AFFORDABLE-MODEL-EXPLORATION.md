@@ -69,3 +69,5 @@ See [SMALL-MODEL-SERVING-PILOT.md](SMALL-MODEL-SERVING-PILOT.md) for model/image
 ## Live exploration update
 
 The [A5000 24 GB test](SMALL-MODEL-SERVING-RESULTS-V2.md) completed nineteen post-load engineering answers with the unchanged gpt-oss model. Startup remained slow, dominated by downloading weights. See the [pinned-cache plan](SMALL-MODEL-CACHE-PLAN.md) for the next hosting experiment. Adapter portability and biblical quality remain unverified. Temporary resources are deleted; billing reconciliation is pending.
+
+The [pinned-cache startup test](SMALL-MODEL-SERVING-RESULTS-V3.md) assigned the correct model hash but remained in host-side initialization until cancellation after approximately five minutes. Cache-hit and idle/resume latency remain unmeasured. All temporary resources were removed.

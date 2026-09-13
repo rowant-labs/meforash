@@ -1,6 +1,6 @@
 # Pinned-cache startup experiment
 
-Prepared September 12, 2026, on the isolated hosting exploration branch. This is the next startup experiment, not a training recipe or deployed configuration.
+Prepared September 12, 2026, on the isolated hosting exploration branch. The bounded first attempt is recorded in [v3 results](SMALL-MODEL-SERVING-RESULTS-V3.md); it did not reach completed cache preparation. This is an experimental plan, not a training recipe or deployed configuration.
 
 Runpod's [cached-model documentation](https://docs.runpod.io/serverless/endpoints/model-caching) describes host-side model downloads before worker startup, with no worker billing during that download phase. It may improve cost even when a cache miss still delays the user. GPU loading and engine initialization remain; do not promise a seconds-long response from caching alone.
 

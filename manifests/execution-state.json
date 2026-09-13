@@ -709,17 +709,17 @@
     "provider_message_sent": false
   },
   "affordable_model_exploration": {
-    "status": "a5000_24gb_base_serving_verified_cold_start_unresolved",
+    "status": "pinned_cache_assigned_first_start_unresolved",
     "branch": "codex/hosting-first-small-model",
     "base_commit": "4a0d6c0",
     "document": "docs/AFFORDABLE-MODEL-EXPLORATION.md",
-    "next": "Reconcile provider billing; execute pinned-cache startup experiment; present pre-training notice for tiny adapter portability test.",
+    "next": "Review bounded adapter portability preflight; establish completed cache preparation and measure cache-hit/idle resume before recommending sporadic public hosting. Reconcile billing. No training yet.",
     "live_model_changed": false,
     "training_started": false,
     "deployment_started": false,
     "pilot_document": "docs/SMALL-MODEL-SERVING-PILOT.md",
-    "result_document": "docs/SMALL-MODEL-SERVING-RESULTS-V2.md",
+    "result_document": "docs/SMALL-MODEL-SERVING-RESULTS-V3.md",
     "temporary_pilot_resources_deleted": true,
-    "billing_status": "Provider billing rows unavailable; $2 combined v1/v2 local reservation within original $10 ceiling"
+    "billing_status": "Legacy and v2 billing records unavailable; $2 combined v1-v3 provisional reservation within original $10 ceiling"
   }
 }
