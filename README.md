@@ -82,3 +82,5 @@ The project is intended to make its source choices, training methods, costs, eva
 To reproduce data acquisition, parsing, tokenization, and integrity checks, follow [the preparation commands](docs/PRETRAINING-READINESS.md#reproduce-the-preparation). Preparation runs locally without model API calls. Raw source files, prepared training data, and run records are ignored by Git; third-party license notices and reproducible manifests are retained.
 
 Original project code and authored documentation are offered under [Apache-2.0](LICENSE). Third-party texts, annotations, model weights, and datasets retain their own licenses and attribution requirements. No third-party corpus or model weights are bundled in the public repository.
+
+See the [project notice](NOTICE), [brand policy](docs/BRAND-POLICY.md), and [security reporting instructions](SECURITY.md). The software license does not grant permission to present an independent fork as the official Meforash service.
