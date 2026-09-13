@@ -713,13 +713,14 @@
     "branch": "codex/hosting-first-small-model",
     "base_commit": "4a0d6c0",
     "document": "docs/AFFORDABLE-MODEL-EXPLORATION.md",
-    "next": "Stop unchanged startup retries. Compare explicit preparation/warm-worker or alternative serving designs; reconcile billing and fix final-receipt collection at cancellation races before another idle test. No training yet.",
+    "next": "Prepare private Modal cached-baseline versus GPU-snapshot comparison, verify account access and allocate bounded cost before execution. Reconcile Runpod billing; preserve cancellation-race receipts. No training yet.",
     "live_model_changed": false,
     "training_started": false,
     "deployment_started": false,
     "pilot_document": "docs/SMALL-MODEL-SERVING-PILOT.md",
     "result_document": "docs/SMALL-MODEL-SERVING-RESULTS-V5.md",
     "temporary_pilot_resources_deleted": true,
-    "billing_status": "Provider billing records unavailable; $4 combined v1-v5 conservative reservation within original $10 ceiling"
+    "billing_status": "Provider billing records unavailable; $4 combined v1-v5 conservative reservation within original $10 ceiling",
+    "startup_alternatives_document": "docs/SMALL-MODEL-STARTUP-ALTERNATIVES.md"
   }
 }
