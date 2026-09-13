@@ -709,14 +709,17 @@
     "provider_message_sent": false
   },
   "affordable_model_exploration": {
-    "status": "serving_pilot_prepared_access_pending",
+    "status": "base_serving_pilot_complete_partial_gates",
     "branch": "codex/hosting-first-small-model",
     "base_commit": "4a0d6c0",
     "document": "docs/AFFORDABLE-MODEL-EXPLORATION.md",
-    "next": "Obtain Runpod access, verify account price and pinned worker configuration, then execute a bounded unchanged-model serving pilot; no training or promotion.",
+    "next": "Reconcile billing; improve and measure restart path, then qualify 24GB hosting. Present a separate pre-training notice for adapter portability test.",
     "live_model_changed": false,
     "training_started": false,
     "deployment_started": false,
-    "pilot_document": "docs/SMALL-MODEL-SERVING-PILOT.md"
+    "pilot_document": "docs/SMALL-MODEL-SERVING-PILOT.md",
+    "result_document": "docs/SMALL-MODEL-SERVING-RESULTS-V1.md",
+    "temporary_pilot_resources_deleted": true,
+    "billing_status": "pending provider records; $1 local reservation"
   }
 }

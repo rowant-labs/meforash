@@ -1,5 +1,7 @@
 # Small-model serving pilot: preparation
 
+First execution results are recorded separately in [SMALL-MODEL-SERVING-RESULTS-V1.md](SMALL-MODEL-SERVING-RESULTS-V1.md). The preparation below is preserved as the pre-run plan.
+
 September 12, 2026. Exploration branch only: `codex/hosting-first-small-model`. No production changes or paid requests. This is an engineering pilot, not a fine-tuning run or a biblical accuracy benchmark.
 
 ## Scope and starting configuration
