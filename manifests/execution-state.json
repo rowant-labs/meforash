@@ -713,7 +713,7 @@
     "branch": "codex/hosting-first-small-model",
     "base_commit": "4a0d6c0",
     "document": "docs/AFFORDABLE-MODEL-EXPLORATION.md",
-    "next": "Prepare private Modal cached-baseline versus GPU-snapshot comparison, verify account access and allocate bounded cost before execution. Reconcile Runpod billing; preserve cancellation-race receipts. No training yet.",
+    "next": "Resolve Modal image/package pins and prepare executable bounded baseline before snapshot comparison; reconcile budget before paid execution. No training yet.",
     "live_model_changed": false,
     "training_started": false,
     "deployment_started": false,
@@ -721,6 +721,8 @@
     "result_document": "docs/SMALL-MODEL-SERVING-RESULTS-V5.md",
     "temporary_pilot_resources_deleted": true,
     "billing_status": "Provider billing records unavailable; $4 combined v1-v5 conservative reservation within original $10 ceiling",
-    "startup_alternatives_document": "docs/SMALL-MODEL-STARTUP-ALTERNATIVES.md"
+    "startup_alternatives_document": "docs/SMALL-MODEL-STARTUP-ALTERNATIVES.md",
+    "modal_preflight_document": "docs/MODAL-PILOT-PREFLIGHT.md",
+    "modal_access_status": "Read-only authentication, empty app list, zero usage and account rates verified; no Modal paid resource created"
   }
 }
