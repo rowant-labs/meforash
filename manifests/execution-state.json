@@ -709,13 +709,14 @@
     "provider_message_sent": false
   },
   "affordable_model_exploration": {
-    "status": "hosting_first_research_only",
+    "status": "serving_pilot_prepared_access_pending",
     "branch": "codex/hosting-first-small-model",
     "base_commit": "4a0d6c0",
     "document": "docs/AFFORDABLE-MODEL-EXPLORATION.md",
-    "next": "Prepare pinned serving specification and bounded test budget for Runpod Flex or Modal; verify exact model/adapter compatibility before full adaptation.",
+    "next": "Obtain Runpod access, verify account price and pinned worker configuration, then execute a bounded unchanged-model serving pilot; no training or promotion.",
     "live_model_changed": false,
     "training_started": false,
-    "deployment_started": false
+    "deployment_started": false,
+    "pilot_document": "docs/SMALL-MODEL-SERVING-PILOT.md"
   }
 }

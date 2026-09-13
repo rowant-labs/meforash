@@ -14,8 +14,8 @@ These are GPU-only arithmetic scenarios, not measured Meforash bills or capacity
 
 | Example hardware | Hourly GPU rate | 20 billed hours | 100 billed hours | Always ready, one GPU |
 |---|---:|---:|---:|---:|
-| Runpod Flex 24 GB group | $0.684 | $13.68 | $68.40 | $492.48 at Flex rate |
-| Runpod Active 24 GB group | $0.468 | — | — | $336.96 |
+| Runpod Flex 24 GB group | $0.69 | $13.80 | $69.00 | $496.80 at listed rate |
+| Runpod Flex A40/A6000 48 GB | $1.22 | $24.40 | $122.00 | $878.40 at listed rate |
 | Hugging Face AWS L4 | $0.80 | $16.00 | $80.00 | $576.00 |
 | Modal L4 | $0.7992 | $15.98 | $79.92 | $575.42 |
 | Modal A10 | $1.1016 | $22.03 | $110.16 | $793.15 |
@@ -23,7 +23,7 @@ These are GPU-only arithmetic scenarios, not measured Meforash bills or capacity
 
 [Modal pricing](https://modal.com/pricing) additionally bills CPU, RAM and storage. Its Starter plan lists $30 monthly compute credits; calculations above deliberately exclude credits. Region and execution options can add premiums. Railway, Supabase and email remain separate costs.
 
-[Runpod pricing](https://docs.runpod.io/serverless/pricing) groups L4/A5000/3090 hardware in its 24 GB tier. Flex can scale to zero; Active stays warm. Billed time includes initialization, execution and the configured idle timeout; storage is extra. Its [vLLM configuration](https://docs.runpod.io/serverless/vllm/environment-variables) explicitly supports LoRA modules, subject to architecture compatibility. **Start here for the lowest listed 24 GB rate in this comparison**, with Modal as the alternative. A GPU group is not a guarantee of identical performance across devices.
+[Runpod pricing](https://docs.runpod.io/serverless/pricing) groups L4/A5000/3090 hardware in its 24 GB tier. Flex can scale to zero; Active stays warm. Billed time includes initialization, execution and the configured idle timeout; storage is extra. Its [vLLM configuration](https://docs.runpod.io/serverless/vllm/environment-variables) explicitly supports LoRA modules, subject to architecture compatibility. **This remains the lowest listed 24 GB rate in this comparison**, with Modal as the alternative. Current [Runpod rates](https://www.runpod.io/pricing) supersede the earlier $0.684/hour estimate; current billing docs direct Active-worker discounts to sales, so the earlier $336.96/month Active estimate is withdrawn. Start the compatibility pilot on explicit A40 48 GB, then test a 24 GB configuration. A GPU group is not a guarantee of identical performance across devices.
 
 [Hugging Face endpoint pricing](https://huggingface.co/docs/inference-endpoints/pricing) lists the AWS L4 rate above. Its [autoscaling documentation](https://huggingface.co/docs/inference-endpoints/guides/autoscaling) describes scale-to-zero and cold-start responses; the default one-hour inactivity window can be expensive for scattered traffic. Standard merged checkpoints fit its model-repository workflow; separate adapter packaging may require a [custom container](https://huggingface.co/docs/inference-endpoints/engines/custom_container). It is a managed fallback, not the first low-traffic cost choice.
 
@@ -61,3 +61,7 @@ Tinker's [adapter export tutorial](https://tinker-docs.thinkingmachines.ai/tutor
 6. **Decision:** require acceptable answer quality, verified portability and measured operating cost. Reject the idea if these fail. No automatic promotion, merge, deployment or weight publication. Public weight release remains a separate owner decision after rights and model-card review.
 
 Before any eventual migration, update provider disclosures and verify data-retention settings. Public weights are not necessary to run a private custom endpoint. Preserve the current README's statement that overall English-answer improvement remains unestablished.
+
+## Prepared pilot
+
+See [SMALL-MODEL-SERVING-PILOT.md](SMALL-MODEL-SERVING-PILOT.md) for model/image pins, the proposed $10 ceiling and the 1/3/10-request sequence. An offline [cost calculator](../tools/hosting_cost.py) converts provider-billed hours into cost per 1,000 completed questions. Credentials and live measurements remain pending.
