@@ -21,3 +21,13 @@ The report includes total retained usage reservations, lifecycle-status counts, 
 Known cost is the sum of stored `actual_nano` estimates. Requests without an actual estimate keep their stored maximum `reserved_nano` in a separate unresolved-reservations total. Both amounts are operational ledger estimates, not reconciled provider invoices. The report does not derive inference latency: `created_unix` marks reservation creation and `updated_unix` can include queueing, application work, failure handling, or bookkeeping, so their difference is not labeled or reported as model latency.
 
 This utility is intentionally separate from product pages and third-party analytics. Its output is suitable for private operational review, not publication or user-level analysis.
+
+For the linked Railway production service, an operator with existing SSH access can run the report remotely without downloading the database:
+
+```console
+railway ssh python -m bibleprep.usage_report --database /runtime/state/beta.sqlite3 --days 7
+```
+
+Use the actual configured database path if the deployment overrides it. Keep any redirected report in an ignored private directory. The report includes engineering/operator activity; it does not identify new public users or distinguish every successful answer from a known zero-cost early failure that was finalized as `complete`.
+
+Website traffic is separate: in Cloudflare, select **meforash.com → Analytics → Web analytics**. Manual cookie-free collection is enabled; the automatic EU-exclusion setting is not active. Traffic data may take time to appear and browser blockers can prevent collection. No session replay or custom user/content events are configured.
