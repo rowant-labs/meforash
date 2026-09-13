@@ -707,5 +707,15 @@
     "estimated_test_cost_usd": 0.00676876,
     "unresolved_requests": 0,
     "provider_message_sent": false
+  },
+  "affordable_model_exploration": {
+    "status": "hosting_first_research_only",
+    "branch": "codex/hosting-first-small-model",
+    "base_commit": "4a0d6c0",
+    "document": "docs/AFFORDABLE-MODEL-EXPLORATION.md",
+    "next": "Prepare pinned serving specification and bounded test budget for Runpod Flex or Modal; verify exact model/adapter compatibility before full adaptation.",
+    "live_model_changed": false,
+    "training_started": false,
+    "deployment_started": false
   }
 }
