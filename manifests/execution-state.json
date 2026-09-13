@@ -674,18 +674,38 @@
     "weights_exported": false,
     "model_changed": false,
     "training_performed": false,
-    "streaming_integration": "Offline worker implementation complete; root integration and live validation remain pending."
+    "streaming_integration": "Deployed and live verified at three workers; see launch_streaming_efficiency."
   },
   "launch_streaming_efficiency": {
     "date": "2026-09-12",
-    "status": "reviewed_pending_deployment_and_live_validation",
+    "status": "deployed_and_live_verified",
     "document": "docs/STREAMING-EFFICIENCY.md",
     "live_model_workers": 3,
     "queue_limit": 12,
     "model_changed": false,
     "training_performed": false,
     "provider_contact_sent": false,
-    "ten_request_probe": "deferred_by_owner",
-    "live_test_max_reservation_usd": 0.3
+    "ten_request_probe": "not_run",
+    "live_test_max_reservation_usd": 0.3,
+    "application_commit": "b028475",
+    "release_tests": 630,
+    "asset_tests_excluded": 94,
+    "browser_scenarios": 29,
+    "live_questions_completed": 3,
+    "live_sse_responses": 3,
+    "live_polling_requests": 0,
+    "live_generation_submissions": 3,
+    "all_complete_seconds": 17.598,
+    "first_visible_seconds": [
+      16.046,
+      16.046,
+      15.075
+    ],
+    "memory_before_bytes": 2890301440,
+    "memory_after_bytes": 1581793280,
+    "memory_reduction_percent": 45.3,
+    "estimated_test_cost_usd": 0.00676876,
+    "unresolved_requests": 0,
+    "provider_message_sent": false
   }
 }

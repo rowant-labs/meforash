@@ -23,3 +23,15 @@ The provider question is prepared privately. No provider support message has bee
 Run offline tests for split UTF-8/event boundaries, event reconnects, ownership/revocation, subscriber limits, shared-profile reuse, interleaved response isolation, deadlines, abandoned work, shared-process death and exact usage validation. Then perform three overlapping short-question streams with the actual B adapter for a combined maximum local inference reservation below $0.30. No generation retries are authorized by this probe.
 
 Use the existing operator access and two ordinary guest sessions without weakening guest rate limits. Measure the probe's process memory separately where possible. Preserve private receipts and publish only aggregate engineering results. A successful test is not an accuracy evaluation or a broad production capacity guarantee.
+
+## Deployed result
+
+Application commit `b028475` is deployed on Railway. The live setting remains **three model workers**, twelve queued requests and a 120-second queue timeout. No ten-request test or provider message was performed.
+
+The final source-release suite passed 630 tests; 94 asset-dependent tests were excluded, not counted as passes. The browser suites passed 29 scenarios. Integration review added regression coverage for absolute deadlines during a continuously active stream and capacity turnover before terminal delivery.
+
+Three separate live browser sessions submitted one short constructed question each. All three received HTTP 200 event streams, displayed progressive answer text, and completed with no error, no queue wait, no generation retry and zero fallback polling requests. First visible text appeared at about 15.1–16.0 seconds; all answers completed by 17.6 seconds. The screenshot was inspected. This establishes delivery through the live proxy, not faster underlying model reasoning or a broad capacity/accuracy benchmark.
+
+Warm container memory measured about 2.89 GB immediately before deployment and 1.58 GB after the three new requests: approximately **45% lower** in these snapshots. This is total container memory, including caches, not a guaranteed steady-state bill or a controlled latency comparison. Provider health remained ready afterward.
+
+The three-request ledger increase was **$0.00676876 estimated total**, with zero unresolved requests, below the $0.30 maximum reservation. This is an estimate, not an invoice or a representative average answer cost. Private browser receipts and the aggregate summary are retained outside publication.
