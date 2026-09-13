@@ -65,3 +65,7 @@ Before any eventual migration, update provider disclosures and verify data-reten
 ## Prepared pilot
 
 See [SMALL-MODEL-SERVING-PILOT.md](SMALL-MODEL-SERVING-PILOT.md) for model/image pins, the proposed $10 ceiling and the 1/3/10-request sequence. An offline [cost calculator](../tools/hosting_cost.py) converts provider-billed hours into cost per 1,000 completed questions. Credentials and live measurements remain pending.
+
+## Live exploration update
+
+The [A5000 24 GB test](SMALL-MODEL-SERVING-RESULTS-V2.md) completed nineteen post-load engineering answers with the unchanged gpt-oss model. Startup remained slow, dominated by downloading weights. See the [pinned-cache plan](SMALL-MODEL-CACHE-PLAN.md) for the next hosting experiment. Adapter portability and biblical quality remain unverified. Temporary resources are deleted; billing reconciliation is pending.
