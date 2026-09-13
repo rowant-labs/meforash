@@ -644,7 +644,7 @@
   },
   "launch_concurrency": {
     "date": "2026-09-12",
-    "status": "reviewed_for_deployment",
+    "status": "deployed_and_live_verified",
     "document": "docs/CONCURRENT-BETA.md",
     "model_workers": 3,
     "queue_limit": 12,
@@ -654,6 +654,13 @@
     "training_performed": false,
     "offline_tests_passed": 615,
     "browser_scenarios_passed": 27,
-    "live_probe_max_reservation_usd": 0.5
+    "live_probe_max_reservation_usd": 0.5,
+    "application_commit": "7a287ef",
+    "live_questions_completed": 4,
+    "live_questions_concurrently_running": 3,
+    "live_questions_queued": 1,
+    "live_all_complete_seconds": 22.48,
+    "live_estimated_cost_usd": 0.00743893,
+    "cross_user_polling_blocked": true
   }
 }

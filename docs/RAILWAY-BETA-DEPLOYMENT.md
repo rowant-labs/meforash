@@ -1,6 +1,6 @@
 # Railway deployment package for the invite-only beta
 
-September 12 concurrency follow-up: see [concurrent beta serving](CONCURRENT-BETA.md). The service remains one process and one replica, with a bounded internal model-worker pool. Production is being configured with `MEFORASH_MODEL_WORKERS=3`, `MEFORASH_QUEUE_LIMIT=12`, and `MEFORASH_QUEUE_TIMEOUT_SECONDS=120`; omitted settings retain one worker. Do not add Railway replicas to obtain concurrency. The historical single-flight checks below describe the earlier release.
+September 12 concurrency follow-up: see [concurrent beta serving](CONCURRENT-BETA.md). The service remains one process and one replica, with a bounded internal model-worker pool. Production is configured with `MEFORASH_MODEL_WORKERS=3`, `MEFORASH_QUEUE_LIMIT=12`, and `MEFORASH_QUEUE_TIMEOUT_SECONDS=120`; omitted settings retain one worker. Do not add Railway replicas to obtain concurrency. The historical single-flight checks below describe the earlier release.
 
 September 10, 2026. This package makes the retained Inkling B browser beta concrete for a single Railway service and persistent volume. It has not been deployed and no invitation or provider request was sent. Candidate G is not used.
 

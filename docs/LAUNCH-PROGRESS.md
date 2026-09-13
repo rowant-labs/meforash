@@ -141,3 +141,10 @@ The review also fixes false readiness after a terminal model failure: an existin
 The [production review](PRODUCTION-REVIEW-2026-09-12.md) records the limits of the current public beta, privacy checks, GitHub controls and future adapter publication. One global generation slot remains the principal traffic constraint; there is no queue or demonstrated multi-replica support. No weights were exported or published. See [auth email and agreement details](AUTH-EMAIL.md) and [readiness recovery](BETA-READINESS.md).
 
 The update is live from commit `5ac8d1a`. Final verification passed 605 source-only tests (94 asset-dependent exclusions), 26 browser scenarios, canonical route and JavaScript-byte checks, and the deployed mobile email-to-code flow with mocked delivery. Stale-version auth requests reject before email delivery. The public beta remains capacity-limited as described in the production review.
+
+
+## Concurrent social trial — September 12, 2026
+
+The owner authorized concurrent use for a social-media trial. Application commit `7a287ef` is live with three independent retained-B workers and a FIFO queue for twelve waiting questions, with a 120-second queued-only deadline. The global inference cap and per-user limits remain unchanged. Blocked workers retire; all-unavailable admission rejects before reservation, and provably unsubmitted work releases its quota.
+
+Validation passed 615 distinct offline tests and 27 browser scenarios. Four short live questions were accepted together: three ran concurrently and the fourth queued, with all four complete within 22.48 seconds. Cross-user polling was denied. Estimated inference cost was $0.00743893 total. Warm container memory was approximately 2.9 GB. See [the concurrency record](CONCURRENT-BETA.md) for test scope, hosting-cost implications and remaining scale limits. No training or weight publication occurred.

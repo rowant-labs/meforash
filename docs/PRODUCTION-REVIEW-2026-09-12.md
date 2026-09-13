@@ -5,7 +5,9 @@
 
 This is a technical release review, not a penetration test, privacy certification, legal opinion or expert assessment of biblical accuracy. No model export, weight download, training, invitation or weight publication was performed for this review. The sign-in templates and application changes were deployed separately as part of the launch work.
 
-## Decision
+**Concurrency follow-up:** the owner subsequently authorized concurrent serving for a social-media trial. The global single-answer gate below describes the pre-change deployment. See [the concurrency record](CONCURRENT-BETA.md) for the three-worker pool, bounded queue and later validation. The remaining operational/privacy/publication findings below are not automatically closed by that change.
+
+## Initial review decision
 
 The current deployment is suitable for a deliberately bounded public beta with active operator monitoring. It is **not ready for broad production promotion or traffic**. The dominant constraint is intentional single-flight generation: one process accepts one answer at a time and rejects every simultaneous answer with HTTP 409. A live integration check measured 22.85 seconds to completion, 21.73 seconds to first visible text, and a simultaneous second request returning 409. There is no queue, fairness rule or service-level throughput evidence.
 
