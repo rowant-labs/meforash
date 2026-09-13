@@ -137,6 +137,8 @@ textarea::placeholder { color: #858981; }
 .auth-intro { margin: 18px 0 21px; color: var(--muted); font-family: var(--serif); font-size: 15px; line-height: 1.6; }
 .auth-form .primary-button { margin-top: 20px; }
 .code-instruction { margin: 0 0 17px; color: var(--muted); font-size: 11px; line-height: 1.6; overflow-wrap: anywhere; }
+.auth-token { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 23px; font-variant-numeric: tabular-nums; letter-spacing: .12em; }
+.auth-code-help { margin: 8px 0 0; color: var(--muted); font-size: 10px; line-height: 1.5; }
 .auth-cancel { display: block; min-height: 40px; margin: 4px auto 0; padding: 8px 12px; border: 0; background: transparent; color: var(--muted); font-size: 11px; }
 .noscript-note { padding: 20px; text-align: center; color: var(--muted); }
 

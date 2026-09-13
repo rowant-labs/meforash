@@ -112,16 +112,17 @@
       </div>
       <button id="auth-close-button" class="icon-button" type="button" aria-label="Cancel sign in">×</button>
     </div>
-    <p class="auth-intro">Sign in free to keep exploring. Your current conversation stays on this page; saved history is not available yet.</p>
+    <p class="auth-intro">Sign in free to keep exploring. We&rsquo;ll email you a six-digit code that expires in 10 minutes.</p>
     <form id="email-form" class="auth-form">
       <label for="auth-email">Email address</label>
       <input id="auth-email" name="email" type="email" maxlength="254" autocomplete="email" required>
       <button id="email-button" class="primary-button" type="submit">Send a sign-in code</button>
     </form>
     <form id="code-form" class="auth-form" hidden>
-      <p class="code-instruction">Enter the code sent to <strong id="code-email"></strong>.</p>
+      <p class="code-instruction">Enter the six-digit code sent to <strong id="code-email"></strong>. It expires in 10 minutes.</p>
       <label for="auth-token">Sign-in code</label>
-      <input id="auth-token" name="token" type="text" inputmode="numeric" pattern="[0-9]{6}" minlength="6" maxlength="6" autocomplete="one-time-code" required>
+      <input id="auth-token" class="auth-token" name="token" type="text" inputmode="numeric" pattern="[0-9]{6}" minlength="6" maxlength="6" autocomplete="one-time-code" autocapitalize="off" spellcheck="false" enterkeyhint="done" aria-describedby="auth-code-help" required>
+      <p id="auth-code-help" class="auth-code-help">On iPhone, your code may appear above the keyboard.</p>
       <button id="code-button" class="primary-button" type="submit">Verify code</button>
     </form>
     <p id="auth-message" class="form-message" role="status" aria-live="polite"></p>

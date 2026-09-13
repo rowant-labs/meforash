@@ -897,7 +897,7 @@ emailForm.addEventListener("submit", async (event) => {
     codeEmail.textContent = email;
     emailForm.hidden = true;
     codeForm.hidden = false;
-    authMessage.textContent = "If the address can receive a code, it is on its way.";
+    authMessage.textContent = "If that address can receive email from us, the code is on its way.";
     authToken.focus();
   } catch (error) {
     if (epoch !== stateEpoch || !authDialog.open) return;
@@ -911,8 +911,8 @@ codeForm.addEventListener("submit", async (event) => {
   if (codeButton.disabled) return;
   const email = authEmail.value.trim();
   const token = authToken.value.trim();
-  if (!/^[0-9]{6,10}$/.test(token)) {
-    authMessage.textContent = "Enter the 6–10 digit sign-in code.";
+  if (!/^[0-9]{6}$/.test(token)) {
+    authMessage.textContent = "Enter the six-digit sign-in code.";
     return;
   }
   const epoch = stateEpoch;

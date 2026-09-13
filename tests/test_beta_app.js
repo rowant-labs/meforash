@@ -597,6 +597,10 @@ function testReaderFacingCopyKeepsLimitsVisibleAndOperationsQuiet() {
   assert.doesNotMatch(MARKUP, /starter prompt/i);
   assert.match(MARKUP, /<details class="about-panel/);
   assert.match(MARKUP, /pattern="\[0-9\]\{6\}"/);
+  assert.match(MARKUP, /autocomplete="one-time-code"/);
+  assert.match(MARKUP, /inputmode="numeric"/);
+  assert.match(MARKUP, /maxlength="6"/);
+  assert.match(MARKUP, /expires in 10 minutes/);
   assert.doesNotMatch(MARKUP, /Saved history is not available yet/);
   assert.doesNotMatch(MARKUP, /temporary session storage for up to ten minutes/);
   assert.doesNotMatch(MARKUP, /not written to disk/);
@@ -672,13 +676,22 @@ async function testGuestLimitAndCodeSignInPreservePageState() {
   document.querySelector("#auth-email").value = "reader@example.test";
   await document.querySelector("#email-form").dispatch("submit");
   assert.equal(document.querySelector("#code-form").hidden, false);
-  document.querySelector("#auth-token").value = "12345678";
+  document.querySelector("#auth-token").value = "123456";
+  await document.querySelector("#auth-token").dispatch("input");
+  assert.equal(verifyCalls, 0);
+  assert.equal(document.querySelector("#auth-dialog").open, true);
   await document.querySelector("#code-form").dispatch("submit");
   assert.equal(document.querySelector("#auth-dialog").open, true);
   assert.equal(document.querySelector("#auth-message").textContent, "That code was not accepted.");
   assert.equal(document.querySelector("#conversation").children.length, 2);
 
-  document.querySelector("#auth-token").value = "87654321";
+  document.querySelector("#auth-token").value = "12345678";
+  await document.querySelector("#code-form").dispatch("submit");
+  assert.equal(verifyCalls, 1);
+  assert.equal(document.querySelector("#auth-message").textContent,
+    "Enter the six-digit sign-in code.");
+
+  document.querySelector("#auth-token").value = "876543";
   await document.querySelector("#code-form").dispatch("submit");
   assert.equal(document.querySelector("#auth-dialog").open, false);
   assert.equal(document.querySelector("#conversation").children.length, 2);
@@ -760,7 +773,7 @@ async function testGuestBootstrapFailureKeepsPublicEmailSignInAvailable() {
   await document.querySelector("#sign-in-button").dispatch("click");
   document.querySelector("#auth-email").value = "reader@example.test";
   await document.querySelector("#email-form").dispatch("submit");
-  document.querySelector("#auth-token").value = "12345678";
+  document.querySelector("#auth-token").value = "123456";
   await document.querySelector("#code-form").dispatch("submit");
   assert.equal(document.querySelector("#auth-dialog").open, false);
   assert.equal(document.querySelector("#question").disabled, false);
