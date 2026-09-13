@@ -1,6 +1,6 @@
 # Production and publication review
 
-**Review date:** September 12, 2026  
+**Review date:** September 12, 2026
 **Scope:** the public source tree, deployed beta architecture, account and analytics data paths, GitHub publication controls, and possible future publication of retained Inkling adapter B.
 
 This is a technical release review, not a penetration test, privacy certification, legal opinion or expert assessment of biblical accuracy. No model export, weight download, training, invitation or weight publication was performed for this review. The sign-in templates and application changes were deployed separately as part of the launch work.
@@ -105,3 +105,7 @@ Broad production promotion remains blocked until the P0 issues are fixed and exe
 6. full source credits in the browser plus qualified review of privacy terms and any planned model artifact.
 
 The existing development evaluations support the choice of B among tested candidates. They do not establish expert accuracy, whole-Bible reliability, safety for sensitive pastoral decisions, or a general production quality threshold.
+
+## Deployment verification
+
+Application commit `5ac8d1a` deployed successfully to Railway. Canonical homepage, Terms, Privacy, JavaScript and health routes returned 200; live JavaScript bytes matched the reviewed files. A stale-version auth request returned 403 before sending email. The deployed 390-pixel sign-in check reached the OTP field without an agreement dialog, retained the autofill attributes, did not auto-submit, and had no horizontal overflow. Email delivery was mocked for this final browser check; the earlier real-iPhone success remains the owner-reported end-to-end check. No additional paid generation or weight operation was needed for these interface checks.

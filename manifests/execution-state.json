@@ -622,7 +622,7 @@
   },
   "launch_auth_review": {
     "date": "2026-09-12",
-    "status": "reviewed_for_deployment",
+    "status": "deployed_and_verified",
     "review": "docs/PRODUCTION-REVIEW-2026-09-12.md",
     "email": "docs/AUTH-EMAIL.md",
     "readiness": "docs/BETA-READINESS.md",
@@ -639,6 +639,7 @@
       "source_only_passed": 605,
       "asset_dependent_excluded": 94,
       "browser_scenarios_passed": 26
-    }
+    },
+    "application_commit": "5ac8d1a"
   }
 }
