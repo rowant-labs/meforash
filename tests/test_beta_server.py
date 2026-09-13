@@ -76,6 +76,21 @@ class StreamingFakeModel(FakeModel):
                 "warnings": [], "usage": {"estimated_usd": self.cost}}
 
 
+class ConcurrentFakeModel(FakeModel):
+    def __init__(self, *, rendezvous, release):
+        super().__init__()
+        self.rendezvous = rendezvous
+        self.release = release
+
+    def generate(self, messages, evidence_context=""):
+        self.calls.append((messages, evidence_context))
+        if not self.release.is_set():
+            self.rendezvous.wait(2)
+        self.release.wait(2)
+        return {"answer": "A concurrent synthetic answer.", "answer_complete": True,
+                "warnings": [], "usage": {"estimated_usd": self.cost}}
+
+
 def messages(text="What does this passage say?"):
     return {"messages": [{"role": "user", "content": text}]}
 
@@ -118,6 +133,15 @@ class StoreTests(unittest.TestCase):
         self.assertEqual(usage["uncertain_requests"], 1)
         with closing(sqlite3.connect(self.path)) as db:
             self.assertEqual(db.execute("SELECT status FROM usage").fetchone()[0], "uncertain")
+
+    def test_unsubmitted_reservation_is_released_on_restart(self):
+        self.store.reserve("reader-one", "queued-before-restart", now=100)
+        reopened = subject.BetaStore(self.path, self.config)
+        self.assertEqual(reopened.usage("reader-one")["user_accounted_nano_usd"], 0)
+        with closing(sqlite3.connect(self.path)) as db:
+            self.assertEqual(
+                db.execute("SELECT status,actual_nano,quota_charged FROM usage").fetchone(),
+                ("complete", 0, 0))
 
     def test_actual_cost_releases_reservation_but_uncertain_retains_it(self):
         self.store.reserve("reader-one", "complete", now=100)
@@ -179,10 +203,10 @@ class ApplicationTests(unittest.TestCase):
             "2026-09-11.1", True, now=100)
         self.addCleanup(self.app.close)
 
-    def wait(self, request_id):
+    def wait(self, request_id, identity="reader-one"):
         for _ in range(100):
-            result = self.app.result("reader-one", request_id)
-            if result and result["status"] != "running":
+            result = self.app.result(identity, request_id)
+            if result and result["status"] not in {"queued", "running"}:
                 return result
             time.sleep(0.005)
         self.fail("synthetic job did not finish")
@@ -197,7 +221,7 @@ class ApplicationTests(unittest.TestCase):
         self.assertNotIn(b"PRIVATE CHAT SENTENCE", self.store.path.read_bytes())
         self.assertIsNone(self.app.result("another-user", request))
 
-    def test_one_generation_flight_rejects_busy_without_second_reservation(self):
+    def test_one_identity_cannot_hold_two_outstanding_reservations(self):
         gate = threading.Event()
         self.model.gate = gate
         first = self.app.submit("reader-one", messages())
@@ -205,7 +229,7 @@ class ApplicationTests(unittest.TestCase):
             if self.model.calls:
                 break
             time.sleep(0.005)
-        with self.assertRaisesRegex(subject.BetaError, "busy"):
+        with self.assertRaisesRegex(subject.BetaError, "request_pending"):
             self.app.submit("reader-one", messages("second"))
         with closing(sqlite3.connect(self.store.path)) as db:
             self.assertEqual(db.execute("SELECT COUNT(*) FROM usage").fetchone()[0], 1)
@@ -232,14 +256,19 @@ class ApplicationTests(unittest.TestCase):
         request = self.app.submit("reader-one", messages())
         self.assertTrue(self.model.progress_ready.wait(1))
         running = self.app.result("reader-one", request)
-        self.assertEqual(running, {
-            "status": "running", "revision": 1, "answer": "A partial",
-            "complete": False,
-        })
+        self.assertEqual(
+            {key: running[key] for key in ("status", "revision", "answer", "complete")},
+            {"status": "running", "revision": 1, "answer": "A partial",
+             "complete": False})
+        self.assertIsInstance(running["queue_wait_seconds"], (float, int))
+        self.assertIsInstance(running["run_elapsed_seconds"], (float, int))
         self.assertIsNone(self.app.result("another-user", request))
         before = self.store.usage("reader-one")
-        self.assertEqual(self.app.result("reader-one", request), running)
-        self.assertEqual(self.app.result("reader-one", request), running)
+        for _ in range(2):
+            current = self.app.result("reader-one", request)
+            self.assertEqual(
+                {key: current[key] for key in ("status", "revision", "answer", "complete")},
+                {key: running[key] for key in ("status", "revision", "answer", "complete")})
         self.assertEqual(self.store.usage("reader-one"), before)
         gate.set()
         result = self.wait(request)
@@ -284,7 +313,8 @@ class ApplicationTests(unittest.TestCase):
     def test_worker_start_failure_releases_reservation(self):
         with patch.object(threading.Thread, "start", side_effect=RuntimeError("start")):
             with self.assertRaisesRegex(subject.BetaError, "worker_unavailable"):
-                self.app.submit("reader-one", messages())
+                subject.BetaApplication(store=self.store, model_factory=FakeModel,
+                                        library=FakeLibrary())
         self.assertEqual(self.store.usage("reader-one")["user_accounted_nano_usd"], 0)
         self.assertEqual(self.factory_calls, 0)
 
@@ -293,16 +323,164 @@ class ApplicationTests(unittest.TestCase):
         with self.app.lock:
             for index in range(25):
                 self.app.jobs[f"done-{index}"] = {
-                    "invite_id": "reader-one", "status": "complete",
-                    "answer": "temporary", "created": now,
+                    "identity": subject.AccessIdentity("invite", "reader-one"),
+                    "status": "complete", "answer": "temporary",
+                    "completed_at": now,
                 }
             self.app.jobs["expired"] = {
-                "invite_id": "reader-one", "status": "complete",
-                "answer": "temporary", "created": now - subject.RESULT_TTL_SECONDS,
+                "identity": subject.AccessIdentity("invite", "reader-one"),
+                "status": "complete", "answer": "temporary",
+                "completed_at": now - subject.RESULT_TTL_SECONDS,
             }
         self.assertIsNone(self.app.result("reader-one", "missing"))
         self.assertLessEqual(len(self.app.jobs), subject.MAX_RETAINED_RESULTS)
         self.assertNotIn("expired", self.app.jobs)
+
+    def test_three_workers_overlap_with_distinct_models_and_fifo_queue(self):
+        rendezvous = threading.Barrier(4)
+        release = threading.Event()
+        models = []
+        factory_lock = threading.Lock()
+
+        def factory():
+            model = ConcurrentFakeModel(rendezvous=rendezvous, release=release)
+            with factory_lock:
+                models.append(model)
+            return model
+
+        pool = subject.BetaApplication(
+            store=self.store, model_factory=factory, library=FakeLibrary(),
+            worker_count=3, queue_limit=12)
+        self.addCleanup(pool.close)
+        identities = [subject.AccessIdentity("account", f"person-{index}")
+                      for index in range(4)]
+        for identity in identities:
+            pool.access.accept_terms(identity, subject.TERMS_VERSION, True, now=100)
+        requests = [pool.submit(identity, messages(str(index)))
+                    for index, identity in enumerate(identities)]
+        rendezvous.wait(2)
+        states = [pool.result(identity, request_id)
+                  for identity, request_id in zip(identities, requests)]
+        self.assertEqual([state["status"] for state in states],
+                         ["running", "running", "running", "queued"])
+        self.assertEqual(states[3]["queue_position"], 1)
+        self.assertEqual(len(models), 3)
+        self.assertEqual(len({id(model) for model in models}), 3)
+        release.set()
+        for identity, request_id in zip(identities, requests):
+            for _ in range(100):
+                result = pool.result(identity, request_id)
+                if result and result["status"] == "complete":
+                    break
+                threading.Event().wait(.005)
+            else:
+                self.fail("concurrent synthetic job did not finish")
+
+    def test_queue_timeout_reaper_refunds_without_result_polling(self):
+        entered = threading.Event()
+        release = threading.Event()
+
+        class HeldModel(FakeModel):
+            def generate(model_self, payload, evidence_context=""):
+                model_self.calls.append((payload, evidence_context))
+                entered.set()
+                release.wait(3)
+                return super().generate(payload, evidence_context)
+
+        pool = subject.BetaApplication(
+            store=self.store, model_factory=HeldModel, library=FakeLibrary(),
+            queue_timeout_seconds=1)
+        self.addCleanup(pool.close)
+        first = subject.AccessIdentity("account", "timeout-first")
+        second = subject.AccessIdentity("account", "timeout-second")
+        for identity in (first, second):
+            pool.access.accept_terms(identity, subject.TERMS_VERSION, True, now=100)
+        first_request = pool.submit(first, messages("first"))
+        self.assertTrue(entered.wait(1))
+        released = threading.Event()
+        original_finalize = self.store.finalize
+
+        def finalize(request_id, **options):
+            result = original_finalize(request_id, **options)
+            if options.get("release_question"):
+                released.set()
+            return result
+
+        with patch.object(self.store, "finalize", side_effect=finalize):
+            second_request = pool.submit(second, messages("second"))
+            self.assertTrue(released.wait(2))
+        timed_out = pool.result(second, second_request)
+        self.assertEqual(timed_out["error"]["code"], "queue_timeout")
+        self.assertEqual(timed_out["run_elapsed_seconds"], 0.0)
+        self.assertEqual(self.store.usage(second)["user_accounted_nano_usd"], 0)
+        release.set()
+        for _ in range(100):
+            result = pool.result(first, first_request)
+            if result and result["status"] == "complete":
+                break
+            threading.Event().wait(.005)
+
+    def test_shutdown_during_lazy_factory_closes_orphan_without_provider_call(self):
+        factory_entered = threading.Event()
+        factory_release = threading.Event()
+        model = FakeModel()
+
+        def factory():
+            factory_entered.set()
+            factory_release.wait(2)
+            return model
+
+        pool = subject.BetaApplication(
+            store=self.store, model_factory=factory, library=FakeLibrary())
+        identity = subject.AccessIdentity("account", "factory-shutdown")
+        pool.access.accept_terms(identity, subject.TERMS_VERSION, True, now=100)
+        pool.submit(identity, messages())
+        self.assertTrue(factory_entered.wait(1))
+        closer = threading.Thread(target=pool.close)
+        closer.start()
+        with pool.condition:
+            while not pool.closed:
+                pool.condition.wait(1)
+        factory_release.set()
+        closer.join(2)
+        self.assertFalse(closer.is_alive())
+        self.assertTrue(model.closed)
+        self.assertEqual(model.calls, [])
+        self.assertEqual(self.store.usage(identity)["user_accounted_nano_usd"], 0)
+
+    def test_full_queue_rejects_before_third_identity_reservation(self):
+        entered = threading.Event()
+        release = threading.Event()
+
+        class HeldModel(FakeModel):
+            def generate(model_self, payload, evidence_context=""):
+                model_self.calls.append((payload, evidence_context))
+                entered.set()
+                release.wait(2)
+                return {"answer": "done", "answer_complete": True,
+                        "warnings": [], "usage": {"estimated_usd": .01}}
+
+        pool = subject.BetaApplication(
+            store=self.store, model_factory=HeldModel, library=FakeLibrary(),
+            queue_limit=1)
+        self.addCleanup(pool.close)
+        identities = [subject.AccessIdentity("account", f"queue-{index}")
+                      for index in range(3)]
+        for identity in identities:
+            pool.access.accept_terms(identity, subject.TERMS_VERSION, True, now=100)
+        first = pool.submit(identities[0], messages("first"))
+        self.assertTrue(entered.wait(1))
+        second = pool.submit(identities[1], messages("second"))
+        self.assertEqual(pool.result(identities[1], second)["queue_position"], 1)
+        with self.assertRaisesRegex(subject.BetaError, "queue_full"):
+            pool.submit(identities[2], messages("third"))
+        self.assertEqual(self.store.usage(identities[2])["user_accounted_nano_usd"], 0)
+        release.set()
+        for identity, request_id in zip(identities[:2], (first, second)):
+            for _ in range(100):
+                if pool.result(identity, request_id)["status"] == "complete":
+                    break
+                threading.Event().wait(.005)
 
 
 def unused_port():
@@ -435,6 +613,21 @@ class HTTPTests(unittest.TestCase):
         self.assertEqual(model.calls, [])
         with closing(sqlite3.connect(self.store.path)) as db:
             self.assertEqual(db.execute("SELECT COUNT(*) FROM usage").fetchone()[0], 0)
+
+    def test_queue_admission_errors_have_exact_retryable_http_statuses(self):
+        cookie = self.login()
+        self.accept_terms(cookie)
+        for code, expected in (("request_pending", 409), ("queue_full", 503),
+                               ("model_unavailable", 503)):
+            with self.subTest(code=code), patch.object(
+                    self.app, "submit", side_effect=subject.BetaError(code)):
+                status, value, _ = self.request(
+                    "POST", "/api/chat", messages(),
+                    {"Origin": self.origin, "Cookie": cookie})
+                self.assertEqual(status, expected)
+                self.assertEqual(value["error"]["code"], code)
+                self.assertNotEqual(value["error"]["message"],
+                                    "The beta could not accept this request.")
 
     def test_request_bounds_duplicate_json_and_hosted_cookie_policy(self):
         cookie = self.login()

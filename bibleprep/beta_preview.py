@@ -175,12 +175,21 @@ def main(argv=None):
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=DEFAULT_PORT)
     parser.add_argument("--origin")
+    parser.add_argument("--model-workers", type=int,
+                        default=beta_server.DEFAULT_MODEL_WORKERS)
+    parser.add_argument("--queue-limit", type=int,
+                        default=beta_server.DEFAULT_QUEUE_LIMIT)
+    parser.add_argument("--queue-timeout-seconds", type=int,
+                        default=beta_server.DEFAULT_QUEUE_TIMEOUT_SECONDS)
     args = parser.parse_args(argv)
     try:
         origin, secure_cookie = runtime_origin(args.host, args.port, args.origin)
         store = beta_server.BetaStore(
             args.database, beta_server.load_invite_config(args.invite_config))
-        app = beta_server.BetaApplication(store=store)
+        app = beta_server.BetaApplication(
+            store=store, worker_count=args.model_workers,
+            queue_limit=args.queue_limit,
+            queue_timeout_seconds=args.queue_timeout_seconds)
         server = beta_server.BetaHTTPServer(
             (args.host, args.port),
             handler_for(app, origin=origin, secure_cookie=secure_cookie),

@@ -641,5 +641,19 @@
       "browser_scenarios_passed": 26
     },
     "application_commit": "5ac8d1a"
+  },
+  "launch_concurrency": {
+    "date": "2026-09-12",
+    "status": "reviewed_for_deployment",
+    "document": "docs/CONCURRENT-BETA.md",
+    "model_workers": 3,
+    "queue_limit": 12,
+    "queue_timeout_seconds": 120,
+    "replicas": 1,
+    "model_changed": false,
+    "training_performed": false,
+    "offline_tests_passed": 615,
+    "browser_scenarios_passed": 27,
+    "live_probe_max_reservation_usd": 0.5
   }
 }

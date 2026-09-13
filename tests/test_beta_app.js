@@ -429,16 +429,16 @@ async function testPendingPhasesUseActualElapsedTime() {
   const submission = document.querySelector("#chat-form").dispatch("submit");
   await flush();
   const status = document.querySelector("#request-state");
-  assert.match(allText(status), /Preparing your answer….*0s/s);
+  assert.match(allText(status), /Submitting your question….*0s elapsed/s);
   assert.equal(document.activeIntervalCount(), 1);
 
   document.advanceTime(3200);
-  assert.match(allText(status), /Preparing your answer….*3s/s);
+  assert.match(allText(status), /Submitting your question….*3s elapsed/s);
   firstPoll.resolve(new FakeResponse(200, {
     status: "running", revision: 1, answer: "A real partial answer", complete: false,
   }));
   await flush();
-  assert.match(allText(status), /Writing….*3s/s);
+  assert.match(allText(status), /Writing….*3s generating/s);
 
   document.advanceTime(2000);
   terminal.resolve(new FakeResponse(200, {
@@ -448,6 +448,70 @@ async function testPendingPhasesUseActualElapsedTime() {
   await submission;
   assert.equal(status.textContent, "Completed in 5s");
   assert.equal(document.activeIntervalCount(), 0);
+}
+
+async function testQueuePositionAndTimingsStayDistinct() {
+  const queuedThird = deferred();
+  const queuedFirst = deferred();
+  const running = deferred();
+  const streaming = deferred();
+  const terminal = deferred();
+  const polls = [queuedThird, queuedFirst, running, streaming, terminal];
+  let pollIndex = 0;
+  const document = await boot((url) => {
+    if (url === "/api/status") return response(200, { model: "Inkling B" });
+    if (url === "/api/chat") return response(202, { request_id: "queued-answer" });
+    if (url === "/api/chat/queued-answer") return polls[pollIndex++].promise;
+    throw new Error(`Unexpected fetch: ${url}`);
+  });
+
+  document.querySelector("#question").value = "Wait for a model worker";
+  const submission = document.querySelector("#chat-form").dispatch("submit");
+  await flush();
+  const status = document.querySelector("#request-state");
+  assert.match(allText(status), /Submitting your question….*0s elapsed/s);
+
+  queuedThird.resolve(new FakeResponse(200, {
+    status: "queued", complete: false, revision: 0, answer: "",
+    queue_position: 3, queue_wait_seconds: 4.4,
+  }));
+  await flush();
+  assert.match(allText(status), /Waiting in line · position 3.*4s waiting/s);
+  assert.equal(document.querySelector("#conversation").children.length, 1);
+
+  document.advanceTime(2100);
+  assert.match(allText(status), /position 3.*6s waiting/s);
+  queuedFirst.resolve(new FakeResponse(200, {
+    status: "queued", complete: false, revision: 0, answer: "",
+    queue_position: 1, queue_wait_seconds: 7.8,
+  }));
+  await flush();
+  assert.match(allText(status), /Waiting in line · position 1.*7s waiting/s);
+
+  running.resolve(new FakeResponse(200, {
+    status: "running", complete: false, revision: 0, answer: "",
+    queue_wait_seconds: 8.2, run_elapsed_seconds: 1.6,
+  }));
+  await flush();
+  assert.match(allText(status), /Preparing your answer….*1s generating · waited 8s/s);
+
+  document.advanceTime(2400);
+  assert.match(allText(status), /Preparing your answer….*4s generating · waited 8s/s);
+  streaming.resolve(new FakeResponse(200, {
+    status: "running", complete: false, revision: 1, answer: "A queued answer begins",
+    queue_wait_seconds: 8.2, run_elapsed_seconds: 4.5,
+  }));
+  await flush();
+  assert.match(allText(status), /Writing….*4s generating · waited 8s/s);
+
+  terminal.resolve(new FakeResponse(200, {
+    status: "complete", complete: true, revision: 2, answer: "A queued answer is complete.",
+    sources: [], source_notes: [], queue_wait_seconds: 8.2, run_elapsed_seconds: 5.9,
+  }));
+  await submission;
+  assert.equal(status.textContent, "Completed · 5s generating · 8s waiting");
+  assert.equal(document.activeIntervalCount(), 0);
+  assert.equal(document.querySelector("#conversation").children.length, 2);
 }
 
 async function testBufferedRevealAndReducedMotion() {
@@ -1009,6 +1073,7 @@ async function testAuthReloadRestoresGuestOnceButNeverIntoAccount() {
   await testAnswerFormattingUsesOnlySafeDomNodes();
   await testProgressReplacesPlainNodeAndTerminalRendersOnce();
   await testPendingPhasesUseActualElapsedTime();
+  await testQueuePositionAndTimingsStayDistinct();
   await testBufferedRevealAndReducedMotion();
   await testPartialErrorIsVisibleButExcludedFromLaterContext();
   await testNetworkFailureAfterProgressLabelsPartialAndDoesNotRetry();
@@ -1022,7 +1087,7 @@ async function testAuthReloadRestoresGuestOnceButNeverIntoAccount() {
   await testDailyLimitShowsResetWithoutClearingDraft();
   await testMaliciousSessionHandoffIsDiscarded();
   await testAuthReloadRestoresGuestOnceButNeverIntoAccount();
-  process.stdout.write("3 beta browser regression scenarios passed; 5 progressive answer scenarios passed; 10 public access scenarios passed; 4 presentation safety scenarios passed\n");
+  process.stdout.write("3 beta browser regression scenarios passed; 6 progressive answer scenarios passed; 10 public access scenarios passed; 4 presentation safety scenarios passed\n");
 })().catch((error) => {
   console.error(error);
   process.exitCode = 1;

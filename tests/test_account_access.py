@@ -343,7 +343,7 @@ class AccessStoreTests(unittest.TestCase):
             account, {"messages": [{"role": "user", "content": "fixture"}]})
         for _ in range(100):
             result = app.result(account, request_id)
-            if result and result["status"] != "running":
+            if result and result["status"] not in {"queued", "running"}:
                 break
             time.sleep(0.005)
         self.assertEqual(result["error"]["code"], "generation_unavailable")
@@ -527,7 +527,7 @@ class HTTPAccessTests(unittest.TestCase):
             for _ in range(100):
                 status, result, _ = self.request("GET", f"/api/chat/{request_id}",
                                                   cookie=guest_cookie)
-                if result.get("status") != "running":
+                if result.get("status") not in {"queued", "running"}:
                     break
                 time.sleep(0.005)
             status, value, _ = self.request("GET", "/api/status", cookie=guest_cookie)

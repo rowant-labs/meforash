@@ -115,11 +115,22 @@ class DeploymentSettingsTests(unittest.TestCase):
         self.assertEqual(settings["origin"], "https://beta.example.test")
         self.assertEqual(settings["database"], self.volume / "state/beta.sqlite3")
         self.assertFalse(settings["streaming"])
+        self.assertEqual(settings["model_workers"], 1)
+        self.assertEqual(settings["queue_limit"], 12)
+        self.assertEqual(settings["queue_timeout_seconds"], 120)
         self.assertNotIn("TINKER_API_KEY", settings)
 
         enabled = self.environment()
         enabled["MEFORASH_STREAMING"] = "1"
         self.assertTrue(subject.deployment_settings(enabled)["streaming"])
+
+        concurrent = self.environment()
+        concurrent.update({"MEFORASH_MODEL_WORKERS": "3",
+                           "MEFORASH_QUEUE_LIMIT": "12",
+                           "MEFORASH_QUEUE_TIMEOUT_SECONDS": "120"})
+        configured = subject.deployment_settings(concurrent)
+        self.assertEqual((configured["model_workers"], configured["queue_limit"],
+                          configured["queue_timeout_seconds"]), (3, 12, 120))
 
     def test_streaming_flag_accepts_only_exact_zero_or_one(self):
         for value in ("", "true", "false", "yes", "2", " 1"):
@@ -129,6 +140,19 @@ class DeploymentSettingsTests(unittest.TestCase):
                 with self.assertRaisesRegex(subject.DeploymentError,
                                             "exactly 0 or 1"):
                     subject.deployment_settings(environment)
+
+    def test_worker_and_queue_settings_are_strict_and_bounded(self):
+        for name, values in {
+                "MEFORASH_MODEL_WORKERS": ("0", "5", "03", "x"),
+                "MEFORASH_QUEUE_LIMIT": ("0", "65", "012", "x"),
+                "MEFORASH_QUEUE_TIMEOUT_SECONDS": ("0", "901", "0120", "x"),
+        }.items():
+            for value in values:
+                environment = self.environment()
+                environment[name] = value
+                with self.subTest(name=name, value=value):
+                    with self.assertRaisesRegex(subject.DeploymentError, name):
+                        subject.deployment_settings(environment)
 
     def test_missing_secret_http_origin_and_paths_outside_volume_fail_closed(self):
         cases = []

@@ -243,9 +243,26 @@ def deployment_settings(environ=None):
     streaming_value = environ.get("MEFORASH_STREAMING", "0")
     if streaming_value not in {"0", "1"}:
         raise DeploymentError("MEFORASH_STREAMING must be exactly 0 or 1.")
+    numeric = {}
+    for name, default, minimum, maximum in (
+            ("MEFORASH_MODEL_WORKERS", beta_server.DEFAULT_MODEL_WORKERS,
+             1, beta_server.MAX_MODEL_WORKERS),
+            ("MEFORASH_QUEUE_LIMIT", beta_server.DEFAULT_QUEUE_LIMIT,
+             1, beta_server.MAX_QUEUE_LIMIT),
+            ("MEFORASH_QUEUE_TIMEOUT_SECONDS", beta_server.DEFAULT_QUEUE_TIMEOUT_SECONDS,
+             1, beta_server.MAX_QUEUE_TIMEOUT_SECONDS)):
+        value = environ.get(name, str(default))
+        if (not isinstance(value, str) or not value.isascii() or not value.isdecimal()
+                or str(int(value)) != value or not minimum <= int(value) <= maximum):
+            raise DeploymentError(
+                f"{name} must be an integer between {minimum} and {maximum}.")
+        numeric[name] = int(value)
     return {"volume": volume, "bundle": bundle, "invite": invite,
             "database": database, "port": port, "origin": origin.rstrip("/"),
-            "streaming": streaming_value == "1"}
+            "streaming": streaming_value == "1",
+            "model_workers": numeric["MEFORASH_MODEL_WORKERS"],
+            "queue_limit": numeric["MEFORASH_QUEUE_LIMIT"],
+            "queue_timeout_seconds": numeric["MEFORASH_QUEUE_TIMEOUT_SECONDS"]}
 
 
 def _port(environ):
@@ -359,7 +376,9 @@ def serve(environ=None):
     access = beta_server.AccountAccess.from_environ(store.path, environ)
     app = beta_server.BetaApplication(
         store=store, root=settings["bundle"], access=access,
-        streaming=settings["streaming"])
+        streaming=settings["streaming"], worker_count=settings["model_workers"],
+        queue_limit=settings["queue_limit"],
+        queue_timeout_seconds=settings["queue_timeout_seconds"])
     handler = beta_preview.handler_for(
         app, origin=settings["origin"], secure_cookie=True,
         asset_root=beta_preview.ASSET_ROOT,

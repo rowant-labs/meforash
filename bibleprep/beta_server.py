@@ -7,6 +7,7 @@ sessions, request timing/status, and conservative cost accounting.
 from __future__ import annotations
 
 import argparse
+from collections import deque
 from contextlib import closing
 from decimal import Decimal, ROUND_CEILING
 import hashlib
@@ -56,6 +57,12 @@ SCRYPT_N = 2**14
 SCRYPT_R = 8
 SCRYPT_P = 1
 GLOBAL_COST_CEILING_NANO = 5_000_000_000
+DEFAULT_MODEL_WORKERS = 1
+MAX_MODEL_WORKERS = 4
+DEFAULT_QUEUE_LIMIT = 12
+MAX_QUEUE_LIMIT = 64
+DEFAULT_QUEUE_TIMEOUT_SECONDS = 120
+MAX_QUEUE_TIMEOUT_SECONDS = 900
 
 
 class BetaError(RuntimeError):
@@ -232,9 +239,12 @@ class BetaStore:
                 raise ValueError("Stored invite hashes or caps differ from the configured ledger identity.")
             now = int(time.time())
             db.execute("DELETE FROM sessions WHERE expires_unix<=?", (now,))
-            # A restart cannot prove whether an unfinished request reached the provider.
+            # mark_submitted commits before the provider call. A leftover reservation
+            # therefore never left this process, while submitted work remains uncertain.
+            db.execute("UPDATE usage SET status='complete',actual_nano=0,quota_charged=0,"
+                       "updated_unix=? WHERE status='reserved'", (now,))
             db.execute("UPDATE usage SET status='uncertain',updated_unix=? "
-                       "WHERE status IN ('reserved','submitted','running')", (now,))
+                       "WHERE status IN ('submitted','running')", (now,))
             db.execute("COMMIT")
 
     def authenticate_invite(self, invite_id, secret):
@@ -396,24 +406,76 @@ class BetaStore:
 
 
 class BetaApplication:
+    """Bounded FIFO coordinator whose workers never share model transports."""
+
     def __init__(self, *, store, root=ROOT, model_factory=None, library=None,
-                 access=None, streaming=False):
+                 access=None, streaming=False, worker_count=DEFAULT_MODEL_WORKERS,
+                 queue_limit=DEFAULT_QUEUE_LIMIT,
+                 queue_timeout_seconds=DEFAULT_QUEUE_TIMEOUT_SECONDS,
+                 clock=None):
+        if type(worker_count) is not int or not 1 <= worker_count <= MAX_MODEL_WORKERS:
+            raise ValueError(f"worker_count must be between 1 and {MAX_MODEL_WORKERS}.")
+        if type(queue_limit) is not int or not 1 <= queue_limit <= MAX_QUEUE_LIMIT:
+            raise ValueError(f"queue_limit must be between 1 and {MAX_QUEUE_LIMIT}.")
+        if (type(queue_timeout_seconds) not in (int, float)
+                or not 1 <= queue_timeout_seconds <= MAX_QUEUE_TIMEOUT_SECONDS):
+            raise ValueError(
+                f"queue_timeout_seconds must be between 1 and {MAX_QUEUE_TIMEOUT_SECONDS}.")
         self.store = store
         self.access = access if access is not None else AccountAccess.from_environ(store.path)
         self.root = Path(root)
         self.model_factory = model_factory or (
             lambda: ChatModel(root=self.root, streaming=streaming))
         self.library = library if library is not None else PassageLibrary(self.root)
-        self.model = None
+        self.worker_count = worker_count
+        self.queue_limit = queue_limit
+        self.queue_timeout_seconds = float(queue_timeout_seconds)
+        self.clock = clock or time.monotonic
         self.lock = threading.Lock()
-        self.running = False
+        self.condition = threading.Condition(self.lock)
         self.closed = False
         self.jobs = {}
+        self.queue = deque()
+        self.slots = [
+            {"model": None, "active": False, "terminal": None}
+            for _ in range(worker_count)
+        ]
+        self.worker_threads = []
+        self.reaper_thread = None
+        try:
+            for index in range(worker_count):
+                worker = threading.Thread(
+                    target=self._worker_loop, args=(index,), daemon=True,
+                    name=f"meforash-model-{index + 1}")
+                worker.start()
+                self.worker_threads.append(worker)
+            self.reaper_thread = threading.Thread(
+                target=self._reaper_loop, daemon=True, name="meforash-queue-reaper")
+            self.reaper_thread.start()
+        except Exception:
+            with self.condition:
+                self.closed = True
+                self.condition.notify_all()
+            raise BetaError("worker_unavailable") from None
 
-    def _model_status_locked(self):
-        if self.model is None:
+    @property
+    def model(self):
+        """Compatibility view of the first lazy model slot."""
+        return self.slots[0]["model"]
+
+    @model.setter
+    def model(self, value):
+        self.slots[0]["model"] = value
+
+    @property
+    def running(self):
+        return any(slot["active"] for slot in self.slots)
+
+    @staticmethod
+    def _model_status(model):
+        if model is None:
             return None
-        status_method = getattr(self.model, "status", None)
+        status_method = getattr(model, "status", None)
         if not callable(status_method):
             return {}
         try:
@@ -422,8 +484,10 @@ class BetaApplication:
             return {"ready": False}
         return status if isinstance(status, dict) else {"ready": False}
 
-    def _model_acceptance_error_locked(self):
-        status = self._model_status_locked()
+    def _slot_error_locked(self, slot):
+        if slot["terminal"] is not None:
+            return slot["terminal"]
+        status = self._model_status(slot["model"])
         if status is None:
             return None
         if status.get("closed") is True:
@@ -434,28 +498,77 @@ class BetaApplication:
             return "worker_unavailable"
         return None
 
+    def _acceptance_error_locked(self):
+        errors = [self._slot_error_locked(slot) for slot in self.slots]
+        if any(error is None for error in errors):
+            return None
+        return errors[0] if len(set(errors)) == 1 else "worker_unavailable"
+
     def health(self):
-        """Report readiness without constructing or contacting the model provider."""
+        """Report readiness without constructing or contacting a model provider."""
         with self.lock:
-            model_status = self._model_status_locked()
-            model_ready = (model_status is None
-                           or (model_status.get("ready") is not False
-                               and model_status.get("blocked") is not True
-                               and model_status.get("closed") is not True))
-            ready = not self.closed and model_ready
+            ready = not self.closed and self._acceptance_error_locked() is None
             return {"status": "candidate" if ready else "unavailable",
                     "ready": ready, "busy": self.running,
-                    "provider_initialized": self.model is not None}
+                    "provider_initialized": any(slot["model"] is not None
+                                                for slot in self.slots)}
+
+    def _finish_queued_locked(self, request_id, *, code, message):
+        job = self.jobs.get(request_id)
+        if job is None or job.get("status") != "queued":
+            return
+        try:
+            self.store.finalize(request_id, actual_nano=0, release_question=True)
+        except BetaError:
+            pass
+        now = self.clock()
+        self.jobs[request_id] = {
+            "identity": job["identity"], "status": "error",
+            "error": {"code": code, "message": message},
+            "complete": False, "revision": 0,
+            "queue_wait_seconds": round(max(0, now - job["queued_at"]), 3),
+            "run_elapsed_seconds": 0.0, "completed_at": now,
+        }
+
+    def _release_queue_locked(self, *, code, message):
+        while self.queue:
+            self._finish_queued_locked(self.queue.popleft(), code=code, message=message)
 
     def _expire_locked(self):
-        now = time.monotonic()
-        for request_id in list(self.jobs):
-            job = self.jobs[request_id]
-            if job["status"] != "running" and now - job["created"] >= RESULT_TTL_SECONDS:
+        now = self.clock()
+        while self.queue:
+            request_id = self.queue[0]
+            job = self.jobs.get(request_id)
+            if job is None or job.get("status") != "queued":
+                self.queue.popleft()
+                continue
+            if now - job["queued_at"] < self.queue_timeout_seconds:
+                break
+            self.queue.popleft()
+            self._finish_queued_locked(
+                request_id, code="queue_timeout",
+                message="The request waited too long and was not submitted. Please try again.")
+        terminal = [key for key, value in self.jobs.items()
+                    if value.get("status") not in {"queued", "running"}]
+        for request_id in list(terminal):
+            if now - self.jobs[request_id]["completed_at"] >= RESULT_TTL_SECONDS:
                 del self.jobs[request_id]
-        completed = [key for key, value in self.jobs.items() if value["status"] != "running"]
-        for request_id in completed[:-MAX_RETAINED_RESULTS]:
+        terminal = [key for key, value in self.jobs.items()
+                    if value.get("status") not in {"queued", "running"}]
+        for request_id in terminal[:-MAX_RETAINED_RESULTS]:
             del self.jobs[request_id]
+
+    def _reaper_loop(self):
+        with self.condition:
+            while not self.closed:
+                self._expire_locked()
+                delay = self.queue_timeout_seconds
+                if self.queue:
+                    job = self.jobs.get(self.queue[0])
+                    if job is not None and job.get("status") == "queued":
+                        delay = max(0.01, self.queue_timeout_seconds
+                                    - (self.clock() - job["queued_at"]))
+                self.condition.wait(timeout=delay)
 
     def submit(self, identity, body):
         identity = self.store._identity(identity)
@@ -468,34 +581,105 @@ class BetaApplication:
             build_payload(messages)
         except ChatModelError:
             raise BetaError("invalid_messages") from None
-        with self.lock:
+        with self.condition:
             self._expire_locked()
             if self.closed:
                 raise BetaError("closed")
-            model_error = self._model_acceptance_error_locked()
+            model_error = self._acceptance_error_locked()
             if model_error is not None:
                 raise BetaError(model_error)
-            if self.running:
-                raise BetaError("busy")
+            if any(job.get("identity") == identity
+                   and job.get("status") in {"queued", "running"}
+                   for job in self.jobs.values()):
+                raise BetaError("request_pending")
+            if len(self.queue) >= self.queue_limit:
+                raise BetaError("queue_full")
             request_id = secrets.token_urlsafe(24)
             self.store.reserve(identity, request_id, daily_limit=self.access.daily_limit)
-            self.running = True
+            now = self.clock()
             self.jobs[request_id] = {
-                "identity": identity, "status": "running", "revision": 0,
-                "answer": "", "complete": False, "created": time.monotonic(),
+                "identity": identity, "status": "queued", "revision": 0,
+                "answer": "", "complete": False, "queued_at": now,
+                "messages": messages, "submitted": False,
             }
-        worker = threading.Thread(target=self._generate, args=(request_id, identity, messages), daemon=True)
-        try:
-            worker.start()
-        except Exception:
-            self.store.finalize(request_id, actual_nano=0, release_question=True)
-            with self.lock:
-                self.running = False
-                self.jobs.pop(request_id, None)
-            raise BetaError("worker_unavailable") from None
-        return request_id
+            self.queue.append(request_id)
+            self.condition.notify_all()
+            return request_id
 
-    def _generate(self, request_id, identity, messages):
+    def _worker_loop(self, slot_index):
+        slot = self.slots[slot_index]
+        while True:
+            with self.condition:
+                self._expire_locked()
+                error = self._slot_error_locked(slot)
+                if error is not None:
+                    slot["terminal"] = error
+                    if self._acceptance_error_locked() is not None:
+                        self._release_queue_locked(
+                            code="model_unavailable",
+                            message="The request was not submitted because the model became unavailable.")
+                    return
+                while not self.closed and not self.queue:
+                    self.condition.wait(timeout=self.queue_timeout_seconds)
+                    self._expire_locked()
+                    error = self._slot_error_locked(slot)
+                    if error is not None:
+                        slot["terminal"] = error
+                        if self._acceptance_error_locked() is not None:
+                            self._release_queue_locked(
+                                code="model_unavailable",
+                                message="The request was not submitted because the model became unavailable.")
+                        return
+                if self.closed:
+                    return
+                request_id = self.queue.popleft()
+                job = self.jobs.get(request_id)
+                if job is None or job.get("status") != "queued":
+                    continue
+                now = self.clock()
+                job.update({"status": "running", "started_at": now,
+                            "queue_wait_seconds": round(max(0, now - job["queued_at"]), 3)})
+                slot["active"] = True
+            try:
+                self._generate(slot_index, request_id, job["identity"], job["messages"])
+            except Exception:
+                with self.condition:
+                    slot["active"] = False
+                    slot["terminal"] = "worker_unavailable"
+                    failed = self.jobs.get(request_id)
+                    if (not self.closed and failed is not None
+                            and failed.get("status") == "running"):
+                        now = self.clock()
+                        self.jobs[request_id] = {
+                            "identity": failed["identity"], "status": "error",
+                            "error": {"code": "generation_unavailable",
+                                      "message": "The beta could not finish this request. It was not retried."},
+                            "complete": False, "revision": failed.get("revision", 0),
+                            "queue_wait_seconds": failed.get("queue_wait_seconds", 0.0),
+                            "run_elapsed_seconds": round(
+                                max(0, now - failed.get("started_at", now)), 3),
+                            "completed_at": now,
+                        }
+                    if self._acceptance_error_locked() is not None:
+                        self._release_queue_locked(
+                            code="model_unavailable",
+                            message="The request was not submitted because the model became unavailable.")
+                    self.condition.notify_all()
+                return
+            with self.condition:
+                slot["active"] = False
+                error = self._slot_error_locked(slot)
+                if error is not None:
+                    slot["terminal"] = error
+                    if self._acceptance_error_locked() is not None:
+                        self._release_queue_locked(
+                            code="model_unavailable",
+                            message="The request was not submitted because the model became unavailable.")
+                self.condition.notify_all()
+
+    def _generate(self, slot_index, request_id, identity, messages):
+        slot = self.slots[slot_index]
+
         def on_progress(answer, revision):
             with self.lock:
                 job = self.jobs.get(request_id)
@@ -514,11 +698,34 @@ class BetaApplication:
                 return job.get("answer", ""), job.get("revision", 0)
 
         try:
-            if self.model is None:
-                self.model = self.model_factory()
             sources, notes = self.library.select(messages)
             evidence_context = self.library.context(sources, notes)
+            if slot["model"] is None:
+                candidate = self.model_factory()
+                with self.lock:
+                    duplicate = any(other["model"] is candidate
+                                    for index, other in enumerate(self.slots)
+                                    if index != slot_index)
+                    publish = not self.closed and not duplicate
+                    if publish:
+                        slot["model"] = candidate
+                if not publish:
+                    if self.closed:
+                        try:
+                            candidate.close()
+                        except Exception:
+                            pass
+                        try:
+                            self.store.finalize(
+                                request_id, actual_nano=0, release_question=True)
+                        except BetaError:
+                            pass
+                        return
+                    raise RuntimeError("Model factories must return independent instances.")
+            model = slot["model"]
         except Exception:
+            with self.lock:
+                slot["terminal"] = "worker_unavailable"
             try:
                 self.store.finalize(request_id, actual_nano=0, release_question=True)
             except BetaError:
@@ -527,11 +734,21 @@ class BetaApplication:
                 "message": "The beta could not finish this request. It was not retried."}}
         else:
             try:
-                self.store.mark_submitted(request_id)
+                with self.lock:
+                    job = self.jobs.get(request_id)
+                    if self.closed or job is None or job.get("status") != "running":
+                        try:
+                            self.store.finalize(
+                                request_id, actual_nano=0, release_question=True)
+                        except BetaError:
+                            pass
+                        return
+                    self.store.mark_submitted(request_id)
+                    job["submitted"] = True
                 options = {"evidence_context": evidence_context}
-                if getattr(self.model, "supports_progress", False):
+                if getattr(model, "supports_progress", False):
                     options["on_progress"] = on_progress
-                result = self.model.generate(messages, **options)
+                result = model.generate(messages, **options)
                 value = result.get("usage", {}).get("estimated_usd")
                 if type(value) not in (float, int) or not math.isfinite(value) or value < 0:
                     raise BetaError("usage_unverifiable")
@@ -560,6 +777,9 @@ class BetaApplication:
                         self.store.finalize(request_id, uncertain=True)
                     except BetaError:
                         pass
+                if exc.code in {"blocked", "closed"}:
+                    with self.lock:
+                        slot["terminal"] = exc.code
                 outcome = {"status": "error", "error": {"code": "generation_unavailable",
                     "message": "The beta could not finish this request. It was not retried."}}
             except Exception:
@@ -574,11 +794,17 @@ class BetaApplication:
             outcome.update({"partial_answer": partial, "complete": False,
                             "revision": revision})
         with self.lock:
-            if not self.closed:
-                self.jobs[request_id] = {**outcome, "identity": identity,
-                                         "created": time.monotonic()}
+            job = self.jobs.get(request_id)
+            if not self.closed and job is not None:
+                now = self.clock()
+                started_at = job.get("started_at", now)
+                self.jobs[request_id] = {
+                    **outcome, "identity": identity,
+                    "queue_wait_seconds": job.get("queue_wait_seconds", 0.0),
+                    "run_elapsed_seconds": round(max(0, now - started_at), 3),
+                    "completed_at": now,
+                }
                 self._expire_locked()
-            self.running = False
 
     def result(self, identity, request_id):
         identity = self.store._identity(identity)
@@ -587,8 +813,20 @@ class BetaApplication:
             job = self.jobs.get(request_id)
             if job is None or job["identity"] != identity:
                 return None
-            return {key: value for key, value in job.items()
-                    if key not in {"identity", "created"}}
+            now = self.clock()
+            safe_fields = {"status", "revision", "answer", "complete", "error",
+                           "partial_answer", "sources", "source_notes", "warnings",
+                           "queue_wait_seconds", "run_elapsed_seconds"}
+            public = {key: value for key, value in job.items() if key in safe_fields}
+            if job["status"] == "queued":
+                try:
+                    public["queue_position"] = list(self.queue).index(request_id) + 1
+                except ValueError:
+                    public["queue_position"] = 1
+                public["queue_wait_seconds"] = round(max(0, now - job["queued_at"]), 3)
+            elif job["status"] == "running":
+                public["run_elapsed_seconds"] = round(max(0, now - job["started_at"]), 3)
+            return public
 
     def status(self, identity):
         identity = self.store._identity(identity)
@@ -603,11 +841,26 @@ class BetaApplication:
                 "access": self.access.access_description(identity, self.store)}
 
     def close(self):
-        with self.lock:
+        with self.condition:
+            if self.closed:
+                return
             self.closed = True
+            self._release_queue_locked(
+                code="shutdown",
+                message="The request was not submitted because the service stopped.")
             self.jobs.clear()
-        if self.model is not None:
-            self.model.close()
+            self.condition.notify_all()
+            models = [slot["model"] for slot in self.slots if slot["model"] is not None]
+        for model in models:
+            try:
+                model.close()
+            except Exception:
+                pass
+        deadline = time.monotonic() + 5
+        for thread in self.worker_threads:
+            thread.join(max(0, deadline - time.monotonic()))
+        if self.reaper_thread is not None:
+            self.reaper_thread.join(max(0, deadline - time.monotonic()))
 
 
 class BetaHTTPServer(ThreadingHTTPServer):
@@ -805,7 +1058,9 @@ def handler_for(app, *, origin, secure_cookie, trust_real_ip=False):
             except (BetaError, AccessError) as exc:
                 status = {"unauthorized": 401, "origin_rejected": 403,
                           "request_too_large": 413, "json_required": 415,
-                          "busy": 409, "rate_limited": 429,
+                          "busy": 409, "request_pending": 409,
+                          "queue_full": 503, "model_unavailable": 503,
+                          "rate_limited": 429,
                           "allowance_exhausted": 429,
                           "guest_limit_reached": 403,
                           "terms_required": 403,
@@ -816,6 +1071,9 @@ def handler_for(app, *, origin, secure_cookie, trust_real_ip=False):
                           "worker_unavailable": 503}.get(exc.code, 400)
                 messages = {"unauthorized": "Invitation credentials are invalid.",
                             "busy": "One answer is already being generated.",
+                            "request_pending": "Your previous question is still in progress.",
+                            "queue_full": "The answer queue is full. Please try again shortly.",
+                            "model_unavailable": "The model is temporarily unavailable.",
                             "rate_limited": "Please wait before trying again.",
                             "allowance_exhausted": "This beta allowance is exhausted.",
                             "guest_limit_reached": "The three guest questions have been used.",
@@ -849,6 +1107,10 @@ def main(argv=None):
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--port", type=int, default=DEFAULT_PORT)
     parser.add_argument("--origin")
+    parser.add_argument("--model-workers", type=int, default=DEFAULT_MODEL_WORKERS)
+    parser.add_argument("--queue-limit", type=int, default=DEFAULT_QUEUE_LIMIT)
+    parser.add_argument("--queue-timeout-seconds", type=int,
+                        default=DEFAULT_QUEUE_TIMEOUT_SECONDS)
     args = parser.parse_args(argv)
     if not 1024 <= args.port <= 65535:
         parser.error("Choose a port between 1024 and 65535.")
@@ -858,7 +1120,10 @@ def main(argv=None):
         parser.error("Hosted mode requires an explicit HTTPS origin and TLS-terminating proxy.")
     try:
         store = BetaStore(args.database, load_invite_config(args.invite_config))
-        app = BetaApplication(store=store)
+        app = BetaApplication(
+            store=store, worker_count=args.model_workers,
+            queue_limit=args.queue_limit,
+            queue_timeout_seconds=args.queue_timeout_seconds)
         server = BetaHTTPServer((args.host, args.port),
                                 handler_for(app, origin=origin, secure_cookie=not local))
     except Exception:

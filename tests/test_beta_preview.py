@@ -232,7 +232,7 @@ class PreviewHTTPTests(unittest.TestCase):
             status, _, body = self.request("GET", "/api/chat/" + request_id, cookie=cookie)
             self.assertEqual(status, 200, body)
             result = json.loads(body)
-            if result["status"] != "running":
+            if result["status"] not in {"queued", "running"}:
                 break
             self.assertLess(time.monotonic(), deadline)
             time.sleep(0.01)

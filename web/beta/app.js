@@ -575,17 +575,86 @@ function elapsedSeconds(presentation) {
   return Math.max(0, Math.floor((presentationClock() - presentation.startedAt) / 1000));
 }
 
-function renderPendingStatus(presentation, phase) {
+function validElapsed(value) {
+  return typeof value === "number" && Number.isFinite(value) && value >= 0;
+}
+
+function acceptServerTiming(presentation, result) {
+  if (!presentation) return;
+  const queueWait = validElapsed(result?.queue_wait_seconds)
+    ? result.queue_wait_seconds : null;
+  const runElapsed = validElapsed(result?.run_elapsed_seconds)
+    ? result.run_elapsed_seconds : null;
+  if (queueWait !== null) presentation.queueWaitSeconds = queueWait;
+  if (runElapsed !== null) presentation.runElapsedSeconds = runElapsed;
+  if (queueWait === null && runElapsed === null) {
+    if (result?.status === "queued") presentation.queueWaitSeconds = elapsedSeconds(presentation);
+    if (result?.status === "running" && !presentation.wasQueued) {
+      presentation.runElapsedSeconds = elapsedSeconds(presentation);
+    }
+  }
+  presentation.timingAnchorAt = presentationClock();
+}
+
+function interpolatedSeconds(value, presentation, activePhase) {
+  const base = validElapsed(value) ? value : 0;
+  if (presentation.phase !== activePhase || presentation.timingAnchorAt === null) {
+    return Math.max(0, Math.floor(base));
+  }
+  return Math.max(0, Math.floor(
+    base + (presentationClock() - presentation.timingAnchorAt) / 1000,
+  ));
+}
+
+function pendingLabel(presentation) {
+  if (presentation.phase === "queued") {
+    return Number.isInteger(presentation.queuePosition) && presentation.queuePosition >= 1
+      ? `Waiting in line · position ${presentation.queuePosition}`
+      : "Waiting in line";
+  }
+  if (presentation.phase === "running") return "Preparing your answer…";
+  if (presentation.phase === "writing") return "Writing…";
+  return "Submitting your question…";
+}
+
+function pendingTiming(presentation) {
+  if (presentation.phase === "queued") {
+    return ` ${interpolatedSeconds(
+      presentation.queueWaitSeconds, presentation, "queued",
+    )}s waiting`;
+  }
+  if (presentation.phase === "running" || presentation.phase === "writing") {
+    const running = interpolatedSeconds(
+      presentation.runElapsedSeconds, presentation, presentation.phase,
+    );
+    const waiting = Math.max(0, Math.floor(presentation.queueWaitSeconds || 0));
+    return presentation.wasQueued || presentation.queueWaitSeconds > 0
+      ? ` ${running}s generating · waited ${waiting}s`
+      : ` ${running}s generating`;
+  }
+  return ` ${elapsedSeconds(presentation)}s elapsed`;
+}
+
+function renderPendingStatus(
+  presentation, phase, queuePosition = presentation?.queuePosition ?? null,
+) {
   if (presentation !== activeAnswerPresentation || presentation.epoch !== stateEpoch) return;
-  if (presentation.phase === phase && presentation.timingNode?.parentNode === requestState) {
-    presentation.timingNode.textContent = ` ${elapsedSeconds(presentation)}s`;
+  presentation.phase = phase;
+  if (phase === "queued") {
+    presentation.wasQueued = true;
+    presentation.queuePosition = Number.isInteger(queuePosition) && queuePosition >= 1
+      ? queuePosition : null;
+  }
+  if (presentation.labelNode?.parentNode === requestState
+      && presentation.timingNode?.parentNode === requestState) {
+    presentation.labelNode.textContent = pendingLabel(presentation);
+    presentation.timingNode.textContent = pendingTiming(presentation);
     return;
   }
-  presentation.phase = phase;
   removeChildren(requestState);
   requestState.textContent = "";
   const label = document.createElement("span");
-  label.textContent = phase;
+  label.textContent = pendingLabel(presentation);
   const dots = document.createElement("span");
   dots.className = "pending-dots";
   dots.setAttribute("aria-hidden", "true");
@@ -597,9 +666,21 @@ function renderPendingStatus(presentation, phase) {
   const timing = document.createElement("span");
   timing.className = "pending-elapsed";
   timing.setAttribute("aria-hidden", "true");
-  timing.textContent = ` ${elapsedSeconds(presentation)}s`;
+  timing.textContent = pendingTiming(presentation);
+  presentation.labelNode = label;
   presentation.timingNode = timing;
   requestState.append(label, dots, timing);
+}
+
+function terminalTimingLabel(prefix, presentation, result) {
+  const queueWait = validElapsed(result?.queue_wait_seconds)
+    ? Math.floor(result.queue_wait_seconds) : null;
+  const runElapsed = validElapsed(result?.run_elapsed_seconds)
+    ? Math.floor(result.run_elapsed_seconds) : null;
+  if (queueWait !== null && runElapsed !== null) {
+    return `${prefix} · ${runElapsed}s generating · ${queueWait}s waiting`;
+  }
+  return presentation ? `${prefix} in ${elapsedSeconds(presentation)}s` : prefix;
 }
 
 function cancelScheduledReveal(presentation) {
@@ -658,13 +739,19 @@ function startAnswerPresentation(epoch, startedAt) {
   const presentation = {
     epoch,
     startedAt,
-    phase: "",
+    phase: "submitting",
+    wasQueued: false,
+    queuePosition: null,
+    queueWaitSeconds: 0,
+    runElapsedSeconds: 0,
+    timingAnchorAt: null,
     target: "",
     shown: "",
     node: null,
     revealHandle: null,
     revealKind: null,
     elapsedTimer: null,
+    labelNode: null,
     timingNode: null,
     cancelled: false,
     reducedMotion: typeof window.matchMedia === "function"
@@ -672,7 +759,7 @@ function startAnswerPresentation(epoch, startedAt) {
   };
   activeAnswerPresentation = presentation;
   signInButton.disabled = true;
-  renderPendingStatus(presentation, "Preparing your answer…");
+  renderPendingStatus(presentation, "submitting");
   presentation.elapsedTimer = window.setInterval(() => {
     renderPendingStatus(presentation, presentation.phase);
   }, 1000);
@@ -686,7 +773,7 @@ function presentProgress(presentation, answer) {
   if (answer && !presentation.node) {
     presentation.node = messageNode("assistant", "", "message-progress");
   }
-  if (answer) renderPendingStatus(presentation, "Writing…");
+  if (answer) renderPendingStatus(presentation, "writing");
   if (!presentation.node) return;
   if (presentation.reducedMotion) {
     cancelScheduledReveal(presentation);
@@ -770,7 +857,14 @@ async function poll(requestId, generation) {
     try {
       const result = await api(`/api/chat/${encodeURIComponent(requestId)}`);
       if (generation !== stateEpoch) return;
+      if (result.status === "queued") {
+        acceptServerTiming(presentation, result);
+        renderPendingStatus(presentation, "queued", result.queue_position);
+        continue;
+      }
       if (result.status === "running") {
+        acceptServerTiming(presentation, result);
+        renderPendingStatus(presentation, "running");
         acceptProgress(result.answer, result.revision);
         continue;
       }
@@ -781,7 +875,6 @@ async function poll(requestId, generation) {
           await delay(32);
           if (generation !== stateEpoch) return;
         }
-        const completedIn = presentation ? elapsedSeconds(presentation) : null;
         removeProgressNode();
         messages.push({ role: "assistant", content: answer });
         messageNode("assistant", answer);
@@ -789,7 +882,7 @@ async function poll(requestId, generation) {
           messageNode("assistant", "This response may be incomplete because generation ended before a verified stop.", "message-note");
         }
         renderSources(result.sources, result.source_notes);
-        setWorking(false, completedIn === null ? "Ready" : `Completed in ${completedIn}s`);
+        setWorking(false, terminalTimingLabel("Completed", presentation, result));
         question.focus();
         await refreshStatus(generation);
         return;
@@ -808,13 +901,14 @@ async function poll(requestId, generation) {
             `${result.error?.message || "The beta could not finish this request. It was not retried."} The partial answer above is incomplete and will not be included in later questions.`,
             "message-error",
           );
-          setWorking(false);
+          setWorking(false, terminalTimingLabel("Request ended", presentation, result));
           await refreshStatus(generation);
           return;
         }
       }
       throw Object.assign(new Error("generation_unavailable"), {
         userMessage: result.error?.message || "The beta could not finish this request. It was not retried.",
+        terminalLabel: terminalTimingLabel("Request ended", presentation, result),
       });
     } catch (error) {
       if (generation !== stateEpoch) return;
@@ -838,7 +932,7 @@ async function poll(requestId, generation) {
         return;
       }
       messageNode("assistant", error.userMessage || "The answer is no longer available. It was not retried.", "message-error");
-      setWorking(false);
+      setWorking(false, error.terminalLabel || "Ready");
       return;
     }
   }
