@@ -699,6 +699,8 @@ function cancelAnswerPresentation() {
   if (!presentation) return;
   activeAnswerPresentation = null;
   presentation.cancelled = true;
+  if (presentation.abortController !== null) presentation.abortController.abort();
+  presentation.abortController = null;
   cancelScheduledReveal(presentation);
   if (presentation.elapsedTimer !== null) window.clearInterval(presentation.elapsedTimer);
   presentation.elapsedTimer = null;
@@ -751,6 +753,7 @@ function startAnswerPresentation(epoch, startedAt) {
     revealHandle: null,
     revealKind: null,
     elapsedTimer: null,
+    abortController: null,
     labelNode: null,
     timingNode: null,
     cancelled: false,
@@ -829,27 +832,120 @@ function dailyLimitMessage() {
   return `Daily question limit reached.${reset ? ` More questions will be available ${reset}.` : " Please return after the daily reset."}`;
 }
 
-async function poll(requestId, generation) {
+function createJobState(generation) {
   const presentation = activeAnswerPresentation?.epoch === generation
     ? activeAnswerPresentation : null;
-  let progressAnswer = "";
-  let progressRevision = 0;
+  return { presentation, progressAnswer: "", progressRevision: 0 };
+}
 
-  function removeProgressNode() {
-    if (presentation?.node && presentation.node.parentNode === conversation) {
-      conversation.removeChild(presentation.node);
-    }
-    if (presentation) presentation.node = null;
+function removeProgressNode(state) {
+  if (state.presentation?.node && state.presentation.node.parentNode === conversation) {
+    conversation.removeChild(state.presentation.node);
   }
+  if (state.presentation) state.presentation.node = null;
+}
 
-  function acceptProgress(answer, revision) {
-    if (validProgressRevision(revision) && revision > progressRevision
-        && typeof answer === "string" && answer.startsWith(progressAnswer)) {
-      progressRevision = revision;
-      progressAnswer = answer;
-      presentProgress(presentation, answer);
+function acceptProgress(state, answer, revision) {
+  if (validProgressRevision(revision) && revision > state.progressRevision
+      && typeof answer === "string" && answer.startsWith(state.progressAnswer)) {
+    state.progressRevision = revision;
+    state.progressAnswer = answer;
+    presentProgress(state.presentation, answer);
+  }
+}
+
+async function acceptJobResult(result, generation, state) {
+  if (generation !== stateEpoch) return true;
+  const presentation = state.presentation;
+  if (result.status === "queued") {
+    acceptServerTiming(presentation, result);
+    renderPendingStatus(presentation, "queued", result.queue_position);
+    return false;
+  }
+  if (result.status === "running") {
+    acceptServerTiming(presentation, result);
+    renderPendingStatus(presentation, "running");
+    acceptProgress(state, result.answer, result.revision);
+    return false;
+  }
+  if (result.status === "complete") {
+    const answer = typeof result.answer === "string"
+      ? result.answer : "The beta returned no readable answer.";
+    if (presentation?.node) {
+      flushProgress(
+        presentation,
+        answer.startsWith(state.progressAnswer) ? answer : state.progressAnswer,
+      );
+      await delay(32);
+      if (generation !== stateEpoch) return true;
+    }
+    removeProgressNode(state);
+    messages.push({ role: "assistant", content: answer });
+    messageNode("assistant", answer);
+    if (result.complete === false) {
+      messageNode("assistant", "This response may be incomplete because generation ended before a verified stop.", "message-note");
+    }
+    renderSources(result.sources, result.source_notes);
+    setWorking(false, terminalTimingLabel("Completed", presentation, result));
+    question.focus();
+    await refreshStatus(generation);
+    return true;
+  }
+  if (result.status === "error") {
+    const terminalPartial = typeof result.partial_answer === "string"
+      && result.partial_answer.startsWith(state.progressAnswer)
+      ? result.partial_answer : state.progressAnswer;
+    if (terminalPartial) {
+      if (presentation && !presentation.node) {
+        presentation.node = messageNode("assistant", "", "message-progress");
+      }
+      flushProgress(presentation, terminalPartial);
+      messageNode(
+        "assistant",
+        `${result.error?.message || "The beta could not finish this request. It was not retried."} The partial answer above is incomplete and will not be included in later questions.`,
+        "message-error",
+      );
+      setWorking(false, terminalTimingLabel("Request ended", presentation, result));
+      await refreshStatus(generation);
+      return true;
     }
   }
+  throw Object.assign(new Error("generation_unavailable"), {
+    userMessage: result.error?.message || "The beta could not finish this request. It was not retried.",
+    terminalLabel: terminalTimingLabel("Request ended", presentation, result),
+  });
+}
+
+async function handleJobFailure(error, generation, state) {
+  if (generation !== stateEpoch) return;
+  if (error.message === "session_expired") {
+    if (publicAccess) await recoverGuest("Your session ended. Guest access is ready.");
+    else showLogin("Your session has ended. Sign in again.");
+    return;
+  }
+  if (state.progressAnswer) {
+    if (state.presentation && !state.presentation.node) {
+      state.presentation.node = messageNode("assistant", "", "message-progress");
+    }
+    flushProgress(state.presentation, state.progressAnswer);
+    messageNode(
+      "assistant",
+      `${error.userMessage || "The answer is no longer available. It was not retried."} The partial answer above is incomplete and will not be included in later questions.`,
+      "message-error",
+    );
+    setWorking(false);
+    await refreshStatus(generation);
+    return;
+  }
+  messageNode(
+    "assistant",
+    error.userMessage || "The answer is no longer available. It was not retried.",
+    "message-error",
+  );
+  setWorking(false, error.terminalLabel || "Ready");
+}
+
+async function poll(requestId, generation, state = createJobState(generation)) {
 
   for (;;) {
     await delay(900);
@@ -857,85 +953,115 @@ async function poll(requestId, generation) {
     try {
       const result = await api(`/api/chat/${encodeURIComponent(requestId)}`);
       if (generation !== stateEpoch) return;
-      if (result.status === "queued") {
-        acceptServerTiming(presentation, result);
-        renderPendingStatus(presentation, "queued", result.queue_position);
-        continue;
-      }
-      if (result.status === "running") {
-        acceptServerTiming(presentation, result);
-        renderPendingStatus(presentation, "running");
-        acceptProgress(result.answer, result.revision);
-        continue;
-      }
-      if (result.status === "complete") {
-        const answer = typeof result.answer === "string" ? result.answer : "The beta returned no readable answer.";
-        if (presentation?.node) {
-          flushProgress(presentation, answer.startsWith(progressAnswer) ? answer : progressAnswer);
-          await delay(32);
-          if (generation !== stateEpoch) return;
-        }
-        removeProgressNode();
-        messages.push({ role: "assistant", content: answer });
-        messageNode("assistant", answer);
-        if (result.complete === false) {
-          messageNode("assistant", "This response may be incomplete because generation ended before a verified stop.", "message-note");
-        }
-        renderSources(result.sources, result.source_notes);
-        setWorking(false, terminalTimingLabel("Completed", presentation, result));
-        question.focus();
-        await refreshStatus(generation);
-        return;
-      }
-      if (result.status === "error") {
-        const terminalPartial = typeof result.partial_answer === "string"
-          && result.partial_answer.startsWith(progressAnswer)
-          ? result.partial_answer : progressAnswer;
-        if (terminalPartial) {
-          if (presentation && !presentation.node) {
-            presentation.node = messageNode("assistant", "", "message-progress");
-          }
-          flushProgress(presentation, terminalPartial);
-          messageNode(
-            "assistant",
-            `${result.error?.message || "The beta could not finish this request. It was not retried."} The partial answer above is incomplete and will not be included in later questions.`,
-            "message-error",
-          );
-          setWorking(false, terminalTimingLabel("Request ended", presentation, result));
-          await refreshStatus(generation);
-          return;
-        }
-      }
-      throw Object.assign(new Error("generation_unavailable"), {
-        userMessage: result.error?.message || "The beta could not finish this request. It was not retried.",
-        terminalLabel: terminalTimingLabel("Request ended", presentation, result),
-      });
+      if (await acceptJobResult(result, generation, state)) return;
     } catch (error) {
-      if (generation !== stateEpoch) return;
-      if (error.message === "session_expired") {
-        if (publicAccess) await recoverGuest("Your session ended. Guest access is ready.");
-        else showLogin("Your session has ended. Sign in again.");
-        return;
-      }
-      if (progressAnswer) {
-        if (presentation && !presentation.node) {
-          presentation.node = messageNode("assistant", "", "message-progress");
-        }
-        flushProgress(presentation, progressAnswer);
-        messageNode(
-          "assistant",
-          `${error.userMessage || "The answer is no longer available. It was not retried."} The partial answer above is incomplete and will not be included in later questions.`,
-          "message-error",
-        );
-        setWorking(false);
-        await refreshStatus(generation);
-        return;
-      }
-      messageNode("assistant", error.userMessage || "The answer is no longer available. It was not retried.", "message-error");
-      setWorking(false, error.terminalLabel || "Ready");
+      await handleJobFailure(error, generation, state);
       return;
     }
   }
+}
+
+function appendSseText(parser, text, final = false) {
+  parser.buffer += text;
+  const payloads = [];
+  for (;;) {
+    const newline = parser.buffer.indexOf("\n");
+    if (newline < 0) break;
+    let line = parser.buffer.slice(0, newline);
+    parser.buffer = parser.buffer.slice(newline + 1);
+    if (line.endsWith("\r")) line = line.slice(0, -1);
+    if (line === "") {
+      if (parser.data.length) payloads.push(parser.data.join("\n"));
+      parser.data = [];
+    } else if (line.startsWith("data:")) {
+      parser.data.push(line.slice(5).replace(/^ /, ""));
+    }
+  }
+  if (final && parser.buffer) {
+    let line = parser.buffer;
+    if (line.endsWith("\r")) line = line.slice(0, -1);
+    if (line.startsWith("data:")) parser.data.push(line.slice(5).replace(/^ /, ""));
+    parser.buffer = "";
+  }
+  if (final && parser.data.length) {
+    payloads.push(parser.data.join("\n"));
+    parser.data = [];
+  }
+  return payloads;
+}
+
+async function streamJobOnce(requestId, generation, state) {
+  const controller = new AbortController();
+  state.presentation.abortController = controller;
+  try {
+    const response = await fetch(`/api/chat/${encodeURIComponent(requestId)}/events`, {
+      method: "POST",
+      credentials: "same-origin",
+      cache: "no-store",
+      headers: { "Accept": "text/event-stream", "Content-Type": "application/json" },
+      body: "{}",
+      signal: controller.signal,
+      referrerPolicy: "origin",
+    });
+    if (response.status === 401) throw new Error("session_expired");
+    if (!response.ok) {
+      let body = null;
+      try { body = await response.json(); } catch (_error) { body = null; }
+      throw Object.assign(new Error(body?.error?.code || "stream_unavailable"), {
+        userMessage: body?.error?.message,
+      });
+    }
+    if (!response.body || typeof response.body.getReader !== "function") {
+      throw new Error("stream_unavailable");
+    }
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder("utf-8");
+    const parser = { buffer: "", data: [] };
+    for (;;) {
+      const { value, done } = await reader.read();
+      if (generation !== stateEpoch) return true;
+      const text = decoder.decode(value || new Uint8Array(), { stream: !done });
+      const payloads = appendSseText(parser, text, done);
+      for (const payload of payloads) {
+        let result;
+        try { result = JSON.parse(payload); } catch (_error) {
+          throw new Error("stream_unavailable");
+        }
+        if (!result || typeof result !== "object" || Array.isArray(result)) {
+          throw new Error("stream_unavailable");
+        }
+        if (await acceptJobResult(result, generation, state)) return true;
+      }
+      if (done) break;
+    }
+    throw new Error("stream_disconnected");
+  } finally {
+    if (!controller.signal.aborted) controller.abort();
+    if (state.presentation?.abortController === controller) {
+      state.presentation.abortController = null;
+    }
+  }
+}
+
+async function followJob(requestId, generation) {
+  const state = createJobState(generation);
+  if (typeof AbortController !== "function" || typeof TextDecoder !== "function") {
+    return poll(requestId, generation, state);
+  }
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      if (await streamJobOnce(requestId, generation, state)) return;
+    } catch (error) {
+      if (generation !== stateEpoch || error.name === "AbortError") return;
+      if (error.message === "session_expired") {
+        await handleJobFailure(error, generation, state);
+        return;
+      }
+    }
+    await delay(250);
+    if (generation !== stateEpoch) return;
+  }
+  return poll(requestId, generation, state);
 }
 
 function validProgressRevision(value) {
@@ -1051,7 +1177,7 @@ chatForm.addEventListener("submit", async (event) => {
     messages = pendingMessages;
     question.value = "";
     messageNode("user", text);
-    await poll(accepted.request_id, epoch);
+    await followJob(accepted.request_id, epoch);
   } catch (error) {
     if (epoch !== stateEpoch) return;
     if (error.message === "session_expired") {

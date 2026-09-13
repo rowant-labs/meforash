@@ -112,19 +112,39 @@ class FakeDocument {
 }
 
 class FakeResponse {
-  constructor(status, body) {
+  constructor(status, body, streamBody = null) {
     this.status = status;
     this.ok = status >= 200 && status < 300;
-    this.body = body;
+    this.jsonValue = body;
+    this.body = streamBody;
   }
 
   async json() {
-    return this.body;
+    return this.jsonValue;
   }
 }
 
 function response(status, body) {
   return Promise.resolve(new FakeResponse(status, body));
+}
+
+function streamResponse(chunks, status = 200) {
+  let index = 0;
+  const reader = {
+    async read() {
+      if (index >= chunks.length) return { value: undefined, done: true };
+      return { value: chunks[index++], done: false };
+    },
+  };
+  return Promise.resolve(new FakeResponse(status, null, {
+    getReader: () => reader,
+  }));
+}
+
+function sseBytes(results) {
+  return new TextEncoder().encode(results.map((result) => (
+    `event: result\r\ndata: ${JSON.stringify(result)}\r\n\r\n`
+  )).join(""));
 }
 
 function deferred() {
@@ -212,6 +232,11 @@ async function boot(fetchImpl, storageSeed = {}, options = {}) {
     URL,
     console,
   };
+  if (options.streamSupport) {
+    context.AbortController = AbortController;
+    context.TextDecoder = TextDecoder;
+    context.Uint8Array = Uint8Array;
+  }
   vm.runInNewContext(SCRIPT, context, { filename: "web/beta/app.js" });
   await flush();
   return document;
@@ -512,6 +537,109 @@ async function testQueuePositionAndTimingsStayDistinct() {
   assert.equal(status.textContent, "Completed · 5s generating · 8s waiting");
   assert.equal(document.activeIntervalCount(), 0);
   assert.equal(document.querySelector("#conversation").children.length, 2);
+}
+
+async function testSseChunksPreserveUnicodeAndReconnectSameJob() {
+  const firstBytes = sseBytes([
+    { status: "queued", complete: false, revision: 0, answer: "",
+      queue_position: 2, queue_wait_seconds: 3.1 },
+    { status: "running", complete: false, revision: 1, answer: "λόγος ו",
+      queue_wait_seconds: 3.4, run_elapsed_seconds: 1.2 },
+  ]);
+  const unicodeBoundary = firstBytes.findIndex((value) => value >= 0xC0);
+  assert.ok(unicodeBoundary > 0);
+  const firstChunks = [
+    firstBytes.slice(0, 13),
+    firstBytes.slice(13, unicodeBoundary + 1),
+    firstBytes.slice(unicodeBoundary + 1, unicodeBoundary + 4),
+    firstBytes.slice(unicodeBoundary + 4),
+  ];
+  const completeBytes = sseBytes([{
+    status: "complete", complete: true, revision: 2,
+    answer: "λόγος ושלום — complete", sources: [], source_notes: [],
+    queue_wait_seconds: 3.4, run_elapsed_seconds: 2.8,
+  }]);
+  let streamCalls = 0;
+  let chatCalls = 0;
+  const streamSignals = [];
+  const document = await boot((url, options = {}) => {
+    if (url === "/api/status") return response(200, { model: "Inkling B" });
+    if (url === "/api/chat") {
+      chatCalls += 1;
+      return response(202, { request_id: "same-job" });
+    }
+    if (url === "/api/chat/same-job/events") {
+      streamCalls += 1;
+      streamSignals.push(options.signal);
+      assert.equal(options.method, "POST");
+      assert.equal(options.body, "{}");
+      assert.equal(options.headers.Accept, "text/event-stream");
+      return streamCalls === 1
+        ? streamResponse(firstChunks)
+        : streamResponse([completeBytes.slice(0, 7), completeBytes.slice(7, 31),
+          completeBytes.slice(31)]);
+    }
+    throw new Error(`Unexpected fetch: ${url}`);
+  }, {}, { streamSupport: true });
+
+  document.querySelector("#question").value = "Stream Unicode safely";
+  await document.querySelector("#chat-form").dispatch("submit");
+  assert.equal(chatCalls, 1);
+  assert.equal(streamCalls, 2);
+  assert.equal(streamSignals.length, 2);
+  assert.equal(document.querySelector("#conversation").children.length, 2);
+  assert.match(allText(document.querySelector("#conversation")), /λόγος ושלום — complete/);
+  assert.equal(document.querySelector("#request-state").textContent,
+    "Completed · 2s generating · 3s waiting");
+}
+
+async function testNewChatAbortsEventStreamWithoutReconnectOrMixing() {
+  const queuedBytes = sseBytes([{
+    status: "queued", complete: false, revision: 0, answer: "",
+    queue_position: 4, queue_wait_seconds: 2,
+  }]);
+  let streamCalls = 0;
+  let streamSignal = null;
+  const document = await boot((url, options = {}) => {
+    if (url === "/api/status") return response(200, { model: "Inkling B" });
+    if (url === "/api/chat") return response(202, { request_id: "abort-job" });
+    if (url === "/api/chat/abort-job/events") {
+      streamCalls += 1;
+      streamSignal = options.signal;
+      let delivered = false;
+      const reader = {
+        read() {
+          if (!delivered) {
+            delivered = true;
+            return Promise.resolve({ value: queuedBytes, done: false });
+          }
+          return new Promise((_resolve, reject) => {
+            options.signal.addEventListener("abort", () => {
+              const error = new Error("aborted");
+              error.name = "AbortError";
+              reject(error);
+            }, { once: true });
+          });
+        },
+      };
+      return Promise.resolve(new FakeResponse(200, null, {
+        getReader: () => reader,
+      }));
+    }
+    throw new Error(`Unexpected fetch: ${url}`);
+  }, {}, { streamSupport: true });
+
+  document.querySelector("#question").value = "Clear while queued";
+  const submission = document.querySelector("#chat-form").dispatch("submit");
+  await flush();
+  assert.match(allText(document.querySelector("#request-state")),
+    /Waiting in line · position 4.*2s waiting/s);
+  await document.querySelector("#new-chat-button").dispatch("click");
+  await submission;
+  assert.equal(streamSignal.aborted, true);
+  assert.equal(streamCalls, 1);
+  assert.equal(document.querySelector("#conversation").children.length, 0);
+  assert.equal(document.querySelector("#request-state").textContent, "Ready");
 }
 
 async function testBufferedRevealAndReducedMotion() {
@@ -1074,6 +1202,8 @@ async function testAuthReloadRestoresGuestOnceButNeverIntoAccount() {
   await testProgressReplacesPlainNodeAndTerminalRendersOnce();
   await testPendingPhasesUseActualElapsedTime();
   await testQueuePositionAndTimingsStayDistinct();
+  await testSseChunksPreserveUnicodeAndReconnectSameJob();
+  await testNewChatAbortsEventStreamWithoutReconnectOrMixing();
   await testBufferedRevealAndReducedMotion();
   await testPartialErrorIsVisibleButExcludedFromLaterContext();
   await testNetworkFailureAfterProgressLabelsPartialAndDoesNotRetry();
@@ -1087,7 +1217,7 @@ async function testAuthReloadRestoresGuestOnceButNeverIntoAccount() {
   await testDailyLimitShowsResetWithoutClearingDraft();
   await testMaliciousSessionHandoffIsDiscarded();
   await testAuthReloadRestoresGuestOnceButNeverIntoAccount();
-  process.stdout.write("3 beta browser regression scenarios passed; 6 progressive answer scenarios passed; 10 public access scenarios passed; 4 presentation safety scenarios passed\n");
+  process.stdout.write("3 beta browser regression scenarios passed; 8 progressive answer scenarios passed; 10 public access scenarios passed; 4 presentation safety scenarios passed\n");
 })().catch((error) => {
   console.error(error);
   process.exitCode = 1;

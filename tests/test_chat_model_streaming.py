@@ -1,8 +1,10 @@
 import json
 from pathlib import Path
+import queue
 import tempfile
+import threading
 import unittest
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 from bibleprep import chat_model as chat
 from bibleprep import chat_streaming as streaming
@@ -86,6 +88,41 @@ def payload():
 
 
 class CompatibleSessionTests(unittest.TestCase):
+    def test_concurrent_session_initializes_one_shared_native_profile(self):
+        lines = [
+            event({"choices": [{"delta": {"content": "Done"},
+                                  "finish_reason": "stop"}]}),
+            event({"choices": [], "usage": {
+                "prompt_tokens": 10, "completion_tokens": 20, "total_tokens": 30}}),
+            "data: [DONE]",
+        ]
+        created = []
+
+        class Profile(FakeProfile):
+            def __init__(self):
+                super().__init__()
+                created.append(self)
+
+        session = streaming.CompatibleChatStreamingSession(
+            stream_factory=FakeStreamFactory(lines), profile_lock=threading.Lock())
+        rendezvous = threading.Barrier(3)
+        results = []
+
+        def run():
+            rendezvous.wait(1)
+            results.append(session(payload(), config(), "secret", lambda value: None))
+
+        workers = [threading.Thread(target=run) for _ in range(2)]
+        with patch.object(chat, "ChatNativeProfile", Profile):
+            for worker in workers:
+                worker.start()
+            rendezvous.wait(1)
+            for worker in workers:
+                worker.join(2)
+        self.assertEqual(len(results), 2)
+        self.assertEqual(len(created), 1)
+        self.assertEqual(len(created[0].calls), 2)
+
     def test_structured_content_only_progress_and_usage_accounting(self):
         lines = [
             "event: chat.completion.chunk",
@@ -175,6 +212,22 @@ class CompatibleSessionTests(unittest.TestCase):
                     session(payload(), config(), "secret", lambda value: None)
                 self.assertEqual(len(factory.calls), 1)
 
+    def test_absolute_deadline_stops_stream_kept_alive_by_reasoning_events(self):
+        lines = [event({"choices": [{"delta": {
+            "reasoning_content": f"PRIVATE heartbeat {index}"}}]})
+                 for index in range(3)]
+        factory = FakeStreamFactory(lines)
+        updates = []
+        session = streaming.CompatibleChatStreamingSession(
+            profile=FakeProfile(), stream_factory=factory)
+        with patch.object(streaming.time, "monotonic",
+                          side_effect=[0.0, 0.4, 0.8, 1.0]):
+            with self.assertRaises(TimeoutError):
+                session(payload(), config(), "secret", updates.append, deadline=1.0)
+        self.assertEqual(updates, [])
+        self.assertEqual(len(factory.calls), 1)
+        self.assertEqual(factory.calls[0][1]["timeout"], 1.0)
+
     def test_local_input_cap_and_settings_fail_before_http(self):
         factory = FakeStreamFactory([])
         session = streaming.CompatibleChatStreamingSession(
@@ -203,62 +256,48 @@ class CompatibleSessionTests(unittest.TestCase):
                 self.assertEqual(updates, [])
 
 
-class FakeProcess:
-    def __init__(self):
-        self.terminated = False
-
-    def is_alive(self):
-        return not self.terminated
-
-    def terminate(self):
-        self.terminated = True
-
-    def join(self, timeout=None):
-        pass
-
-    def kill(self):
-        self.terminated = True
-
-
-class FakeConnection:
+class FakeBroker:
     def __init__(self, replies):
         self.replies = list(replies)
-        self.sent = []
-        self.closed = False
+        self.calls = []
+        self.abandoned = []
+        self.close_calls = 0
 
-    def send(self, value):
-        self.sent.append(value)
+    def healthy(self):
+        return True
 
-    def poll(self, timeout):
-        return bool(self.replies)
+    def open_request(self, payload, config, secret, *, deadline):
+        request_id = "synthetic-request-id"
+        self.calls.append((payload, config, secret))
+        destination = queue.Queue()
+        for reply in self.replies:
+            destination.put({"request_id": request_id, **reply})
+        return request_id, destination
 
-    def recv(self):
-        return self.replies.pop(0)
+    def abandon(self, request_id):
+        self.abandoned.append(request_id)
 
     def close(self):
-        self.closed = True
+        self.close_calls += 1
 
 
 class BoundedTransportTests(unittest.TestCase):
     def transport(self, replies):
-        transport = streaming.BoundedStreamingTransport()
-        transport.process = FakeProcess()
-        transport.connection = FakeConnection(replies)
-        return transport
+        broker = FakeBroker(replies)
+        return streaming.BoundedStreamingTransport(broker=broker), broker
 
     def test_callback_failure_does_not_cancel_duplicate_or_corrupt_terminal(self):
         result = safe_result("First second")
-        transport = self.transport([
+        transport, broker = self.transport([
             {"kind": "progress", "revision": 1, "answer": "First"},
             {"kind": "progress", "revision": 2, "answer": "First second"},
             {"kind": "complete", "revision": 2, "response": result},
         ])
-        connection = transport.connection
         callback = MagicMock(side_effect=RuntimeError("browser callback failed"))
         returned = transport(payload(), config(), "secret", on_progress=callback)
         self.assertEqual(returned, result)
         self.assertEqual(callback.call_count, 1)
-        self.assertEqual(len(connection.sent), 1)
+        self.assertEqual(len(broker.calls), 1)
         self.assertFalse(transport.failed)
 
     def test_nonmonotonic_progress_or_mismatched_terminal_blocks_transport(self):
@@ -268,31 +307,270 @@ class BoundedTransportTests(unittest.TestCase):
             [{"kind": "progress", "revision": 1, "answer": "First"},
              {"kind": "complete", "revision": 1, "response": safe_result("Different")}],
             [{"kind": "progress", "revision": 1, "answer": "First", "extra": "private"}],
+            [{"request_id": "mismatched-request-id", "kind": "progress",
+              "revision": 1, "answer": "First"}],
         ]
         for replies in cases:
             with self.subTest(replies=replies):
-                transport = self.transport(replies)
-                connection = transport.connection
+                transport, broker = self.transport(replies)
                 with self.assertRaises(Exception):
                     transport(payload(), config(), "secret")
                 self.assertTrue(transport.failed)
-                self.assertTrue(connection.closed)
-                self.assertEqual(len(connection.sent), 1)
+                self.assertTrue(transport.closed)
+                self.assertEqual(len(broker.calls), 1)
                 with self.assertRaises(Exception):
                     transport(payload(), config(), "secret")
-                self.assertEqual(len(connection.sent), 1)
+                self.assertEqual(len(broker.calls), 1)
 
     def test_deadline_closes_worker_and_cannot_resubmit(self):
-        transport = self.transport([])
-        connection = transport.connection
+        transport, broker = self.transport([])
         with self.assertRaises(TimeoutError):
             transport(payload(), config(timeout_seconds=1), "secret")
         self.assertTrue(transport.failed)
-        self.assertTrue(connection.closed)
-        self.assertEqual(len(connection.sent), 1)
+        self.assertTrue(transport.closed)
+        self.assertEqual(len(broker.calls), 1)
+        self.assertEqual(broker.abandoned, ["synthetic-request-id"])
         with self.assertRaises(Exception):
             transport(payload(), config(timeout_seconds=1), "secret")
-        self.assertEqual(len(connection.sent), 1)
+        self.assertEqual(len(broker.calls), 1)
+
+    def test_default_transports_share_one_ref_counted_broker(self):
+        result = safe_result()
+        broker = FakeBroker([
+            {"kind": "progress", "revision": 1, "answer": "Done."},
+            {"kind": "complete", "revision": 1, "response": result},
+        ])
+        with patch.object(streaming, "_SHARED_BROKER", broker), \
+                patch.object(streaming, "_SHARED_REFS", 0), \
+                patch.object(streaming, "_SHARED_POISONED", False):
+            first = streaming.BoundedStreamingTransport()
+            second = streaming.BoundedStreamingTransport()
+            self.assertEqual(first(payload(), config(), "one"), result)
+            self.assertEqual(second(payload(), config(), "two"), result)
+            self.assertIs(first.broker, second.broker)
+            first.close()
+            self.assertEqual(broker.close_calls, 0)
+            second.close()
+            self.assertEqual(broker.close_calls, 1)
+
+
+class FakeAliveProcess:
+    def __init__(self):
+        self.alive = True
+
+    def is_alive(self):
+        return self.alive
+
+    def join(self, timeout=None):
+        pass
+
+    def terminate(self):
+        self.alive = False
+
+    def kill(self):
+        self.alive = False
+
+
+class DuplexConnection:
+    def __init__(self):
+        self.incoming = queue.Queue()
+        self.sent = []
+        self.closed = False
+
+    def recv(self):
+        value = self.incoming.get(timeout=2)
+        if isinstance(value, BaseException):
+            raise value
+        return value
+
+    def send(self, value):
+        if value is None:
+            self.incoming.put(EOFError())
+            return
+        self.sent.append(value)
+
+    def close(self):
+        self.closed = True
+
+
+class SharedBrokerTests(unittest.TestCase):
+    def broker(self, limit=2):
+        broker = streaming.SharedStreamingBroker(max_requests=limit)
+        broker.process = FakeAliveProcess()
+        broker.connection = DuplexConnection()
+        broker.reader = threading.Thread(target=broker._read_replies, daemon=True)
+        broker.reader.start()
+        self.addCleanup(broker.close)
+        return broker
+
+    def test_correlated_out_of_order_and_abandoned_terminal_are_isolated(self):
+        broker = self.broker()
+        deadline = streaming.time.monotonic() + 10
+        first_id, first = broker.open_request(
+            payload(), config(), "secret-one", deadline=deadline)
+        second_id, second = broker.open_request(
+            payload(), config(), "secret-two", deadline=deadline)
+        broker.abandon(first_id)
+        broker.connection.incoming.put(
+            {"request_id": second_id, "kind": "progress", "revision": 1,
+             "answer": "Second"})
+        broker.connection.incoming.put(
+            {"request_id": first_id, "kind": "uncertain"})
+        broker.connection.incoming.put(
+            {"request_id": second_id, "kind": "complete", "revision": 1,
+             "response": safe_result("Second")})
+        self.assertEqual(second.get(timeout=1)["answer"], "Second")
+        self.assertEqual(second.get(timeout=1)["response"]["answer"], "Second")
+        self.assertTrue(first.empty())
+        self.assertTrue(broker.healthy())
+
+    def test_abandoned_request_keeps_capacity_until_terminal(self):
+        broker = self.broker(limit=1)
+        deadline = streaming.time.monotonic() + 10
+        request_id, _ = broker.open_request(
+            payload(), config(), "secret", deadline=deadline)
+        broker.abandon(request_id)
+        with self.assertRaisesRegex(RuntimeError, "capacity"):
+            broker.open_request(payload(), config(), "other", deadline=deadline)
+        broker.connection.incoming.put({"request_id": request_id, "kind": "uncertain"})
+        for _ in range(100):
+            with broker.lock:
+                if request_id not in broker.inflight:
+                    break
+            threading.Event().wait(.005)
+        else:
+            self.fail("terminal envelope did not release broker capacity")
+        next_id, _ = broker.open_request(
+            payload(), config(), "other", deadline=deadline)
+        self.assertNotEqual(next_id, request_id)
+
+    def test_broker_death_wakes_waiters_and_fails_health(self):
+        broker = self.broker()
+        process = broker.process
+        connection = broker.connection
+        _, destination = broker.open_request(
+            payload(), config(), "secret", deadline=streaming.time.monotonic() + 10)
+        broker.connection.incoming.put(EOFError())
+        self.assertEqual(destination.get(timeout=1), {"kind": "broker_failed"})
+        self.assertFalse(broker.healthy())
+        broker.close()
+        self.assertFalse(process.is_alive())
+        self.assertTrue(connection.closed)
+
+    def test_slow_consumer_reply_mailbox_is_bounded_and_fails_only_that_call(self):
+        destination = queue.Queue(maxsize=2)
+        destination.put({"kind": "progress", "answer": "one"})
+        destination.put({"kind": "progress", "answer": "two"})
+        streaming.SharedStreamingBroker._signal(
+            destination, {"kind": "progress", "answer": "three"})
+        self.assertEqual(destination.qsize(), 1)
+        self.assertEqual(destination.get_nowait(), {"kind": "broker_failed"})
+
+
+class WorkerMultiplexingTests(unittest.TestCase):
+    def test_one_session_handles_parallel_failure_without_stopping_peer(self):
+        connection = DuplexConnection()
+        entered = threading.Barrier(3)
+        release = threading.Event()
+        constructed = []
+
+        class Session:
+            def __init__(self, **options):
+                constructed.append(options["profile_lock"])
+
+            def __call__(self, request_payload, request_config, secret, publish, *, deadline):
+                entered.wait(2)
+                release.wait(2)
+                if secret == "fail":
+                    raise RuntimeError("private failure")
+                publish("Safe")
+                return safe_result("Safe")
+
+        worker = threading.Thread(target=streaming.concurrent_streaming_chat_worker,
+                                  args=(connection, 2), daemon=True)
+        with patch.object(streaming, "CompatibleChatStreamingSession", Session):
+            worker.start()
+            connection.incoming.put({"request_id": "request-one-0001", "payload": payload(),
+                                     "config": config(), "secret": "fail",
+                                     "deadline": streaming.time.monotonic() + 10})
+            connection.incoming.put({"request_id": "request-two-0002", "payload": payload(),
+                                     "config": config(), "secret": "pass",
+                                     "deadline": streaming.time.monotonic() + 10})
+            entered.wait(2)
+            release.set()
+            for _ in range(100):
+                terminals = [item for item in connection.sent
+                             if item.get("kind") in {"complete", "uncertain"}]
+                if len(terminals) == 2:
+                    break
+                threading.Event().wait(.005)
+            connection.incoming.put(None)
+            worker.join(1)
+        self.assertEqual(len(constructed), 1)
+        by_id = {item["request_id"]: item for item in terminals}
+        self.assertEqual(by_id["request-one-0001"]["kind"], "uncertain")
+        self.assertEqual(by_id["request-two-0002"]["kind"], "complete")
+        self.assertEqual(
+            [item["answer"] for item in connection.sent
+             if item.get("kind") == "progress"], ["Safe"])
+
+    def test_terminal_receipt_means_child_capacity_is_available(self):
+        class TerminalGateConnection(DuplexConnection):
+            def __init__(self):
+                super().__init__()
+                self.first_terminal = threading.Event()
+                self.release_terminal = threading.Event()
+                self.held = False
+
+            def send(self, value):
+                if (isinstance(value, dict) and value.get("kind") == "complete"
+                        and not self.held):
+                    self.held = True
+                    self.first_terminal.set()
+                    self.release_terminal.wait(2)
+                super().send(value)
+
+        connection = TerminalGateConnection()
+        second_started = threading.Event()
+        call_lock = threading.Lock()
+        calls = 0
+
+        class Session:
+            def __init__(self, **options):
+                pass
+
+            def __call__(self, request_payload, request_config, secret, publish, *, deadline):
+                nonlocal calls
+                with call_lock:
+                    calls += 1
+                    if calls == 2:
+                        second_started.set()
+                return safe_result(secret)
+
+        worker = threading.Thread(target=streaming.concurrent_streaming_chat_worker,
+                                  args=(connection, 1), daemon=True)
+        deadline = streaming.time.monotonic() + 10
+        with patch.object(streaming, "CompatibleChatStreamingSession", Session):
+            worker.start()
+            connection.incoming.put({"request_id": "turnover-first-01", "payload": payload(),
+                                     "config": config(), "secret": "first",
+                                     "deadline": deadline})
+            self.assertTrue(connection.first_terminal.wait(1))
+            connection.incoming.put({"request_id": "turnover-second-2", "payload": payload(),
+                                     "config": config(), "secret": "second",
+                                     "deadline": deadline})
+            self.assertTrue(second_started.wait(1))
+            connection.release_terminal.set()
+            for _ in range(100):
+                if len([item for item in connection.sent
+                        if item.get("kind") == "complete"]) == 2:
+                    break
+                threading.Event().wait(.005)
+            connection.incoming.put(None)
+            worker.join(1)
+        self.assertEqual(calls, 2)
+        self.assertFalse(any(item.get("kind") == "uncertain"
+                             for item in connection.sent))
 
 
 class ChatModelStreamingInterfaceTests(unittest.TestCase):
@@ -348,6 +626,18 @@ class ChatModelStreamingInterfaceTests(unittest.TestCase):
             model.generate(self.messages)
         self.assertEqual(raised.exception.code, "blocked")
         self.assertEqual(transport.call_count, 1)
+
+    def test_idle_streaming_model_reports_broker_failure_before_a_request(self):
+        transport = MagicMock()
+        transport.healthy.return_value = False
+        model = chat.ChatModel(
+            self.root, transport=transport, streaming=True, **self.common)
+        self.addCleanup(model.close)
+        with patch.dict("os.environ", {"TINKER_API_KEY": "synthetic"}):
+            status = model.status()
+        self.assertFalse(status["ready"])
+        self.assertFalse(status["blocked"])
+        transport.assert_not_called()
 
 
 if __name__ == "__main__":

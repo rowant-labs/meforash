@@ -143,7 +143,7 @@ class DeploymentSettingsTests(unittest.TestCase):
 
     def test_worker_and_queue_settings_are_strict_and_bounded(self):
         for name, values in {
-                "MEFORASH_MODEL_WORKERS": ("0", "5", "03", "x"),
+                "MEFORASH_MODEL_WORKERS": ("0", "11", "03", "x"),
                 "MEFORASH_QUEUE_LIMIT": ("0", "65", "012", "x"),
                 "MEFORASH_QUEUE_TIMEOUT_SECONDS": ("0", "901", "0120", "x"),
         }.items():

@@ -58,11 +58,15 @@ SCRYPT_R = 8
 SCRYPT_P = 1
 GLOBAL_COST_CEILING_NANO = 5_000_000_000
 DEFAULT_MODEL_WORKERS = 1
-MAX_MODEL_WORKERS = 4
+MAX_MODEL_WORKERS = 10
 DEFAULT_QUEUE_LIMIT = 12
 MAX_QUEUE_LIMIT = 64
 DEFAULT_QUEUE_TIMEOUT_SECONDS = 120
 MAX_QUEUE_TIMEOUT_SECONDS = 900
+SSE_HEARTBEAT_SECONDS = 10
+MAX_EVENT_STREAMS = 48
+MAX_EVENT_STREAMS_PER_IDENTITY = 2
+MAX_EVENT_STREAMS_PER_JOB = 2
 
 
 class BetaError(RuntimeError):
@@ -436,6 +440,9 @@ class BetaApplication:
         self.closed = False
         self.jobs = {}
         self.queue = deque()
+        self.event_streams = 0
+        self.event_streams_by_identity = {}
+        self.event_streams_by_job = {}
         self.slots = [
             {"model": None, "active": False, "terminal": None}
             for _ in range(worker_count)
@@ -529,6 +536,7 @@ class BetaApplication:
             "queue_wait_seconds": round(max(0, now - job["queued_at"]), 3),
             "run_elapsed_seconds": 0.0, "completed_at": now,
         }
+        self.condition.notify_all()
 
     def _release_queue_locked(self, *, code, message):
         while self.queue:
@@ -640,6 +648,7 @@ class BetaApplication:
                 job.update({"status": "running", "started_at": now,
                             "queue_wait_seconds": round(max(0, now - job["queued_at"]), 3)})
                 slot["active"] = True
+                self.condition.notify_all()
             try:
                 self._generate(slot_index, request_id, job["identity"], job["messages"])
             except Exception:
@@ -691,6 +700,7 @@ class BetaApplication:
                     return
                 job["answer"] = answer
                 job["revision"] = revision
+                self.condition.notify_all()
 
         def snapshot():
             with self.lock:
@@ -805,28 +815,93 @@ class BetaApplication:
                     "completed_at": now,
                 }
                 self._expire_locked()
+                self.condition.notify_all()
+
+    def _result_locked(self, identity, request_id):
+        job = self.jobs.get(request_id)
+        if job is None or job["identity"] != identity:
+            return None
+        now = self.clock()
+        safe_fields = {"status", "revision", "answer", "complete", "error",
+                       "partial_answer", "sources", "source_notes", "warnings",
+                       "queue_wait_seconds", "run_elapsed_seconds"}
+        public = {key: value for key, value in job.items() if key in safe_fields}
+        if job["status"] == "queued":
+            try:
+                public["queue_position"] = list(self.queue).index(request_id) + 1
+            except ValueError:
+                public["queue_position"] = 1
+            public["queue_wait_seconds"] = round(max(0, now - job["queued_at"]), 3)
+        elif job["status"] == "running":
+            public["run_elapsed_seconds"] = round(max(0, now - job["started_at"]), 3)
+        return public
 
     def result(self, identity, request_id):
         identity = self.store._identity(identity)
         with self.lock:
             self._expire_locked()
-            job = self.jobs.get(request_id)
-            if job is None or job["identity"] != identity:
+            return self._result_locked(identity, request_id)
+
+    def open_event_stream(self, identity, request_id):
+        """Reserve a bounded result subscription only after ownership is established."""
+        identity = self.store._identity(identity)
+        identity_key = (identity.kind, identity.subject)
+        with self.condition:
+            self._expire_locked()
+            result = self._result_locked(identity, request_id)
+            if result is None:
                 return None
-            now = self.clock()
-            safe_fields = {"status", "revision", "answer", "complete", "error",
-                           "partial_answer", "sources", "source_notes", "warnings",
-                           "queue_wait_seconds", "run_elapsed_seconds"}
-            public = {key: value for key, value in job.items() if key in safe_fields}
-            if job["status"] == "queued":
-                try:
-                    public["queue_position"] = list(self.queue).index(request_id) + 1
-                except ValueError:
-                    public["queue_position"] = 1
-                public["queue_wait_seconds"] = round(max(0, now - job["queued_at"]), 3)
-            elif job["status"] == "running":
-                public["run_elapsed_seconds"] = round(max(0, now - job["started_at"]), 3)
-            return public
+            if (self.event_streams >= MAX_EVENT_STREAMS
+                    or self.event_streams_by_identity.get(identity_key, 0)
+                    >= MAX_EVENT_STREAMS_PER_IDENTITY
+                    or self.event_streams_by_job.get(request_id, 0)
+                    >= MAX_EVENT_STREAMS_PER_JOB):
+                raise BetaError("stream_limit")
+            self.event_streams += 1
+            self.event_streams_by_identity[identity_key] = (
+                self.event_streams_by_identity.get(identity_key, 0) + 1)
+            self.event_streams_by_job[request_id] = (
+                self.event_streams_by_job.get(request_id, 0) + 1)
+            return result
+
+    def close_event_stream(self, identity, request_id):
+        identity = self.store._identity(identity)
+        identity_key = (identity.kind, identity.subject)
+        with self.condition:
+            if self.event_streams_by_identity.get(identity_key, 0) <= 0:
+                return
+            if self.event_streams_by_job.get(request_id, 0) <= 0:
+                return
+            self.event_streams = max(0, self.event_streams - 1)
+            for counts, key in ((self.event_streams_by_identity, identity_key),
+                                (self.event_streams_by_job, request_id)):
+                counts[key] -= 1
+                if counts[key] == 0:
+                    del counts[key]
+
+    def wait_for_result_change(self, identity, request_id, previous, timeout):
+        """Wait for a safe public job snapshot to change or for a heartbeat deadline."""
+        identity = self.store._identity(identity)
+        deadline = time.monotonic() + timeout
+        with self.condition:
+            while True:
+                self._expire_locked()
+                result = self._result_locked(identity, request_id)
+                if result is None or self._event_key(result) != self._event_key(previous):
+                    return result
+                remaining = deadline - time.monotonic()
+                if remaining <= 0 or self.closed:
+                    return result
+                self.condition.wait(remaining)
+
+    @staticmethod
+    def _event_key(result):
+        if not isinstance(result, dict):
+            return None
+        return (result.get("status"), result.get("revision"),
+                result.get("queue_position"), result.get("complete"),
+                result.get("error", {}).get("code")
+                if isinstance(result.get("error"), dict) else None)
 
     def status(self, identity):
         identity = self.store._identity(identity)
@@ -896,6 +971,7 @@ def handler_for(app, *, origin, secure_cookie, trust_real_ip=False):
 
     class Handler(BaseHTTPRequestHandler):
         server_version = "BibleBetaCandidateV1"
+        protocol_version = "HTTP/1.1"
         def log_message(self, format, *args):
             pass
 
@@ -954,6 +1030,54 @@ def handler_for(app, *, origin, secure_cookie, trust_real_ip=False):
             except (BrokenPipeError, ConnectionResetError):
                 pass
 
+        def _write_event(self, value):
+            data = json.dumps(value, ensure_ascii=False, allow_nan=False,
+                              separators=(",", ":")).encode("utf-8")
+            self.wfile.write(b"event: result\n")
+            self.wfile.write(b"data: " + data + b"\n\n")
+            self.wfile.flush()
+
+        def _serve_events(self, identity, request_id):
+            initial = app.open_event_stream(identity, request_id)
+            if initial is None:
+                return self._send(404, {"error": {"code": "not_found",
+                    "message": "This beta resource is unavailable."}})
+            opened = False
+            try:
+                if self._identity() != identity:
+                    return self._send(401, {"error": {"code": "unauthorized",
+                        "message": "Sign in with an invitation."}})
+                self.send_response(200)
+                self.send_header("Content-Type", "text/event-stream; charset=utf-8")
+                self.send_header("Cache-Control", "no-store")
+                self.send_header("X-Accel-Buffering", "no")
+                self.send_header("X-Content-Type-Options", "nosniff")
+                self.send_header("Referrer-Policy", "no-referrer")
+                self.send_header("X-Frame-Options", "DENY")
+                self.send_header("Content-Security-Policy",
+                                 "default-src 'none'; frame-ancestors 'none'")
+                self.end_headers()
+                opened = True
+                current = initial
+                self._write_event(current)
+                while current.get("status") in {"queued", "running"}:
+                    updated = app.wait_for_result_change(
+                        identity, request_id, current, SSE_HEARTBEAT_SECONDS)
+                    if self._identity() != identity or updated is None:
+                        break
+                    if app._event_key(updated) == app._event_key(current):
+                        self.wfile.write(b": keep-alive\n\n")
+                        self.wfile.flush()
+                    else:
+                        self._write_event(updated)
+                    current = updated
+            except (BrokenPipeError, ConnectionResetError, TimeoutError, OSError):
+                pass
+            finally:
+                app.close_event_stream(identity, request_id)
+                if opened:
+                    self.close_connection = True
+
         def _body(self):
             if self.headers.get("Content-Type", "").split(";")[0].strip() != "application/json":
                 raise BetaError("json_required")
@@ -996,6 +1120,14 @@ def handler_for(app, *, origin, secure_cookie, trust_real_ip=False):
             path = urlsplit(self.path).path
             try:
                 body = self._body()
+                if path.startswith("/api/chat/") and path.endswith("/events"):
+                    identity = self._identity()
+                    if identity is None:
+                        raise BetaError("unauthorized")
+                    request_id = path.removeprefix("/api/chat/").removesuffix("/events")
+                    if not request_id or "/" in request_id or body:
+                        raise BetaError("invalid_json")
+                    return self._serve_events(identity, request_id)
                 if path == "/api/login":
                     peer_hash = _sha(str(self.client_address[0]).encode())
                     if not limiter.allow(peer_hash):
@@ -1060,6 +1192,7 @@ def handler_for(app, *, origin, secure_cookie, trust_real_ip=False):
                           "request_too_large": 413, "json_required": 415,
                           "busy": 409, "request_pending": 409,
                           "queue_full": 503, "model_unavailable": 503,
+                          "stream_limit": 429,
                           "rate_limited": 429,
                           "allowance_exhausted": 429,
                           "guest_limit_reached": 403,
@@ -1074,6 +1207,7 @@ def handler_for(app, *, origin, secure_cookie, trust_real_ip=False):
                             "request_pending": "Your previous question is still in progress.",
                             "queue_full": "The answer queue is full. Please try again shortly.",
                             "model_unavailable": "The model is temporarily unavailable.",
+                            "stream_limit": "Too many answer streams are already open.",
                             "rate_limited": "Please wait before trying again.",
                             "allowance_exhausted": "This beta allowance is exhausted.",
                             "guest_limit_reached": "The three guest questions have been used.",

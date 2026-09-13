@@ -9,8 +9,12 @@ from __future__ import annotations
 
 import contextlib
 import json
+import math
 import multiprocessing
 import os
+import queue
+import secrets
+import threading
 import time
 
 
@@ -21,6 +25,8 @@ MAX_ANSWER_BYTES = 512_000
 LOCAL_ERROR_CODES = {
     "invalid_messages", "input_too_long", "runtime_unavailable", "checkpoint_unavailable"
 }
+MAX_CONCURRENT_STREAMS = 10
+MAX_PENDING_REPLIES = 64
 
 
 def _compatible_result(answer, finish_reason, input_tokens, output_tokens):
@@ -59,10 +65,12 @@ def _compatible_result(answer, finish_reason, input_tokens, output_tokens):
 class CompatibleChatStreamingSession:
     """Validate one compatible OpenAI-style SSE response without retries."""
 
-    def __init__(self, *, profile=None, stream_factory=None, clock=None):
+    def __init__(self, *, profile=None, stream_factory=None, clock=None,
+                 profile_lock=None):
         self.profile = profile
         self.stream_factory = stream_factory
         self.clock = clock or time.monotonic
+        self.profile_lock = profile_lock
 
     def _stream(self, *, headers, body, timeout_seconds):
         if self.stream_factory is not None:
@@ -109,18 +117,35 @@ class CompatibleChatStreamingSession:
             raise ValueError
         return prompt, completion
 
-    def __call__(self, payload, config, secret, publish):
+    @contextlib.contextmanager
+    def _profile_access(self, deadline):
+        if self.profile_lock is None:
+            yield
+            return
+        if deadline is None:
+            self.profile_lock.acquire()
+        else:
+            remaining = deadline - time.monotonic()
+            if remaining <= 0 or not self.profile_lock.acquire(timeout=remaining):
+                raise TimeoutError("streaming renderer deadline")
+        try:
+            yield
+        finally:
+            self.profile_lock.release()
+
+    def __call__(self, payload, config, secret, publish, *, deadline=None):
         from bibleprep.chat_model import ChatModelError, ChatNativeProfile, MODEL
 
-        if self.profile is None:
-            try:
-                self.profile = ChatNativeProfile()
-            except ChatModelError:
-                raise
-            except Exception:
-                raise ChatModelError("runtime_unavailable") from None
         try:
-            native_ids, _ = self.profile.render(payload, config)
+            with self._profile_access(deadline):
+                if self.profile is None:
+                    try:
+                        self.profile = ChatNativeProfile()
+                    except ChatModelError:
+                        raise
+                    except Exception:
+                        raise ChatModelError("runtime_unavailable") from None
+                native_ids, _ = self.profile.render(payload, config)
         except ChatModelError:
             raise
         except Exception:
@@ -151,11 +176,18 @@ class CompatibleChatStreamingSession:
         done = False
         last_publish_at = float("-inf")
         published = ""
+        timeout_seconds = config["timeout_seconds"]
+        if deadline is not None:
+            timeout_seconds = deadline - time.monotonic()
+            if timeout_seconds <= 0:
+                raise TimeoutError("streaming request deadline")
         with self._stream(headers=headers, body=body,
-                          timeout_seconds=config["timeout_seconds"]) as response:
+                          timeout_seconds=timeout_seconds) as response:
             if response.status_code != 200:
                 raise RuntimeError("compatible request failed")
             for raw in response.iter_lines():
+                if deadline is not None and time.monotonic() >= deadline:
+                    raise TimeoutError("streaming request deadline")
                 event = self._event(raw)
                 if event is None:
                     continue
@@ -215,7 +247,8 @@ class CompatibleChatStreamingSession:
             publish(answer)
             published = answer
         try:
-            answer_tokens = len(self.profile.native.encode_ordinary(answer))
+            with self._profile_access(deadline):
+                answer_tokens = len(self.profile.native.encode_ordinary(answer))
         except Exception:
             raise RuntimeError("answer tokenization failed") from None
         input_tokens, output_tokens = self._usage(
@@ -224,71 +257,322 @@ class CompatibleChatStreamingSession:
         return _compatible_result(answer, finish_reason, input_tokens, output_tokens)
 
 
-def streaming_chat_worker(connection):
-    """Keep HTTP/SSE details and private reasoning inside a quiet child."""
+def concurrent_streaming_chat_worker(connection, max_requests=MAX_CONCURRENT_STREAMS):
+    """Multiplex HTTP streams while one quiet child owns the native profile."""
     os.environ["TINKER_TELEMETRY"] = "0"
-    with open(os.devnull, "w") as sink, contextlib.redirect_stdout(sink), contextlib.redirect_stderr(sink):
-        session = CompatibleChatStreamingSession()
+    with open(os.devnull, "w") as sink, contextlib.redirect_stdout(sink), \
+            contextlib.redirect_stderr(sink):
+        send_lock = threading.Lock()
+        profile_lock = threading.Lock()
+        capacity = threading.BoundedSemaphore(max_requests)
+        session = CompatibleChatStreamingSession(profile_lock=profile_lock)
+
+        def send(value):
+            with send_lock:
+                connection.send(value)
+
+        def handle(request):
+            request_id = request["request_id"]
+            revision = 0
+            response = None
+            terminal = None
+
+            def publish(answer):
+                nonlocal revision
+                revision += 1
+                send({"request_id": request_id, "kind": "progress",
+                      "revision": revision, "answer": answer})
+
+            try:
+                response = session(
+                    request["payload"], request["config"], request["secret"], publish,
+                    deadline=request["deadline"])
+                terminal = {"request_id": request_id, "kind": "complete",
+                            "revision": revision, "response": response}
+            except Exception as exc:
+                from bibleprep.chat_model import ChatModelError
+                if isinstance(exc, ChatModelError) and exc.code in LOCAL_ERROR_CODES:
+                    terminal = {"request_id": request_id, "kind": "local_error",
+                                "code": exc.code}
+                else:
+                    terminal = {"request_id": request_id, "kind": "uncertain"}
+            finally:
+                request = None
+                response = None
+                capacity.release()
+            send(terminal)
+
         try:
             while True:
                 request = connection.recv()
                 if request is None:
                     break
-                revision = 0
-
-                def publish(answer):
-                    nonlocal revision
-                    revision += 1
-                    connection.send({"kind": "progress", "revision": revision, "answer": answer})
-
-                try:
-                    response = session(*request, publish)
-                    connection.send({
-                        "kind": "complete", "revision": revision, "response": response
-                    })
-                except Exception as exc:
-                    from bibleprep.chat_model import ChatModelError
-                    if isinstance(exc, ChatModelError) and exc.code in LOCAL_ERROR_CODES:
-                        connection.send({"kind": "local_error", "code": exc.code})
-                    else:
-                        connection.send({"kind": "uncertain"})
-                        break
-                finally:
+                if (not isinstance(request, dict)
+                        or set(request) != {"request_id", "payload", "config", "secret", "deadline"}
+                        or not isinstance(request["request_id"], str)
+                        or not 16 <= len(request["request_id"]) <= 64
+                        or type(request["deadline"]) not in (int, float)
+                        or not math.isfinite(request["deadline"])):
+                    break
+                if request["deadline"] <= time.monotonic():
+                    send({"request_id": request["request_id"], "kind": "local_error",
+                          "code": "runtime_unavailable"})
                     request = None
-                    response = None
+                    continue
+                if not capacity.acquire(blocking=False):
+                    send({"request_id": request["request_id"], "kind": "uncertain"})
+                    request = None
+                    continue
+                worker = threading.Thread(target=handle, args=(request,), daemon=True)
+                try:
+                    worker.start()
+                except Exception:
+                    capacity.release()
+                    send({"request_id": request["request_id"], "kind": "uncertain"})
+                request = None
         except (EOFError, BrokenPipeError):
             pass
         finally:
             connection.close()
 
 
-class BoundedStreamingTransport:
-    """One spawned worker, one provider submission, one whole-operation deadline."""
+# Historical name retained for direct imports; the implementation is concurrent.
+streaming_chat_worker = concurrent_streaming_chat_worker
 
-    def __init__(self, worker=streaming_chat_worker):
+
+class SharedStreamingBroker:
+    """Correlate bounded calls through one spawned quiet renderer process."""
+
+    def __init__(self, worker=concurrent_streaming_chat_worker,
+                 max_requests=MAX_CONCURRENT_STREAMS):
         self.worker = worker
-        self.process = self.connection = None
+        self.max_requests = max_requests
+        self.process = self.connection = self.reader = None
+        self.lock = threading.Lock()
+        self.send_lock = threading.Lock()
+        self.inflight = {}
         self.failed = False
+        self.closed = False
 
-    def close(self):
-        if self.process is not None:
-            if self.process.is_alive():
-                self.process.terminate()
-                self.process.join(timeout=2)
-                if self.process.is_alive():
-                    self.process.kill()
-                    self.process.join(timeout=2)
-            else:
-                self.process.join(timeout=0)
-            self.process = None
-        if self.connection is not None:
-            self.connection.close()
-            self.connection = None
+    def _start(self):
+        with self.lock:
+            if self.closed or self.failed:
+                raise RuntimeError("streaming broker unavailable")
+            if self.process is not None:
+                return
+            context = multiprocessing.get_context("spawn")
+            connection, child = context.Pipe()
+            process = context.Process(
+                target=self.worker, args=(child, self.max_requests), daemon=True)
+            try:
+                process.start()
+            except Exception:
+                connection.close()
+                child.close()
+                self.failed = True
+                raise
+            child.close()
+            self.connection, self.process = connection, process
+            self.reader = threading.Thread(
+                target=self._read_replies, daemon=True, name="meforash-stream-router")
+            self.reader.start()
+
+    def healthy(self):
+        with self.lock:
+            if self.closed or self.failed:
+                return False
+            return self.process is None or self.process.is_alive()
+
+    def _fail(self):
+        with self.lock:
+            if self.failed:
+                return
+            self.failed = True
+            waiting = [entry["queue"] for entry in self.inflight.values()
+                       if entry["queue"] is not None]
+        for destination in waiting:
+            self._signal(destination, {"kind": "broker_failed"})
+        _poison_shared_broker(self)
 
     @staticmethod
-    def _progress(reply, last_revision, last_answer):
-        if (not isinstance(reply, dict) or set(reply) != {"kind", "revision", "answer"}
-                or reply["kind"] != "progress"
+    def _signal(destination, value):
+        try:
+            destination.put_nowait(value)
+        except queue.Full:
+            try:
+                while True:
+                    destination.get_nowait()
+            except queue.Empty:
+                pass
+            destination.put_nowait({"kind": "broker_failed"})
+
+    def _read_replies(self):
+        try:
+            while True:
+                reply = self.connection.recv()
+                if (not isinstance(reply, dict)
+                        or not isinstance(reply.get("request_id"), str)):
+                    raise ValueError
+                request_id = reply["request_id"]
+                with self.lock:
+                    entry = self.inflight.get(request_id)
+                    if entry is None:
+                        raise ValueError
+                    destination = entry["queue"]
+                    terminal = reply.get("kind") in {"complete", "local_error", "uncertain"}
+                    if terminal:
+                        del self.inflight[request_id]
+                if destination is not None:
+                    self._signal(destination, reply)
+        except (EOFError, BrokenPipeError, OSError, ValueError):
+            if not self.closed:
+                self._fail()
+
+    def open_request(self, payload, config, secret, *, deadline):
+        self._start()
+        if deadline <= time.monotonic():
+            raise TimeoutError("streaming request deadline")
+        request_id = secrets.token_urlsafe(18)
+        destination = queue.Queue(maxsize=MAX_PENDING_REPLIES)
+        with self.lock:
+            if self.closed or self.failed or len(self.inflight) >= self.max_requests:
+                raise RuntimeError("streaming broker capacity unavailable")
+            self.inflight[request_id] = {"queue": destination}
+        try:
+            remaining = deadline - time.monotonic()
+            if remaining <= 0 or not self.send_lock.acquire(timeout=remaining):
+                raise TimeoutError("streaming request deadline")
+            try:
+                if deadline <= time.monotonic():
+                    raise TimeoutError("streaming request deadline")
+                self.connection.send({"request_id": request_id, "payload": payload,
+                                      "config": config, "secret": secret,
+                                      "deadline": deadline})
+            finally:
+                self.send_lock.release()
+        except TimeoutError:
+            with self.lock:
+                self.inflight.pop(request_id, None)
+            raise
+        except Exception:
+            with self.lock:
+                self.inflight.pop(request_id, None)
+            self._fail()
+            raise
+        return request_id, destination
+
+    def abandon(self, request_id):
+        """Discard delivery while retaining capacity until the child terminates it."""
+        with self.lock:
+            entry = self.inflight.get(request_id)
+            if entry is not None:
+                entry["queue"] = None
+
+    def close(self):
+        with self.lock:
+            if self.closed:
+                return
+            self.closed = True
+            connection, process, reader = self.connection, self.process, self.reader
+            waiting = [entry["queue"] for entry in self.inflight.values()
+                       if entry["queue"] is not None]
+        for destination in waiting:
+            self._signal(destination, {"kind": "broker_failed"})
+        if connection is not None:
+            try:
+                with self.send_lock:
+                    connection.send(None)
+            except Exception:
+                pass
+        if process is not None:
+            process.join(timeout=2)
+            if process.is_alive():
+                process.terminate()
+                process.join(timeout=2)
+            if process.is_alive():
+                process.kill()
+                process.join(timeout=2)
+        if connection is not None:
+            connection.close()
+        if reader is not None and reader is not threading.current_thread():
+            reader.join(timeout=1)
+
+
+_SHARED_LOCK = threading.Lock()
+_SHARED_BROKER = None
+_SHARED_REFS = 0
+_SHARED_POISONED = False
+
+
+def _poison_shared_broker(broker):
+    global _SHARED_POISONED
+    with _SHARED_LOCK:
+        if _SHARED_BROKER is broker:
+            _SHARED_POISONED = True
+
+
+def shared_streaming_ready():
+    with _SHARED_LOCK:
+        broker = _SHARED_BROKER
+        poisoned = _SHARED_POISONED
+    return not poisoned and (broker is None or broker.healthy())
+
+
+def _acquire_shared_broker():
+    global _SHARED_BROKER, _SHARED_REFS
+    with _SHARED_LOCK:
+        if _SHARED_POISONED:
+            raise RuntimeError("streaming broker requires process restart")
+        if _SHARED_BROKER is None:
+            _SHARED_BROKER = SharedStreamingBroker()
+        _SHARED_REFS += 1
+        return _SHARED_BROKER
+
+
+def _release_shared_broker(broker):
+    global _SHARED_BROKER, _SHARED_REFS
+    close = False
+    with _SHARED_LOCK:
+        if _SHARED_BROKER is broker:
+            _SHARED_REFS -= 1
+            if _SHARED_REFS == 0:
+                _SHARED_BROKER = None
+                close = True
+    if close:
+        broker.close()
+
+
+class BoundedStreamingTransport:
+    """One correlated stream on a shared worker, with an end-to-end deadline."""
+
+    def __init__(self, broker=None):
+        self.broker = broker
+        self._shared = broker is None
+        self._acquired = broker is not None
+        self.failed = False
+        self.closed = False
+        self.lock = threading.Lock()
+
+    def healthy(self):
+        broker_ready = (shared_streaming_ready() if self.broker is None
+                        else self.broker.healthy())
+        return not self.failed and not self.closed and broker_ready
+
+    def close(self):
+        with self.lock:
+            if self.closed:
+                return
+            self.closed = True
+            broker = self.broker
+            shared = self._shared and self._acquired
+        if shared:
+            _release_shared_broker(broker)
+
+    @staticmethod
+    def _progress(reply, request_id, last_revision, last_answer):
+        if (not isinstance(reply, dict)
+                or set(reply) != {"request_id", "kind", "revision", "answer"}
+                or reply["request_id"] != request_id or reply["kind"] != "progress"
                 or type(reply["revision"]) is not int or reply["revision"] <= last_revision
                 or not isinstance(reply["answer"], str)
                 or not reply["answer"].startswith(last_answer)
@@ -297,44 +581,54 @@ class BoundedStreamingTransport:
         return reply["revision"], reply["answer"]
 
     def __call__(self, payload, config, secret, on_progress=None):
-        if self.failed:
-            raise RuntimeError("uncertain streaming operation")
-        if self.process is None:
-            context = multiprocessing.get_context("spawn")
-            self.connection, child = context.Pipe()
-            self.process = context.Process(target=self.worker, args=(child,), daemon=True)
-            self.process.start()
-            child.close()
         deadline = time.monotonic() + config["timeout_seconds"]
+        with self.lock:
+            if self.failed or self.closed:
+                raise RuntimeError("uncertain streaming operation")
+            if not self._acquired:
+                self.broker = _acquire_shared_broker()
+                self._acquired = True
+            broker = self.broker
+        request_id = None
         revision, answer = 0, ""
         callback = on_progress
         try:
-            self.connection.send((payload, config, secret))
+            request_id, replies = broker.open_request(
+                payload, config, secret, deadline=deadline)
             while True:
                 remaining = deadline - time.monotonic()
-                if remaining <= 0 or not self.connection.poll(remaining):
+                if remaining <= 0:
                     raise TimeoutError("streaming request deadline")
-                reply = self.connection.recv()
+                try:
+                    reply = replies.get(timeout=remaining)
+                except queue.Empty:
+                    raise TimeoutError("streaming request deadline") from None
                 if isinstance(reply, dict) and reply.get("kind") == "progress":
-                    revision, answer = self._progress(reply, revision, answer)
+                    revision, answer = self._progress(
+                        reply, request_id, revision, answer)
                     if callback is not None:
                         try:
                             callback(answer, revision)
                         except Exception:
                             callback = None
                     continue
-                if (isinstance(reply, dict) and set(reply) == {"kind", "code"}
-                        and reply["kind"] == "local_error" and reply["code"] in LOCAL_ERROR_CODES):
+                if (isinstance(reply, dict)
+                        and set(reply) == {"request_id", "kind", "code"}
+                        and reply["request_id"] == request_id
+                        and reply["kind"] == "local_error"
+                        and reply["code"] in LOCAL_ERROR_CODES):
                     return {"local_error": reply["code"]}
                 if (not isinstance(reply, dict)
-                        or set(reply) != {"kind", "revision", "response"}
-                        or reply["kind"] != "complete"
+                        or set(reply) != {"request_id", "kind", "revision", "response"}
+                        or reply["request_id"] != request_id or reply["kind"] != "complete"
                         or type(reply["revision"]) is not int or reply["revision"] != revision
                         or not isinstance(reply["response"], dict)
                         or reply["response"].get("answer") != answer):
                     raise RuntimeError("invalid streaming terminal envelope")
                 return reply["response"]
         except Exception:
+            if request_id is not None:
+                broker.abandon(request_id)
             self.failed = True
             self.close()
             raise

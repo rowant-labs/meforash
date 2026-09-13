@@ -662,5 +662,30 @@
     "live_all_complete_seconds": 22.48,
     "live_estimated_cost_usd": 0.00743893,
     "cross_user_polling_blocked": true
+  },
+  "inference_options_research": {
+    "date": "2026-09-12",
+    "status": "research_complete_exact_adapter_host_unconfirmed",
+    "document": "docs/INFERENCE-OPTIONS.md",
+    "retained_model": "Inkling B",
+    "shared_custom_adapter_serving_confirmed": false,
+    "next_step": "Confirm full Inkling plus imported rank-8 attention/MLP/unembedding adapter eligibility and shared pricing before a privately approved export/load test.",
+    "provider_contact_sent": false,
+    "weights_exported": false,
+    "model_changed": false,
+    "training_performed": false,
+    "streaming_integration": "Offline worker implementation complete; root integration and live validation remain pending."
+  },
+  "launch_streaming_efficiency": {
+    "date": "2026-09-12",
+    "status": "reviewed_pending_deployment_and_live_validation",
+    "document": "docs/STREAMING-EFFICIENCY.md",
+    "live_model_workers": 3,
+    "queue_limit": 12,
+    "model_changed": false,
+    "training_performed": false,
+    "provider_contact_sent": false,
+    "ten_request_probe": "deferred_by_owner",
+    "live_test_max_reservation_usd": 0.3
   }
 }

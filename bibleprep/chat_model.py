@@ -377,9 +377,24 @@ class ChatModel:
         env_file = self.root / ".env"
         configured = bool(os.environ.get("TINKER_API_KEY") or self._credential_loaded
                           or (env_file.is_file() and not env_file.is_symlink()))
+        transport_ready = True
+        if self._transport is not None:
+            health = getattr(self._transport, "healthy", None)
+            if callable(health):
+                try:
+                    transport_ready = health() is not False
+                except Exception:
+                    transport_ready = False
+        elif self.streaming:
+            try:
+                from bibleprep.chat_streaming import shared_streaming_ready
+                transport_ready = shared_streaming_ready()
+            except Exception:
+                transport_ready = False
         return {"configured": configured, "credential_verified": self._credential_loaded,
                 "checkpoint_available": checkpoint_available, "model": PUBLIC_MODEL_NAME, "arm": "B",
-                "ready": configured and checkpoint_available and not self._blocked and not self._closed,
+                "ready": (configured and checkpoint_available and transport_ready
+                          and not self._blocked and not self._closed),
                 "busy": self._lock.locked(), "blocked": self._blocked, "closed": self._closed,
                 "limits": {"max_input_tokens": self.settings.max_input_tokens,
                            "max_output_tokens": self.settings.max_output_tokens,
