@@ -709,11 +709,11 @@
     "provider_message_sent": false
   },
   "affordable_model_exploration": {
-    "status": "modal_baseline_serving_verified_snapshot_startup_timeout",
+    "status": "modal_v2_snapshot_restore_verified_latency_variable",
     "branch": "codex/hosting-first-small-model",
     "base_commit": "4a0d6c0",
     "document": "docs/AFFORDABLE-MODEL-EXPLORATION.md",
-    "next": "Investigate snapshot creation timeout before another bounded serving attempt; then verify adapter portability and freeze smaller-model English evaluation before proposing training. No training or production migration authorized.",
+    "next": "Investigate remaining snapshot restore latency variability before production suitability or training; preserve measured 24s and121s reuse outcomes. Then verify adapter portability and freeze English Bible evaluation.",
     "live_model_changed": false,
     "training_started": false,
     "deployment_started": false,
@@ -723,8 +723,11 @@
     "billing_status": "Provider billing records unavailable; $4 combined v1-v5 conservative reservation within original $10 ceiling",
     "startup_alternatives_document": "docs/SMALL-MODEL-STARTUP-ALTERNATIVES.md",
     "modal_preflight_document": "docs/MODAL-PILOT-PREFLIGHT.md",
-    "modal_access_status": "Authenticated private L4 serving tested; all pilot apps stopped, zero containers, temporary volume deleted.",
+    "modal_access_status": "V2 base serving and snapshot capture/reuse verified; all pilot apps stopped, zero containers and temporary volume deleted.",
     "modal_result_document": "docs/MODAL-SERVING-RESULTS-V1.md",
-    "modal_billing_status": "Latest meter $0.42 covered by credits; final usage/storage reconciliation pending within separate $5 ceiling."
+    "modal_billing_status": "Latest meter $0.42 covered by credits; final usage/storage reconciliation pending within separate $5 ceiling.",
+    "modal_v2_preflight_document": "docs/MODAL-PILOT-V2-PREFLIGHT.md",
+    "modal_v2_result_document": "docs/MODAL-SERVING-RESULTS-V2.md",
+    "modal_v2_billing_status": "Account meter rose from $0.42 to $0.78 ($0.36 delta), billed $0 with credits; provisional within separate $5 ceiling."
   }
 }
