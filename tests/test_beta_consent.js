@@ -58,7 +58,7 @@ const flush = () => new Promise((resolve) => setImmediate(resolve));
   let page = setup();
   assert.deepEqual(page.calls, []);
   assert.doesNotMatch(markup, /consent-dialog|consent-check|Agree and continue/);
-  assert.match(markup, /By selecting <strong>Send question<\/strong>/);
+  assert.match(markup, /By submitting a question/);
   assert.match(markup, /By selecting <strong>Send a sign-in code<\/strong>/);
   assert.match(markup, /By selecting <strong>Verify code<\/strong>/);
   assert.equal((markup.match(/Terms of Service<\/a>/g) || []).length, 3);

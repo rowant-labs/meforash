@@ -794,7 +794,7 @@ function testReaderFacingCopyKeepsLimitsVisibleAndOperationsQuiet() {
   assert.match(MARKUP, /maxlength="6"/);
   assert.match(MARKUP, /expires in 10 minutes/);
   assert.doesNotMatch(MARKUP, /consent-dialog|consent-check|Agree and continue/);
-  assert.match(MARKUP, /By selecting <strong>Send question<\/strong>/);
+  assert.match(MARKUP, /By submitting a question/);
   assert.match(MARKUP, /By selecting <strong>Send a sign-in code<\/strong>/);
   assert.match(MARKUP, /By selecting <strong>Verify code<\/strong>/);
   assert.doesNotMatch(MARKUP, /Saved history is not available yet/);

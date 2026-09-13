@@ -1160,6 +1160,14 @@ codeForm.addEventListener("submit", async (event) => {
   if (epoch === stateEpoch) codeButton.disabled = false;
 });
 
+question.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter" || event.shiftKey || event.isComposing
+      || event.keyCode === 229 || event.altKey || event.ctrlKey || event.metaKey) return;
+  event.preventDefault();
+  if (event.repeat || sendButton.disabled || !question.value.trim()) return;
+  chatForm.requestSubmit(sendButton);
+});
+
 chatForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const text = question.value.trim();
