@@ -44,6 +44,8 @@ let authReturnState = "Ready";
 let authReturnWorking = false;
 let activeAnswerPresentation = null;
 
+const SCROLL_FOLLOW_MARGIN = 120;
+
 const HANDOFF_KEY = "meforash.auth-handoff.v1";
 const HANDOFF_TTL_MS = 10 * 60 * 1000;
 const HANDOFF_MAX_BYTES = 500000;
@@ -452,6 +454,47 @@ function renderAnswer(parent, text) {
   }
 }
 
+function reducedMotionPreferred() {
+  return typeof window.matchMedia === "function"
+    && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+function composerInset() {
+  const section = chatForm.parentElement;
+  if (!section || typeof section.getBoundingClientRect !== "function"
+      || !Number.isFinite(window.innerHeight)) return 0;
+  const top = section.getBoundingClientRect().top;
+  return Number.isFinite(top) && top < window.innerHeight
+    ? Math.max(0, window.innerHeight - top) : 0;
+}
+
+function nearConversationBottom() {
+  const root = document.documentElement;
+  const body = document.body;
+  if (!root || !Number.isFinite(window.innerHeight)) return true;
+  const height = Math.max(
+    Number(root.scrollHeight) || 0,
+    Number(body?.scrollHeight) || 0,
+  );
+  const scrollTop = Number(window.scrollY ?? window.pageYOffset);
+  if (!height || !Number.isFinite(scrollTop)) return true;
+  return height - (scrollTop + window.innerHeight)
+    <= composerInset() + SCROLL_FOLLOW_MARGIN;
+}
+
+function scrollNodeAboveComposer(node, presentation, { force = false } = {}) {
+  if (!node || typeof node.scrollIntoView !== "function") return;
+  if (!force && (!presentation?.followScroll || presentation.cancelled)) return;
+  node.scrollIntoView({
+    behavior: "instant",
+    block: force ? "start" : "end",
+  });
+  if (!force && typeof window.scrollBy === "function") {
+    const inset = composerInset();
+    if (inset > 0) window.scrollBy({ top: inset + 12, behavior: "instant" });
+  }
+}
+
 function messageNode(role, text, extraClass = "") {
   const article = document.createElement("article");
   article.className = `message message-${role} ${extraClass}`.trim();
@@ -465,7 +508,11 @@ function messageNode(role, text, extraClass = "") {
   article.append(label, content);
   conversation.append(article);
   welcome.hidden = true;
-  article.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  if (activeAnswerPresentation?.epoch === stateEpoch) {
+    scrollNodeAboveComposer(article, activeAnswerPresentation, {
+      force: role === "user" && activeAnswerPresentation.phase === "submitting",
+    });
+  }
   return article;
 }
 
@@ -725,6 +772,7 @@ function scheduleReveal(presentation) {
     if (code >= 0xD800 && code <= 0xDBFF && end < presentation.target.length) end += 1;
     presentation.shown = presentation.target.slice(0, end);
     presentation.node.children[1].textContent = presentation.shown;
+    scrollNodeAboveComposer(presentation.node, presentation);
     scheduleReveal(presentation);
   };
   if (typeof window.requestAnimationFrame === "function") {
@@ -757,8 +805,8 @@ function startAnswerPresentation(epoch, startedAt) {
     labelNode: null,
     timingNode: null,
     cancelled: false,
-    reducedMotion: typeof window.matchMedia === "function"
-      && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    reducedMotion: reducedMotionPreferred(),
+    followScroll: true,
   };
   activeAnswerPresentation = presentation;
   signInButton.disabled = true;
@@ -782,6 +830,7 @@ function presentProgress(presentation, answer) {
     cancelScheduledReveal(presentation);
     presentation.shown = answer;
     presentation.node.children[1].textContent = answer;
+    scrollNodeAboveComposer(presentation.node, presentation);
   } else {
     scheduleReveal(presentation);
   }
@@ -793,6 +842,7 @@ function flushProgress(presentation, answer = presentation?.target || "") {
   presentation.target = answer;
   presentation.shown = answer;
   presentation.node.children[1].textContent = answer;
+  scrollNodeAboveComposer(presentation.node, presentation);
 }
 
 function delay(milliseconds) {
@@ -887,7 +937,7 @@ async function acceptJobResult(result, generation, state) {
     }
     renderSources(result.sources, result.source_notes);
     setWorking(false, terminalTimingLabel("Completed", presentation, result));
-    question.focus();
+    question.focus({ preventScroll: true });
     await refreshStatus(generation);
     return true;
   }
@@ -1066,6 +1116,22 @@ async function followJob(requestId, generation) {
 
 function validProgressRevision(value) {
   return Number.isInteger(value) && value >= 0;
+}
+
+if (typeof window.addEventListener === "function") {
+  const pauseScrollFollow = () => {
+    if (activeAnswerPresentation) activeAnswerPresentation.followScroll = false;
+  };
+  window.addEventListener("wheel", pauseScrollFollow, { passive: true });
+  window.addEventListener("touchstart", pauseScrollFollow, { passive: true });
+  window.addEventListener("keydown", (event) => {
+    if (["ArrowUp", "PageUp", "Home"].includes(event.key)) pauseScrollFollow();
+  });
+  window.addEventListener("scroll", () => {
+    if (activeAnswerPresentation) {
+      activeAnswerPresentation.followScroll = nearConversationBottom();
+    }
+  }, { passive: true });
 }
 
 loginForm.addEventListener("submit", async (event) => {
