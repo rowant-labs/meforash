@@ -501,7 +501,8 @@ async function testQueuePositionAndTimingsStayDistinct() {
     queue_position: 3, queue_wait_seconds: 4.4,
   }));
   await flush();
-  assert.match(allText(status), /Waiting in line · position 3.*4s waiting/s);
+  assert.match(allText(status), /Your question is queued · position 3.*4s waiting/s);
+  assert.match(allText(status), /This beta answers up to 3 questions at once\. Yours will start automatically\./);
   assert.equal(document.querySelector("#conversation").children.length, 1);
 
   document.advanceTime(2100);
@@ -511,7 +512,7 @@ async function testQueuePositionAndTimingsStayDistinct() {
     queue_position: 1, queue_wait_seconds: 7.8,
   }));
   await flush();
-  assert.match(allText(status), /Waiting in line · position 1.*7s waiting/s);
+  assert.match(allText(status), /Your question is queued · position 1.*7s waiting/s);
 
   running.resolve(new FakeResponse(200, {
     status: "running", complete: false, revision: 0, answer: "",
@@ -519,6 +520,7 @@ async function testQueuePositionAndTimingsStayDistinct() {
   }));
   await flush();
   assert.match(allText(status), /Preparing your answer….*1s generating · waited 8s/s);
+  assert.doesNotMatch(allText(status), /This beta answers/);
 
   document.advanceTime(2400);
   assert.match(allText(status), /Preparing your answer….*4s generating · waited 8s/s);
@@ -633,7 +635,7 @@ async function testNewChatAbortsEventStreamWithoutReconnectOrMixing() {
   const submission = document.querySelector("#chat-form").dispatch("submit");
   await flush();
   assert.match(allText(document.querySelector("#request-state")),
-    /Waiting in line · position 4.*2s waiting/s);
+    /Your question is queued · position 4.*2s waiting/s);
   await document.querySelector("#new-chat-button").dispatch("click");
   await submission;
   assert.equal(streamSignal.aborted, true);

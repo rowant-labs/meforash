@@ -656,8 +656,8 @@ function interpolatedSeconds(value, presentation, activePhase) {
 function pendingLabel(presentation) {
   if (presentation.phase === "queued") {
     return Number.isInteger(presentation.queuePosition) && presentation.queuePosition >= 1
-      ? `Waiting in line · position ${presentation.queuePosition}`
-      : "Waiting in line";
+      ? `Your question is queued · position ${presentation.queuePosition}`
+      : "Your question is queued";
   }
   if (presentation.phase === "running") return "Preparing your answer…";
   if (presentation.phase === "writing") return "Writing…";
@@ -687,6 +687,9 @@ function renderPendingStatus(
 ) {
   if (presentation !== activeAnswerPresentation || presentation.epoch !== stateEpoch) return;
   presentation.phase = phase;
+  const queueNote = phase === "queued"
+    ? "This beta answers up to 3 questions at once. Yours will start automatically."
+    : "";
   if (phase === "queued") {
     presentation.wasQueued = true;
     presentation.queuePosition = Number.isInteger(queuePosition) && queuePosition >= 1
@@ -696,6 +699,7 @@ function renderPendingStatus(
       && presentation.timingNode?.parentNode === requestState) {
     presentation.labelNode.textContent = pendingLabel(presentation);
     presentation.timingNode.textContent = pendingTiming(presentation);
+    presentation.queueNoteNode.textContent = queueNote;
     return;
   }
   removeChildren(requestState);
@@ -714,9 +718,13 @@ function renderPendingStatus(
   timing.className = "pending-elapsed";
   timing.setAttribute("aria-hidden", "true");
   timing.textContent = pendingTiming(presentation);
+  const note = document.createElement("span");
+  note.className = "pending-queue-note";
+  note.textContent = queueNote;
   presentation.labelNode = label;
   presentation.timingNode = timing;
-  requestState.append(label, dots, timing);
+  presentation.queueNoteNode = note;
+  requestState.append(label, dots, timing, note);
 }
 
 function terminalTimingLabel(prefix, presentation, result) {
