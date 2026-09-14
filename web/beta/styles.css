@@ -91,6 +91,7 @@ textarea { display: block; width: 100%; min-height: 54px; max-height: 190px; res
 textarea::placeholder { color: #858981; }
 .composer-bottom { display: flex; align-items: center; justify-content: space-between; gap: 15px; padding-top: 9px; }
 .composer-hint { color: var(--muted); font-size: 10px; }
+.pending-queue-note:not(:empty) { display: block; margin-top: 4px; }
 .pending-dots { display: inline-flex; align-items: center; gap: 3px; margin-left: 5px; vertical-align: middle; }
 .pending-dot { width: 3px; height: 3px; border-radius: 50%; background: currentColor; opacity: .25; animation: pending-pulse 1.2s ease-in-out infinite; }
 .pending-dot:nth-child(2) { animation-delay: .16s; }
