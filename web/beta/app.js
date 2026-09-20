@@ -21,6 +21,8 @@ const closeSources = document.querySelector("#close-sources");
 const sourceCards = document.querySelector("#source-cards");
 const sourceNotes = document.querySelector("#source-notes");
 const quotaHint = document.querySelector("#quota-hint");
+const chatConsentNotice = document.querySelector("#chat-consent-notice");
+const chatAbout = document.querySelector("#chat-about");
 const authDialog = document.querySelector("#auth-dialog");
 const authCloseButton = document.querySelector("#auth-close-button");
 const authCancelButton = document.querySelector("#auth-cancel-button");
@@ -50,6 +52,23 @@ const HANDOFF_KEY = "meforash.auth-handoff.v1";
 const HANDOFF_TTL_MS = 10 * 60 * 1000;
 const HANDOFF_MAX_BYTES = 500000;
 const TERMS_VERSION = "2026-09-11.1";
+
+function resizeQuestion() {
+  if (!question?.style) return;
+  question.style.height = "auto";
+  const contentHeight = Number(question.scrollHeight);
+  if (!Number.isFinite(contentHeight) || contentHeight <= 0) return;
+  const viewportHeight = Number(window.visualViewport?.height || window.innerHeight);
+  const maximum = Number.isFinite(viewportHeight)
+    ? Math.max(150, Math.min(280, viewportHeight * .36)) : 280;
+  question.style.height = `${Math.min(contentHeight, maximum)}px`;
+  question.style.overflowY = contentHeight > maximum ? "auto" : "hidden";
+}
+
+function setConversationChrome(active) {
+  if (chatConsentNotice) chatConsentNotice.hidden = active;
+  if (active && chatAbout) chatAbout.open = false;
+}
 
 function removeChildren(node) {
   while (node.firstChild) node.removeChild(node.firstChild);
@@ -231,6 +250,8 @@ function resetConversation() {
   sendButton.disabled = false;
   question.disabled = false;
   question.value = "";
+  resizeQuestion();
+  setConversationChrome(false);
   return stateEpoch;
 }
 
@@ -255,6 +276,7 @@ function showChat(status) {
   newChatButton.hidden = false;
   loginMessage.textContent = "";
   renderStatus(status);
+  resizeQuestion();
   question.focus();
 }
 
@@ -327,6 +349,8 @@ function restoreAuthHandoff(handoff, clear = true) {
   removeChildren(conversation);
   for (const message of messages) messageNode(message.role, message.content);
   question.value = handoff.draft;
+  resizeQuestion();
+  setConversationChrome(messages.length > 0);
   renderSources(handoff.sources, handoff.source_notes);
   if (clear) clearAuthHandoff();
 }
@@ -508,6 +532,7 @@ function messageNode(role, text, extraClass = "") {
   article.append(label, content);
   conversation.append(article);
   welcome.hidden = true;
+  if (role === "user") setConversationChrome(true);
   if (activeAnswerPresentation?.epoch === stateEpoch) {
     scrollNodeAboveComposer(article, activeAnswerPresentation, {
       force: role === "user" && activeAnswerPresentation.phase === "submitting",
@@ -1242,6 +1267,14 @@ question.addEventListener("keydown", (event) => {
   chatForm.requestSubmit(sendButton);
 });
 
+question.addEventListener("input", resizeQuestion);
+if (typeof window.addEventListener === "function") {
+  window.addEventListener("resize", resizeQuestion, { passive: true });
+}
+if (typeof window.visualViewport?.addEventListener === "function") {
+  window.visualViewport.addEventListener("resize", resizeQuestion, { passive: true });
+}
+
 chatForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const text = question.value.trim();
@@ -1258,6 +1291,7 @@ chatForm.addEventListener("submit", async (event) => {
     if (epoch !== stateEpoch) return;
     messages = pendingMessages;
     question.value = "";
+    resizeQuestion();
     messageNode("user", text);
     await followJob(accepted.request_id, epoch);
   } catch (error) {

@@ -69,7 +69,7 @@
       <section class="composer-section" aria-label="Ask Meforash">
         <form id="chat-form" class="composer">
           <label class="sr-only" for="question">Your question</label>
-          <textarea id="question" title="Enter to send; Shift+Enter for a new line" maxlength="12000" rows="2" placeholder="What would you like to explore?" required></textarea>
+          <textarea id="question" title="Enter to send; Shift+Enter for a new line" maxlength="12000" rows="3" placeholder="What would you like to explore?" autocomplete="off" spellcheck="true" enterkeyhint="send" required></textarea>
           <div class="composer-bottom">
             <span id="request-state" class="composer-hint" role="status" aria-live="polite">Ready</span>
             <button id="send-button" class="send-button" type="submit" aria-label="Send question" aria-describedby="chat-consent-notice">
@@ -81,7 +81,7 @@
         <p id="chat-consent-message" class="action-message" role="status" aria-live="polite"></p>
         <p id="quota-hint" class="quota-hint" hidden></p>
 
-        <details class="about-panel chat-about">
+        <details id="chat-about" class="about-panel chat-about">
           <summary>About Meforash</summary>
           <div class="about-content">
             <p>Meforash is trained on selected Hebrew, Aramaic, and Greek biblical texts to help you explore their wording and historical context in English. Ancient manuscripts sometimes differ, and AI can make mistakes.</p>
