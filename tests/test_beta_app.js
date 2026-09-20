@@ -23,6 +23,7 @@ const ELEMENT_IDS = [
   "auth-dialog", "auth-close-button", "auth-cancel-button", "email-form",
   "email-button", "auth-email", "code-form", "code-button", "code-email",
   "auth-token", "auth-message",
+  "chat-consent-notice", "chat-about",
 ];
 
 class FakeElement {
@@ -40,6 +41,8 @@ class FakeElement {
     this.dir = "";
     this.lang = "";
     this.parentNode = null;
+    this.style = {};
+    this.scrollHeight = 0;
   }
 
   get firstChild() {
@@ -347,8 +350,12 @@ async function testSourceCardsPreserveTextLayers() {
     });
     throw new Error(`Unexpected fetch: ${url}`);
   });
+  document.querySelector("#chat-about").open = true;
+  assert.equal(document.querySelector("#chat-consent-notice").hidden, false);
   document.querySelector("#question").value = "Compare the supplied passages";
   await document.querySelector("#chat-form").dispatch("submit");
+  assert.equal(document.querySelector("#chat-consent-notice").hidden, true);
+  assert.equal(document.querySelector("#chat-about").open, false);
   const cards = document.querySelector("#source-cards").children;
   assert.equal(cards.length, 3);
   assert.match(allText(cards[0]), /Requested: English Exodus 3:14\. This edition: Exodus 3:14\./);
@@ -797,6 +804,7 @@ function testReaderFacingCopyKeepsLimitsVisibleAndOperationsQuiet() {
   assert.match(MARKUP, /expires in 10 minutes/);
   assert.doesNotMatch(MARKUP, /consent-dialog|consent-check|Agree and continue/);
   assert.match(MARKUP, /By submitting a question/);
+  assert.match(MARKUP, /rows="3"/);
   assert.match(MARKUP, /By selecting <strong>Send a sign-in code<\/strong>/);
   assert.match(MARKUP, /By selecting <strong>Verify code<\/strong>/);
   assert.doesNotMatch(MARKUP, /Saved history is not available yet/);
@@ -819,6 +827,23 @@ async function testServiceDetailsStayProductFocused() {
   assert.match(allText(details), /Model.*Meforash 0\.1/s);
   assert.match(allText(details), /Source collection.*31,152 passage records available/s);
   assert.doesNotMatch(allText(details), /Conversation text|Usage note|uncertain cost/);
+}
+
+async function testComposerGrowsAndCapsLongMobileDrafts() {
+  const document = await boot((url) => {
+    if (url === "/api/status") return response(200, { model: "Inkling B" });
+    throw new Error(`Unexpected fetch: ${url}`);
+  });
+  const question = document.querySelector("#question");
+  question.scrollHeight = 220;
+  await question.dispatch("input");
+  assert.equal(question.style.height, "220px");
+  assert.equal(question.style.overflowY, "hidden");
+
+  question.scrollHeight = 420;
+  await question.dispatch("input");
+  assert.equal(question.style.height, "280px");
+  assert.equal(question.style.overflowY, "auto");
 }
 
 async function testGuestLimitAndCodeSignInPreservePageState() {
@@ -1197,6 +1222,7 @@ async function testAuthReloadRestoresGuestOnceButNeverIntoAccount() {
 (async () => {
   testReaderFacingCopyKeepsLimitsVisibleAndOperationsQuiet();
   await testServiceDetailsStayProductFocused();
+  await testComposerGrowsAndCapsLongMobileDrafts();
   await testLatePostCannotRestoreClearedConversation();
   await testLatePollCannotChangeSignedOutView();
   await testSourceCardsPreserveTextLayers();
@@ -1219,7 +1245,7 @@ async function testAuthReloadRestoresGuestOnceButNeverIntoAccount() {
   await testDailyLimitShowsResetWithoutClearingDraft();
   await testMaliciousSessionHandoffIsDiscarded();
   await testAuthReloadRestoresGuestOnceButNeverIntoAccount();
-  process.stdout.write("3 beta browser regression scenarios passed; 8 progressive answer scenarios passed; 10 public access scenarios passed; 4 presentation safety scenarios passed\n");
+  process.stdout.write("3 beta browser regression scenarios passed; 8 progressive answer scenarios passed; 10 public access scenarios passed; 5 presentation safety scenarios passed\n");
 })().catch((error) => {
   console.error(error);
   process.exitCode = 1;
